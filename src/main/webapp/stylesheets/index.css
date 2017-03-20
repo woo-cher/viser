@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+
+#header {
+	border: 1px solid black;
+	overflow: hidden;
+}
+
+#logo {
+	text-align: center;
+	float: left;
+	border-right: 1px solid black;
+	width: 1000px;
+}	
+
+#user {
+	float: right;
+	border-left: 0px;
+}
+
+#container {
+	clear: both;
+}

@@ -1,0 +1,32 @@
+@CHARSET "UTF-8";
+#header{
+	border-bottom:1px solid black;
+}
+#container{
+	border:1px solid black;
+	overflow:hidden;
+}
+#content{
+	float:left;
+}
+#card-contents{
+	
+}
+#right-sidemenu{
+	border-left: 1px solid black;
+	float:right;
+	text-align:center;
+}
+#bottom{
+
+
+}
+#comment-top{
+	border-top: 1px solid black;
+}
+#comment-middle{
+	float:left;
+}
+#comment-button{
+
+}

@@ -20,8 +20,13 @@
 	float:left;
 }
 
-#container {
-	text-align:center;
+#chat{
+	float:right;
+}
+#mini-menu{
+	float:right;
+}
+#content{
 	border: 1px solid black;
 	overflow:hidden;
 }

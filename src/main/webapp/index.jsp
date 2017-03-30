@@ -7,23 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link href="stylesheets/index.css" rel="stylesheet" type="text/css">
+<%@ include file="./commons/top.jspf" %>
 </head>
 <body>
-	<div id="header">
-		<div id="logo">로고</div>
-		<div id="user">유저</div>
-	</div>
-		<div id="left-side">
-		<ul>
-		<li>board1</li>
-		<li>board2</li>
-		<li>board3</li>
-		<li>board4</li>
-		<li>board5</li>
-		<li>board6</li>
-		</ul>
-		</div>
-
 	<div id="container">
 		<div id="title">
 			Beyond yourself with
@@ -41,6 +27,9 @@
 						<button type="submit" class="btn btn-primary">Sign in</button>
 					</div>
 				</div>
+				<a href="#">
+				<p>forget your ID/password ?</p>
+				</a>
 			</form>
 		</div>
 		

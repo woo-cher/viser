@@ -18,12 +18,12 @@
 		<div id="content">
 			<form id="form-sign" action="/users/login" method="post">
 				<label class="control-label" for="userId">사용자 아이디</label> 
-				<input type="text" id="userId" value="" /> 
-				<label class="control-label" for="userId">비밀번호</label> 
-				<input type="password" id="password" value="" />
+				<input type="text" name="userId" value="" /> 
+				<label class="control-label" for="password">비밀번호</label> 
+				<input type="password" name="password" value="" />
 				<div id="button">
 					<div class="controls">
-						<button type="button" href="#" class="btn btn-primary">Sign up</button>
+						<button type="button" onclick="location.href='/sign_up.jsp' " class="btn btn-primary">Sign up</button>
 						<button type="submit" class="btn btn-primary">Sign in</button>
 					</div>
 				</div>

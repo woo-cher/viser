@@ -12,9 +12,9 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/users/logout")
 public class LogOutServelt extends HttpServlet{
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session = req.getSession();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		session.removeAttribute("userId");
-		resp.sendRedirect("/");
+		response.sendRedirect("/");
 	}
 }

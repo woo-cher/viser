@@ -2,6 +2,7 @@ package viser;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,27 +18,33 @@ import viser.user.User;
 public class LoginServlet extends HttpServlet {
 	public static final String SESSION_USER_ID = "userId"; 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String userId=req.getParameter(SESSION_USER_ID);
-		String password = req.getParameter("password");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userId=request.getParameter(SESSION_USER_ID);
+		String password = request.getParameter("password");
 		User user=Database.findByUserId(userId);
 		
 		try {
 			User.login(userId, password);
-			HttpSession session = req.getSession();
+			HttpSession session = request.getSession();
 			session.setAttribute(SESSION_USER_ID, userId); 
-			resp.sendRedirect("/main.jsp"); 
+			response.sendRedirect("/main.jsp"); 
 
 		} 
 		catch (UserNotFoundException e) {
-			// UserNotFoundException e
+			errorForward(request, response,"존재하지 않는 사용자 입니다. 다시 로그인하세요.");
 		} 
 		catch (PasswordMismatchException e) {
-			//PasswordMismatchException e
+			errorForward(request, response, "비밀번호가 일치 하지 않습니다.");
 		}
 		catch(Exception e){
 				
 		}
+	}
+	private void errorForward(HttpServletRequest request, HttpServletResponse response,String errorMessage)
+			throws ServletException, IOException {
+		request.setAttribute("errorMessage",errorMessage);
+		RequestDispatcher rd=request.getRequestDispatcher("/index.jsp");
+		rd.forward(request, response);
 	}
 	
 }

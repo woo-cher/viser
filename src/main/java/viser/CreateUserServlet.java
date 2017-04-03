@@ -15,12 +15,12 @@ import viser.user.User;
 @WebServlet("/users/create")
 public class CreateUserServlet extends HttpServlet{
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String userId=req.getParameter("userId");
-		String password = req.getParameter("password");
-		String name = req.getParameter("name");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userId=request.getParameter("userId");
+		String password = request.getParameter("password");
+		String name = request.getParameter("name");
 		User user=new User(userId,password,name);
 		Database.addUser(user);
-		resp.sendRedirect("/");
+		response.sendRedirect("/");
 	}
 }

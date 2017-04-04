@@ -13,6 +13,7 @@
 		</c:when>
 	<c:otherwise>
 		<a href="/main.jsp">로고 </a>
+		<a href="/form_update.jsp">개인정보 수정</a>
 	</c:otherwise>
 	</c:choose>	
 	</div>

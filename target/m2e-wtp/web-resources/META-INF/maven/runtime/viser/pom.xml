@@ -16,8 +16,8 @@
 		<finalName>viser</finalName>
 		<sourceDirectory>src\main\java</sourceDirectory>
 		<scriptSourceDirectory>src\main\scripts</scriptSourceDirectory>
-		<outputDirectory>webapps/WEB-INF/classes</outputDirectory>
-		<testOutputDirectory>webapps/test-classes</testOutputDirectory>
+		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
+		<testOutputDirectory>src/main/webapp/test-classes</testOutputDirectory>
 		<resources>
 			<resource>
 				<directory>src\main\resources</directory>
@@ -47,19 +47,17 @@
 	</build>
 
 	<dependencies>
-		
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
-			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -67,6 +65,14 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.40</version>
 		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+
 
 	</dependencies>
 </project>

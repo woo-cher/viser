@@ -3,6 +3,7 @@ package viser.user;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAO {
@@ -19,12 +20,35 @@ public class UserDAO {
 		}
 	}
 
-	public void insert(User user) throws SQLException {
+	public void addUser(User user) throws SQLException {
 		String sql="insert into users values(?,?,?)";
 		PreparedStatement psmt=getConnection().prepareStatement(sql);
 		psmt.setString(1, user.getUserId());
 		psmt.setString(2, user.getPassword());
 		psmt.setString(3, user.getName());
 		psmt.executeUpdate();
+	}
+
+	public User findByUserId(String userId) throws SQLException {
+		String sql="select * from users where userId=?";
+		PreparedStatement psmt=getConnection().prepareStatement(sql);
+		psmt.setString(1, userId);
+		ResultSet rs=psmt.executeQuery();  //결과를 받아와 저장
+		while(rs.next()){  //저장한 결과가 끝날때까지 user객체 반환
+			User user=new User(
+					rs.getString("userId"),
+					rs.getString("password"),
+					rs.getString("name")
+					);
+			return user;
+		}
+		return null;
+	}
+
+	public void removeUser(String userId) throws SQLException {
+		String sql="delete from users where userId=?";
+		PreparedStatement pstmt=getConnection().prepareStatement(sql);
+		pstmt.setString(1, userId);
+		pstmt.executeUpdate();
 	}
 }

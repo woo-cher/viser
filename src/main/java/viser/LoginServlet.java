@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import viser.db.Database;
 import viser.user.User;
 
 
@@ -20,9 +19,7 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId=request.getParameter(SESSION_USER_ID);
-		String password = request.getParameter("password");
-		User user=Database.findByUserId(userId);
-		
+		String password = request.getParameter("password");		
 		try {
 			User.login(userId, password);
 			HttpSession session = request.getSession();

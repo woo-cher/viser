@@ -1,6 +1,7 @@
 package viser;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import viser.db.Database;
 import viser.user.User;
+import viser.user.UserDAO;
 
 
 @WebServlet("/users/create")
@@ -20,7 +21,13 @@ public class CreateUserServlet extends HttpServlet{
 		String password = request.getParameter("password");
 		String name = request.getParameter("name");
 		User user=new User(userId,password,name);
-		Database.addUser(user);
+		UserDAO userDAO=new UserDAO();
+		try {
+			userDAO.addUser(user);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		response.sendRedirect("/");
 	}
 }

@@ -9,9 +9,9 @@ import java.sql.SQLException;
 public class UserDAO {
 	public Connection getConnection(){
 		
-		String url="jdbc:mysql://localhost:3306/viser";
+		String url="jdbc:mysql://localhost:3306/viser_test";
 		String id="root";
-		String pw="Runtime123!";
+		String pw="dnwjd1528";
 
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -56,13 +56,12 @@ public class UserDAO {
 
 	public void updateUser(User user) throws SQLException {
 		
-		String sql = "update users set password = ?, name = ? where userId = ?";
+		String sql = "update users set password = ? where userId = ?";
 		
 		PreparedStatement pstmt = getConnection().prepareStatement(sql);
 		
 		pstmt.setString(1,user.getPassword());
-		pstmt.setString(2,user.getName());
-		pstmt.setString(3,user.getUserId());
+		pstmt.setString(2,user.getUserId());
 		
 		pstmt.executeUpdate();
 	

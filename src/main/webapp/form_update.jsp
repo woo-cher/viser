@@ -18,6 +18,7 @@
 		
 		<form id="form-sign" action="/users/update" method="post">
 			<input type="hidden" name ="userId" value="${user.userId }" />
+			<input type="hidden" name ="name" value="${user.name }" />
 			<div class="first">
 				<label class="control-label" for="name">이름</label> 
 					${user.name}

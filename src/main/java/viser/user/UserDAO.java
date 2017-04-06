@@ -56,12 +56,13 @@ public class UserDAO {
 
 	public void updateUser(User user) throws SQLException {
 		
-		String sql = "update users set password = ? where userId = ?";
+		String sql = "update users set password = ?, name = ? where userId = ?";
 		
 		PreparedStatement pstmt = getConnection().prepareStatement(sql);
 		
 		pstmt.setString(1,user.getPassword());
-		pstmt.setString(2,user.getUserId());
+		pstmt.setString(2,user.getName());
+		pstmt.setString(3,user.getUserId());
 		
 		pstmt.executeUpdate();
 	

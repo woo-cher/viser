@@ -31,7 +31,7 @@
 				</div>
 				<div id="button">
 					<div class="controls">
-						<button type="button" onclick="location.href='/sign_up.jsp' "
+						<button type="button" onclick="location.href='/users/createForm' "
 							class="btn btn-primary">Sign up</button>
 						<button type="submit" class="btn btn-primary">Sign in</button>
 					</div>

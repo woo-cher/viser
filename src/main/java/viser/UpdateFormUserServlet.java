@@ -42,7 +42,7 @@ public class UpdateFormUserServlet extends HttpServlet{
 				
 				User user = userDao.findByUserId(userId);
 				req.setAttribute("user", user);
-				RequestDispatcher rd = req.getRequestDispatcher("/form_update.jsp");
+				RequestDispatcher rd = req.getRequestDispatcher("/form.jsp");
 				rd.forward(req, resp);
 				
 			} catch (SQLException e) {

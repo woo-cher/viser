@@ -8,9 +8,11 @@ import java.sql.SQLException;
 
 public class UserDAO {
 	public Connection getConnection(){
+		
 		String url="jdbc:mysql://localhost:3306/viser";
 		String id="root";
-		String pw="runtime123";
+		String pw="Runtime123!";
+		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			return DriverManager.getConnection(url, id, pw);
@@ -50,5 +52,19 @@ public class UserDAO {
 		PreparedStatement pstmt=getConnection().prepareStatement(sql);
 		pstmt.setString(1, userId);
 		pstmt.executeUpdate();
+	}
+
+	public void updateUser(User user) throws SQLException {
+		
+		String sql = "update users set password = ?, name = ? where userId = ?";
+		
+		PreparedStatement pstmt = getConnection().prepareStatement(sql);
+		
+		pstmt.setString(1,user.getPassword());
+		pstmt.setString(2,user.getName());
+		pstmt.setString(3,user.getUserId());
+		
+		pstmt.executeUpdate();
+	
 	}
 }

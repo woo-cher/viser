@@ -10,30 +10,36 @@ import viser.PasswordMismatchException;
 import viser.UserNotFoundException;
 
 public class UserTest {
-	public static User TEST_USER=new User("ID","PSW","NAME");
+	public static User TEST_USER = new User("ID","PSW","NAME");
 	private UserDAO userDAO;
+	
 	@Before
 	public void setUp() throws Exception {
-		userDAO=new UserDAO();
+		userDAO = new UserDAO();
 		userDAO.removeUser(TEST_USER.getUserId());
 	}
+	
 	@Test
 	public void matchPassword() {
 		assertTrue(TEST_USER.matchPassword("PSW"));
 	}
+	
 	@Test
 	public void notMatchPassword() {
 		assertFalse(TEST_USER.matchPassword("AnyPSW"));
 	}
-	@Test(expected=UserNotFoundException.class)
+	
+	@Test(expected = UserNotFoundException.class)
 	public void loginWhenNotExsitedUser() throws Exception {
 		User.login("AnyId", TEST_USER.getPassword());
 	}
-	@Test(expected=PasswordMismatchException.class)
+	
+	@Test(expected = PasswordMismatchException.class)
 	public void loginWhenPasswordMismatch() throws Exception {
 		userDAO.addUser(TEST_USER);
 		User.login(TEST_USER.getUserId(), "AnyPSW");
 	}
+	
 	@Test
 	public void login() throws Exception {
 		userDAO.removeUser(TEST_USER.getUserId());

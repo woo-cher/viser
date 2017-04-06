@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import viser.user.User;
 import viser.user.UserDAO;
 
-
 @WebServlet("/users/create")
-public class CreateUserServlet extends HttpServlet{
+public class CreateUserServlet extends HttpServlet {
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId=request.getParameter("userId");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
 		String name = request.getParameter("name");
-		User user=new User(userId,password,name);
-		UserDAO userDAO=new UserDAO();
+		User user = new User(userId, password, name);
+		UserDAO userDAO = new UserDAO();
 		try {
 			userDAO.addUser(user);
 		} catch (SQLException e) {

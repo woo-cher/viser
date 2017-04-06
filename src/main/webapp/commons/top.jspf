@@ -1,31 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<link href="stylesheets/top.css" rel="stylesheet" type="text/css">
+<link href="/stylesheets/top.css?v=1" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <div id="header">
 	<div id="logo">
-	<c:choose>
-		<c:when test="${empty userId }">
-			<a href="/index.jsp">로고 </a>
-		</c:when>
-	<c:otherwise>
-		<a href="/main.jsp">로고 </a>
-		<a href="/form_update.jsp">개인정보 수정</a>
-	</c:otherwise>
-	</c:choose>	
+		<c:choose>
+			<c:when test="${empty userId }">
+				<a href="/index.jsp"> 로고 </a>
+			</c:when>
+			<c:otherwise>
+				<a href="/main.jsp"> 로고 </a>
+
+			</c:otherwise>
+		</c:choose>
 	</div>
-	
+
 	<div id="user">
-	<c:choose>
-		<c:when test="${empty userId }">
-			<a href="/sign_up.jsp">회원가입 </a>
-		</c:when>
-		<c:otherwise>
-		<a href="/users/logout">유저 </a>
-		</c:otherwise>
-	</c:choose>
+		<c:choose>
+			<c:when test="${empty userId }">
+				<a> 로그인이 필요한 서비스입니다. </a>
+			</c:when>
+			<c:otherwise>
+				<a href="/users/logout">유저(logout)</a>
+				<a>/</a>
+				<a href="/users/updateForm">개인정보수정</a>
+			</c:otherwise>
+		</c:choose>
 	</div>
 </div>

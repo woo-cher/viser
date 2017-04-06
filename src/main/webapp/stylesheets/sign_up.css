@@ -1,5 +1,5 @@
 @CHARSET "UTF-8";
 
-#first {
-
+#control-label {
+	float : left;
 }

@@ -10,7 +10,7 @@ public class UserDAO {
 	public Connection getConnection(){
 		String url="jdbc:mysql://localhost:3306/viser";
 		String id="root";
-		String pw="runtime123";
+		String pw="Runtime123!";
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			return DriverManager.getConnection(url, id, pw);

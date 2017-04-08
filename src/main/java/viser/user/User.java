@@ -1,10 +1,11 @@
 package viser.user;
 
+
 import viser.PasswordMismatchException;
 import viser.UserNotFoundException;
 
 public class User {
-
+	
 	private String userId;
 	private String password;
 	private String name;

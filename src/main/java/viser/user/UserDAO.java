@@ -9,9 +9,9 @@ import java.sql.SQLException;
 public class UserDAO {
 	public Connection getConnection(){
 		
-		String url="jdbc:mysql://localhost:3306/viser";
+		String url="jdbc:mysql://localhost:3306/viser_test";
 		String id="root";
-		String pw="Runtime123!";
+		String pw="dnwjd1528";
 
 		try{
 			Class.forName("com.mysql.jdbc.Driver");

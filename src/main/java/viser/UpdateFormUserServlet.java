@@ -26,16 +26,17 @@ public class UpdateFormUserServlet extends HttpServlet{
 			throws ServletException, IOException {
 		
 			HttpSession session = req.getSession();
-			Object obj = session.getAttribute(LoginServlet.SESSION_USER_ID);
-			String userId;
+			String userId = SessionUtils.getStringValue(session, LoginServlet.SESSION_USER_ID);
 			
-			if(obj == null) {
+			if(SessionUtils.isEmpty(session, LoginServlet.SESSION_USER_ID)) {
 				resp.sendRedirect("/");
+				logger.debug(userId);
 				return;
 			}
 			
-			userId = (String)obj;
+			
 			logger.debug("User Id : " + userId);
+			
 			UserDAO userDao = new UserDAO();
 	
 			try {

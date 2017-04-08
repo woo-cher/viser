@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,14 +22,30 @@ public class UpdateUserServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
+	
+		HttpSession session = req.getSession();
+		String sessionUseId = SessionUtils.getStringValue(session, LoginServlet.SESSION_USER_ID);
 
+//		★ 로그인 여부 판단
+		if (sessionUseId == null) {
+			resp.sendRedirect("/");
+			logger.debug("UpdateUserServelt");
+			return;
+		}
+		
+//		★ 로그인의 상태일 때, 세션에 저장된 유저와 로그인 유저 ID 비교
 		String userId = req.getParameter("userId");
+		
+		if(!sessionUseId.equals(userId)) {
+			resp.sendRedirect("/");
+			return;
+		}
+		
 		String password = req.getParameter("password");
 		String name = req.getParameter("name");
-
+		
 		User user = new User(userId, password, name);
 		UserDAO userDao = new UserDAO();
-		
 		
 		try {
 			userDao.updateUser(user);

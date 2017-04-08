@@ -10,7 +10,7 @@
 	<logger name="viser" level="DEBUG" />
 
 
-	<root level="debug">
+	<root level="WARN">
 		<appender-ref ref="STDOUT" />
 	</root>
 </configuration> 

@@ -10,7 +10,7 @@ import viser.PasswordMismatchException;
 import viser.UserNotFoundException;
 
 public class UserTest {
-	public static User TEST_USER = new User("ID","PSW","NAME");
+	public static User TEST_USER = new User("TestId" , "PSW" , "Name" , "Age" , "WooCher@viser.com" , "Man");
 	private UserDAO userDAO;
 	
 	@Before

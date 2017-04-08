@@ -43,8 +43,11 @@ public class UpdateUserServlet extends HttpServlet{
 		
 		String password = req.getParameter("password");
 		String name = req.getParameter("name");
+		String age = req.getParameter("age");
+		String email = req.getParameter("email");
+		String gender = req.getParameter("gender");
 		
-		User user = new User(userId, password, name);
+		User user = new User(userId, password, name, age, email, gender);
 		UserDAO userDao = new UserDAO();
 		
 		try {

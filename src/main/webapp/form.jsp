@@ -28,8 +28,15 @@
 			</c:if>
 		
 		<form id="form-sign" action="${actionUrl}" method="post">
+		
+			<c:if test = "${not empty errorMessage}">
+			<div class="Validator">
+			<label class = "error"> <h4>${errorMessage}</h4> </label>
+			</div>
+			</c:if>
+
 		<div class="first">
-			<label class="" for="name">이름</label> 
+			<label class="" for="name"> 이름 </label> 
 		
 		<c:choose>
 			<c:when test="${ empty user.userId }">
@@ -43,16 +50,33 @@
 		</c:choose>
 		
 		</div>
+		
+		<div>
+				<label class="" for="age">나이</label> 
+		<c:choose>
+			<c:when test="${ empty user.userId }">
+				<input type="text" name="age" value="${user.age}" />
+			</c:when>
+			
+			<c:otherwise>
+				<input type="hidden" name ="age" value="${user.age}" />
+				${user.age}	
+			</c:otherwise>
+		</c:choose>
 
 		<div>
-			<label class="" for="age">나이</label> 
-			<input type="text" name="age"value="				" />
-		</div>
-
-		<div>
-			<label class="" for="gender">성별</label> 
-			<input type="checkbox" name="male" value="				" />남
-			<input type="checkbox" name="female" value="				" />여
+				<label class="" for="gender">성별</label> 
+		<c:choose>
+			<c:when test="${ empty user.userId }">
+				<input type="checkbox" name="gender" value="Man" />남
+				<input type="checkbox" name="gender" value="Women" />여
+			</c:when>
+			
+			<c:otherwise>
+				<input type="hidden" name ="gender" value="${user.gender}" />
+				${user.gender}
+			</c:otherwise>
+		</c:choose>
 		</div>
 
 		<div>
@@ -65,7 +89,7 @@
 			</c:when>
 			
 			<c:otherwise>
-				<input type="hidden" name ="userId" value="${user.userId }" />
+				<input type="hidden" name ="userId" value="${user.userId}" />
 				${user.userId}
 			</c:otherwise>
 		</c:choose>
@@ -84,7 +108,7 @@
 		
 		<div>
 			<label class ="" for="email">이메일</label>
-			<input type="text" name="email" value="" />
+				<input type="text" name="email" value="${user.email}" />
 		</div>
 
 		<div class="signup-footer">

@@ -28,27 +28,24 @@ public class UpdateFormUserServlet extends HttpServlet{
 			HttpSession session = req.getSession();
 			String userId = SessionUtils.getStringValue(session, LoginServlet.SESSION_USER_ID);
 			
-			if(SessionUtils.isEmpty(session, LoginServlet.SESSION_USER_ID)) {
+			if(userId == null) {
 				resp.sendRedirect("/");
-				logger.debug(userId);
 				return;
 			}
-			
 			
 			logger.debug("User Id : " + userId);
 			
 			UserDAO userDao = new UserDAO();
 	
 			try {
-				
 				User user = userDao.findByUserId(userId);
+				req.setAttribute("isUpdate", true);
 				req.setAttribute("user", user);
 				RequestDispatcher rd = req.getRequestDispatcher("/form.jsp");
 				rd.forward(req, resp);
 				
 			} catch (SQLException e) {
 			}
-			
 			
 	}
 	

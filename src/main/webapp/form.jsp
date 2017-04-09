@@ -12,19 +12,17 @@
 	
 	<div class="signup-container">
 		<div class="signup-header">
-			<c:choose>
-			<c:when test="${ empty user.userId }">
-				<h1>회원가입</h1>
-			</c:when>
-			<c:otherwise>
-				<h1>개인정보수정</h1>
-			</c:otherwise>
-			</c:choose>
+		
+			<c:set var = "pageName" value = "회원가입" />
+			<c:if test = "${isUpdate}" >  <!-- userId 유무로써 판단했던 것을 서블릿 정보로써 판단  -->
+			<c:set var = "pageName" value = "개인정보수정" />
+			</c:if>
+			<h1>${pageName}</h1>			
 		</div>
 			
 			<c:set var = "actionUrl" value = "/users/create" />
-			<c:if test="${ not empty user.userId }">
-				<c:set var = "actionUrl" value = "/users/update" />
+			<c:if test="${isUpdate}">
+			<c:set var = "actionUrl" value = "/users/update" />
 			</c:if>
 		
 		<form id="form-sign" action="${actionUrl}" method="post">
@@ -39,42 +37,41 @@
 			<label class="" for="name"> 이름 </label> 
 		
 		<c:choose>
-			<c:when test="${ empty user.userId }">
-				<input type="text" name="name" value="${user.name}" />
+			<c:when test="${isUpdate}">
+				<input type="hidden" name ="name" value="${user.name}" />
+				${user.name}
 			</c:when>
 			
 			<c:otherwise>
-				<input type="hidden" name ="name" value="${user.name}" />
-				${user.name}
+				<input type="text" name="name" value="${user.name}" />
 			</c:otherwise>
 		</c:choose>
-		
 		</div>
 		
 		<div>
 				<label class="" for="age">나이</label> 
 		<c:choose>
-			<c:when test="${ empty user.userId }">
-				<input type="text" name="age" value="${user.age}" />
+			<c:when test="${isUpdate}">
+				<input type="hidden" name ="age" value="${user.age}" />
+				${user.age}	
 			</c:when>
 			
 			<c:otherwise>
-				<input type="hidden" name ="age" value="${user.age}" />
-				${user.age}	
+				<input type="text" name="age" value="${user.age}" />
 			</c:otherwise>
 		</c:choose>
 
 		<div>
 				<label class="" for="gender">성별</label> 
 		<c:choose>
-			<c:when test="${ empty user.userId }">
-				<input type="checkbox" name="gender" value="Man" />남
-				<input type="checkbox" name="gender" value="Women" />여
+			<c:when test="${isUpdate}">
+				<input type="hidden" name ="gender" value="${user.gender}" />
+				${user.gender}
 			</c:when>
 			
 			<c:otherwise>
-				<input type="hidden" name ="gender" value="${user.gender}" />
-				${user.gender}
+				<input type="checkbox" name="gender" value="Man" />남
+				<input type="checkbox" name="gender" value="Women" />여
 			</c:otherwise>
 		</c:choose>
 		</div>
@@ -83,17 +80,16 @@
 			<label class="" for="userId">Id</label> 
 			
 		<c:choose>
-			<c:when test="${ empty user.userId }">
-				<input type="text" name="userId" value="${user.userId}" />				
-				<button type="submit" class="Id_Check">ID 중복체크</button>
+			<c:when test="${isUpdate}">
+				<input type="hidden" name ="userId" value="${user.userId}" />
+				${user.userId}
 			</c:when>
 			
 			<c:otherwise>
-				<input type="hidden" name ="userId" value="${user.userId}" />
-				${user.userId}
+				<input type="text" name="userId" value="${user.userId}" />				
+				<button type="submit" class="Id_Check">ID 중복체크</button>
 			</c:otherwise>
 		</c:choose>
-		
 		</div>
 
 		<div>
@@ -108,14 +104,14 @@
 		
 		<div>
 			<label class ="" for="email">이메일</label>
-				<input type="text" name="email" value="${user.email}" />
+			<input type="text" name="email" value="${user.email}" />
 		</div>
 
 		<div class="signup-footer">
 			<button type="submit" class="sign_up_button">
 			
 				<c:set var = "buttonName" value = "가입하기" />
-				<c:if test = "${ not empty user.userId }">
+				<c:if test = "${isUpdate}">
 				<c:set var = "buttonName" value = "수정하기" />
 				</c:if>
 			

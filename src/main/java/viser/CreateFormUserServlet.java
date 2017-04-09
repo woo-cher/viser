@@ -17,7 +17,7 @@ public class CreateFormUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
 		
-		req.setAttribute("userId", new User());
+		req.setAttribute("user", new User());
 		RequestDispatcher rd = req.getRequestDispatcher("/form.jsp");
 		rd.forward(req, resp);
 		

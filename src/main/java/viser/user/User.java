@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import viser.PasswordMismatchException;
 import viser.UserNotFoundException;
@@ -25,7 +26,8 @@ public class User {
 	@Size(min = 1, max = 2, message = "나이는 1자 이상 2자 이하여야 합니다.")
 	private String age;
 	
-	@NotNull(message = "이메일을 입력하세요.")
+	@NotNull
+	@NotEmpty(message = "이메일을 입력하세요.")
 	@Email
 	private String email;
 	

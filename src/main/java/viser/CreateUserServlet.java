@@ -37,6 +37,7 @@ public class CreateUserServlet extends HttpServlet {
 		Set<ConstraintViolation<User>> constraintViolations = validator.validate( user );
 		
 		if ( constraintViolations.size() > 0) {
+			request.setAttribute("user", user);
 			String errorMessage = constraintViolations.iterator().next().getMessage();
 			errorForward(request, response, errorMessage);
 			return;
@@ -46,7 +47,6 @@ public class CreateUserServlet extends HttpServlet {
 		try {
 			userDAO.addUser(user);
 		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 		response.sendRedirect("/");
 	}

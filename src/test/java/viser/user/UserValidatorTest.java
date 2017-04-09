@@ -59,7 +59,7 @@ public class UserValidatorTest {
 	
 	@Test // 이메일 유효성 체크
 	public void UserEmailCheck() throws Exception {
-		User user = new User("userId", "password", "name", "25", null, "Man");
+		User user = new User("userId", "password", "name", "25", "", "Man");
 		Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 		
 		assertEquals(1, constraintViolations.size());

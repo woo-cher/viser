@@ -14,7 +14,7 @@ public class UserDAO {
 
 	public Connection getConnection() {
 
-		String url = "jdbc:mysql://localhost:3306/viser_test";
+		String url = "jdbc:mysql://localhost:3306/viser_test?useUnicode=true&characterEncoding=utf8";
 		String id = "root";
 		String pw = "dnwjd1528";
 

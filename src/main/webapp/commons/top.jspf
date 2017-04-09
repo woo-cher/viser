@@ -3,7 +3,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<link href="/stylesheets/top.css?v=1" rel="stylesheet" type="text/css">
+<link href="/stylesheets/top.css?v=2" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <div id="header">
 	<div id="logo">
@@ -12,7 +12,7 @@
 				<a href="/index.jsp"> 로고 </a>
 			</c:when>
 			<c:otherwise>
-				<a href="/main.jsp"> 로고 </a>
+				<a href="/board.jsp"> 로고 </a>
 
 			</c:otherwise>
 		</c:choose>

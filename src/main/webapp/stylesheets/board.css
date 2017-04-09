@@ -1,32 +1,51 @@
 @CHARSET "UTF-8";
 
-#header {
-	border: 1px solid black;
-	overflow: hidden;
-}
-
-#logo {
-	text-align: center;
+#container {
 	float: left;
-	border-right: 1px solid black;
-	width: 1000px;
-}	
-
-#user {
-	float: right;
-	border-left: 0px;
-}
-#left-side{
-	float:left;
+    width: 850px;
+    height: 700px;
+    border: 1px solid;
 }
 
-#chat{
+#leftmenu {
+	float : left;
+	height: 700px;
+}
+
+#chat-container{
+	float : left;
+	height: 700px;
+	width: 115px;
+	border-bottom: 1px solid;
+	border-right: 1px solid;
+}
+#top {
+	width: 850px;
+	border-bottom: 1px solid black;
+	float :left;
+}
+
+#top_header {
+	float: left;
+}
+
+#mini-menu {
+	float: right;	
+}
+
+#board-container {
+	float: left;
+}
+
+#board-list {
+	border-bottom: 1px solid;
+	width: 850px;
+	height: 250px;
+}
+
+#board-button {
+	margin-top: 10px;
+	margin-right: 10px;
 	float:right;
 }
-#mini-menu{
-	float:right;
-}
-#content{
-	border: 1px solid black;
-	overflow:hidden;
-}
+

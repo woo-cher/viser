@@ -59,6 +59,8 @@ public class UpdateUserServlet extends HttpServlet {
 		Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 
 		if (constraintViolations.size() > 0) {
+			req.setAttribute("isUpdate", true);
+			req.setAttribute("user", user);
 			String errorMessage = constraintViolations.iterator().next().getMessage();
 			errorForward(req, resp, errorMessage);
 			return;
@@ -73,7 +75,7 @@ public class UpdateUserServlet extends HttpServlet {
 			logger.debug("SQL Exception error" + e);
 		}
 
-		resp.sendRedirect("/main.jsp");
+		resp.sendRedirect("/board.jsp");
 
 	}
 

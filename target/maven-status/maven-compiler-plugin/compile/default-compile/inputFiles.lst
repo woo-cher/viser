@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\web-workspace\viser\src\main\java\viser\PasswordMismatchException.java
 C:\web-workspace\viser\src\main\java\viser\UpdateFormUserServlet.java
 C:\web-workspace\viser\src\main\java\viser\user\UserDAO.java
@@ -10,3 +11,21 @@ C:\web-workspace\viser\src\main\java\viser\support\MyvalidatorFactory.java
 C:\web-workspace\viser\src\main\java\viser\LoginServlet.java
 C:\web-workspace\viser\src\main\java\viser\UserNotFoundException.java
 C:\web-workspace\viser\src\main\java\viser\SessionUtils.java
+=======
+C:\Users\Administrator\git\viser\src\main\java\viser\board\Board.java
+C:\Users\Administrator\git\viser\src\main\java\viser\board\BoardDAO.java
+C:\Users\Administrator\git\viser\src\main\java\viser\CreateBoardServlet.java
+C:\Users\Administrator\git\viser\src\main\java\viser\CreateUserServlet.java
+C:\Users\Administrator\git\viser\src\main\java\viser\LoginServlet.java
+C:\Users\Administrator\git\viser\src\main\java\viser\SessionUtils.java
+C:\Users\Administrator\git\viser\src\main\java\viser\UpdateFormUserServlet.java
+C:\Users\Administrator\git\viser\src\main\java\viser\support\MyvalidatorFactory.java
+C:\Users\Administrator\git\viser\src\main\java\viser\CreateFormBoardServlet.java
+C:\Users\Administrator\git\viser\src\main\java\viser\UserNotFoundException.java
+C:\Users\Administrator\git\viser\src\main\java\viser\CreateFormUserServlet.java
+C:\Users\Administrator\git\viser\src\main\java\viser\PasswordMismatchException.java
+C:\Users\Administrator\git\viser\src\main\java\viser\user\UserDAO.java
+C:\Users\Administrator\git\viser\src\main\java\viser\UpdateUserServlet.java
+C:\Users\Administrator\git\viser\src\main\java\viser\user\User.java
+C:\Users\Administrator\git\viser\src\main\java\viser\LogOutServlet.java
+>>>>>>> branch 'master' of https://github.com/gnu-runtime/viser.git

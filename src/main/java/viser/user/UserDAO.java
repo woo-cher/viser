@@ -1,33 +1,40 @@
 package viser.user;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.Properties;
 
 public class UserDAO {
-
-
-	public Connection getConnection() {
-
-		String url = "jdbc:mysql://localhost:3306/viser_test";
-		String id = "root";
-		String pw = "dnwjd1528";
+	public Connection getConnection() throws FileNotFoundException {
+		Properties props = new Properties();
+		InputStream in = UserDAO.class.getResourceAsStream("/db.properties");
+		try {
+			props.load(in);
+			in.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		String driver = props.getProperty("jdbc.driver");
+		String url = props.getProperty("jdbc.url");
+		String username = props.getProperty("jdbc.username");
+		String password = props.getProperty("jdbc.password");
 
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			return DriverManager.getConnection(url, id, pw);
+			Class.forName(driver);
+			return DriverManager.getConnection(url, username, password);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
 		}
 	}
 
-	public void addUser(User user) throws SQLException {
+	public void addUser(User user) throws SQLException, FileNotFoundException {
 		String sql = "insert into users values(?,?,?,?,?,?)";
 
 		// null 로 초기화
@@ -60,7 +67,7 @@ public class UserDAO {
 		}
 	}
 
-	public User findByUserId(String userId) throws SQLException {
+	public User findByUserId(String userId) throws SQLException, FileNotFoundException {
 		String sql = "select * from users where userId = ?";
 		// 리소스 반환
 
@@ -103,7 +110,7 @@ public class UserDAO {
 		}
 	}
 
-	public void removeUser(String userId) throws SQLException {
+	public void removeUser(String userId) throws SQLException, FileNotFoundException {
 		String sql = "delete from users where userId = ?";
 
 		Connection conn = null;
@@ -127,7 +134,7 @@ public class UserDAO {
 		}
 	}
 
-	public void updateUser(User user) throws SQLException {
+	public void updateUser(User user) throws SQLException, FileNotFoundException {
 
 		String sql = "update users set password = ?, name = ?, age = ?, email = ?, gender = ? where userId = ?";
 

@@ -1,20 +1,33 @@
 package viser.board;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Properties;
+
+import viser.user.UserDAO;
 
 public class BoardDAO {
 	public Connection getConnection() {
-
-		String url = "jdbc:mysql://localhost:3306/viser_test?useUnicode=true&characterEncoding=utf8";
-		String id = "root";
-		String pw = "dnwjd1528";
+		Properties props = new Properties();
+		InputStream in = UserDAO.class.getResourceAsStream("/db.properties");
+		try {
+			props.load(in);
+			in.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		String driver = props.getProperty("jdbc.driver");
+		String url = props.getProperty("jdbc.url");
+		String username = props.getProperty("jdbc.username");
+		String password = props.getProperty("jdbc.password");
 
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			return DriverManager.getConnection(url, id, pw);
+			Class.forName(driver);
+			return DriverManager.getConnection(url, username, password);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;

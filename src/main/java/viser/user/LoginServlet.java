@@ -1,4 +1,4 @@
-package viser;
+package viser.user;
 
 import java.io.IOException;
 
@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import viser.user.User;
 
 @WebServlet("/users/login")
 public class LoginServlet extends HttpServlet {

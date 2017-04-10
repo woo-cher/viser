@@ -6,9 +6,6 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import viser.PasswordMismatchException;
-import viser.UserNotFoundException;
-
 public class User {
 	@NotNull(message = "아이디를 입력하세요.")
 	@Size(min = 4, max = 12, message = "아이디는 4자 이상 12자 이하여야 합니다.")

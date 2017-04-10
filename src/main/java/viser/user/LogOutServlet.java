@@ -1,4 +1,4 @@
-package viser;
+package viser.user;
 
 import java.io.IOException;
 

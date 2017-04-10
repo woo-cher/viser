@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class UserDAO {
-	public Connection getConnection() throws FileNotFoundException {
+	public Connection getConnection() {
 		Properties props = new Properties();
 		InputStream in = UserDAO.class.getResourceAsStream("/db.properties");
 		try {
@@ -34,7 +34,7 @@ public class UserDAO {
 		}
 	}
 
-	public void addUser(User user) throws SQLException, FileNotFoundException {
+	public void addUser(User user) throws SQLException{
 		String sql = "insert into users values(?,?,?,?,?,?)";
 
 		// null 로 초기화
@@ -67,7 +67,7 @@ public class UserDAO {
 		}
 	}
 
-	public User findByUserId(String userId) throws SQLException, FileNotFoundException {
+	public User findByUserId(String userId) throws SQLException{
 		String sql = "select * from users where userId = ?";
 		// 리소스 반환
 
@@ -110,7 +110,7 @@ public class UserDAO {
 		}
 	}
 
-	public void removeUser(String userId) throws SQLException, FileNotFoundException {
+	public void removeUser(String userId) throws SQLException{
 		String sql = "delete from users where userId = ?";
 
 		Connection conn = null;
@@ -134,7 +134,7 @@ public class UserDAO {
 		}
 	}
 
-	public void updateUser(User user) throws SQLException, FileNotFoundException {
+	public void updateUser(User user) throws SQLException {
 
 		String sql = "update users set password = ?, name = ?, age = ?, email = ?, gender = ? where userId = ?";
 

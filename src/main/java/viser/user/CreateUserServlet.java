@@ -1,4 +1,4 @@
-package viser;
+package viser.user;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,8 +15,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import viser.support.MyvalidatorFactory;
-import viser.user.User;
-import viser.user.UserDAO;
 
 @WebServlet("/users/create")
 public class CreateUserServlet extends HttpServlet {

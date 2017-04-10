@@ -6,9 +6,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import viser.PasswordMismatchException;
-import viser.UserNotFoundException;
-
 public class UserTest {
 	public static User TEST_USER = new User("TestId" , "PSW" , "Name" , "Age" , "WooCher@viser.com" , "Man");
 	private UserDAO userDAO;

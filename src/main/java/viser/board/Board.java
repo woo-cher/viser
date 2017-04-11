@@ -9,18 +9,42 @@ public class Board {
 	private String date;
 	private int readcount;
 	private int num;
+	private int re_ref;
+	private int re_lev;
+	private int re_seq;
 	
+	public int getRe_seq() {
+		return re_seq;
+	}
+
+	public void setRe_seq(int re_seq) {
+		this.re_seq = re_seq;
+	}
+
+	public int getRe_ref() {
+		return re_ref;
+	}
+
+	public void setRe_ref(int re_ref) {
+		this.re_ref = re_ref;
+	}
+
+	public int getRe_lev() {
+		return re_lev;
+	}
+
+	public void setRe_lev(int re_lev) {
+		this.re_lev = re_lev;
+	}
+
 	public Board() {
 	}
 	
-	public Board(int num, String subject, String content, String userId, String password, String date, int readcount) {
-		this.num = num;
+	public Board(String subject, String content, String userId, String password) {
 		this.subject = subject;
 		this.content = content;
 		this.userId = userId;
 		this.password = password;
-		this.date = date;
-		this.readcount = readcount;
 	}
 	
 	public String getSubject() {

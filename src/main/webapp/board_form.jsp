@@ -43,7 +43,7 @@
 				<td colspan="2" align="center">
 				<input type="submit" value="글 쓰기" onclick="location.href='/board/createBoard'"> 
 				<input type="reset" value="다시 작성">
-				<input type="button" value="목록보기" onclick="location.href='/board.jsp'">
+				<input type="button" value="목록보기" onclick="location.href='/board/Boardlist'">
 				</td>
 			</tr>
 	</table>

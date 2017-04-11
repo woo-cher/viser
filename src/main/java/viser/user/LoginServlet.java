@@ -25,14 +25,13 @@ public class LoginServlet extends HttpServlet {
 			User.login(userId, password);
 			HttpSession session = request.getSession();
 			session.setAttribute(SESSION_USER_ID, userId);
-			response.sendRedirect("/board.jsp");
+			response.sendRedirect("/main.jsp");
 
 		} catch (UserNotFoundException e) {
 			errorForward(request, response, "존재하지 않는 사용자 입니다. 다시 로그인하세요.");
 		} catch (PasswordMismatchException e) {
 			errorForward(request, response, "비밀번호가 일치 하지 않습니다.");
 		} catch (Exception e) {
-
 		}
 	}
 

@@ -12,7 +12,7 @@
 
 	<div id=main_content>
 
-		<p>project.jsp 가 들어갈 부분</p>
+		<a href="/board/Boardlist">Board 로 가기</p>
 
 	</div>
 

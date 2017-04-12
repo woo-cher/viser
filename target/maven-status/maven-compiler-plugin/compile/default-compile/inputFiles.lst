@@ -1,8 +1,10 @@
 C:\Users\Administrator\git\viser\src\main\java\viser\board\Board.java
 C:\Users\Administrator\git\viser\src\main\java\viser\board\BoardDAO.java
 C:\Users\Administrator\git\viser\src\main\java\viser\board\BoardlistServlet.java
+C:\Users\Administrator\git\viser\src\main\java\viser\board\RemoveBoardServlet.java
 C:\Users\Administrator\git\viser\src\main\java\viser\board\CreateBoardServlet.java
 C:\Users\Administrator\git\viser\src\main\java\viser\user\PasswordMismatchException.java
+C:\Users\Administrator\git\viser\src\main\java\viser\board\UpdateBoardServlet.java
 C:\Users\Administrator\git\viser\src\main\java\viser\support\MyvalidatorFactory.java
 C:\Users\Administrator\git\viser\src\main\java\viser\user\CreateFormUserServlet.java
 C:\Users\Administrator\git\viser\src\main\java\viser\board\BoardviewServlet.java

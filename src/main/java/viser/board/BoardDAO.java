@@ -18,6 +18,7 @@ import viser.user.UserDAO;
 public class BoardDAO {
 	private static final Logger logger = LoggerFactory.getLogger(BoardDAO.class);
 	
+	
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
@@ -176,20 +177,13 @@ public class BoardDAO {
 			pstmt.executeUpdate();
 			
 		} finally {
-			if (conn != null) {
-				conn.close();
-			}
-
-			if (pstmt != null) {
-				pstmt.close();
-			}
+			SourceReturn();
 		}
 	}
 	
 	public Board viewBoard(int num) throws SQLException{
 		String sql = "select * from board where Num = ?";
 		Board board = new Board();
-		
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -208,7 +202,6 @@ public class BoardDAO {
 				board.setRe_ref( rs.getInt("re_ref") );
 				board.setRe_seq( rs.getInt("re_seq") );
 			}
-			
 			logger.debug(board + "");
 		} catch (Exception e) {
 		} finally {
@@ -234,7 +227,25 @@ public class BoardDAO {
 		}
 	}
 	
-	public void modifyBoard(int num) {
+	public void updateBoard(Board board) throws SQLException {
+		String sql = "update board set SubJect = ?, Content = ? where Num = ?";
+				
+		conn = getConnection();
 		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, board.getSubject());
+			pstmt.setString(2, board.getContent());
+			pstmt.setInt(3, board.getNum());
+			
+			pstmt.executeUpdate();
+			logger.debug("UpdateBoard : " + board);
+		} catch (Exception e) {
+			logger.debug("UpdateBoard error : " + e);
+			logger.debug(board + "");
+		} finally {
+			SourceReturn();
+		}
 	}
 }

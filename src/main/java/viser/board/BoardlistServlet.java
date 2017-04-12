@@ -60,8 +60,5 @@ public class BoardlistServlet extends HttpServlet{
 		} catch (SQLException e) {
 			System.out.println(e);
 		}
-		
-		
-	
 	}
 }

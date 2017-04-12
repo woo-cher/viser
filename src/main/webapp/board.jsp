@@ -16,6 +16,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>board</title>
 <link href="/stylesheets/board.css?v=2" rel="stylesheet" type="text/css">
@@ -88,18 +89,22 @@
 					<tr height="70">
 						<!-- BOARD PAGING -->
 						<td colspan="7" align="center">
-							<%if(nowpage<=1){ %> [PREV]&nbsp; <%}else{ %> <a
-							href="/board/Boardlist?page=<%=nowpage-1 %>">[PREV]</a>&nbsp; <%} %>
+							<%if(nowpage<=1){ %> [PREV]&nbsp; 
+							
+							<%}else{ %> 
+							<a href="/board/Boardlist?page=<%=nowpage-1 %>">[PREV]</a>&nbsp; 
+							<%} %>
 
-							<%for(int a=startpage;a<=endpage;a++){
-						if(a==nowpage){%> [<%=a %>] 
+						<%for(int a=startpage;a<=endpage;a++){
+							if(a==nowpage){%> [<%=a %>] 
 						
-						<%}else{ %> <a
-							href="/board/Boardlist?page=<%=a %>">[<%=a %>]
-						</a>&nbsp; <%} %> <%} %> <%if(nowpage>=maxpage){ %> [NEXT] <%}
-						else{ %> 
-						<a	href="/board/Boardlist?page=<%=nowpage+1 %>">[NEXT]</a> <%}%>
-						</td>
+							<%}else{ %> 
+							<a href="/board/Boardlist?page=<%=a %>">[<%=a%>]
+							</a>&nbsp; <%} %> <%} %> <%if(nowpage>=maxpage){ %> [NEXT] <%}
+							else{ %> 
+							<a	href="/board/Boardlist?page=<%=nowpage+1 %>">[NEXT]</a> 
+							<%}%>
+							</td>
 				</table>
 			</div>
 		</div>

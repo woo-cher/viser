@@ -4,14 +4,26 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script type="text/javascript">
+			function modifyboard(){
+				doingForm.action='/board/updateBoard';
+				doingForm.submit();
+			}
+			function deleteboard(){
+				doingForm.action='/board/removeBoard';
+				doingForm.submit();
+			}
+		</script>
+
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Runtime</title>
 </head>
 
 <body>
 	<!-- actionUrl 설정 필요 -->
-	<form id="board-field" action="/board/createBoard" method="post">
-	
+		<form id="board-field" name = "doingForm"action="/board/createBoard" method="post">
+		
 		<table width="400" border="1" cellspacing="0" cellpadding="0" align="center">
 			<tr>
 			<td align="center" colspan="2"> 
@@ -47,16 +59,16 @@
 				
 			<c:choose>
 			<c:when test="${isView}">
-				<input type="submit" value="Modify" onclick="location.href=''">
-				<input type="submit" value="Delete" onclick="location.href=''">
+				<input type="button" value="Modify" onclick="javascript:modifyboard()" />
+				<input type="button" value="Delete" onclick="javascript:deleteboard()" />
 			</c:when>
 			
 			<c:otherwise>
-				<input type="submit" value="Submit"> 
-				<input type="reset" value="Reset">
+				<input type="submit" value="Submit" /> 
+				<input type="reset" value="Reset" />
 			</c:otherwise>
 			</c:choose>
-				<input type="button" value="List" onclick="location.href='/board/Boardlist'">
+				<input type="button" value="List" onclick="location.href='/board/Boardlist'" />
 				</td>
 			</tr>
 	</table>

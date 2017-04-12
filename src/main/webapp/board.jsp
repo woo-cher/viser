@@ -18,7 +18,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>board</title>
-<link href="/stylesheets/board.css?v=1" rel="stylesheet" type="text/css">
+<link href="/stylesheets/board.css?v=2" rel="stylesheet" type="text/css">
 <%@ include file="./commons/top.jspf"%>
 </head>
 <body>
@@ -67,13 +67,13 @@
 						
 							<%}else{ %>
 							<%} %> 
-						<a href="./BoardDetailAction.do?num=<%=board.getNum()%>"> 
+						<a href="/board/viewBoard?num=<%=board.getNum()%>"> 
 						<%=board.getSubject()%>
 						</a>
 						</td>
 						<td align="center"><%=board.getUserId() %></td>
 						<td align="center"><%=board.getDate() %></td>
-						<td align="center"><%=board.getReadcount() %></td>
+						<td align="center"><%=board.getReadcnt() %></td>
 					</tr>
 			<%	
 				}
@@ -89,16 +89,16 @@
 						<!-- BOARD PAGING -->
 						<td colspan="7" align="center">
 							<%if(nowpage<=1){ %> [PREV]&nbsp; <%}else{ %> <a
-							href="./Board.jsp?page=<%=nowpage-1 %>">[PREV]</a>&nbsp; <%} %>
+							href="/board/Boardlist?page=<%=nowpage-1 %>">[PREV]</a>&nbsp; <%} %>
 
 							<%for(int a=startpage;a<=endpage;a++){
 						if(a==nowpage){%> [<%=a %>] 
 						
 						<%}else{ %> <a
-							href="./Board.jsp?page=<%=a %>">[<%=a %>]
+							href="/board/Boardlist?page=<%=a %>">[<%=a %>]
 						</a>&nbsp; <%} %> <%} %> <%if(nowpage>=maxpage){ %> [NEXT] <%}
 						else{ %> 
-						<a	href="./Board.jsp?page=<%=nowpage+1 %>">[NEXT]</a> <%}%>
+						<a	href="/board/Boardlist?page=<%=nowpage+1 %>">[NEXT]</a> <%}%>
 						</td>
 				</table>
 			</div>

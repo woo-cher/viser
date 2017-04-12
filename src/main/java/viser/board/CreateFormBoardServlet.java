@@ -1,4 +1,4 @@
-package viser.user;
+package viser.board;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import viser.board.Board;
+import viser.user.LoginServlet;
+import viser.user.SessionUtils;
+import viser.user.User;
+import viser.user.UserDAO;
 
 @WebServlet("/board/createBoardForm")
 public class CreateFormBoardServlet extends HttpServlet {
@@ -26,7 +29,7 @@ public class CreateFormBoardServlet extends HttpServlet {
 		UserDAO userDao = new UserDAO();
 		
 		try {
-			req.setAttribute("isUpdate", true);
+			req.setAttribute("isCreate", true);
 			User user = userDao.findByUserId(userId);
 			req.setAttribute("user", user);
 			RequestDispatcher rd = req.getRequestDispatcher("/board_form.jsp");

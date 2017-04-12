@@ -1,4 +1,4 @@
-package viser.user;
+package viser.board;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -11,10 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import viser.board.Board;
-import viser.board.BoardDAO;
 @WebServlet("/board/createBoard")
-
 public class CreateBoardServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -29,6 +26,7 @@ public class CreateBoardServlet extends HttpServlet{
 		Board board = new Board(subject, content, userId, password);
 	
 		try {
+		
 		boardDao.addBoard(board);
 		} catch (SQLException e) {
 			System.out.println(e);

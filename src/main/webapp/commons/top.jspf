@@ -9,10 +9,10 @@
 	<div id="logo">
 		<c:choose>
 			<c:when test="${empty userId }">
-				<a href="/index.jsp"> 로고 </a>
+				<a href="/index.jsp"> LOGO </a>
 			</c:when>
 			<c:otherwise>
-				<a href="/board.jsp"> 로고 </a>
+				<a href="/board/Boardlist"> LOGO </a>
 
 			</c:otherwise>
 		</c:choose>
@@ -21,12 +21,12 @@
 	<div id="user">
 		<c:choose>
 			<c:when test="${empty userId }">
-				<a> 로그인이 필요한 서비스입니다. </a>
+				<a> 로그인이 필요한 서비스입니다 </a>
 			</c:when>
 			<c:otherwise>
-				<a href="/users/logout">유저(logout)</a>
+				<a href="/users/logout"> User(logout) </a>
 				<a>/</a>
-				<a href="/users/updateForm">개인정보수정</a>
+				<a href="/users/updateForm"> 개인정보수정 </a>
 			</c:otherwise>
 		</c:choose>
 	</div>

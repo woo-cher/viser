@@ -10,6 +10,9 @@
 #leftmenu {
 	float : left;
 	height: 700px;
+	width: 100px;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
 }
 
 #chat-container{

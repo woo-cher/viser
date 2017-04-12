@@ -7,7 +7,7 @@ public class Board {
 	private String userId;
 	private String password;
 	private String date;
-	private int readcount;
+	private int readcnt;
 	private int num;
 	private int re_ref;
 	private int re_lev;
@@ -87,12 +87,12 @@ public class Board {
 		this.date = date;
 	}
 	
-	public int getReadcount() {
-		return readcount;
+	public int getReadcnt() {
+		return readcnt;
 	}
 	
-	public void setReadcount(int readcount) {
-		this.readcount = readcount;
+	public void setReadcnt(int readcnt) {
+		this.readcnt = readcnt;
 	}
 	
 	public int getNum() {
@@ -105,7 +105,7 @@ public class Board {
 	
 	public String toString() {
 		return "Board [subject=" + subject + ", content=" + content + ", userId=" + userId + ", password=" + password
-				+ ", date=" + date + ", readcount=" + readcount + ", num=" + num + "]";
+				+ ", date=" + date + ", readcnt=" + readcnt + ", num=" + num + "]";
 	}
 
 }

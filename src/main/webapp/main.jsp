@@ -11,8 +11,8 @@
 	<%@ include file="./commons/left_sidemenu.jspf"%>
 
 	<div id=main_content>
-
-		<a href="/board/Boardlist">Board 로 가기</p>
+		<div>ProJect 목록 JSP</div>
+		<a href="/board/Boardlist"> 게시판 가기</p>
 
 	</div>
 

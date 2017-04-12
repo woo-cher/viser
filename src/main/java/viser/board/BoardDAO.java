@@ -9,10 +9,33 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import viser.user.UpdateFormUserServlet;
 import viser.user.UserDAO;
 
 public class BoardDAO {
-	public Connection getConnection() {
+	private static final Logger logger = LoggerFactory.getLogger(BoardDAO.class);
+	
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	public void SourceReturn() throws SQLException {
+		
+		if(this.conn != null) {
+			conn.close();
+		}
+		if(this.pstmt != null) {
+			pstmt.close();
+		}
+		if(this.rs != null) {
+			rs.close();
+		}
+		
+	}
+	public Connection getConnection() throws SQLException {
 		Properties props = new Properties();
 		InputStream in = UserDAO.class.getResourceAsStream("/db.properties");
 		try {
@@ -30,20 +53,17 @@ public class BoardDAO {
 			Class.forName(driver);
 			return DriverManager.getConnection(url, username, password);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			logger.debug(e.getMessage());
 			return null;
 		}
 	}
 	
-	public int getListCount() throws SQLException{
+	public int getListCount() throws SQLException {
 
 		String sql = "select count(*) from board";
 		
 		int count = 0;
 		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -53,29 +73,19 @@ public class BoardDAO {
 				count = rs.getInt(1);
 			}
 			
-			
-		} finally {
-				if(conn != null) {
-					conn.close();
-				}
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				if(rs != null) {
-					rs.close();
-				}
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+		}
+		finally {
+				SourceReturn();
 		}
 		
 		return count;
 	}
 	
-	public List getBoardList(int page, int limit){
+	public List getBoardList (int page, int limit) throws SQLException{
 		
 		List list = new ArrayList(); // 목록 리턴을 위한 변수
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		
 		// 목록를 조회하기 위한 쿼리
 		String sql = "select * from board order by re_ref desc, re_seq asc limit ?, ?"; 
@@ -99,7 +109,7 @@ public class BoardDAO {
 				board.setUserId(rs.getString("UserId"));
 				board.setSubject(rs.getString("Subject"));
 				board.setContent(rs.getString("Content"));
-				board.setReadcount(rs.getInt("Readcnt"));
+				board.setReadcnt(rs.getInt("Readcnt"));
 				board.setDate(rs.getString("Date"));
 				board.setRe_ref(rs.getInt("re_ref"));
 				board.setRe_lev(rs.getInt("re_lev"));
@@ -110,10 +120,11 @@ public class BoardDAO {
 			return list;
 			
 		}catch(Exception e){
-			System.out.println("getBoardList Error : "+e);
-		}finally{ // DB 관련들 객체를 종료
-			if(rs != null){ try{ rs.close(); }catch(SQLException se){ } }
-			if(pstmt != null){ try{ pstmt.close(); }catch(SQLException se){ } }
+			logger.debug("getBoardList Error : "+ e );
+		}
+		
+		finally{ // DB 관련들 객체를 종료
+			SourceReturn();
 		}
 		
 		return null;
@@ -122,9 +133,6 @@ public class BoardDAO {
 	public void addBoard(Board board) throws SQLException {
 		String sql = "insert into board values(?,?,?,?,?,?,?,?,?,?)";
 		int num = 0;
-		// null 로 초기화
-		Connection conn = null;
-		PreparedStatement pstmt = null;
 		
 		try {
 			conn = getConnection();
@@ -143,7 +151,7 @@ public class BoardDAO {
 			pstmt.setString(3, board.getContent());
 			pstmt.setString(4, board.getUserId());
 			pstmt.setString(5, board.getPassword());
-			pstmt.setInt(6, board.getReadcount());
+			pstmt.setInt(6, board.getReadcnt());
 			pstmt.setString(7, board.getDate());
 			pstmt.setInt(8, board.getRe_ref());
 			pstmt.setInt(9, board.getRe_lev());
@@ -152,22 +160,13 @@ public class BoardDAO {
 			pstmt.executeUpdate();
 
 		} finally {
-			if (pstmt != null) {
-				pstmt.close();
-			}
-
-			if (conn != null) {
-				conn.close();
-			}
+			SourceReturn();
 		}
 	}
 	
 	public void removeBoard(int num) throws SQLException {
 		String sql = "delete from board where Num = ?";
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
+				
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -185,5 +184,57 @@ public class BoardDAO {
 				pstmt.close();
 			}
 		}
+	}
+	
+	public Board viewBoard(int num) throws SQLException{
+		String sql = "select * from board where Num = ?";
+		Board board = new Board();
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				board.setNum( rs.getInt("Num") );
+				board.setSubject( rs.getString("SubJect") );
+				board.setContent( rs.getString("Content") );
+				board.setUserId( rs.getString("UserId") );
+				board.setPassword( rs.getString("Password") );
+				board.setReadcnt( rs.getInt("Readcnt") );
+				board.setDate( rs.getString("Date") );
+				board.setRe_lev( rs.getInt("re_ref") );
+				board.setRe_ref( rs.getInt("re_ref") );
+				board.setRe_seq( rs.getInt("re_seq") );
+			}
+			
+			logger.debug(board + "");
+		} catch (Exception e) {
+		} finally {
+			SourceReturn();
+		}
+		return board;
+	}
+	
+	public void updateReadcont(int num) throws SQLException{
+		String sql = "update board set Readcnt = Readcnt + 1 Where Num = ?";
+		conn = getConnection();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			logger.debug("updateReadcont error : " + e);
+		} finally {
+			SourceReturn();
+		}
+	}
+	
+	public void modifyBoard(int num) {
+		
 	}
 }

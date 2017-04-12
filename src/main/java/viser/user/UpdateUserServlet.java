@@ -73,7 +73,7 @@ public class UpdateUserServlet extends HttpServlet {
 			logger.debug("SQL Exception error" + e);
 		}
 
-		resp.sendRedirect("/board.jsp");
+		resp.sendRedirect("/board/Boardlist");
 
 	}
 

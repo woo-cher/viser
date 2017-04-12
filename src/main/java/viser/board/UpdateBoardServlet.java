@@ -29,12 +29,12 @@ public class UpdateBoardServlet extends HttpServlet {
 		board.setSubject(subject);
 		board.setContent(content);
 		
-		logger.debug("테스트 : " + board);
 		BoardDAO boardDao = new BoardDAO();
+		
 		try {
+			logger.debug("테스트 : " + board);
 			boardDao.updateBoard(board);
-			RequestDispatcher rd = req.getRequestDispatcher("/board/Boardlist");
-			rd.forward(req, resp);
+			resp.sendRedirect("/board/Boardlist");
 		} catch (Exception e) {
 			logger.debug("updateBoard Servlet error" + e);
 		}

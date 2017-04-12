@@ -239,7 +239,7 @@ public class BoardDAO {
 			pstmt.setString(2, board.getContent());
 			pstmt.setInt(3, board.getNum());
 			
-			pstmt.executeUpdate();
+			pstmt.execute();
 			logger.debug("UpdateBoard : " + board);
 		} catch (Exception e) {
 			logger.debug("UpdateBoard error : " + e);

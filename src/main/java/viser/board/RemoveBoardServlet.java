@@ -27,8 +27,7 @@ public class RemoveBoardServlet extends HttpServlet {
 		
 		try {
 			boardDao.removeBoard(num);
-			RequestDispatcher rd = req.getRequestDispatcher("/board/Boardlist");
-			rd.forward(req, resp);
+			resp.sendRedirect("/board/Boardlist");
 		} catch (Exception e) {
 			logger.debug("RemoveBoardServlet error" + e);
 		}

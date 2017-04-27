@@ -17,7 +17,7 @@ public class CreateBoardServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		BoardDAO boardDao = new BoardDAO();
-
+		req.setCharacterEncoding("UTF-8");
 		String subject = req.getParameter("subject");
 		String content = req.getParameter("content");
 		String userId = req.getParameter("userId");

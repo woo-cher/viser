@@ -43,7 +43,7 @@ public class UpdateUserServlet extends HttpServlet {
 			resp.sendRedirect("/");
 			return;
 		}
-
+		req.setCharacterEncoding("UTF-8");
 		String password = req.getParameter("password");
 		String name = req.getParameter("name");
 		String age = req.getParameter("age");

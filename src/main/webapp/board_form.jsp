@@ -4,25 +4,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript">
-			function modifyboard(){
-				doingForm.action='/board/updateBoard';
-				doingForm.submit();
-			}
-			function deleteboard(){
-				doingForm.action='/board/removeBoard';
-				doingForm.submit();
-			}
-		</script>
-
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Runtime</title>
 </head>
 
 <body>
 	<!-- actionUrl 설정 필요 -->
-		<form id="board-field" name = "doingForm"action="/board/createBoard" method="post">
+			<c:set var = "actionUrl" value = "/board/createBoard" />
+			<c:if test="${isView}">
+			<c:set var = "actionUrl" value = "/board/updateBoard" />
+			</c:if>
+			
+		<form id="board-field" action="${actionUrl}" method="post">
 		
 		<table width="400" border="1" cellspacing="0" cellpadding="0" align="center">
 			<tr>
@@ -35,9 +28,14 @@
 					<h2>${TitleName}</h2></td>
 			</tr>
 			<tr>
+				<td width="70" align="center">NUMBER</td>
+				<td width="150">
+				<input type="hidden" name="num" value="${board.num}" />${board.num}</td>
+			</tr>
+			<tr>
 				<td width="70" align="center">USER</td>
 				<td width="330">
-				<input type="hidden" name="userId" value="${user.userId}" /> ${userId}</td>
+				<input type="hidden" name="userId" value="${userId}" /> ${userId}</td>
 			</tr>
 			<tr>
 				<td width="70" align="center">SUBJECT</td>
@@ -56,11 +54,15 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-				
+			</form>
 			<c:choose>
+			
 			<c:when test="${isView}">
-				<input type="button" value="Modify" onclick="javascript:modifyboard()" />
-				<input type="button" value="Delete" onclick="javascript:deleteboard()" />
+				<input type="submit" value="Modify" />
+				
+				
+				<input type="button" name="delete" value="Delete" onclick="location.href='/board/removeBoard?num=${board.num}'" />
+				
 			</c:when>
 			
 			<c:otherwise>
@@ -72,6 +74,6 @@
 				</td>
 			</tr>
 	</table>
-	</form>
+</form>
 </body>
 </html>

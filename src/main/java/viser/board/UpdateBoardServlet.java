@@ -41,4 +41,3 @@ public class UpdateBoardServlet extends HttpServlet {
 		
 	}
 }
-

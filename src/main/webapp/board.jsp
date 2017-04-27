@@ -19,7 +19,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>board</title>
-<link href="/stylesheets/board.css?v=2" rel="stylesheet" type="text/css">
+<link href="/stylesheets/board.css?v=1" rel="stylesheet" type="text/css">
 <%@ include file="./commons/top.jspf"%>
 </head>
 <body>
@@ -114,11 +114,6 @@
 				onclick="location.href='/board/createBoardForm'">글쓰기</button>
 		</div>
 	</div>
-
-	<div id="chat-container">
-		<div id="chat-user">채팅유저 List</div>
-		<div id="chat-list">채팅 List</div>
-		<div id="chat-input">채팅 Input</div>
-	</div>
+<%@ include file="./commons/chat.jspf"%>
 </body>
 </html>

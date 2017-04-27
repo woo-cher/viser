@@ -11,7 +11,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint("/broadcasting")
+@ServerEndpoint("/board/Boardlist")
 public class WebsocketChat {
 
 	private static Set<Session> clients = Collections

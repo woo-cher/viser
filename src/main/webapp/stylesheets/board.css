@@ -16,11 +16,50 @@
 }
 
 #chat-container{
-	float : left;
+	float:left;
 	height: 700px;
-	width: 115px;
-	border-bottom: 1px solid;
+	width: 277px;
+	border-b`ottom: 1px solid;
 	border-right: 1px solid;
+}
+
+#chat-userlist{
+border: 1px solid black;
+}
+
+#chat-image{
+	border: 1px solid black;
+}
+#chat-image-area{
+	border: 1px solid black;
+}
+#chat-image-area-canvas{
+	border: 1px solid black;
+	float:left;
+	cursor: crosshair;
+}
+#chat-image-area-colors{width:10px; height:5px; margin:0;padding:0;float: left;}
+#chat-image-area-colors li{ height: 20px; width: 20px; display: block; cursor: pointer; }
+#chat-image-area-colors li.selected{ height: 18px; width: 18px; display: block; border: solid 1px #eee; }
+#chat-image-area-tool{
+	clear:left;
+	border:1px solid black;
+	width:250px;
+}
+#chat-image-area-tool-brush{
+	float:left;
+}
+#chat-image-area-tool-control{
+	clear:left;
+}
+#chat-image-list{
+	border:1px solid black;
+}
+#chat-image-list-display{
+	border:1px solid black;
+}
+#chat-image-list-control{
+	border:1px solid black;
 }
 #top {
 	width: 850px;

@@ -1,7 +1,11 @@
 @CHARSET "UTF-8";
 
-#chat{
-border: 1px solid black;
+#chat-container{
+	float:left;
+	height: 700px;
+	width: 275px;
+	border-bottom: 1px solid;
+	border-right: 1px solid;
 }
 
 #chat-userlist{

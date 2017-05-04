@@ -5,7 +5,6 @@ public class Board {
 	private String subject;
 	private String content;
 	private String userId;
-	private String password;
 	private String date;
 	private int readcnt;
 	private int num;
@@ -40,11 +39,14 @@ public class Board {
 	public Board() {
 	}
 	
-	public Board(String subject, String content, String userId, String password) {
+	public Board(String userId) {
+			
+	}
+	
+	public Board(String subject, String content, String userId) {
 		this.subject = subject;
 		this.content = content;
 		this.userId = userId;
-		this.password = password;
 	}
 	
 	public String getSubject() {
@@ -71,13 +73,6 @@ public class Board {
 		this.userId = userId;
 	}
 	
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}
 	
 	public String getDate() {
 		return date;
@@ -104,7 +99,7 @@ public class Board {
 	}
 	
 	public String toString() {
-		return "Board [subject=" + subject + ", content=" + content + ", userId=" + userId + ", password=" + password
+		return "Board [subject=" + subject + ", content=" + content + ", userId=" + userId
 				+ ", date=" + date + ", readcnt=" + readcnt + ", num=" + num + "]";
 	}
 

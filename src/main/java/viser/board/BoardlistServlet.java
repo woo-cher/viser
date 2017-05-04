@@ -57,7 +57,7 @@ public class BoardlistServlet extends HttpServlet{
 		RequestDispatcher rd = request.getRequestDispatcher("/board.jsp");
 		rd.forward(request, response);
 	
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}

@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import viser.user.UpdateFormUserServlet;
+import viser.user.User;
 import viser.user.UserDAO;
 
 public class BoardDAO {
@@ -36,6 +37,7 @@ public class BoardDAO {
 		}
 		
 	}
+	
 	public Connection getConnection() throws SQLException {
 		Properties props = new Properties();
 		InputStream in = UserDAO.class.getResourceAsStream("/db.properties");
@@ -59,9 +61,32 @@ public class BoardDAO {
 		}
 	}
 	
+	public Board findByBoardInfo(int num) throws SQLException{
+		String sql = "select * from boards where Num = ?";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+
+			rs = pstmt.executeQuery(); // 결과를 받아와 저장
+
+			if (!rs.next()) {
+				return null;
+			}
+
+			return new Board(
+					rs.getString("subject"), 
+					rs.getString("content"),
+					rs.getString("userId"));
+					
+		} finally {
+			SourceReturn();
+		}
+	}
+	
 	public int getListCount() throws SQLException {
 
-		String sql = "select count(*) from board";
+		String sql = "select count(*) from boards";
 		
 		int count = 0;
 		
@@ -89,7 +114,7 @@ public class BoardDAO {
 		List list = new ArrayList(); // 목록 리턴을 위한 변수
 		
 		// 목록를 조회하기 위한 쿼리
-		String sql = "select * from board order by re_ref desc, re_seq asc limit ?, ?"; 
+		String sql = "select * from boards order by re_ref desc, re_seq asc limit ?, ?"; 
 		
 		// 조회범위
 		int startrow = (page-1) * 10; // ex )  0, 10, 20, 30 ...
@@ -107,7 +132,7 @@ public class BoardDAO {
 			while(rs.next()){
 				Board board = new Board();
 				board.setNum(rs.getInt("Num"));
-				board.setUserId(rs.getString("UserId"));
+				board.setUserId(rs.getString("userId"));
 				board.setSubject(rs.getString("Subject"));
 				board.setContent(rs.getString("Content"));
 				board.setReadcnt(rs.getInt("Readcnt"));
@@ -132,12 +157,12 @@ public class BoardDAO {
 	}
 	
 	public void addBoard(Board board) throws SQLException {
-		String sql = "insert into board values(?,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into boards values(?,?,?,?,?,?,?,?,?)";
 		int num = 0;
 		
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select max(Num) from board");
+			pstmt = conn.prepareStatement("select max(Num) from boards");
 			ResultSet rs = pstmt.executeQuery();
 			
 			if(rs.next())
@@ -148,15 +173,14 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, num);
-			pstmt.setString(2, board.getSubject());
-			pstmt.setString(3, board.getContent());
-			pstmt.setString(4, board.getUserId());
-			pstmt.setString(5, board.getPassword());
-			pstmt.setInt(6, board.getReadcnt());
-			pstmt.setString(7, board.getDate());
-			pstmt.setInt(8, board.getRe_ref());
-			pstmt.setInt(9, board.getRe_lev());
-			pstmt.setInt(10, board.getRe_seq());
+			pstmt.setString(2, board.getUserId());
+			pstmt.setString(3, board.getSubject());
+			pstmt.setString(4, board.getContent());
+			pstmt.setInt(5, board.getReadcnt());
+			pstmt.setString(6, board.getDate());
+			pstmt.setInt(7, board.getRe_ref());
+			pstmt.setInt(8, board.getRe_lev());
+			pstmt.setInt(9, board.getRe_seq());
 
 			pstmt.executeUpdate();
 
@@ -166,7 +190,7 @@ public class BoardDAO {
 	}
 	
 	public void removeBoard(int num) throws SQLException {
-		String sql = "delete from board where Num = ?";
+		String sql = "delete from boards where Num = ?";
 				
 		try {
 			conn = getConnection();
@@ -182,7 +206,7 @@ public class BoardDAO {
 	}
 	
 	public Board viewBoard(int num) throws SQLException{
-		String sql = "select * from board where Num = ?";
+		String sql = "select * from boards where Num = ?";
 		Board board = new Board();
 		try {
 			conn = getConnection();
@@ -192,10 +216,9 @@ public class BoardDAO {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				board.setNum( rs.getInt("Num") );
+				board.setUserId( rs.getString("userId") );
 				board.setSubject( rs.getString("SubJect") );
 				board.setContent( rs.getString("Content") );
-				board.setUserId( rs.getString("UserId") );
-				board.setPassword( rs.getString("Password") );
 				board.setReadcnt( rs.getInt("Readcnt") );
 				board.setDate( rs.getString("Date") );
 				board.setRe_lev( rs.getInt("re_ref") );
@@ -211,7 +234,7 @@ public class BoardDAO {
 	}
 	
 	public void updateReadcont(int num) throws SQLException{
-		String sql = "update board set Readcnt = Readcnt + 1 Where Num = ?";
+		String sql = "update boards set Readcnt = Readcnt + 1 Where Num = ?";
 		conn = getConnection();
 		
 		try {
@@ -228,7 +251,7 @@ public class BoardDAO {
 	}
 	
 	public void updateBoard(Board board) throws SQLException {
-		String sql = "update board set SubJect = ?, Content = ? where Num = ?";
+		String sql = "update boards set SubJect = ?, Content = ? where Num = ?";
 				
 		conn = getConnection();
 		

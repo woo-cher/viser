@@ -26,19 +26,13 @@ public class BoardviewServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		UserDAO userDao = new UserDAO();
-		User user = new User();
 		BoardDAO boardDao = new BoardDAO();
 		Board board = new Board();
-		
-		HttpSession session = req.getSession();
-		
-		String userId = SessionUtils.getStringValue(session, LoginServlet.SESSION_USER_ID);
 		
 		int num = Integer.parseInt( req.getParameter("num") );
 		
 		try {
-			user = userDao.findByUserId(userId);
+			board = boardDao.findByBoardInfo(num);
 			boardDao.updateReadcont(num);
 			board = boardDao.viewBoard(num);
 			
@@ -48,7 +42,6 @@ public class BoardviewServlet extends HttpServlet {
 			
 			req.setAttribute("isView", true);
 			req.setAttribute("board", board);
-			req.setAttribute("user", user);
 			RequestDispatcher rd = req.getRequestDispatcher("/board_form.jsp");
 			rd.forward(req, resp);
 			

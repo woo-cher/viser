@@ -5,6 +5,7 @@
 
 <link href="/stylesheets/top.css?v=2" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <div id="header">
 	<div id="logo">
 		<c:choose>
@@ -18,15 +19,27 @@
 		</c:choose>
 	</div>
 
+	<script>
+		function msg() {
+			if (confirm("정말 탈퇴 하시겠습니까?")) {
+				location.href = "/users/dropuser";
+			} else {
+				return;
+			}
+		}
+	</script>
+	
 	<div id="user">
 		<c:choose>
 			<c:when test="${empty userId }">
 				<a> 로그인이 필요한 서비스입니다 </a>
 			</c:when>
 			<c:otherwise>
-				<a href="/users/logout"> User(logout) </a>
+				<a href="/users/logout"> 로그아웃 </a>
 				<a>/</a>
 				<a href="/users/updateForm"> 개인정보수정 </a>
+				<a>/</a>
+				<a onClick = "msg()"> 회원탈퇴 </a>
 			</c:otherwise>
 		</c:choose>
 	</div>

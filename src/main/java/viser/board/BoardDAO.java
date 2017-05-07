@@ -251,7 +251,7 @@ public class BoardDAO {
 	}
 	
 	public void updateBoard(Board board) throws SQLException {
-		String sql = "update boards set SubJect = ?, Content = ? where Num = ?";
+		String sql = "update boards set SubJect = ?, Content = ?, Date = ? where Num = ?";
 				
 		conn = getConnection();
 		
@@ -260,7 +260,8 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, board.getSubject());
 			pstmt.setString(2, board.getContent());
-			pstmt.setInt(3, board.getNum());
+			pstmt.setString(3, board.getDate());
+			pstmt.setInt(4, board.getNum());
 			
 			pstmt.execute();
 			logger.debug("UpdateBoard : " + board);

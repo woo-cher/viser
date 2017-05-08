@@ -32,7 +32,7 @@ public class UpdateUserServlet extends HttpServlet {
 		// ★ 로그인 여부 판단
 		if (sessionUseId == null) {
 			resp.sendRedirect("/");
-			logger.debug("UpdateUserServelt");
+			logger.debug("UpdateUserServlet error");
 			return;
 		}
 

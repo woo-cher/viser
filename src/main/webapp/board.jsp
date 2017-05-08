@@ -68,7 +68,7 @@
 						
 							<%}else{ %>
 							<%} %> 
-						<a href="/board/viewBoard?num=<%=board.getNum()%>"> 
+						<a href="/board/viewBoard?num=<%=board.getNum()%>&board_userId=<%=board.getUserId() %>"> 
 						<%=board.getSubject()%>
 						</a>
 						</td>

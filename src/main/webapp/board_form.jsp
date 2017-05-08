@@ -35,7 +35,13 @@
 			<tr>
 				<td width="70" align="center">USER</td>
 				<td width="330">
-				<input type="hidden" name="userId" value="${userId}" /> ${userId}</td>
+				
+				<c:set var = "User" value = "${user.userId}" />
+				<c:if test = "${isView}" >
+				<c:set var = "User" value = "${board.userId}"/>
+				</c:if>
+				<input type="hidden" name="userId" value="${User}" /> ${User} </td>
+				
 			</tr>
 			<tr>
 				<td width="70" align="center">SUBJECT</td>
@@ -45,7 +51,7 @@
 			<tr>
 				<td width="70" align="center">E-mail</td>
 				<td width="330">
-				<input type="hidden" name="email" value="${user.email}" /> ${user.email}</td>
+				<input type="hidden" name="email" value="보드에 저장된 이메일 받아야 한다." />보드에 저장된 이메일</td>
 			</tr>
 			<tr>
 				<td width="70" align="center">CONTENT</td>

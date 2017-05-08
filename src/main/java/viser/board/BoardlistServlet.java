@@ -32,10 +32,10 @@ public class BoardlistServlet extends HttpServlet{
 		int listcount;
 		
 		try {
-			listcount = boardDao.getListCount();
 	
 		// 게시물의 총 개수를 가져옵니다.
 		list = boardDao.getBoardList(page,limit); 	// 게시물을 LIST 객체에 담습니다. 
+		listcount = list.size() + 1;
 		
 		// 최대 페이지를 구합니다.
    		int maxpage = (int)((double)listcount / limit + 0.95); // 0.95 올림처리
@@ -57,7 +57,7 @@ public class BoardlistServlet extends HttpServlet{
 		RequestDispatcher rd = request.getRequestDispatcher("/board.jsp");
 		rd.forward(request, response);
 	
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}

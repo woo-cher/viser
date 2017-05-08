@@ -15,6 +15,5 @@
 		<a href="/board/Boardlist"> 게시판 가기</p>
 
 	</div>
-
 </body>
 </html>

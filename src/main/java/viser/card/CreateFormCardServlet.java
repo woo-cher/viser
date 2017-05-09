@@ -1,4 +1,4 @@
-package viser.board;
+package viser.card;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,8 +16,8 @@ import viser.user.SessionUtils;
 import viser.user.User;
 import viser.user.UserDAO;
 
-@WebServlet("/board/createBoardForm")
-public class CreateFormBoardServlet extends HttpServlet {
+@WebServlet("/card/createcardForm")
+public class CreateFormCardServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,7 +32,7 @@ public class CreateFormBoardServlet extends HttpServlet {
 			req.setAttribute("isCreate", true);
 			User user = userDao.findByUserId(userId);
 			req.setAttribute("user", user);
-			RequestDispatcher rd = req.getRequestDispatcher("/board_form.jsp");
+			RequestDispatcher rd = req.getRequestDispatcher("/card_form.jsp");
 			rd.forward(req, resp);
 		} catch (SQLException e) {
 		}

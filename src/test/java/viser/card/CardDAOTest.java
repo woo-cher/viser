@@ -1,3 +1,4 @@
+package viser.card;
 //package viser.board;
 //
 //import static org.junit.Assert.assertNotNull;

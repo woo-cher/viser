@@ -1,4 +1,4 @@
-package viser.board;
+package viser.card;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -19,34 +19,34 @@ import viser.user.SessionUtils;
 import viser.user.User;
 import viser.user.UserDAO;
 
-@WebServlet("/board/viewBoard")
-public class BoardviewServlet extends HttpServlet {
-	private static final Logger logger = LoggerFactory.getLogger(BoardviewServlet.class);
+@WebServlet("/card/viewcard")
+public class CardviewServlet extends HttpServlet {
+	private static final Logger logger = LoggerFactory.getLogger(CardviewServlet.class);
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		BoardDAO boardDao = new BoardDAO();
-		Board board = new Board();
+		CardDAO cardDao = new CardDAO();
+		Card card = new Card();
 		
 		int num = Integer.parseInt( req.getParameter("num") );
 		
 		try {
-			board = boardDao.findByBoardInfo(num);
-			boardDao.updateReadcont(num);
-			board = boardDao.viewBoard(num);
+			card = cardDao.findBycardInfo(num);
+			cardDao.updateReadcont(num);
+			card = cardDao.viewcard(num);
 			
-			if(board == null) {
-				logger.debug("Board View Fail");
+			if(card == null) {
+				logger.debug("card View Fail");
 			}
 			
 			req.setAttribute("isView", true);
-			req.setAttribute("board", board);
-			RequestDispatcher rd = req.getRequestDispatcher("/board_form.jsp");
+			req.setAttribute("card", card);
+			RequestDispatcher rd = req.getRequestDispatcher("/card_form.jsp");
 			rd.forward(req, resp);
 			
 		} catch (Exception e) {
-			logger.debug("BoardviewServlet error : " + e);
+			logger.debug("cardviewServlet error : " + e);
 		} 
 	}
 }

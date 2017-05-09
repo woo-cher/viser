@@ -1,4 +1,4 @@
-package viser.chat;
+package viser.project;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
@@ -11,7 +11,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint("/board/Boardlist")
+@ServerEndpoint("/card/cardlist")
 public class WebsocketChat {
 
 	private static Set<Session> clients = Collections

@@ -1,6 +1,6 @@
-package viser.board;
+package viser.card;
 
-public class Board {
+public class Card {
 
 	private String subject;
 	private String content;
@@ -36,14 +36,14 @@ public class Board {
 		this.re_lev = re_lev;
 	}
 
-	public Board() {
+	public Card() {
 	}
 	
-	public Board(String userId) {
+	public Card(String userId) {
 			
 	}
 	
-	public Board(String subject, String content, String userId) {
+	public Card(String subject, String content, String userId) {
 		this.subject = subject;
 		this.content = content;
 		this.userId = userId;
@@ -99,7 +99,7 @@ public class Board {
 	}
 	
 	public String toString() {
-		return "Board [subject=" + subject + ", content=" + content + ", userId=" + userId
+		return "Card [subject=" + subject + ", content=" + content + ", userId=" + userId
 				+ ", date=" + date + ", readcnt=" + readcnt + ", num=" + num + "]";
 	}
 

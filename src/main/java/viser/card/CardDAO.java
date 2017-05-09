@@ -1,4 +1,4 @@
-package viser.board;
+package viser.card;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,8 +16,8 @@ import viser.user.UpdateFormUserServlet;
 import viser.user.User;
 import viser.user.UserDAO;
 
-public class BoardDAO {
-	private static final Logger logger = LoggerFactory.getLogger(BoardDAO.class);
+public class CardDAO {
+	private static final Logger logger = LoggerFactory.getLogger(CardDAO.class);
 
 	Connection conn = null;
 	PreparedStatement pstmt = null;
@@ -60,8 +60,8 @@ public class BoardDAO {
 		}
 	}
 
-	public Board findByBoardInfo(int num) throws SQLException {
-		String sql = "select * from boards where Num = ?";
+	public Card findBycardInfo(int num) throws SQLException {
+		String sql = "select * from cards where Num = ?";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -73,7 +73,7 @@ public class BoardDAO {
 				return null;
 			}
 
-			return new Board(rs.getString("subject"), rs.getString("content"), rs.getString("userId"));
+			return new Card(rs.getString("subject"), rs.getString("content"), rs.getString("userId"));
 
 		} finally {
 			SourceReturn();
@@ -82,7 +82,7 @@ public class BoardDAO {
 
 	public int getListCount() throws SQLException {
 
-		String sql = "select count(*) from boards";
+		String sql = "select count(*) from cards";
 
 		int count = 0;
 
@@ -104,12 +104,12 @@ public class BoardDAO {
 		return count;
 	}
 
-	public List getBoardList(int page, int limit) throws SQLException {
+	public List getcardList(int page, int limit) throws SQLException {
 
 		List list = new ArrayList(); // 목록 리턴을 위한 변수
 
 		// 목록를 조회하기 위한 쿼리
-		String sql = "select * from boards order by re_ref desc, re_seq asc limit ?, ?";
+		String sql = "select * from cards order by re_ref desc, re_seq asc limit ?, ?";
 
 		// 조회범위
 		int startrow = (page - 1) * 10; // ex ) 0, 10, 20, 30 ...
@@ -125,23 +125,23 @@ public class BoardDAO {
 			rs = pstmt.executeQuery(); // 쿼리 실행
 
 			while (rs.next()) {
-				Board board = new Board();
-				board.setNum(rs.getInt("Num"));
-				board.setUserId(rs.getString("userId"));
-				board.setSubject(rs.getString("Subject"));
-				board.setContent(rs.getString("Content"));
-				board.setReadcnt(rs.getInt("Readcnt"));
-				board.setDate(rs.getString("Date"));
-				board.setRe_ref(rs.getInt("re_ref"));
-				board.setRe_lev(rs.getInt("re_lev"));
-				board.setRe_seq(rs.getInt("re_seq"));
+				Card card = new Card();
+				card.setNum(rs.getInt("Num"));
+				card.setUserId(rs.getString("userId"));
+				card.setSubject(rs.getString("Subject"));
+				card.setContent(rs.getString("Content"));
+				card.setReadcnt(rs.getInt("Readcnt"));
+				card.setDate(rs.getString("Date"));
+				card.setRe_ref(rs.getInt("re_ref"));
+				card.setRe_lev(rs.getInt("re_lev"));
+				card.setRe_seq(rs.getInt("re_seq"));
 
-				list.add(board); // 행을 하나씩 리스트에 추가
+				list.add(card); // 행을 하나씩 리스트에 추가
 			}
 			return list;
 
 		} catch (Exception e) {
-			logger.debug("getBoardList Error : " + e);
+			logger.debug("getcardList Error : " + e);
 		}
 
 		finally { // DB 관련들 객체를 종료
@@ -151,7 +151,7 @@ public class BoardDAO {
 		return null;
 	}
 
-	public List getSearchBoardList(int page, int limit, String keyField, String keyWord) 
+	public List getSearchcardList(int page, int limit, String keyField, String keyWord) 
 			throws SQLException {
 		String keyfield = keyField;
 		String keyword = keyWord;
@@ -159,7 +159,7 @@ public class BoardDAO {
 		List list = new ArrayList(); // 목록 리턴을 위한 변수s
 		
 		// 목록를 조회하기 위한 쿼리
-		String sql = "select * from boards where "+keyfield.trim()+" like '%"+keyword.trim()+"%' order by Num limit ?, ?";
+		String sql = "select * from cards where "+keyfield.trim()+" like '%"+keyword.trim()+"%' order by Num limit ?, ?";
 		
 		// 조회범위
 		int startrow = (page - 1) * 10; // ex ) 0, 10, 20, 30 ...
@@ -177,18 +177,18 @@ public class BoardDAO {
 			
 			rs = pstmt.executeQuery(); // 쿼리 실행
 			while (rs.next()) {
-				Board board = new Board();
-				board.setNum(rs.getInt("Num"));
-				board.setUserId(rs.getString("userId"));
-				board.setSubject(rs.getString("SubJect"));
-				board.setContent(rs.getString("Content"));
-				board.setReadcnt(rs.getInt("Readcnt"));
-				board.setDate(rs.getString("Date"));
-				board.setRe_ref(rs.getInt("re_ref"));
-				board.setRe_lev(rs.getInt("re_lev"));
-				board.setRe_seq(rs.getInt("re_seq"));
+				Card card = new Card();
+				card.setNum(rs.getInt("Num"));
+				card.setUserId(rs.getString("userId"));
+				card.setSubject(rs.getString("SubJect"));
+				card.setContent(rs.getString("Content"));
+				card.setReadcnt(rs.getInt("Readcnt"));
+				card.setDate(rs.getString("Date"));
+				card.setRe_ref(rs.getInt("re_ref"));
+				card.setRe_lev(rs.getInt("re_lev"));
+				card.setRe_seq(rs.getInt("re_seq"));
 
-				list.add(board); // 행을 하나씩 리스트에 추가
+				list.add(card); // 행을 하나씩 리스트에 추가
 			}
 			logger.debug(list.size() + "");
 			return list;
@@ -204,13 +204,13 @@ public class BoardDAO {
 		return null;
 	}
 
-	public void addBoard(Board board) throws SQLException {
-		String sql = "insert into boards values(?,?,?,?,?,?,?,?,?)";
+	public void addcard(Card card) throws SQLException {
+		String sql = "insert into cards values(?,?,?,?,?,?,?,?,?)";
 		int num = 0;
 
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select max(Num) from boards");
+			pstmt = conn.prepareStatement("select max(Num) from cards");
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next())
@@ -221,14 +221,14 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setInt(1, num);
-			pstmt.setString(2, board.getUserId());
-			pstmt.setString(3, board.getSubject());
-			pstmt.setString(4, board.getContent());
-			pstmt.setInt(5, board.getReadcnt());
-			pstmt.setString(6, board.getDate());
-			pstmt.setInt(7, board.getRe_ref());
-			pstmt.setInt(8, board.getRe_lev());
-			pstmt.setInt(9, board.getRe_seq());
+			pstmt.setString(2, card.getUserId());
+			pstmt.setString(3, card.getSubject());
+			pstmt.setString(4, card.getContent());
+			pstmt.setInt(5, card.getReadcnt());
+			pstmt.setString(6, card.getDate());
+			pstmt.setInt(7, card.getRe_ref());
+			pstmt.setInt(8, card.getRe_lev());
+			pstmt.setInt(9, card.getRe_seq());
 
 			pstmt.executeUpdate();
 
@@ -237,8 +237,8 @@ public class BoardDAO {
 		}
 	}
 
-	public void removeBoard(int num) throws SQLException {
-		String sql = "delete from boards where Num = ?";
+	public void removecard(int num) throws SQLException {
+		String sql = "delete from cards where Num = ?";
 
 		try {
 			conn = getConnection();
@@ -253,9 +253,9 @@ public class BoardDAO {
 		}
 	}
 
-	public Board viewBoard(int num) throws SQLException {
-		String sql = "select * from boards where Num = ?";
-		Board board = new Board();
+	public Card viewcard(int num) throws SQLException {
+		String sql = "select * from cards where Num = ?";
+		Card card = new Card();
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -263,26 +263,26 @@ public class BoardDAO {
 
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				board.setNum(rs.getInt("Num"));
-				board.setUserId(rs.getString("userId"));
-				board.setSubject(rs.getString("SubJect"));
-				board.setContent(rs.getString("Content"));
-				board.setReadcnt(rs.getInt("Readcnt"));
-				board.setDate(rs.getString("Date"));
-				board.setRe_lev(rs.getInt("re_ref"));
-				board.setRe_ref(rs.getInt("re_ref"));
-				board.setRe_seq(rs.getInt("re_seq"));
+				card.setNum(rs.getInt("Num"));
+				card.setUserId(rs.getString("userId"));
+				card.setSubject(rs.getString("SubJect"));
+				card.setContent(rs.getString("Content"));
+				card.setReadcnt(rs.getInt("Readcnt"));
+				card.setDate(rs.getString("Date"));
+				card.setRe_lev(rs.getInt("re_ref"));
+				card.setRe_ref(rs.getInt("re_ref"));
+				card.setRe_seq(rs.getInt("re_seq"));
 			}
-			logger.debug(board + "");
+			logger.debug(card + "");
 		} catch (Exception e) {
 		} finally {
 			SourceReturn();
 		}
-		return board;
+		return card;
 	}
 
 	public void updateReadcont(int num) throws SQLException {
-		String sql = "update boards set Readcnt = Readcnt + 1 Where Num = ?";
+		String sql = "update cards set Readcnt = Readcnt + 1 Where Num = ?";
 		conn = getConnection();
 
 		try {
@@ -298,24 +298,24 @@ public class BoardDAO {
 		}
 	}
 
-	public void updateBoard(Board board) throws SQLException {
-		String sql = "update boards set SubJect = ?, Content = ?, Date = ? where Num = ?";
+	public void updatecard(Card card) throws SQLException {
+		String sql = "update cards set SubJect = ?, Content = ?, Date = ? where Num = ?";
 
 		conn = getConnection();
 
 		try {
 
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, board.getSubject());
-			pstmt.setString(2, board.getContent());
-			pstmt.setString(3, board.getDate());
-			pstmt.setInt(4, board.getNum());
+			pstmt.setString(1, card.getSubject());
+			pstmt.setString(2, card.getContent());
+			pstmt.setString(3, card.getDate());
+			pstmt.setInt(4, card.getNum());
 
 			pstmt.execute();
-			logger.debug("UpdateBoard : " + board);
+			logger.debug("Updatecard : " + card);
 		} catch (Exception e) {
-			logger.debug("UpdateBoard error : " + e);
-			logger.debug(board + "");
+			logger.debug("Updatecard error : " + e);
+			logger.debug(card + "");
 		} finally {
 			SourceReturn();
 		}

@@ -10,27 +10,27 @@
 
 <body>
 	<!-- actionUrl 설정 필요 -->
-			<c:set var = "actionUrl" value = "/board/createBoard" />
+			<c:set var = "actionUrl" value = "/card/createcard" />
 			<c:if test="${isView}">
-			<c:set var = "actionUrl" value = "/board/updateBoard" />
+			<c:set var = "actionUrl" value = "/card/updatecard" />
 			</c:if>
 			
-		<form id="board-field" action="${actionUrl}" method="post">
+		<form id="card-field" action="${actionUrl}" method="post">
 		
 		<table width="400" border="1" cellspacing="0" cellpadding="0" align="center">
 			<tr>
 			<td align="center" colspan="2"> 
 				
-				<c:set var = "TitleName" value = "CREATE_JSP_BOARD" />
+				<c:set var = "TitleName" value = "CREATE_JSP_card" />
 				<c:if test = "${isView}" >
-				<c:set var = "TitleName" value = "VIEW_BOARD" />
+				<c:set var = "TitleName" value = "VIEW_card" />
 				</c:if>
 					<h2>${TitleName}</h2></td>
 			</tr>
 			<tr>
 				<td width="70" align="center">NUMBER</td>
 				<td width="150">
-				<input type="hidden" name="num" value="${board.num}" />${board.num}</td>
+				<input type="hidden" name="num" value="${card.num}" />${card.num}</td>
 			</tr>
 			<tr>
 				<td width="70" align="center">USER</td>
@@ -38,7 +38,7 @@
 				
 				<c:set var = "User" value = "${user.userId}" />
 				<c:if test = "${isView}" >
-				<c:set var = "User" value = "${board.userId}"/>
+				<c:set var = "User" value = "${card.userId}"/>
 				</c:if>
 				<input type="hidden" name="userId" value="${User}" /> ${User} </td>
 				
@@ -46,7 +46,7 @@
 			<tr>
 				<td width="70" align="center">SUBJECT</td>
 				<td width="330">
-				<input type="text" size="40" maxlength="50" name="subject" value="${board.subject}"></td>
+				<input type="text" size="40" maxlength="50" name="subject" value="${card.subject}"></td>
 			</tr>
 			<tr>
 				<td width="70" align="center">E-mail</td>
@@ -56,7 +56,7 @@
 			<tr>
 				<td width="70" align="center">CONTENT</td>
 				<td width="330">
-				<textarea name="content" rows="13" cols="40">${board.content}</textarea></td>
+				<textarea name="content" rows="13" cols="40">${card.content}</textarea></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
@@ -67,7 +67,7 @@
 				<input type="submit" value="Modify" />
 				
 				
-				<input type="button" name="delete" value="Delete" onclick="location.href='/board/removeBoard?num=${board.num}'" />
+				<input type="button" name="delete" value="Delete" onclick="location.href='/card/removecard?num=${card.num}'" />
 				
 			</c:when>
 			
@@ -76,7 +76,7 @@
 				<input type="reset" value="Reset" />
 			</c:otherwise>
 			</c:choose>
-				<input type="button" value="List" onclick="location.href='/board/Boardlist'" />
+				<input type="button" value="List" onclick="location.href='/card/cardlist'" />
 				</td>
 			</tr>
 	</table>

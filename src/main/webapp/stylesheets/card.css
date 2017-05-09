@@ -1,32 +1,132 @@
 @CHARSET "UTF-8";
-#header{
-	border-bottom:1px solid black;
+
+/* 유저목록의 마우스 우 클릭 메뉴*/
+#context-menus {
+  position: absolute;
+  display: none;
+  border: 1px solid black;
+  width: 100px;
+  text-align: center;
 }
-#container{
-	border:1px solid black;
-	overflow:hidden;
+
+#context-menus.active {
+  display: block;
+  background-color: white;
 }
-#content{
-	float:left;
+
+#context-menus.active>a {
+  list-style: none;
+  padding: 1px;
 }
-#card-contents{
-	
+
+#context-menus.active>a:hover {
+  background-color: lightgreen;
 }
-#right-sidemenu{
+/* list-style은 li태그의 경우 div나 ul이 아닌 li에 바로 붙여야 한다. */
+
+
+#container {
+	float: left;
+    width: 850px;
+    height: 700px;
+    border: 1px solid;
+}
+
+#leftmenu {
+	float : left;
+	height: 700px;
+	width: 100px;
 	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+#top {
+	width: 850px;
+	border-bottom: 1px solid black;
+	float :left;
+}
+
+#top_header {
+	float: left;
+}
+
+#mini-menu {
+	float: right;	
+}
+
+#card-container {
+	float: left;
+}
+
+#card-list {
+	border-bottom: 1px solid;
+	width: 850px;
+	height: 250px;
+}
+
+#card-button {
+	margin-top: 10px;
+	margin-right: 10px;
 	float:right;
-	text-align:center;
 }
-#bottom{
+
+/* 채팅창 css*/
+#chat-container{
+	float:left;
+	height: 700px;
+	width: 277px;
+	border-b`ottom: 1px solid;
+	border-right: 1px solid;
+}
+
+#chat-user{
+border: 1px solid black;
+}
+#chat-user-list{
+border: 1px solid black;
+width:200px;
+height:70px;
+overflow:auto;
+}
 
 
+#chat-image{
+	border: 1px solid black;
 }
-#comment-top{
-	border-top: 1px solid black;
+#chat-image-area{
+	border: 1px solid black;
 }
-#comment-middle{
+#chat-image-area-canvas{
+	border: 1px solid black;
+	float:left;
+	cursor: crosshair;
+}
+#chat-image-area-colors{width:10px; height:5px; margin:0;padding:0;float: left;}
+#chat-image-area-colors li{ height: 20px; width: 20px; display: block; cursor: pointer; }
+#chat-image-area-colors li.selected{ height: 18px; width: 18px; display: block; border: solid 1px #eee; }
+#chat-image-area-tool{
+	clear:left;
+	border:1px solid black;
+	width:250px;
+}
+#chat-image-area-tool-brush{
 	float:left;
 }
-#comment-button{
-
+#chat-image-area-tool-control{
+	clear:left;
 }
+#chat-image-list{
+	border:1px solid black;
+}
+#chat-image-list-header{
+	border:1px solid black;
+}
+#chat-image-list-display{
+	border:1px solid black;
+	weight:250px;
+	height:100px;
+}
+#chat-image-list-control{
+	border:1px solid black;
+}
+

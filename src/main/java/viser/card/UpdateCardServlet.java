@@ -1,4 +1,4 @@
-package viser.board;
+package viser.card;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet("/board/updateBoard")
-public class UpdateBoardServlet extends HttpServlet {
-	private static final Logger logger = LoggerFactory.getLogger(UpdateBoardServlet.class);
+@WebServlet("/card/updatecard")
+public class UpdateCardServlet extends HttpServlet {
+	private static final Logger logger = LoggerFactory.getLogger(UpdateCardServlet.class);
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
@@ -29,22 +29,22 @@ public class UpdateBoardServlet extends HttpServlet {
 		int num = Integer.parseInt( req.getParameter("num") );
 		String subject = req.getParameter("subject");
 		String content = req.getParameter("content");
-		String boardDate = sdf.format(date);
+		String cardDate = sdf.format(date);
 		
-		Board board = new Board();
-		board.setNum(num);
-		board.setSubject(subject);
-		board.setContent(content);
-		board.setDate(boardDate);
+		Card card = new Card();
+		card.setNum(num);
+		card.setSubject(subject);
+		card.setContent(content);
+		card.setDate(cardDate);
 		
-		BoardDAO boardDao = new BoardDAO();
+		CardDAO cardDao = new CardDAO();
 		
 		try {
-			logger.debug("테스트 : " + board);
-			boardDao.updateBoard(board);
-			resp.sendRedirect("/board/Boardlist");
+			logger.debug("테스트 : " + card);
+			cardDao.updatecard(card);
+			resp.sendRedirect("/card/cardlist");
 		} catch (Exception e) {
-			logger.debug("updateBoard Servlet error" + e);
+			logger.debug("updatecard Servlet error" + e);
 		}
 		
 	}

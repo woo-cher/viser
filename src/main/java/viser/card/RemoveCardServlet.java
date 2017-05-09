@@ -1,4 +1,4 @@
-package viser.board;
+package viser.card;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet("/board/removeBoard")
-public class RemoveBoardServlet extends HttpServlet {
-	private static final Logger logger = LoggerFactory.getLogger(RemoveBoardServlet.class);
+@WebServlet("/card/removecard")
+public class RemoveCardServlet extends HttpServlet {
+	private static final Logger logger = LoggerFactory.getLogger(RemoveCardServlet.class);
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
@@ -23,13 +23,13 @@ public class RemoveBoardServlet extends HttpServlet {
 		
 		int num = Integer.parseInt( req.getParameter("num") );
 		
-		BoardDAO boardDao = new BoardDAO();
+		CardDAO cardDao = new CardDAO();
 		
 		try {
-			boardDao.removeBoard(num);
-			resp.sendRedirect("/board/Boardlist");
+			cardDao.removecard(num);
+			resp.sendRedirect("/card/cardlist");
 		} catch (Exception e) {
-			logger.debug("RemoveBoardServlet error" + e);
+			logger.debug("RemovecardServlet error" + e);
 		}
 		
 	}

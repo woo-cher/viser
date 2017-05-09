@@ -1,4 +1,4 @@
-package viser.board;
+package viser.card;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/board/Boardlist")
-public class BoardlistServlet extends HttpServlet{
+@WebServlet("/card/cardlist")
+public class CardlistServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 
 		List list = new ArrayList(); 		// 게시물 목록을 가져오기 위하여 LIST 객체생성
-		BoardDAO boardDao = new BoardDAO();
+		CardDAO cardDao = new CardDAO();
 		
 	  	int page = 1;	// 기본 페이지
 		int limit = 10; // 최대 페이지
@@ -34,7 +34,7 @@ public class BoardlistServlet extends HttpServlet{
 		try {
 	
 		// 게시물의 총 개수를 가져옵니다.
-		list = boardDao.getBoardList(page,limit); 	// 게시물을 LIST 객체에 담습니다. 
+		list = cardDao.getcardList(page,limit); 	// 게시물을 LIST 객체에 담습니다. 
 		listcount = list.size() + 1;
 		
 		// 최대 페이지를 구합니다.
@@ -54,7 +54,7 @@ public class BoardlistServlet extends HttpServlet{
 		request.setAttribute("count", listcount); 		// 게시물 총 개수
 		request.setAttribute("list", list);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/board.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/card.jsp");
 		rd.forward(request, response);
 	
 		} catch (Exception e) {

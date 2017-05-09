@@ -1,0 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+	 <footer class="footer">
+	  <div class="footer-inner">
+	    <span class="text-muted">copyright. 경상대학교 데이터베이스 연구실 </span>
+	  </div>
+	</footer>
+</body>
+</html>

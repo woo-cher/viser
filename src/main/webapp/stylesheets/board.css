@@ -1,18 +1,10 @@
 @CHARSET "UTF-8";
 
-#container {
+#board {
 	float: left;
     width: 850px;
     height: 700px;
     border: 1px solid;
-}
-
-#leftmenu {
-	float : left;
-	height: 700px;
-	width: 100px;
-	border-left: 1px solid black;
-	border-bottom: 1px solid black;
 }
 
 #chat-container{

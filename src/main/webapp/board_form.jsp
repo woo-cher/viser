@@ -7,14 +7,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Runtime</title>
 </head>
-
 <body>
-	<!-- actionUrl 설정 필요 -->
-			<c:set var = "actionUrl" value = "/board/createBoard" />
-			<c:if test="${isView}">
-			<c:set var = "actionUrl" value = "/board/updateBoard" />
-			</c:if>
-			
+		<c:set var = "actionUrl" value = "/board/createBoard" />
+		
+		<c:if test="${isView}">
+		<c:set var = "actionUrl" value = "/board/updateBoard" />
+		</c:if>
+		
+		<div id="container">	
 		<form id="board-field" action="${actionUrl}" method="post">
 		
 		<table width="400" border="1" cellspacing="0" cellpadding="0" align="center">
@@ -46,7 +46,16 @@
 			<tr>
 				<td width="70" align="center">SUBJECT</td>
 				<td width="330">
+				
+				<c:choose>
+				<c:when test = "${isNotUser}" >
+				<input type="hidden" size="40" maxlength="50" name="subject" value="${board.subject}">${board.subject}</td>
+				</c:when>
+				
+				<c:otherwise>
 				<input type="text" size="40" maxlength="50" name="subject" value="${board.subject}"></td>
+				</c:otherwise>
+				</c:choose>
 			</tr>
 			<tr>
 				<td width="70" align="center">E-mail</td>
@@ -56,19 +65,33 @@
 			<tr>
 				<td width="70" align="center">CONTENT</td>
 				<td width="330">
-				<textarea name="content" rows="13" cols="40">${board.content}</textarea></td>
+				
+				<c:choose>
+				<c:when test = "${isNotUser}" >
+				<textarea readonly name="content" rows="16" cols="50" style = "resize:none;">${board.content}</textarea>
+				</td>
+				</c:when>
+				
+				<c:otherwise>
+				<textarea name="content"  rows = "13" cols="40">${board.content}</textarea></td>
+				</c:otherwise>
+				</c:choose>
+				
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
 			</form>
-			<c:choose>
 			
-			<c:when test="${isView}">
-				<input type="submit" value="Modify" />
-				
-				
-				<input type="button" name="delete" value="Delete" onclick="location.href='/board/removeBoard?num=${board.num}'" />
-				
+			<c:choose>
+			<c:when test = "${isView}">
+				<c:if test = "${isNotUser}" >
+				<a></a>
+				</c:if>
+			
+				<c:if test = "${isUser}">
+				<input type="button" name="delete"  value="Delete" onclick="location.href='/board/removeBoard?num=${board.num}'" />
+				<input type="submit" name="modify" value="Modify"/>
+				</c:if>
 			</c:when>
 			
 			<c:otherwise>
@@ -76,10 +99,11 @@
 				<input type="reset" value="Reset" />
 			</c:otherwise>
 			</c:choose>
-				<input type="button" value="List" onclick="location.href='/board/Boardlist'" />
+					<input type="button" value="List" onclick="location.href='/board/Boardlist'" />
 				</td>
 			</tr>
 	</table>
 </form>
+</div>
 </body>
 </html>

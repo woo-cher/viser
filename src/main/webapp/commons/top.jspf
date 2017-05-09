@@ -32,6 +32,16 @@
 
 
 
+	<script>
+		function msg() {
+			if (confirm("정말 탈퇴 하시겠습니까?")) {
+				location.href = "/users/dropuser";
+			} else {
+				return;
+			}
+		}
+	</script>
+	
 </head>
 <body>
 	
@@ -57,6 +67,8 @@
 					<a href="/users/logout">유저(logout)</a>
 					<a>/</a>
 					<a href="/users/updateForm">개인정보수정</a>
+					<a>/</a>
+				<a href ="javascript:msg()"> 회원탈퇴 </a>
 				</c:otherwise>
 			</c:choose>
 		</div>

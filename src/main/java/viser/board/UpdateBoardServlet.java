@@ -1,6 +1,8 @@
 package viser.board;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,15 +21,21 @@ public class UpdateBoardServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
+		
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
 		req.setCharacterEncoding("UTF-8");
 		int num = Integer.parseInt( req.getParameter("num") );
 		String subject = req.getParameter("subject");
 		String content = req.getParameter("content");
+		String boardDate = sdf.format(date);
 		
 		Board board = new Board();
 		board.setNum(num);
 		board.setSubject(subject);
 		board.setContent(content);
+		board.setDate(boardDate);
 		
 		BoardDAO boardDao = new BoardDAO();
 		

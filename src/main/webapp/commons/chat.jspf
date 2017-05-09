@@ -62,7 +62,7 @@ function press(f){
 
  <script type="text/javascript">
  var textarea = document.getElementById("messageWindow");
- var webSocket = new WebSocket('ws://52.78.74.182:8080/board/Boardlist');
+ var webSocket = new WebSocket('ws://localhost:7070/broadcasting');
  var inputMessage = document.getElementById('inputMessage');
     webSocket.onerror = function(event) {
       onError(event)

@@ -26,10 +26,21 @@ public class BoardviewServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
+		
+		HttpSession session = req.getSession();
+		String userId = SessionUtils.getStringValue(session, LoginServlet.SESSION_USER_ID);
+	
 		BoardDAO boardDao = new BoardDAO();
 		Board board = new Board();
 		
 		int num = Integer.parseInt( req.getParameter("num") );
+		String board_userId = req.getParameter("board_userId");
+
+		if(!userId.equals(board_userId)) {
+			req.setAttribute("isNotUser", true);
+		}
+		
+		else req.setAttribute("isUser", true);
 		
 		try {
 			board = boardDao.findByBoardInfo(num);
@@ -49,4 +60,5 @@ public class BoardviewServlet extends HttpServlet {
 			logger.debug("BoardviewServlet error : " + e);
 		} 
 	}
+
 }

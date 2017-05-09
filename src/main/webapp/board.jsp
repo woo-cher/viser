@@ -28,7 +28,7 @@
 		<%@ include file="./commons/left_sidemenu.jspf"%>
 	</div>
 
-	<div id="container">
+	<div id="board">
 		<div id="top">
 			<div id="top_header">JSP_BOARD_LIST</div>
 			<div id="mini-menu">
@@ -68,7 +68,7 @@
 						
 							<%}else{ %>
 							<%} %> 
-						<a href="/board/viewBoard?num=<%=board.getNum()%>"> 
+						<a href="/board/viewBoard?num=<%=board.getNum()%>&board_userId=<%=board.getUserId() %>"> 
 						<%=board.getSubject()%>
 						</a>
 						</td>
@@ -86,6 +86,18 @@
 					<%
 			}
 			%>
+			
+			<form name="serach" action = "/board/Searchlist" method ="post">
+            <select name="keyField">
+                <option value="0"> -- 선택 --</option>
+                <option value="userId">아이디</option>
+                <option value="SubJect">제목</option>
+                <option value="Content">내용</option>  
+            </select>
+            <input type="text" name="keyWord" />
+            <input type="submit" value="검색" onclick="/board/Searchlist" />
+            </form>
+            
 					<tr height="70">
 						<!-- BOARD PAGING -->
 						<td colspan="7" align="center">
@@ -110,8 +122,7 @@
 		</div>
 
 		<div id="board-footer">
-			<button id="board-button"
-				onclick="location.href='/board/createBoardForm'">글쓰기</button>
+           <button id="board-button" onclick="location.href='/board/createBoardForm'">글쓰기</button>
 		</div>
 	</div>
 <%@ include file="./commons/chat.jspf"%>

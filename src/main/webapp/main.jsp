@@ -36,7 +36,7 @@ $('#myModal').modal()
 </script>
 	<div id=main_content>
 		<div>ProJect 목록 JSP</div>
-		<a href="/board/Boardlist"> 게시판 가기</p>
+		<a href="/card/cardlist"> 게시판 가기</p>
 
 	</div>
 <%@ include file="./commons/bottom.jspf"%>

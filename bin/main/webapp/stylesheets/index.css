@@ -1,0 +1,118 @@
+@CHARSET "UTF-8";
+
+#header {
+	padding:30px 0px;
+	overflow: hidden;
+	z-index:10;
+	width:100%;
+}
+
+#left-side{
+	float:left;
+}
+
+#container {
+	    background: rgba(76, 76, 76, 0.51);
+	text-align:center;
+/* 	border: 1px solid black; */
+	overflow:hidden;
+	padding:160px 0;
+}
+
+#title{
+	font-size:100px;
+	font-weight:bold;
+	color:white;
+}
+
+#sortable1, #sortable2 {
+    border: 1px solid #eee;
+    width: 142px;
+    min-height: 20px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    float: left;
+    margin-right: 10px;
+}
+#sortable1 li, #sortable2 li {
+    margin: 0 5px 5px 5px;
+    padding: 5px;
+    font-size: 1.2em;
+    width: 120px;
+}
+
+/* #header {
+	border: 1px solid black;
+	overflow: hidden;
+} */
+
+#logo {
+	text-align: center;
+	float: left;
+/* 	border-right: 1px solid black; */
+	width: 800px;
+}
+
+#user {
+	float: left;
+	text-align: center;
+	width: 350px;
+}
+
+#logo{
+
+}
+#user{
+	padding-top: 5px;
+	font-size: 18px;
+}
+.btn{
+		color:blue;
+	}
+.wrapper{
+	position:relative;
+	width:1100px;
+	margin:0 auto;
+}
+	
+#left-side{
+	float:left;
+	border: 1px solid black;
+	height: 1000px;
+	width: 500;
+}
+	
+	
+	
+	/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  padding-bottom: 150px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.footer-inner {
+    margin: 0 auto;
+    max-width: 1100px;
+    text-align: right;
+    padding: 0 15px;
+}

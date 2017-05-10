@@ -25,6 +25,7 @@ public class UpdateUserServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
 
 		HttpSession session = req.getSession();
 		String sessionUseId = SessionUtils.getStringValue(session, LoginServlet.SESSION_USER_ID);
@@ -43,7 +44,6 @@ public class UpdateUserServlet extends HttpServlet {
 			resp.sendRedirect("/");
 			return;
 		}
-		req.setCharacterEncoding("UTF-8");
 		String password = req.getParameter("password");
 		String name = req.getParameter("name");
 		String age = req.getParameter("age");
@@ -73,7 +73,7 @@ public class UpdateUserServlet extends HttpServlet {
 			logger.debug("SQL Exception error" + e);
 		}
 
-		resp.sendRedirect("/board/Boardlist");
+		resp.sendRedirect("/card/cardlist");
 
 	}
 

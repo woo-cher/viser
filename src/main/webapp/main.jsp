@@ -39,4 +39,6 @@ $('#myModal').modal()
 		<a href="/card/cardlist"> 게시판 가기</p>
 
 	</div>
-<%@ include file="./commons/bottom.jspf"%>
+	<%@ include file="./commons/bottom.jspf"%>
+</body>
+</html>

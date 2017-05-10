@@ -43,7 +43,9 @@
 				</div>
 				<div id="button">
 					<div class="controls">
-						<button type="button" onclick="location.href='/users/createForm' "
+<!-- 						<button type="button" onclick="location.href='/users/createForm' "
+							class="btn btn-primary">Sign up</button> -->
+													<button type="button" onclick="popupOpen();"
 							class="btn btn-primary">Sign up</button>
 						<button type="submit" class="btn btn-primary">Sign in</button>
 					</div>
@@ -102,7 +104,7 @@
 
 function popupOpen2(){
 
-	var popUrl = "fileUpload.html";	//팝업창에 출력될 페이지 URL
+	var popUrl = "/fileUpload.html";	//팝업창에 출력될 페이지 URL
 
 	var popOption = "width=500, height=250, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
 
@@ -112,7 +114,7 @@ function popupOpen2(){
 	
 function popupOpen(){
 
-	var popUrl = "form.jsp";	//팝업창에 출력될 페이지 URL
+	var popUrl = "/form.jsp";	//팝업창에 출력될 페이지 URL
 
 	var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
 
@@ -121,8 +123,6 @@ function popupOpen(){
 	}
 	
 
-
-
 </script>
 
 
@@ -130,5 +130,5 @@ function popupOpen(){
 <a href="javascript:popupOpen();" > 가입할래?! </a>
 
 
- 
+  
 <%@ include file="./commons/bottom.jspf"%>

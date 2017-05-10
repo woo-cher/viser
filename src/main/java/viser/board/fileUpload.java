@@ -2,12 +2,15 @@ package viser.board;
 
 import java.io.File;
 import java.io.IOException;
+import java.awt.Component;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -24,6 +27,7 @@ public class fileUpload extends HttpServlet {
 			// 위치는 현재 프로젝트 /upload
 
 			String path = request.getRealPath("/upload");
+System.out.println(path+"여기는 자바");
 
 
 
@@ -58,7 +62,19 @@ public class fileUpload extends HttpServlet {
 			// 그래서 다음과 같이 원래의 이름을 가려낼 수 있다.
 
 			String o_name = mr.getOriginalFileName("s_file");
+//			JOptionPane.showMessageDialog(null, "저장 완료!");
+
+
+//			JOptionPane.showMessageDialog(this, "예제창입니다.", "예제", JOptionPane.INFORMATION_MESSAGE);
+
+
+
+			
+
+
+			//System.out.println("저장완료!");
 			//response.상태: <%= s_file.getName() %>(<%= o_name %>) 저장 완료!
+			
 		}
 
 

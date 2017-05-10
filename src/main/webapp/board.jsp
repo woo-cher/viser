@@ -125,6 +125,7 @@
            <button id="board-button" onclick="location.href='/board/createBoardForm'">글쓰기</button>
 		</div>
 	</div>
+<%@ include file="./commons/bottom.jspf"%>
 <%@ include file="./commons/chat.jspf"%>
 </body>
 </html>

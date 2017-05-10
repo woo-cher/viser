@@ -47,7 +47,7 @@ public class CreateUserServlet extends HttpServlet {
 			userDAO.addUser(user);
 		} catch (SQLException e) {
 		}
-		response.sendRedirect("/");
+		response.sendRedirect("/close.html");
 	}
 	
 	private void errorForward(HttpServletRequest request, HttpServletResponse response, String errorMessage)

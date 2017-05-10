@@ -12,10 +12,6 @@
 		<a href="/card/cardlist"> 게시판 가기</p>
 
 	</div>
-<<<<<<< HEAD
 	<%@ include file="./commons/bottom.jspf"%>
 </body>
 </html>
-=======
-<%@ include file="./commons/bottom.jspf"%>
->>>>>>> branch 'master' of https://github.com/gnu-runtime/viser.git

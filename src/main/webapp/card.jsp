@@ -19,7 +19,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>card</title>
-<link href="/stylesheets/card.css?v=1" rel="stylesheet" type="text/css">
+<link href="/stylesheets/card.css" rel="stylesheet" type="text/css">
 <%@ include file="./commons/top.jspf"%>
 </head>
 <body>
@@ -68,7 +68,7 @@
 						
 							<%}else{ %>
 							<%} %> 
-						<a href="/card/viewcard?num=<%=card.getNum()%>"> 
+						<a href="/card/viewcard?num=<%=card.getNum()%>&card_userId=<%=card.getUserId() %>"> 
 						<%=card.getSubject()%>
 						</a>
 						</td>

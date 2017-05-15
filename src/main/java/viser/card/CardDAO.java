@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -131,7 +132,7 @@ public class CardDAO {
 				card.setSubject(rs.getString("Subject"));
 				card.setContent(rs.getString("Content"));
 				card.setReadcnt(rs.getInt("Readcnt"));
-				card.setDate(rs.getString("Date"));
+				card.setDate(rs.getDate("Date"));
 				card.setRe_ref(rs.getInt("re_ref"));
 				card.setRe_lev(rs.getInt("re_lev"));
 				card.setRe_seq(rs.getInt("re_seq"));
@@ -183,7 +184,7 @@ public class CardDAO {
 				card.setSubject(rs.getString("SubJect"));
 				card.setContent(rs.getString("Content"));
 				card.setReadcnt(rs.getInt("Readcnt"));
-				card.setDate(rs.getString("Date"));
+				card.setDate(rs.getDate("Date"));
 				card.setRe_ref(rs.getInt("re_ref"));
 				card.setRe_lev(rs.getInt("re_lev"));
 				card.setRe_seq(rs.getInt("re_seq"));
@@ -205,30 +206,19 @@ public class CardDAO {
 	}
 
 	public void addcard(Card card) throws SQLException {
-		String sql = "insert into cards values(?,?,?,?,?,?,?,?,?)";
-		int num = 0;
+		String sql = "insert into cards(userId,Subject,Content,Readcnt,re_ref,re_lev,re_seq) values(?,?,?,?,?,?,?)";
 
 		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement("select max(Num) from cards");
-			ResultSet rs = pstmt.executeQuery();
-
-			if (rs.next())
-				num = rs.getInt(1) + 1;
-			else
-				num = 1;
-
+			conn = getConnection();		
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setInt(1, num);
-			pstmt.setString(2, card.getUserId());
-			pstmt.setString(3, card.getSubject());
-			pstmt.setString(4, card.getContent());
-			pstmt.setInt(5, card.getReadcnt());
-			pstmt.setString(6, card.getDate());
-			pstmt.setInt(7, card.getRe_ref());
-			pstmt.setInt(8, card.getRe_lev());
-			pstmt.setInt(9, card.getRe_seq());
+			pstmt.setString(1, card.getUserId());
+			pstmt.setString(2, card.getSubject());
+			pstmt.setString(3, card.getContent());
+			pstmt.setInt(4, card.getReadcnt());
+			pstmt.setInt(5, card.getRe_ref());
+			pstmt.setInt(6, card.getRe_lev());
+			pstmt.setInt(7, card.getRe_seq());
 
 			pstmt.executeUpdate();
 
@@ -268,7 +258,7 @@ public class CardDAO {
 				card.setSubject(rs.getString("SubJect"));
 				card.setContent(rs.getString("Content"));
 				card.setReadcnt(rs.getInt("Readcnt"));
-				card.setDate(rs.getString("Date"));
+				card.setDate(rs.getDate("Date"));
 				card.setRe_lev(rs.getInt("re_ref"));
 				card.setRe_ref(rs.getInt("re_ref"));
 				card.setRe_seq(rs.getInt("re_seq"));
@@ -300,15 +290,14 @@ public class CardDAO {
 
 	public void updatecard(Card card) throws SQLException {
 		String sql = "update cards set SubJect = ?, Content = ?, Date = ? where Num = ?";
-
 		conn = getConnection();
-
+		Timestamp date=new Timestamp(new Date().getTime());  //형근: datetime 타입에 맞는 현재 시간을 입력하기 위한 객체
 		try {
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, card.getSubject());
 			pstmt.setString(2, card.getContent());
-			pstmt.setString(3, card.getDate());
+			pstmt.setTimestamp(3,date);
 			pstmt.setInt(4, card.getNum());
 
 			pstmt.execute();

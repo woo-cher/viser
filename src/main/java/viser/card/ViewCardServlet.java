@@ -20,8 +20,8 @@ import viser.user.User;
 import viser.user.UserDAO;
 
 @WebServlet("/card/viewcard")
-public class CardviewServlet extends HttpServlet {
-	private static final Logger logger = LoggerFactory.getLogger(CardviewServlet.class);
+public class ViewCardServlet extends HttpServlet {
+	private static final Logger logger = LoggerFactory.getLogger(ViewCardServlet.class);
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 

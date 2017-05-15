@@ -104,7 +104,7 @@
 
 function popupOpen2(){
 
-	var popUrl = "/fileUpload.html";	//팝업창에 출력될 페이지 URL
+	var popUrl = "/upload.jsp?perposeURL=/fileUpload";	//팝업창에 출력될 페이지 URL
 
 	var popOption = "width=500, height=250, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
 

@@ -1,7 +1,8 @@
-package viser.card;
+package viser.project;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,17 +14,17 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 
-@WebServlet("/flieUpload")
-public class fileUpload extends HttpServlet {
+@WebServlet("/imageUpload")
+public class UploadImageServlet extends HttpServlet {
 	
 
 		@Override
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			// 첨부된 파일을 받아서 올리는데 목적이 있다.
 
-			// 위치는 현재 프로젝트 /upload
+			// 위치는 현재 프로젝트 /upload_image
 
-			String path = request.getRealPath("/upload");
+			String path = request.getRealPath("/upload_image");
 
 
 
@@ -48,17 +49,19 @@ public class fileUpload extends HttpServlet {
 			// MultipartRequest가 생성되어야 한다.
 
 			
-
-			File s_file = mr.getFile("s_file"); // 업로드 후에 파일객체 반환!
-
-			
-
-			// 만약! 동일한 파일이 있었다면 현재 파일의 이름이 변경된다.
-
-			// 그래서 다음과 같이 원래의 이름을 가려낼 수 있다.
-
-			String o_name = mr.getOriginalFileName("s_file");
-			//response.상태: <%= s_file.getName() %>(<%= o_name %>) 저장 완료!
+			// 형근: 아래 주석 업로드한 파일명이 겹칠경우 원래 파일명과 함께 맞는지 확인하기 위한 코드
+//			File s_file = mr.getFile("s_file"); // 업로드 후에 파일객체 반환!
+//
+//			
+//
+//			// 만약! 동일한 파일이 있었다면 현재 파일의 이름이 변경된다.
+//
+//			// 그래서 다음과 같이 원래의 이름을 가려낼 수 있다.
+//
+//			String o_name = mr.getOriginalFileName("s_file");
+//			response.setCharacterEncoding("UTF-8");
+//			PrintWriter out=response.getWriter();
+//			out.print("상태: "+ s_file.getName()+"="+ o_name+ "저장 완료!");
 		}
 
 

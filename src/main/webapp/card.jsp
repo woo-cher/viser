@@ -73,7 +73,7 @@
 						</a>
 						</td>
 						<td align="center"><%=card.getUserId() %></td>
-						<td align="center"><%=card.getDate() %></td>
+						<td align="center"><%=card.getDate().toString() %></td>
 						<td align="center"><%=card.getReadcnt() %></td>
 					</tr>
 			<%	

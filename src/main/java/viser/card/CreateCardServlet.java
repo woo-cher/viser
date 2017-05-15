@@ -17,20 +17,14 @@ public class CreateCardServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
 		CardDAO cardDao = new CardDAO();
 		req.setCharacterEncoding("UTF-8");
 		
 		String subject = req.getParameter("subject");
 		String content = req.getParameter("content");
 		String userId = req.getParameter("userId");
-		String cardDate = sdf.format(date);
 		
 		Card card = new Card(subject, content, userId);
-		card.setDate(cardDate);
 		
 		try {
 		

@@ -1,11 +1,13 @@
 package viser.card;
 
+import java.sql.Date;
+
 public class Card {
 
 	private String subject;
 	private String content;
 	private String userId;
-	private String date;
+	private Date date;
 	private int readcnt;
 	private int num;
 	private int re_ref;
@@ -74,11 +76,11 @@ public class Card {
 	}
 	
 	
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 	
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	

@@ -3,6 +3,7 @@ package viser.card;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,20 +23,14 @@ public class UpdateCardServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
 		
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
 		req.setCharacterEncoding("UTF-8");
 		int num = Integer.parseInt( req.getParameter("num") );
 		String subject = req.getParameter("subject");
 		String content = req.getParameter("content");
-		String cardDate = sdf.format(date);
-		
 		Card card = new Card();
 		card.setNum(num);
 		card.setSubject(subject);
 		card.setContent(content);
-		card.setDate(cardDate);
 		
 		CardDAO cardDao = new CardDAO();
 		

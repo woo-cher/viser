@@ -6,18 +6,23 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import viser.card.Card;
 import viser.user.UserDAO;
 public class ProjectDAO {
 	Connection conn=null;
 	PreparedStatement pstmt=null;
 	ResultSet rs = null;
+	PreparedStatement pstmt2=null;  // 형근: 이중 sql문을 위해 생성
+	ResultSet rs2 = null;  // 형근: 이중 sql문을 위해 생성
 	
 	private static final Logger logger = LoggerFactory.getLogger(ProjectDAO.class);
 
@@ -80,5 +85,131 @@ public class ProjectDAO {
 			SourceReturn();  //db관련 객체 종료
 		}
 		return null;
+	}
+	
+	public List getProjectList(String userId) throws SQLException {
+
+		List projects = new ArrayList(); // 형근: 프로젝트목록 리턴을 위한 변수
+		Project project =new Project(); //형근: 각 프로젝트 정보를 저장할 객체
+		// 목록를 조회하기 위한 쿼리
+		String sql = "select * from project_members where userId=?";
+		String sql2= "select * from projects where Project_Name=?";
+				try {
+			conn = getConnection();
+			// 실행을 위한 쿼리 및 파라미터 저장
+			pstmt = conn.prepareStatement(sql);
+			pstmt2=conn.prepareStatement(sql2);
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery(); // 쿼리 실행
+			while (rs.next()) {
+				logger.debug("project_getlist test1:"+rs.getString("Project_Name") );
+				pstmt2.setString(1, rs.getString("Project_Name"));
+				rs2=pstmt2.executeQuery();
+				while(rs2.next()){
+					logger.debug("project_getlist test2:"+rs2.getString("Project_Name") );
+					logger.debug("project_getlist test3:"+rs2.getDate("Project_Date") );
+					project.setProject_Name(rs2.getString("Project_Name"));
+					project.setProject_Date(rs2.getDate("Project_Date"));
+					projects.add(project);
+				}
+			}
+			return projects;
+
+		} catch (Exception e) {
+			logger.debug("getProjectList Error : " + e);
+		}
+
+		finally { // DB 관련들 객체를 종료
+			SourceReturn();
+		}
+
+		return null;
+	}
+	public void addProject(Card card) throws SQLException {
+		String sql = "insert into cards(userId,Subject,Content,Readcnt,re_ref,re_lev,re_seq) values(?,?,?,?,?,?,?)";
+
+		try {
+			conn = getConnection();		
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, card.getUserId());
+			pstmt.setString(2, card.getSubject());
+			pstmt.setString(3, card.getContent());
+			pstmt.setInt(4, card.getReadcnt());
+			pstmt.setInt(5, card.getRe_ref());
+			pstmt.setInt(6, card.getRe_lev());
+			pstmt.setInt(7, card.getRe_seq());
+
+			pstmt.executeUpdate();
+
+		} finally {
+			SourceReturn();
+		}
+	}
+
+	public void removeProject(int num) throws SQLException {
+		String sql = "delete from cards where Num = ?";
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, num);
+
+			pstmt.executeUpdate();
+
+		} finally {
+			SourceReturn();
+		}
+	}
+
+	public Card viewProject(int num) throws SQLException {
+		String sql = "select * from cards where Num = ?";
+		Card card = new Card();
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				card.setNum(rs.getInt("Num"));
+				card.setUserId(rs.getString("userId"));
+				card.setSubject(rs.getString("SubJect"));
+				card.setContent(rs.getString("Content"));
+				card.setReadcnt(rs.getInt("Readcnt"));
+				card.setDate(rs.getDate("Date"));
+				card.setRe_lev(rs.getInt("re_ref"));
+				card.setRe_ref(rs.getInt("re_ref"));
+				card.setRe_seq(rs.getInt("re_seq"));
+			}
+			logger.debug(card + "");
+		} catch (Exception e) {
+		} finally {
+			SourceReturn();
+		}
+		return card;
+	}
+
+	public void updateProject(Card card) throws SQLException {
+		String sql = "update cards set SubJect = ?, Content = ?, Date = ? where Num = ?";
+		conn = getConnection();
+		Timestamp date=new Timestamp(new Date().getTime());  //형근: datetime 타입에 맞는 현재 시간을 입력하기 위한 객체
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, card.getSubject());
+			pstmt.setString(2, card.getContent());
+			pstmt.setTimestamp(3,date);
+			pstmt.setInt(4, card.getNum());
+
+			pstmt.execute();
+			logger.debug("Updatecard : " + card);
+		} catch (Exception e) {
+			logger.debug("Updatecard error : " + e);
+			logger.debug(card + "");
+		} finally {
+			SourceReturn();
+		}
 	}
 }

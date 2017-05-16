@@ -26,7 +26,7 @@ public class RemoveCardServlet extends HttpServlet {
 		CardDAO cardDao = new CardDAO();
 		
 		try {
-			cardDao.removecard(num);
+			cardDao.removeCard(num);
 			resp.sendRedirect("/card/cardlist");
 		} catch (Exception e) {
 			logger.debug("RemovecardServlet error" + e);

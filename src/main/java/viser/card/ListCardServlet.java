@@ -1,7 +1,6 @@
 package viser.card;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,13 +10,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 @WebServlet("/card/cardlist")
 public class ListCardServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-
+		
+		HttpSession session=request.getSession();  //형근: 프로젝트 명을 저장하기 위한 세션 (추후에 board로 옮길것)
+		session.setAttribute("ProjectName",request.getParameter("proejectname"));  //형근: 세션에 프로젝트명을 저장  
+		
 		List list = new ArrayList(); 		// 게시물 목록을 가져오기 위하여 LIST 객체생성
 		CardDAO cardDao = new CardDAO();
 		
@@ -34,7 +38,7 @@ public class ListCardServlet extends HttpServlet{
 		try {
 	
 		// 게시물의 총 개수를 가져옵니다.
-		list = cardDao.getcardList(page,limit); 	// 게시물을 LIST 객체에 담습니다. 
+		list = cardDao.getCardList(page,limit); 	// 게시물을 LIST 객체에 담습니다. 
 		listcount = list.size() + 1;
 		
 		// 최대 페이지를 구합니다.

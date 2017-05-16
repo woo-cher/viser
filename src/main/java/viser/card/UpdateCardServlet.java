@@ -36,7 +36,7 @@ public class UpdateCardServlet extends HttpServlet {
 		
 		try {
 			logger.debug("테스트 : " + card);
-			cardDao.updatecard(card);
+			cardDao.updateCard(card);
 			resp.sendRedirect("/card/cardlist");
 		} catch (Exception e) {
 			logger.debug("updatecard Servlet error" + e);

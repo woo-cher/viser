@@ -105,7 +105,7 @@ public class CardDAO {
 		return count;
 	}
 
-	public List getcardList(int page, int limit) throws SQLException {
+	public List getCardList(int page, int limit) throws SQLException {
 
 		List list = new ArrayList(); // 목록 리턴을 위한 변수
 
@@ -205,7 +205,7 @@ public class CardDAO {
 		return null;
 	}
 
-	public void addcard(Card card) throws SQLException {
+	public void addCard(Card card) throws SQLException {
 		String sql = "insert into cards(userId,Subject,Content,Readcnt,re_ref,re_lev,re_seq) values(?,?,?,?,?,?,?)";
 
 		try {
@@ -227,7 +227,7 @@ public class CardDAO {
 		}
 	}
 
-	public void removecard(int num) throws SQLException {
+	public void removeCard(int num) throws SQLException {
 		String sql = "delete from cards where Num = ?";
 
 		try {
@@ -243,7 +243,7 @@ public class CardDAO {
 		}
 	}
 
-	public Card viewcard(int num) throws SQLException {
+	public Card viewCard(int num) throws SQLException {
 		String sql = "select * from cards where Num = ?";
 		Card card = new Card();
 		try {
@@ -288,7 +288,7 @@ public class CardDAO {
 		}
 	}
 
-	public void updatecard(Card card) throws SQLException {
+	public void updateCard(Card card) throws SQLException {
 		String sql = "update cards set SubJect = ?, Content = ?, Date = ? where Num = ?";
 		conn = getConnection();
 		Timestamp date=new Timestamp(new Date().getTime());  //형근: datetime 타입에 맞는 현재 시간을 입력하기 위한 객체

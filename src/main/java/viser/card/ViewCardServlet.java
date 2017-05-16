@@ -45,7 +45,7 @@ public class ViewCardServlet extends HttpServlet {
 		try {
 			card = cardDao.findBycardInfo(num);
 			cardDao.updateReadcont(num);
-			card = cardDao.viewcard(num);
+			card = cardDao.viewCard(num);
 			
 			if(card == null) {
 				logger.debug("card View Fail");

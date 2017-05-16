@@ -28,7 +28,7 @@ public class CreateCardServlet extends HttpServlet{
 		
 		try {
 		
-		cardDao.addcard(card);
+		cardDao.addCard(card);
 		} catch (SQLException e) {
 			System.out.println(e);
 		}

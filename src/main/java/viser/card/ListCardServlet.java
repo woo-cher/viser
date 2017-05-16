@@ -20,8 +20,8 @@ public class ListCardServlet extends HttpServlet{
 			throws ServletException, IOException {
 		
 		HttpSession session=request.getSession();  //형근: 프로젝트 명을 저장하기 위한 세션 (추후에 board로 옮길것)
-		session.setAttribute("ProjectName",request.getParameter("proejectname"));  //형근: 세션에 프로젝트명을 저장  
-		
+		session.setAttribute("Project_Name",request.getParameter("projectname"));  //형근: 세션에 프로젝트명을 저장  
+		System.out.println((String)session.getAttribute("Project_Name"));
 		List list = new ArrayList(); 		// 게시물 목록을 가져오기 위하여 LIST 객체생성
 		CardDAO cardDao = new CardDAO();
 		

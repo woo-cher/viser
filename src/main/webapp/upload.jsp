@@ -24,7 +24,6 @@
 	<form action="${param.perposeURL }" method="post" enctype="multipart/form-data">
 
 		첨부파일:<input type="file" name="s_file"/><br/>
-
 		<input type="submit" value="보내기"/>
 
 	</form>

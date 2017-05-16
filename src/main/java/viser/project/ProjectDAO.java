@@ -212,4 +212,14 @@ public class ProjectDAO {
 			SourceReturn();
 		}
 	}
+	
+	public void addImage(String Image_Path,String Project_Name,String Author)throws SQLException{
+		String sql="insert into imagechats(Image_Path,Project_Name,Author) values(?,?,?)";
+		conn=getConnection();
+		pstmt=conn.prepareStatement(sql);
+		pstmt.setString(1, Image_Path);
+		pstmt.setString(2, Project_Name);
+		pstmt.setString(3, Author);
+		pstmt.executeUpdate();
+	}
 }

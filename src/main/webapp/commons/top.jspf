@@ -17,10 +17,10 @@
 	 
 	<!-- bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	
-	
+	  
 	 
 	<script>
 	 $( function() {
@@ -46,30 +46,32 @@
 <body>
 	
 	<div id="header">
-		<div id="logo">
-			<c:choose>
-				<c:when test="${empty userId }">
-					<a href="/index.jsp" class="btn btn-primary"> logo </a>
-				</c:when>
-				<c:otherwise>
-					<a href="/main.jsp" class="btn btn-primary"> logo </a>
-	
-				</c:otherwise>
-			</c:choose>
-		</div>
-	
-		<div id="user">
-			<c:choose>
-				<c:when test="${empty userId }">
-					<a> 로그인이 필요한 서비스입니다. </a>
-				</c:when>
-				<c:otherwise>
-					<a href="/users/logout">유저(logout)</a>
-					<a>/</a>
-					<a href="/users/updateForm">개인정보수정</a>
-					<a>/</a>
-				<a href ="javascript:msg()"> 회원탈퇴 </a>
-				</c:otherwise>
-			</c:choose>
+		<div class="wrap">
+			<span id="logo">
+				<c:choose>
+					<c:when test="${empty userId }">
+						<a href="/index.jsp" class="btn btn-primary"> logo </a>
+					</c:when>
+					<c:otherwise>
+						<a href="/main.jsp" class="btn btn-primary"> logo </a>
+		
+					</c:otherwise>
+				</c:choose>
+			</span>
+		
+			<span id="user">
+				<c:choose>
+					<c:when test="${empty userId }">
+						<a> 로그인이 필요한 서비스입니다. </a>
+					</c:when>
+					<c:otherwise>
+						<a href="/users/logout">유저(logout)</a>
+						<a>/</a>
+						<a data-toggle="modal" data-target="#myLoginModal">개인정보수정</a>
+						<a>/</a>
+					<a href ="javascript:msg()"> 회원탈퇴 </a>
+					</c:otherwise>
+				</c:choose>
+			</span>
 		</div>
 	</div>

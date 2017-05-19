@@ -55,14 +55,14 @@
 			<div id="chat-image-list-header">이미지 목록</div>
 			<div id="chat-image-list-display">이미지 1 이미지 2</div>
 			<div id="chat-image-list-control">
-			<button id="image_add" onclick=popupOpen()>이미지 추가</button>
+			<button id="image_add" data-toggle="modal" data-target="#myModal">이미지추가</button>
 			<button id="image_delete" onclick>이미지 삭제</button>
 			</div>
 		</div>
 	</div>
 	<div id="chat-dialogue">
 		<div id="chat-dialogue-list">
-		 <textarea id="messageWindow" rows="15" cols="35" readonly="true"></textarea>
+		 <textarea id="messageWindow" style="width:100%;" rows="15" cols="35" readonly="true"></textarea>
         <br/>
 		</div>
 		<div id="chat-dialogue-input">

@@ -14,7 +14,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 
-@WebServlet("/flieUpload")
+@WebServlet("/fileUpload")
 public class UploadFileServlet extends HttpServlet {
 	
 
@@ -40,6 +40,7 @@ public class UploadFileServlet extends HttpServlet {
 
 					new DefaultFileRenamePolicy());
 
+			response.sendRedirect("/index.jsp");  // 환용 : 모달 종료후 돌아우게
 			// 인자 설명
 
 			// 요청객체, 저장될 위치, 용량, 인코딩, 파일명변경객체

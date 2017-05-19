@@ -59,6 +59,8 @@ public class UploadImageServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+			
+			response.sendRedirect("/card/cardlist");  // 환용 : 이미지 전송 후 카드로 복귀
 			// 형근: 아래 주석 업로드한 파일명이 겹칠경우 원래 파일명과 함께 맞는지 확인하기 위한 코드
 //			File s_file = mr.getFile("s_file"); // 업로드 후에 파일객체 반환!
 //

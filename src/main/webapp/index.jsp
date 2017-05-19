@@ -23,31 +23,34 @@
 	</div>
 	<div id="container" style="border:0;">
 		<div id="title">
-		<%-- <%=getServletContext().getRealPath("/").replace('\\', '/') %> --%>Beyond yourself with
+		Beyond yourself with
 			<p>"runtime"</p>
 		</div>
 		<div id="content">
-			<form id="form-sign" action="/users/login" method="post">
+			<form id="form-sign" action="/users/login" method="post" class="form-inline">
 				<c:if test="${not empty errorMessage }">
 					<div class="control-group">
 						<label class="error">${errorMessage}</label>
 					</div>
 				</c:if>
-				<div class="control-group">
-					<label class="control-label" for="userId">사용자 아이디</label> <input
-						type="text" name="userId" value="" />
+				<div style="width:300px;margin:0 auto; text-align:right;margin-bottom:20px;">
+		 			<div class="control-group" style="margin-bottom:10px;">
+						<label class="control-label" for="userId">사용자 아이디</label> 
+	 					<input type="text" class="form-control" name="userId" value="" placeholder="Enter Id"/>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="password" >비밀번호</label> 
+						<input type="password" class="form-control" name="password" value="" placeholder="Enter Password"/>
+					</div>
 				</div>
-				<div class="control-group">
-					<label class="control-label" for="password">비밀번호</label> <input
-						type="password" name="password" value="" />
-				</div>
+				
+				
 				<div id="button">
 					<div class="controls">
-<!-- 						<button type="button" onclick="location.href='/users/createForm' "
-							class="btn btn-primary">Sign up</button> -->
-													<button type="button" onclick="popupOpen();"
-							class="btn btn-primary">Sign up</button>
-						<button type="submit" class="btn btn-primary">Sign in</button>
+<!-- 					<button type="button" onclick="location.href='/users/createForm'" class="btn btn-primary">Sign up</button> -->
+						<!-- <button type="button" onclick="popupOpen();" class="btn btn-danger">Sign up</button> -->
+						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myLoginModal">Sign up</button>
+						<button type="submit" class="btn btn-success">Sign in</button>   <!-- 환용 : 가입버튼에 모달 적용 -->
 					</div>
 				</div>
 				<a href="#"> forget your ID/password ? </a>
@@ -56,6 +59,7 @@
 
 	</div>
 </div>
+
 
 
 <a href="javascript:popupOpen2();" > 업로드할래?! </a>
@@ -79,27 +83,10 @@
 	<video src="/abcd.avi" controls></video>
 </div>
 
-<div class="wrapper">
-	<!-- <ul id="sortable1" class="connectedSortable">
-		<li class="ui-state-default">Item 1</li>
-		<li class="ui-state-default">Item 2</li>
-		<li class="ui-state-default">Item 3</li>
-		<li class="ui-state-default">Item 4</li>
-		<li class="ui-state-default">Item 5</li>
-	</ul>
-	
-	<ul id="sortable2" class="connectedSortable">
-		<li class="ui-state-highlight">Item 1</li>
-		<li class="ui-state-highlight">Item 2</li>
-		<li class="ui-state-highlight">Item 3</li>
-		<li class="ui-state-highlight">Item 4</li>
-		<li class="ui-state-highlight">Item 5</li>
-	</ul> -->
-	<!-- <video src="/abcd.avi" controls></video> -->
-</div>
 
 
-<script type="text/javascript">
+
+<!-- <script type="text/javascript">
 
 
 function popupOpen2(){
@@ -123,7 +110,7 @@ function popupOpen(){
 	}
 	
 
-</script>
+</script> -->
 
 
 

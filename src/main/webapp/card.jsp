@@ -23,11 +23,6 @@
 <%@ include file="./commons/top.jspf"%>
 </head>
 <body>
-
-	<div id="leftmenu">
-		<%@ include file="./commons/left_sidemenu.jspf"%>
-	</div>
-
 	<div id="container">
 		<div id="top">
 			<div id="top_header">JSP_card_LIST</div>
@@ -125,6 +120,16 @@
            <button id="card-button" onclick="location.href='/card/createcardForm'">글쓰기</button>
 		</div>
 	</div>
-<%@ include file="./commons/chat.jspf"%>
+	<div id='project_user'>
+		<iframe src="/user.jsp" height="220" width="278" name=user>
+		 	<p>Your browser does not support iframes.</p>
+		</iframe>
+	</div>
+	<div id='project-chat'>
+		<iframe src="/chat.jsp" height="747" width="278" name=chat>
+		 	<p>Your browser does not support iframes.</p>
+		</iframe>
+	</div>
+	
 </body>
 </html>

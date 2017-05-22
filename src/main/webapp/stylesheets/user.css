@@ -1,0 +1,26 @@
+@CHARSET "UTF-8";
+
+/* 유저목록의 마우스 우 클릭 메뉴*/
+#context-menus {
+  position: absolute;
+  display: none;
+  border: 1px solid black;
+  width: 100px;
+  text-align: center;
+}
+
+#context-menus.active {
+  display: block;
+  background-color: white;
+}
+
+#context-menus.active>a {
+  list-style: none;
+  padding: 1px;
+}
+
+#context-menus.active>a:hover {
+  background-color: lightgreen;
+}
+/* list-style은 li태그의 경우 div나 ul이 아닌 li에 바로 붙여야 한다. */
+

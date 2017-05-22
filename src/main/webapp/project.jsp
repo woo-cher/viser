@@ -8,13 +8,13 @@
 
 %>	
 	
-<head>	
+<head>
+
 </head>
-<%@ include file="./commons/top.jspf"%>
 
 
 <body>
-	<%@ include file="./commons/left_sidemenu.jspf"%>
+<%@ include file="./commons/top.jspf"%>
 <div class="project-container">
 	<div class="project-header">
 		<h1>프로젝트 현황</h1>

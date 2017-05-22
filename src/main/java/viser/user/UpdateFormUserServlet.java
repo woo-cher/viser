@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import viser.support.SessionUtils;
+
 @WebServlet("/users/updateForm")
 public class UpdateFormUserServlet extends HttpServlet{
 	
@@ -23,7 +25,7 @@ public class UpdateFormUserServlet extends HttpServlet{
 			throws ServletException, IOException {
 			
 			HttpSession session = req.getSession();
-			String userId = SessionUtils.getStringValue(session, LoginServlet.SESSION_USER_ID);
+			String userId = SessionUtils.getStringValue(session, LogInServlet.SESSION_USER_ID);
 			
 			if(userId == null) {
 				resp.sendRedirect("/");

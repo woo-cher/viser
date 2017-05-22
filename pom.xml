@@ -18,7 +18,7 @@
 		<sourceDirectory>src\main\java</sourceDirectory>
 		<scriptSourceDirectory>src\main\scripts</scriptSourceDirectory>
 		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
-		<testOutputDirectory>src/main/webapp/test-classes</testOutputDirectory>
+		<testOutputDirectory>src/main/webapp/WEB-INF/test-classes</testOutputDirectory>
 		<resources>
 			<resource>
 				<directory>src\main\resources</directory>

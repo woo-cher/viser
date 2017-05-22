@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import viser.user.LoginServlet;
-import viser.user.SessionUtils;
+import viser.support.SessionUtils;
+import viser.user.LogInServlet;
 import viser.user.User;
 import viser.user.UserDAO;
 
@@ -23,7 +23,7 @@ public class CreateFormCardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		HttpSession session = req.getSession();
-		String userId = SessionUtils.getStringValue(session, LoginServlet.SESSION_USER_ID);
+		String userId = SessionUtils.getStringValue(session, LogInServlet.SESSION_USER_ID);
 		
 	
 		UserDAO userDao = new UserDAO();

@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import viser.support.MyvalidatorFactory;
+import viser.support.SessionUtils;
 
 @WebServlet("/users/update")
 public class UpdateUserServlet extends HttpServlet {
@@ -28,7 +29,7 @@ public class UpdateUserServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 
 		HttpSession session = req.getSession();
-		String sessionUseId = SessionUtils.getStringValue(session, LoginServlet.SESSION_USER_ID);
+		String sessionUseId = SessionUtils.getStringValue(session, LogInServlet.SESSION_USER_ID);
 
 		// ★ 로그인 여부 판단
 		if (sessionUseId == null) {

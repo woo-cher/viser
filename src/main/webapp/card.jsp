@@ -24,10 +24,6 @@
 <body>
 	<%@ include file="./commons/top.jspf"%>
 	<div class="wrap ac"> 
-	 	<div id="leftmenu">   
-			<%@ include file="./commons/left_sidemenu.jspf"%>
-		</div>
-	
 		<div id="card-container_wrap">
 			<div id="top">
 				<div id="top_header">JSP_card_LIST</div>

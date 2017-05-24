@@ -15,12 +15,7 @@
 
 <body>
 	<%@ include file="./commons/top.jspf"%>
-	<div class="wrap">
-		 <div id="leftmenu">
-			<%@ include file="./commons/left_sidemenu.jspf"%>
-		</div>
 		<div class="project-container">
-</div>
 			<div class="project-header" style="padding:10pt;" >
 				<h3>프로젝트 현황</h3>
 			</div>
@@ -32,13 +27,12 @@
 							<td align="center" width="600">프로젝트 명</td>
 							<td align="center" width="150">생성날짜</td>
 						</tr>
-			</div>
-</div>
+	</div>
+	
 			
+	<div class="project-content-body">
 			
-			<div class="project-content-body">
 				
-			
 				<%
 					if(projectlist.size() > 0){
 						for(int i=0 ; i < projectlist.size(); i++){
@@ -65,7 +59,5 @@
 					}
 					%>
 			</div>
-		</div>
 	</div>
-</div>
 <%@ include file="./commons/bottom.jspf"%>

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/users/login")
-public class LoginServlet extends HttpServlet {
+public class LogInServlet extends HttpServlet {
 	public static final String SESSION_USER_ID = "userId";
 
 	@Override

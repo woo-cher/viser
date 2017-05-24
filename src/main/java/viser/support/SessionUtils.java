@@ -1,4 +1,4 @@
-package viser.user;
+package viser.support;
 
 import javax.servlet.http.HttpSession;
 

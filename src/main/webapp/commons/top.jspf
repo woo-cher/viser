@@ -67,7 +67,7 @@
 					<c:otherwise>
 						<a href="/users/logout">유저(logout)</a>
 						<a>/</a>
-						<a data-toggle="modal" data-target="#myLoginModal">개인정보수정</a>
+						<a href="/users/updateForm">개인정보수정</a>
 						<a>/</a>
 					<a href ="javascript:msg()"> 회원탈퇴 </a>
 					</c:otherwise>

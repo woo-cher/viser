@@ -2,3 +2,4 @@
 *.class
 .git
 *.lst
+.metadata

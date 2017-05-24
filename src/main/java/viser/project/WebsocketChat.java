@@ -11,7 +11,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint("/card/cardlist")
+@ServerEndpoint("/chat.jsp")
 public class WebsocketChat {
 
 	private static Set<Session> clients = Collections
@@ -19,12 +19,13 @@ public class WebsocketChat {
 
 	@OnMessage //클라이언트로 부터 메세지가 도착했을경우
 	public void onMessage(String message, Session session) throws IOException {
-		System.out.println(message);
 		synchronized (clients) {
 			// Iterate over the connected sessions
 			// and broadcast the received message
 			for (Session client : clients) {
 				if (!client.equals(session)) {
+					System.out.println("브로드캐스팅");
+					client.setMaxTextMessageBufferSize(10000000); //형근:서로 주고받을수 있는 textsize를 100mb로 설정
 					client.getBasicRemote().sendText(message);
 				}
 			}
@@ -33,15 +34,13 @@ public class WebsocketChat {
 
 	@OnOpen  //
 	public void onOpen(Session session) throws IOException {
-		onMessage("님이 접속하였습니다.", session);
 		System.out.println(session);
 		clients.add(session);
 	}
 
 	@OnClose
 	public void onClose(Session session) throws IOException {
-		onMessage("님이 퇴장하였습니다.", session);
-		// Remove session from the connected sessions set
+		System.out.println(session);
 		clients.remove(session);
 	}
 	@OnError

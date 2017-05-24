@@ -15,8 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @WebServlet("/card/Searchlist")
-public class SearchCardlistServlet extends HttpServlet{
-	private static final Logger logger = LoggerFactory.getLogger(SearchCardlistServlet.class);
+public class SearchCardListServlet extends HttpServlet{
+	private static final Logger logger = LoggerFactory.getLogger(SearchCardListServlet.class);
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 

@@ -14,8 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @WebServlet("/card/removecard")
-public class RemoveCardServlet extends HttpServlet {
-	private static final Logger logger = LoggerFactory.getLogger(RemoveCardServlet.class);
+public class DeleteCardServlet extends HttpServlet {
+	private static final Logger logger = LoggerFactory.getLogger(DeleteCardServlet.class);
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 

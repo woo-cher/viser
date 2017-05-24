@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 @WebServlet("/card/cardlist")
-public class ListCardServlet extends HttpServlet{
+public class ReadCardListServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {

@@ -39,8 +39,8 @@
 /* 	border: 1px solid black; */
 	overflow:hidden;
 	float: left;
-    width: 850px;
-    height: 700px;
+    width: 1150px;
+    height: 950px;
     border: 1px solid;
 }
 #card-container {
@@ -50,7 +50,7 @@
     border: 1px solid;
 }
 
-/* 채팅�? css*/
+/* 채팅�? css*/
 iframe{
 	border:0px;
 }

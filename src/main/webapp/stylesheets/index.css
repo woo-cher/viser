@@ -171,3 +171,25 @@ body {
 	height: 250px;
 } /* 환용 모달 css */
 
+
+/* 프로젝트 css  */
+
+#project-content-header{
+	margin: 0 auto;
+    width: 80%;
+	
+}
+.background{
+	width: 100%;
+	height: 100%;
+	background-image: url(http://post.phinf.naver.net/MjAxNzA0MDRfMjgy/MDAxNDkxMjkxMjU3MjAz.kFJBsjF-2WJP0yPEVzzIEL3f4-SMFPrpEsp911SP-AQg.LbvT_gMvi6xb83e99aXQzV988xs1XB9KLdPbeheT6Tgg.JPEG/444444444444444444.jpg?type=w1200);
+ 	background-image:no-repeat;
+background-size: cover;
+background-position:
+}
+
+#form-control{
+	    padding: 6px 15px;
+    font-size: 14px;
+}
+

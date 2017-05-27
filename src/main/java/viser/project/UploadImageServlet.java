@@ -1,6 +1,7 @@
 package viser.project;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -20,6 +21,8 @@ public class UploadImageServlet extends HttpServlet {
 
 		@Override
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			response.setCharacterEncoding("UTF-8");
+			request.setCharacterEncoding("UTF-8");
 			// 첨부된 파일을 받아서 올리는데 목적이 있다.
 
 			// 위치는 현재 프로젝트 /upload_image
@@ -69,9 +72,9 @@ public class UploadImageServlet extends HttpServlet {
 //			// 그래서 다음과 같이 원래의 이름을 가려낼 수 있다.
 //
 //			String o_name = mr.getOriginalFileName("s_file");
-//			response.setCharacterEncoding("UTF-8");
-//			PrintWriter out=response.getWriter();
-//			out.print("상태: "+ s_file.getName()+"="+ o_name+ "저장 완료!");
+			
+			PrintWriter out=response.getWriter();
+			out.print("업로드 성공!");
 		}
 
 

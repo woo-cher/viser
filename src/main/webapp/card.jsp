@@ -126,7 +126,7 @@
 		</iframe>
 	</div>
 	<div id='project-chat'>
-		<iframe src="/chat.jsp" height="747" width="278" name=chat>
+		<iframe src="/project/imagelist" height="747" width="278" name=chat>
 		 	<p>Your browser does not support iframes.</p>
 		</iframe>
 	</div>

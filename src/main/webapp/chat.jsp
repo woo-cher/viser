@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
 <head>
 <link rel='stylesheet' href='/stylesheets/chat.css' type='text/css'>
 
@@ -42,10 +44,14 @@
 			</div>
 		<div id="chat-image-list">
 			<div id="chat-image-list-header">이미지 목록</div>
-			<div id="chat-image-list-display">이미지 1 이미지 2</div>
+			<div id="chat-image-list-display">
+				  <c:forEach var="path" items="${imageList}">
+				  <button type="button" id="${path }"><img src="${path }"></button>
+				  </c:forEach>
+			</div>
 			<div id="chat-image-list-control">
 			<button id="image_add" onclick=popupOpen()>이미지 추가</button>
-			<button id="image_delete" onclick>이미지 삭제</button>
+			<button id="image_delete" onclick=deleteImage()>이미지 삭제</button>
 			</div>
 		</div>
 	</div>
@@ -64,7 +70,13 @@
 </div>
 </body>
 
+<!-- 그림판을 위한 js파일 -->  
+<script src="http://reali.kr/js/jquery.min.js"></script>  
+<script src="/scripts/paintCanvas.js"></script>
+<!-- 채팅 js파일 -->
+<script src="/scripts/webSocketChat.js"></script>
 <script>
+
 function popupOpen(){   //형근: 이미지 업로드창을 띄워줄 스크립트 함수
 
 	var popUrl = "/upload.jsp?perposeURL=/imageUpload";	//팝업창에 출력될 페이지 URL
@@ -72,15 +84,9 @@ function popupOpen(){   //형근: 이미지 업로드창을 띄워줄 스크립�
 	var popOption = "width=500, height=250, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
 
 	window.open(popUrl,"",popOption);
- };
-	
+ }
 </script>
 
-<!-- 채팅 js파일 -->
-<script src="/scripts/webSocketChat.js"></script>
-<!-- 그림판을 위한 js파일 -->  
-<script src="http://reali.kr/js/jquery.min.js"></script>  
-<script src="/scripts/paintCanvas.js"></script>
 
 
 </html>

@@ -1,6 +1,7 @@
 //그림판 js파일   
 
 var undoHistory = [];  //형근: 그림상태 히스토리 변수 초기화
+
 function saveActions() {  //형근: 그릴때마다 히스토리에 저장하는 함수
 	var imgData = document.getElementById("chat-image-area-canvas").toDataURL("image/png"); 
 	undoHistory.push(imgData); //형근: 현재 캔버스의 그림 상태를 imgData에 저장
@@ -26,7 +27,8 @@ function canvasInit() {  //형근: 캔버스 초기화 함수
 	context.lineCap = "round"; //형근: 엔드 캡을 원선으로
 	context.fillStyle = '#fff';  //형근: 캔버스 배경을 채울색깔= 흰색
 	context.fillRect(0, 0, context.canvas.width, context.canvas.height);  //형근: 캔버스 크기만큼 사각형 그림
-	$('#undo').attr('disabled','disabled'); //형근: 히스토리에 값이 비므로 버튼 무력화 시킴 
+	$('#undo').attr('disabled','disabled'); //형근: 히스토리에 값이 비므로 버튼 무력화 시킴
+	$('#chat-image-list-display button').removeClass('selected');
 }
 
 function draw(event) {  //형근: 그리기에 쓰이는 터치 이벤트 리스너

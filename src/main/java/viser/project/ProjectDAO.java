@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import viser.card.Card;
-import viser.user.UserDAO;
+
 public class ProjectDAO {
 	Connection conn=null;
 	PreparedStatement pstmt=null;
@@ -26,8 +26,8 @@ public class ProjectDAO {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ProjectDAO.class);
 
-	public void SourceReturn() throws SQLException {
-
+	public void SourceReturn() {
+		try{
 		if (this.conn != null) {
 			conn.close();
 		}
@@ -37,12 +37,15 @@ public class ProjectDAO {
 		if (this.rs != null) {
 			rs.close();
 		}
+		}catch(SQLException e){
+			logger.debug("sourceReturn error:"+e.getMessage());
+		}
 
 	}
 	
 		Connection getConnection() throws SQLException{
 		Properties props = new Properties();
-		InputStream in = UserDAO.class.getResourceAsStream("/db.properties");
+		InputStream in = ProjectDAO.class.getResourceAsStream("/db.properties");
 		try {
 			props.load(in);
 			in.close();
@@ -215,11 +218,53 @@ public class ProjectDAO {
 	
 	public void addImage(String Image_Path,String Project_Name,String Author)throws SQLException{
 		String sql="insert into imagechats(Image_Path,Project_Name,Author) values(?,?,?)";
+		try{
 		conn=getConnection();
 		pstmt=conn.prepareStatement(sql);
 		pstmt.setString(1, Image_Path);
 		pstmt.setString(2, Project_Name);
 		pstmt.setString(3, Author);
 		pstmt.executeUpdate();
+		}catch(SQLException e){
+			logger.debug("addImage error:"+e.getMessage());
+		}
+		finally{
+			SourceReturn();
+		}
+	}
+	public void removeImage(String Image_Path) throws SQLException{
+		String sql="delete from imagechats where Image_Path=?";
+		try{
+		conn=getConnection();
+		pstmt=conn.prepareStatement(sql);
+		pstmt.setString(1,Image_Path);
+		pstmt.executeUpdate();
+		logger.debug("deleteimage 성공"+Image_Path);
+		}catch(SQLException e){
+			logger.debug("removeImage error:"+e.getMessage());
+		}
+		finally{
+			SourceReturn();
+		}
+	}
+	public List getImageList(String projectName) throws SQLException{  //형근: 프로젝트의 이미지 목록을 가져오는 메소드
+		String sql="select Image_Path from imagechats where Project_Name=? order by ImageChat_Time asc";
+		List<String> imagelists=new ArrayList<String>();
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, projectName);
+			rs=pstmt.executeQuery();
+			while(rs.next()){
+				imagelists.add(rs.getString("Image_Path").toString());
+			}
+			return imagelists;
+		} catch (SQLException e) {
+			logger.debug("getImageList Error:"+e.getMessage());
+		}
+		finally{
+			SourceReturn();
+		}
+		return null;
 	}
 }

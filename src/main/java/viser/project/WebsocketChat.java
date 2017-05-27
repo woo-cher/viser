@@ -25,7 +25,7 @@ public class WebsocketChat {
 			for (Session client : clients) {
 				if (!client.equals(session)) {
 					System.out.println("브로드캐스팅");
-					client.setMaxTextMessageBufferSize(10000000); //형근:서로 주고받을수 있는 textsize를 100mb로 설정
+					client.setMaxTextMessageBufferSize(10000000); //형근:서로 주고받을수 있는 textsize를 10mb로 설정
 					client.getBasicRemote().sendText(message);
 				}
 			}
@@ -34,13 +34,13 @@ public class WebsocketChat {
 
 	@OnOpen  //
 	public void onOpen(Session session) throws IOException {
-		System.out.println(session);
+		System.out.println("세션추가"+session);
 		clients.add(session);
 	}
 
 	@OnClose
 	public void onClose(Session session) throws IOException {
-		System.out.println(session);
+		System.out.println("세션제거"+session);
 		clients.remove(session);
 	}
 	@OnError

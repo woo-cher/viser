@@ -58,7 +58,40 @@ overflow:auto;
 	border:1px solid black;
 	weight:250px;
 	height:100px;
+    overflow: auto;
 }
+#chat-image-list-display button{
+	margin-right: 10px;
+    margin-top: 5px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    /* background-color: cornflowerblue; 클릭시 변경색상 */    
+    padding-right: 6px;
+    padding-left: 6px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+#chat-image-list-display button img{
+	width: 80px;
+    height: 80px;
+}
+#chat-image-list-display button.selected{
+	margin-right: 10px;
+    margin-top: 5px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: cornflowerblue;    
+    padding-right: 6px;
+    padding-left: 6px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    border: 2px solid;
+}
+#chat-image-list-display button.selected img{
+	width: 76px;
+    height: 76px;
+}
+
 #chat-image-list-control{
 	border:1px solid black;
 }

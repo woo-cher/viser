@@ -46,7 +46,6 @@ function onMessage(event) {  //형근: 클라이언트가 보낸 메세지를 �
 	 }
 	 else if(jsonDecode[0].header=='click'){
 		 imageId=jsonDecode[0].data;
-		 alert(imageId);
 		 if(imageId!=''&&imageId!=null){
 		 $('#chat-image-list-display button').removeClass('selected'); //형근: 기존에 선택된 버튼효과 제거
 		 var clickcontext=document.getElementById(imageId);

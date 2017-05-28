@@ -115,8 +115,6 @@
  });
  });
  function deleteImage(){
-	alert("이미지아이디:"+imageId);
-	 console.log('/project/imagedelete?Image_Path='+imageId);
 	 location.href='/project/imagedelete?Image_Path='+imageId;
 	 canvasInit(); //형근: 캔버스 초기화
 	 imageId='';  //형근:클릭된 이미지 경로 초기화

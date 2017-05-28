@@ -153,7 +153,7 @@
 			           <button id="card-button" onclick="location.href='/card/createcardForm'">글쓰기</button>
 					</div> -->
 			<div id='project_user'>
-				<iframe src="/user.jsp" height="220" width="278" name=user>
+				<iframe src="/project/memberlist" height="220" width="278" name=user>
 				 	<p>Your browser does not support iframes.</p>
 				</iframe>
 			</div>

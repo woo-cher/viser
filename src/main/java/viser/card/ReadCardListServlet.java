@@ -1,8 +1,7 @@
 package viser.card;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,17 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet("/card/cardlist")
 public class ReadCardListServlet extends HttpServlet{
+	public static Logger logger =LoggerFactory.getLogger(ReadCardListServlet.class);
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
 		HttpSession session=request.getSession();  //형근: 프로젝트 명을 저장하기 위한 세션 (추후에 board로 옮길것)
-		session.setAttribute("Project_Name",request.getParameter("projectname"));  //형근: 세션에 프로젝트명을 저장  
-		System.out.println((String)session.getAttribute("Project_Name"));
+		session.setAttribute("projectname",request.getParameter("projectname"));  //형근: 세션에 프로젝트명을 저장  
+		logger.debug("세션에 저장된 프로젝트 이름: "+session.getAttribute("projectname"));
 		List list = new ArrayList(); 		// 게시물 목록을 가져오기 위하여 LIST 객체생성
 		CardDAO cardDao = new CardDAO();
 		

@@ -64,25 +64,25 @@ public class ProjectDAO {
 			return null;
 		}
 	}
-	List getChatMemberList(String project_name) throws SQLException{
+	List getProjectMemberList(String project_name) throws SQLException{
 		List list = new ArrayList(); // 유저목록 리턴을 위한 변수
-		String sql="select userId from ProjectMember where Project_Name=?";
+		String sql="select * from project_members where Project_Name=?";
 		conn=getConnection();
 		try{
 		pstmt=conn.prepareStatement(sql);
 		pstmt.setString(1, project_name);
 		rs=pstmt.executeQuery();
-		ProjectMember pm=new ProjectMember();
 		while(rs.next()){
-			pm.setNum(rs.getInt("num"));
+			ProjectMember pm=new ProjectMember();
+			pm.setNum(rs.getInt("PM_Num"));
 			pm.setUserId(rs.getString("userId"));
-			pm.setProjectName(rs.getString("projectName"));
-			pm.setPower(rs.getString("power"));
+			pm.setProjectName(rs.getString("Project_Name"));
+			pm.setPower(rs.getInt("Power"));
 			list.add(pm);
 		}
 		return list;
 		}catch(Exception e){
-			logger.debug("getChatMemberList error :"+e);
+			logger.debug("getProjectMemberList error :"+e);
 		}
 		finally{
 			SourceReturn();  //db관련 객체 종료
@@ -105,12 +105,12 @@ public class ProjectDAO {
 			pstmt.setString(1, userId);
 			rs = pstmt.executeQuery(); // 쿼리 실행
 			while (rs.next()) {
-				logger.debug("project_getlist test1:"+rs.getString("Project_Name") );
+				logger.debug("project_getlist test1= 유저가 참여중인 프로젝트 이름:"+rs.getString("Project_Name") );
 				pstmt2.setString(1, rs.getString("Project_Name"));
 				rs2=pstmt2.executeQuery();
 				while(rs2.next()){
-					logger.debug("project_getlist test2:"+rs2.getString("Project_Name") );
-					logger.debug("project_getlist test3:"+rs2.getDate("Project_Date") );
+					logger.debug("project_getlist test2=조회한 프로젝트이름:"+rs2.getString("Project_Name") );
+					logger.debug("project_getlist test3=조회한 프로젝트 생성날짜:"+rs2.getDate("Project_Date") );
 					project.setProject_Name(rs2.getString("Project_Name"));
 					project.setProject_Date(rs2.getDate("Project_Date"));
 					projects.add(project);

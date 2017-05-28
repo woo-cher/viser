@@ -21,13 +21,13 @@ public class ReadImageListServlet extends HttpServlet {
 	public static Logger logger=LoggerFactory.getLogger(ReadImageListServlet.class); 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<String> list=new ArrayList<String>();
+		List<String> imagelist=new ArrayList<String>();
 		ProjectDAO projectDao=new ProjectDAO();
 		try {
 			logger.debug("imageList doget처리");
 			HttpSession session=request.getSession();
-			list=projectDao.getImageList((String)session.getAttribute("Project_Name"));
-			request.setAttribute("imageList", list);
+			imagelist=projectDao.getImageList((String)session.getAttribute("projectname"));
+			request.setAttribute("imageList", imagelist);
 			RequestDispatcher rd=request.getRequestDispatcher("/chat.jsp");
 			rd.forward(request, response);
 		} catch (SQLException e) {

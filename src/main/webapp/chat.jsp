@@ -97,5 +97,33 @@
  }
 </script>
 
+<!-- 형근: 이미지 클릭과 제거에 대한 스크립트 -->
+<script>
+ $(function(){
+ $('#chat-image-list-display button').click(function(e){
+	e.preventDefault();
+	$('#chat-image-list-display button').removeClass('selected'); //형근: 기존에 선택된 효과 제거
+	$(this).addClass('selected');  //형근: 클릭한 요소에 selected클래스 추가하여 클릭효과 적용
+	imageId = this.getAttribute('id');  //형근: 클릭한 버튼의 id로 경로를 가져옴
+	var clickImg = new Image(); //형근: 저장할 이미지 객체생성
+	clickImg.src =imageId; //형근: 클릭한 이미지url로 설정
+	var context = document.getElementById("chat-image-area-canvas").getContext("2d");  //canvas의 2d 그림 컨텍스트를 얻어온다.
+	context.drawImage(clickImg, 0, 0,250,250); //형근: 클릭한 이미지로 배경을 변경함
+	
+	imageSend();   //형근 : 클릭한 그림 다른 클라이언트들에게도 전송
+	clickSync();   //형근 : 클릭한 그림 클릭 효과 맞춤
+ });
+ });
+ function deleteImage(){
+	alert("이미지아이디:"+imageId);
+	 console.log('/project/imagedelete?Image_Path='+imageId);
+	 location.href='/project/imagedelete?Image_Path='+imageId;
+	 canvasInit(); //형근: 캔버스 초기화
+	 imageId='';  //형근:클릭된 이미지 경로 초기화
+	 clearSend();  //형근: 클라이언트 들의 페이지도 초기화
+	 clickSync();   //형근 : 클릭한 그림 클릭 효과 맞춤
+	 
+ }
+</script>
 
 </html>

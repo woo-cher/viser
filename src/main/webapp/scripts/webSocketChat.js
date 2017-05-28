@@ -45,10 +45,11 @@ function onMessage(event) {  //형근: 클라이언트가 보낸 메세지를 �
 		 
 	 }
 	 else if(jsonDecode[0].header=='click'){
-		 imageid=jsonDecode[0].data;
-		 if(imageid!=''&&imageid!=null){
+		 imageId=jsonDecode[0].data;
+		 alert(imageId);
+		 if(imageId!=''&&imageId!=null){
 		 $('#chat-image-list-display button').removeClass('selected'); //형근: 기존에 선택된 버튼효과 제거
-		 var clickcontext=document.getElementById(jsonDecode[0].data);
+		 var clickcontext=document.getElementById(imageId);
 		 clickcontext.className='selected';  //형근: 전달받은 클릭 버튼 아이디에 선택 클래스 효과적용 
 		 }
 	 }

@@ -23,30 +23,37 @@
 <%@ include file="./commons/top.jspf"%>
 </head>
 <body>
-	<div id="container">
-		<div id="top">
-			<div id="top_header">JSP_card_LIST</div>
-			<div id="mini-menu">
-				<button type="button" href="#" id="btn btn-primary">검색</button>
-				<button type="button" href="#" id="btn btn-primary">필터</button>
-				<button type="button" href="#" id="btn btn-primary">초대</button>
-				<button type="button" href="#" id="btn btn-primary">알림</button>
-				<button type="button" href="#" id="btn btn-primary">구독</button>
-				<button type="button" href="#" id="btn btn-primary">EXIT</button>
-			</div>
-		</div>
+		<div class="background">
+		<%@ include file="./commons/top.jspf"%>
+		<div class="wrap ac">
+			<div id="card-container_wrap">
+				<div id="top">
+					<div id="mini-menu">
 
-		<div id="card-container">
-			<div id="card-header">
-				<table border="1px" cellpadding="0" cellspacing="0" align="center">
-					<tr height="30">
-						<!-- card LIST -->
-						<td align="center" width="100">NUM</td>
-						<td align="center" width="600">SUBJECT</td>
-						<td align="center" width="150">USER</td>
-						<td align="center" width="150">DATE</td>
-						<td align="center" width="100">READCOUNT</td>
-					</tr>
+<div class="btn-group-sm" role="group" aria-label="...">
+  <button type="button" class="btn btn-info" href="#" class="btn btn-default">검색</button>
+  <button type="button" class="btn btn-info" href="#" class="btn btn-default">필터</button>
+  <button type="button" class="btn btn-info" href="#" class="btn btn-default">초대</button>
+  <button type="button" class="btn btn-info" href="#" class="btn btn-default">알림</button>
+  <button type="button" class="btn btn-info" href="#" class="btn btn-default">구독</button>
+  <button type="button" class="btn btn-info" href="#" class="btn btn-default">EXIT</button>
+
+</div>
+
+					</div>
+				</div>
+
+	<div id="card-container">
+		<div id="card-header">
+			<table border="1px" cellpadding="0" cellspacing="0" align="center">
+				<tr height="30">
+					<!-- card LIST -->
+					<td align="center" width="100">NUM</td>
+					<td align="center" width="600">SUBJECT</td>
+					<td align="center" width="150">USER</td>
+					<td align="center" width="150">DATE</td>
+					<td align="center" width="100">READCOUNT</td>
+				</tr>
 
 		<%
 			if(list.size() > 0){
@@ -81,7 +88,8 @@
 					<%
 			}
 			%>
-			
+		<tr>
+			<td colspan="5">	
 			<form name="serach" action = "/card/Searchlist" method ="post">
             <select name="keyField">
                 <option value="0"> -- 선택 --</option>
@@ -92,7 +100,33 @@
             <input type="text" name="keyWord" />
             <input type="submit" value="검색" onclick="/card/Searchlist" />
             </form>
-            
+            </td>
+		</tr>
+						<!-- 							<div class="row">
+								<div class="col-lg-6">
+									<div class="input-group">
+										<div class="input-group-btn">
+											<button type="button" class="btn btn-default dropdown-toggle"
+												data-toggle="dropdown" aria-expanded="false">
+												Action <span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu" role="menu">
+												<li><a href="#">Action</a></li>
+												<li><a href="#">Another action</a></li>
+												<li><a href="#">Something else here</a></li>
+												<li class="divider"></li>
+												<li><a href="#">Separated link</a></li>
+											</ul>
+										</div>
+										/btn-group
+										<input type="text" class="form-control" aria-label="...">
+									</div>
+									/input-group
+								</div>
+								/.col-lg-6
+							</div> 환용 : 검색 디자인 지워도 됨.-->
+							
+							
 					<tr height="70">
 						<!-- card PAGING -->
 						<td colspan="7" align="center">
@@ -116,9 +150,9 @@
 			</div>
 		</div>
 
-		<div id="card-footer">
-           <button id="card-button" onclick="location.href='/card/createcardForm'">글쓰기</button>
-		</div>
+		<!-- 			<div id="card-footer">
+	           <button id="card-button" onclick="location.href='/card/createcardForm'">글쓰기</button>
+			</div> -->
 	</div>
 	<div id='project_user'>
 		<iframe src="/user.jsp" height="220" width="278" name=user>
@@ -130,6 +164,6 @@
 		 	<p>Your browser does not support iframes.</p>
 		</iframe>
 	</div>
-	
 </body>
+<%@ include file="./commons/bottom.jspf"%>
 </html>

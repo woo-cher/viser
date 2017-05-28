@@ -1,18 +1,22 @@
 @CHARSET "UTF-8";
 
+.ac:after{content:'';display:block;clear:both;}
 #header {
 	padding:30px 0px;
 	overflow: hidden;
 	z-index:10;
 	width:100%;
 }
-
+.wrap{
+	width: 1240px;
+    margin: 0 auto;
+}
 #left-side{
 	float:left;
 }
 
 #container {
-	    background: rgba(76, 76, 76, 0.51);
+	background: rgba(76, 76, 76, 0.51);
 	text-align:center;
 /* 	border: 1px solid black; */
 	overflow:hidden;
@@ -47,26 +51,20 @@
 	overflow: hidden;
 } */
 
+/* #header안의 .wrap에 대한 설정*/
+#header>.wrap{text-align:center;}
+
 #logo {
-	text-align: center;
-	float: left;
 /* 	border-right: 1px solid black; */
-	width: 800px;
+    margin-right: 530px;
 }
 
 #user {
-	float: left;
 	text-align: center;
-	width: 350px;
-}
-
-#logo{
-
-}
-#user{
 	padding-top: 5px;
 	font-size: 18px;
 }
+
 .btn{
 		color:blue;
 	}
@@ -81,6 +79,7 @@
 	border: 1px solid black;
 	height: 1000px;
 	width: 500;
+	padding-top: 5px;
 }
 	
 	
@@ -116,3 +115,81 @@ body {
     text-align: right;
     padding: 0 15px;
 }
+
+
+
+
+/* 유저목록의 마우스 우 클릭 메뉴*/
+#context-menus {
+  position: absolute;
+  display: none;
+  border: 1px solid black;
+  width: 100px;
+  text-align: center;
+}
+
+#context-menus.active {
+  display: block;
+  background-color: white;
+}
+
+#context-menus.active>a {
+  list-style: none;
+  padding: 1px;
+}
+
+#context-menus.active>a:hover {
+  background-color: lightgreen;
+}
+/* list-style은 li태그의 경우 div나 ul이 아닌 li에 바로 붙여야 한다. */
+
+
+
+#leftmenu {
+	float : left;
+	height: 700px;
+	width: 100px;
+	padding-top: 11pt;
+    padding-left: 5pt;
+}
+
+
+.file_modal {
+	
+}
+
+.file_modal .modal-body {
+	padding: 0 !important;
+}
+
+.file_modal .modal-dialog {
+	width: 400px;
+}
+
+.file_modal iframe {
+	border: 0;
+	height: 250px;
+} /* 환용 모달 css */
+
+
+/* 프로젝트 css  */
+
+#project-content-header{
+	margin: 0 auto;
+    width: 80%;
+	
+}
+.background{
+	width: 100%;
+	height: 100%;
+	background-image: url(http://post.phinf.naver.net/MjAxNzA0MDRfMjgy/MDAxNDkxMjkxMjU3MjAz.kFJBsjF-2WJP0yPEVzzIEL3f4-SMFPrpEsp911SP-AQg.LbvT_gMvi6xb83e99aXQzV988xs1XB9KLdPbeheT6Tgg.JPEG/444444444444444444.jpg?type=w1200);
+ 	background-image:no-repeat;
+background-size: cover;
+background-position:
+}
+
+#form-control{
+	    padding: 6px 15px;
+    font-size: 14px;
+}
+

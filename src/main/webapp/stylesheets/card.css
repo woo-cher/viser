@@ -1,16 +1,12 @@
 @CHARSET "UTF-8";
 
-#container {
-	float: left;
-    width: 850px;
-    height: 700px;
-    border: 1px solid;
-}
+
 
 #top {
 	width: 850px;
 	border-bottom: 1px solid black;
 	float :left;
+	padding-top: 30px;
 }
 
 #top_header {
@@ -37,9 +33,25 @@
 	float:right;
 }
 
-/* 채팅창 css*/
+#card-container_wrap {
+	margin-top:20px;
+	text-align:center;
+/* 	border: 1px solid black; */
+	overflow:hidden;
+	float: left;
+    width: 1150px;
+    height: 950px;
+    border: 1px solid;
+}
+#card-container {
+	float: left;
+    width: 850px;
+    height: 700px;
+    border: 1px solid;
+}
+
+/* 채팅�? css*/
 iframe{
 	border:0px;
 }
-
 

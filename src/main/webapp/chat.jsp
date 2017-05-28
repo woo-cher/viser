@@ -8,14 +8,14 @@
 <title>Insert title here</title>
 
 <head>
+
 <link rel='stylesheet' href='/stylesheets/chat.css' type='text/css'>
 
 <script>
-	var now_user="<%=(String)session.getAttribute("userId") %>";  //형근: 채팅에 유저아이디를 출력 하기위해 사용하는 변수 
-</script>	
-</head>
-<body>
-<div id="chat-image">
+	var now_user="<%=(String)session.getAttribute("userId") %>"; //형근: 채팅에 유저아이디를 출력 하기위해 사용하는 변수
+</script>
+</head><body>
+	<div id="chat-image">
 		<div id="chat-image-area">
 			<canvas id="chat-image-area-canvas" width="250" height="250"></canvas>
 			<ul id="chat-image-area-colors">
@@ -33,8 +33,8 @@
 			</ul>
 			<div id="chat-image-area-tool">
 				<div id="chat-image-area-tool-brush">
-					<label for="brush">선의 두께:</label> 
-					<input name="brush"	id="brush_size" type="range" value="5" min="0" max="100" />
+					<label for="brush">선의 두께:</label> <input name="brush"
+						id="brush_size" type="range" value="5" min="0" max="100" />
 				</div>
 				<div id="chat-image-area-tool-control">
 					<button id="undo" href="#" disabled="disabled">Undo</button>
@@ -42,32 +42,43 @@
 					<button id="export" href="#">Export as Image</button>
 				</div>
 			</div>
-		<div id="chat-image-list">
-			<div id="chat-image-list-header">이미지 목록</div>
-			<div id="chat-image-list-display">
+			<div id="chat-image-list">
+				<div id="chat-image-list-header">이미지 목록</div>
+				<div id="chat-image-list-display">
 				  <c:forEach var="path" items="${imageList}">
 				  <button type="button" id="${path }"><img src="${path }"></button>
 				  </c:forEach>
-			</div>
-			<div id="chat-image-list-control">
-			<button id="image_add" onclick=popupOpen()>이미지 추가</button>
-			<button id="image_delete" onclick=deleteImage()>이미지 삭제</button>
+				</div>
+				<div id="chat-image-list-control">
+					<button id="image_add" onclick=popupOpen()>이미지 추가</button>
+					<button id="image_delete" onclick=deleteImage()>이미지 삭제</button>
+					<!-- <div id="button">
+						<div class="controls">
+												<button type="button" onclick="location.href='/users/createForm'" class="btn btn-primary">Sign up</button>
+							<button type="button" onclick="popupOpen();" class="btn btn-danger">Sign up</button>
+							<button type="button" class="btn btn-danger" data-toggle="modal"
+								data-target="#myModal">Sign up</button>
+							<button type="submit" class="btn btn-success">Sign in</button>
+							환용 : 어떻게 아이프레임에 모달을 적용할 것인가?
+						</div>
+					</div> -->
+				</div>
 			</div>
 		</div>
-	</div>
-	<div id="chat-dialogue">
-		<div id="chat-dialogue-list">
-		 <textarea id="messageWindow" rows="15" cols="35" readonly="true"></textarea>
-        <br/>
-		</div>
-		<div id="chat-dialogue-input">
-         <!-- <input id="inputMessage" type="text" onKeyPress="javascript:if(event.keyCode == 13) { send() }"/>
+		<div id="chat-dialogue">
+			<div id="chat-dialogue-list">
+				<textarea id="messageWindow" rows="15" cols="35" readonly="true"></textarea>
+				<br />
+			</div>
+			<div id="chat-dialogue-input">
+				<!-- <input id="inputMessage" type="text" onKeyPress="javascript:if(event.keyCode == 13) { send() }"/>
           -->
-          <input id="inputMessage" type="text" onKeyPress="javascript:if(event.keyCode == 13) { textSend() }"/>
-          <input id="send" type="submit" value="send" onclick="textSend()" />
-        </div>
+				<input id="inputMessage" type="text"
+					onKeyPress="javascript:if(event.keyCode == 13) { textSend() }" />
+				<input id="send" type="submit" value="send" onclick="textSend()" />
+			</div>
+		</div>
 	</div>
-</div>
 </body>
 
 <!-- 그림판을 위한 js파일 -->  
@@ -76,17 +87,15 @@
 <!-- 채팅 js파일 -->
 <script src="/scripts/webSocketChat.js"></script>
 <script>
+	function popupOpen() { //형근: 이미지 업로드창을 띄워줄 스크립트 함수
 
-function popupOpen(){   //형근: 이미지 업로드창을 띄워줄 스크립트 함수
+		var popUrl = "/upload.jsp?perposeURL=/imageUpload"; //팝업창에 출력될 페이지 URL
 
-	var popUrl = "/upload.jsp?perposeURL=/imageUpload";	//팝업창에 출력될 페이지 URL
-
-	var popOption = "width=500, height=250, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+		var popOption = "width=500, height=250, resizable=no, scrollbars=no, status=no;"; //팝업창 옵션(optoin)
 
 	window.open(popUrl,"",popOption);
  }
 </script>
-
 
 
 </html>

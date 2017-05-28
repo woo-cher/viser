@@ -14,7 +14,7 @@
 </head>
 
 <body>
-	
+	<div id="uplode-body">
 	<c:set var="pageName" value="이미지첨부"/>
 	<c:if test="${param.perposeURL =='/fileUpload'}">
 	<c:set var="pageName" value="파일첨부"/>
@@ -27,7 +27,7 @@
 		<input type="submit" value="보내기"/>
 
 	</form>
-
+</div>
 </body>
 
 </html>

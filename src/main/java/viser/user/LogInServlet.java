@@ -10,14 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import viser.card.CardDAO;
+
 @WebServlet("/users/login")
 public class LogInServlet extends HttpServlet {
 	public static final String SESSION_USER_ID = "userId";
-
+	private static final Logger logger = LoggerFactory.getLogger(CardDAO.class); 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+/*		logger.debug("login 들어옹ㅁ");*/
 		String userId = request.getParameter(SESSION_USER_ID);
 		String password = request.getParameter("password");
 		

@@ -50,13 +50,12 @@
 				<div
 					style="width: 300px; margin: 0 auto; text-align: right; margin-bottom: 20px;">
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1">ID</span> <input
+						<span class="input-group-addon" id="basic-addon1"> ID </span> <input
 							type="text" class="form-control" aria-describedby="basic-addon1"
 							name="userId" value="" placeholder="Enter Id" />
 					</div>
 					<div class="input-group">
-					<span class="input-group-addon">password</span>
-						 <input
+						<span class="input-group-addon">password</span> <input
 							type="password" class="form-control" name="password" value=""
 							placeholder="Enter Password" />
 					</div>
@@ -83,23 +82,30 @@
 
 <a href="javascript:popupOpen2();"> 업로드할래?! </a>
 
-<div class="wrapper">
-	<ul id="sortable1" class="connectedSortable">
-		<li class="ui-state-default">Item 1</li>
-		<li class="ui-state-default">Item 2</li>
-		<li class="ui-state-default">Item 3</li>
-		<li class="ui-state-default">Item 4</li>
-		<li class="ui-state-default">Item 5</li>
-	</ul>
+<div id="wrap-sortable">
+	<!--카드박스의 이름(수정)  -->
+	<div id="card_wrap">
+		<li class="ui-state-default" id="title-sortable">카드이름</li>
+		<li class="ui-state-default" id="title-sortable">추가</li>
+		<ul id="sortable1" class="connectedSortable">
+			<!-- <li id="title-sortable" class="ui-state-default">이름</li> -->
 
-	<ul id="sortable2" class="connectedSortable">
+			<li class="ui-state-default">Item 2</li>
+			<li class="ui-state-default">Item 3</li>
+			<li class="ui-state-default">Item 4</li>
+			<li class="ui-state-default">Item 5</li>
+		</ul>
+	</div>
+	<ul id="sortable1" class="connectedSortable">
 		<li class="ui-state-highlight">Item 1</li>
 		<li class="ui-state-highlight">Item 2</li>
 		<li class="ui-state-highlight">Item 3</li>
 		<li class="ui-state-highlight">Item 4</li>
 		<li class="ui-state-highlight">Item 5</li>
 	</ul>
-	<video src="/abcd.avi" controls></video>
+	<ul id="sortable1" class="connectedSortable">
+		<li class="ui-state-highlight">Item 5</li>
+	</ul>
 </div>
 
 

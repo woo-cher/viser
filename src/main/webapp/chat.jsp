@@ -5,10 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
-<head>
-
 <link rel='stylesheet' href='/stylesheets/chat.css' type='text/css'>
+
+
+
 
 <script>
 	var now_user="<%=(String) session.getAttribute("userId")%>"; //형근: 채팅에 유저아이디를 출력 하기위해 사용하는 변수
@@ -46,8 +46,8 @@
 				<div id="chat-image-list-display">이미지 1 이미지 2</div>
 				<div id="chat-image-list-control">
 					<button id="image_add" onclick=popupOpen()>이미지 추가</button>
-					<button id="image_delete" onclick>이미지 삭제</button>
-					<!-- <div id="button">
+					<button id="image_delete" onclick>이미지 삭제</button> 
+<!-- 					 <div id="button">
 						<div class="controls">
 												<button type="button" onclick="location.href='/users/createForm'" class="btn btn-primary">Sign up</button>
 							<button type="button" onclick="popupOpen();" class="btn btn-danger">Sign up</button>
@@ -56,7 +56,7 @@
 							<button type="submit" class="btn btn-success">Sign in</button>
 							환용 : 어떻게 아이프레임에 모달을 적용할 것인가?
 						</div>
-					</div> -->
+					</div>  -->
 				</div>
 			</div>
 		</div>

@@ -48,7 +48,12 @@
 			cancel : "#title-sortable" 
 		}); */
 
-		
+		 $(".change_name").focus(function(){
+		        $(this).css("background-color", "#ffffff");
+		    });
+		    $(".change_name").blur(function(){
+		        $(this).css("background-color", "#E2E4E6");
+		    });
  		var card_wrap_indivisual_tlp = $('#card_wrap_indivisual_tlp').html();
 		$('.addbutton').on('click', function(){
 			$('#card-container').append(card_wrap_indivisual_tlp);	
@@ -66,12 +71,12 @@
 			 location.assign("/card/viewcard?num=4&card_userId=dbdbdb");  //어떻게 번호를 받을 것인가
 			 location.assign("/card/viewcard?num=<%=card.getNum()%>&card_userId=<%=card.getUserId()%>");
 		});
-/* 		    $(".change_name").focus(function(){
+ 		    $(".change_name").focus(function(){
 		        $(this).css("background-color", "#ffffff");
 		    });
 		    $(".change_name").blur(function(){
 		        $(this).css("background-color", "#E2E4E6");
-		    }); */
+		    });
 	}); --%>
 </script>
 

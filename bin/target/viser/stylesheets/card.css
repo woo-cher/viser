@@ -1,0 +1,57 @@
+@CHARSET "UTF-8";
+
+
+
+#top {
+	width: 850px;
+	border-bottom: 1px solid black;
+	float :left;
+	padding-top: 30px;
+}
+
+#top_header {
+	float: left;
+}
+
+#mini-menu {
+	float: right;	
+}
+
+#card-container {
+	float: left;
+}
+
+#card-list {
+	border-bottom: 1px solid;
+	width: 850px;
+	height: 250px;
+}
+
+#card-button {
+	margin-top: 10px;
+	margin-right: 10px;
+	float:right;
+}
+
+#card-container_wrap {
+	margin-top:20px;
+	text-align:center;
+/* 	border: 1px solid black; */
+	overflow:hidden;
+	float: left;
+    width: 850px;
+    height: 700px;
+    border: 1px solid;
+}
+#card-container {
+	float: left;
+    width: 850px;
+    height: 700px;
+    border: 1px solid;
+}
+
+/* 채팅�? css*/
+iframe{
+	border:0px;
+}
+

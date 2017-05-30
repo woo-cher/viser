@@ -35,17 +35,23 @@
 
 <script>
 	$(function() {
-		$("#sortable1, #sortable2, #sortable3").sortable({
+/* 		$("#sortable1, #sortable2, #sortable3").sortable({
+			connectWith : ".connectedSortable"
+		}).disableSelection(); */
+		$("#sortable1, #sortable2").sortable({
 			connectWith : ".connectedSortable"
 		}).disableSelection();
-		$("#sortable1").sortable({
-			cancel : "#title-sortable"
-		});
+		 $("#sortable4").sortable({
+			connectWith : ".connectedSortable_row"
+		}).disableSelection();
+/* 		$("#sortable1").sortable({
+			cancel : "#title-sortable" 
+		}); */
 
 		
-		var card_wrap_indivisual_tlp = $('#card_wrap_indivisual_tlp').html();
+ 		var card_wrap_indivisual_tlp = $('#card_wrap_indivisual_tlp').html();
 		$('.addbutton').on('click', function(){
-			$('#sortable3').append(card_wrap_indivisual_tlp);	
+			$('#card-container').append(card_wrap_indivisual_tlp);	
 		});
 		
 	});

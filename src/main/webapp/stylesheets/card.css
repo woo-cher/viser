@@ -3,7 +3,6 @@
 
 #top {
 	width: 850px;
-	border-bottom: 1px solid black;
 	float :left;
 	padding-top: 30px;
 }
@@ -40,16 +39,15 @@
 	float: left;
     width: 1150px;
     height: 950px;
-    border: 1px solid;
 }
 #card-container {
 	float: left;
     width: 850px;
-    height: 700px;
-    border: 1px solid;
+    height: 680px;  
+/*     border: 1px solid; */  
 }
 
-/* 채팅�? css*/
+/* 梨꾪똿占�? css*/
 iframe{
 	border:0px;
 }

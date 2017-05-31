@@ -70,8 +70,8 @@
 				<div id="top">
 					<div id="mini-menu">
 
-						<div class="btn-group-sm" role="group" aria-label="...">
-							<button class="addbutton">aaaaa</button>
+						<div class="btn-group-sm" role="group" aria-label="...">  
+							<button id="addbutton" class="btn btn-info">추가</button>
 							</td>
 							<button type="button" class="btn btn-info" href="#"
 								class="btn btn-default">검색</button>
@@ -91,7 +91,7 @@
 					</div>
 				</div>
 
-				<div id="card-container">
+				<div id="card-container" style = "    overflow-x: scroll;">   
 
 
 					<!-- 			<div id="card-footer">
@@ -221,43 +221,42 @@
 
 <!-- </div> -->
 					<div id="card_wrap_indivisual_tlp" style="display: none;">
-						<div id="sortable3" class="connectedSortable_row">
-							<div id="card_wrap_indivisual">
+							<li  class="ui-state-default card_margin"><div
+									id="sortable3" class="connectedSortable_row">
+									<!-- <div id="card_wrap_indivisual"> -->
 
-							<div id="card_wrap_top">
-								<div class="ui-state-default" id="title-sortable">
-								<div>
-									<textarea class="change_name" spellcheck="false" dir="auto"
-										maxlength="512"
-										style="overflow: hidden; word-wrap: break-word; height: 24px; margin-top: 5px; width: 150px;">Next Week</textarea>
-								</div>
+									<div id="card_wrap_top">
+										<!-- <div class="ui-state-default" id="title-sortable"><textarea class="list-header-name mod-list-name js-list-name-input" spellcheck="false" dir="auto" maxlength="512" style="overflow: hidden; word-wrap: break-word; height: 24px;">Next Week</textarea>  </div> -->
+										<div>
+											<textarea class="change_name" spellcheck="false" dir="auto"
+												maxlength="512"
+												style="overflow: hidden; word-wrap: break-word; height: 24px; margin-top: 5px; width: 150px;">Ref.</textarea>
+										</div>
+										<!-- <div class="ui-state-default" id="title-sortable">추가</div> -->
+										<div>
+											<button type="button" class="ui-state-default11"
+												id="title-sortable"
+												onclick="location.href='/card/createcardForm'">add..</button>
+										</div>
 
-								<div>
-									<button type="button" class="ui-state-default11"
-										id="title-sortable"
-										onclick="location.href='/card/createcardForm'">add..</button>
-								</div>
-
-								<div id="card_wrap">
-									<ul id="sortable1" class="connectedSortable">
-										<li id="title-sortable" class="ui-state-default">이름</li>
-
-										<li id="sortable_card" class="ui-state-default">Item 2</li>    
-										<li id="sortable_card" class="ui-state-default">Item 3</li>
-										<li id="sortable_card" class="ui-state-default">Item 4</li>
-										<li id="sortable_card" class="ui-state-default">New</li>
-									</ul>
-								</div>
-							</div>
+										<div id="card_wrap">
+											<ul id="sortable1" class="connectedSortable">
+												<!-- <li id="title-sortable" class="ui-state-default">이름</li> -->
+ 
+												<li id="sortable_card" class="ui-state-default">last</li>
+												<li id="sortable_card" class="ui-state-default">Item 3</li>
+												<li id="sortable_card" class="ui-state-default">Item 4</li>
+												<li id="sortable_card" class="ui-state-default">Item 5</li>
+											</ul>
+										</div>
+									</div>
+								</div></li>
 						</div>
-						</div>
-						</div>
-						</div>
 
 
 
-
-			   	<li>
+  
+			   	<div style="width :1500px">
 						<ul id="sortable_box">
 							<li class="ui-state-default  card_margin">
 								<div id="sortable3" class="connectedSortable_row">
@@ -330,7 +329,7 @@
 										<div>
 											<textarea class="change_name" spellcheck="false" dir="auto"
 												maxlength="512"
-												style="overflow: hidden; word-wrap: break-word; height: 24px; margin-top: 5px; width: 150px;">To do</textarea>
+												style="overflow: hidden; word-wrap: break-word; height: 24px; margin-top: 5px; width: 150px;">QWER</textarea>  
 										</div>
 										<!-- <div class="ui-state-default" id="title-sortable">추가</div> -->
 										<div>
@@ -383,19 +382,19 @@
 								</div></li>
 
 						</ul>
-					</li>
+					</div>   
 
 
 
 				</div>
 
 
-
+<!-- 
 				<div id='project_user'>
 					<iframe src="/user.jsp" height="200" width="280" name=user>
 						<p>Your browser does not support iframes.
 					</iframe>
-				</div>
+				</div> -->
 				<div id='project_chat'>
 					<iframe src="/chat.jsp" height="747" width="280" name=chat>
 						<p>Your brower does not support iframes.</p>

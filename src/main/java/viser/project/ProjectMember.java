@@ -2,15 +2,16 @@ package viser.project;
 
 public class ProjectMember {
 	private int num;
+	private String userId;
+	private String projectName;
+	private int power;
+	
 	public int getNum() {
 		return num;
 	}
 	public void setNum(int num) {
 		this.num = num;
 	}
-	private String userId;
-	private String projectName;
-	private String power;
 	public String getUserId() {
 		return userId;
 	}
@@ -23,10 +24,10 @@ public class ProjectMember {
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
-	public String getPower() {
+	public int getPower() {
 		return power;
 	}
-	public void setPower(String power) {
+	public void setPower(int power) {
 		this.power = power;
 	}
 	@Override
@@ -39,7 +40,7 @@ public class ProjectMember {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + num;
-		result = prime * result + ((power == null) ? 0 : power.hashCode());
+		result = prime * result + power;
 		result = prime * result + ((projectName == null) ? 0 : projectName.hashCode());
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
@@ -55,10 +56,7 @@ public class ProjectMember {
 		ProjectMember other = (ProjectMember) obj;
 		if (num != other.num)
 			return false;
-		if (power == null) {
-			if (other.power != null)
-				return false;
-		} else if (!power.equals(other.power))
+		if (power != other.power)
 			return false;
 		if (projectName == null) {
 			if (other.projectName != null)

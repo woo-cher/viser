@@ -13,10 +13,6 @@ import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import viser.user.UpdateFormUserServlet;
-import viser.user.User;
-import viser.user.UserDAO;
-
 public class CardDAO {
 	private static final Logger logger = LoggerFactory.getLogger(CardDAO.class);
 
@@ -40,7 +36,7 @@ public class CardDAO {
 
 	public Connection getConnection() throws SQLException {
 		Properties props = new Properties();
-		InputStream in = UserDAO.class.getResourceAsStream("/db.properties");
+		InputStream in = CardDAO.class.getResourceAsStream("/db.properties");
 		try {
 			props.load(in);
 			in.close();

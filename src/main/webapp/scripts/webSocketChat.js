@@ -1,6 +1,7 @@
 var webSocket = new WebSocket('ws://localhost:7070/chat.jsp');
 var textarea = document.getElementById("messageWindow");
 var inputMessage = document.getElementById('inputMessage');
+var imageId;  //형근: 클릭된 이미지의 path를 저장하는 변수;
 
 webSocket.onerror = function(event) {
   onError(event)
@@ -37,13 +38,23 @@ function onMessage(event) {  //형근: 클라이언트가 보낸 메세지를 �
 	 else if(jsonDecode[0].header=='sync'){  //형근: 상대방이 전달한것이 현재이미지 요청이면
 		console.log("요청 받음");
 		 imageSend();
+		 clickSync();
 	 }
 	 else if(jsonDecode[0].header=='Text'){
 		 textarea.value+=jsonDecode[0].user +": "+jsonDecode[0].data+'\n'; 
 		 
 	 }
+	 else if(jsonDecode[0].header=='click'){
+		 imageId=jsonDecode[0].data;
+		 if(imageId!=''&&imageId!=null){
+		 $('#chat-image-list-display button').removeClass('selected'); //형근: 기존에 선택된 버튼효과 제거
+		 var clickcontext=document.getElementById(imageId);
+		 clickcontext.className='selected';  //형근: 전달받은 클릭 버튼 아이디에 선택 클래스 효과적용 
+		 }
+	 }
 	 else{   //clear일때
 		 canvasInit(); //형근: 캔버스 초기화
+		 $('#chat-image-list-display button').removeClass('selected'); //형근: 모든 클라이언트의 선택 효과 제거
 	 }
 }
 function onOpen(event) {  //형근: 사용자가 새로 들어왔을때
@@ -92,4 +103,12 @@ function clearSend() {  //형근: clear명령을 전송할때
 		{header:'clear'}	
 	);
     webSocket.send(JSON.stringify(jsonEncode));  //형근: 캔버스에 변화를 줄때마다 상태가 저장된 히스토리 전송
+}
+function clickSync(){
+	var jsonEncode=new Array(
+		{header:'click',
+		data:imageId
+		}	
+	);
+	webSocket.send(JSON.stringify(jsonEncode));
 }

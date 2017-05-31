@@ -1,5 +1,7 @@
-/target/
+target/
 *.class
+.classpath
 .git
 *.lst
 .metadata
+webapps/

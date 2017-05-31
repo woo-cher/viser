@@ -388,18 +388,16 @@
 
 				</div>
 
-
-<!-- 
-				<div id='project_user'>
-					<iframe src="/user.jsp" height="200" width="280" name=user>
-						<p>Your browser does not support iframes.
-					</iframe>
-				</div> -->
-				<div id='project_chat'>
-					<iframe src="/chat.jsp" height="747" width="280" name=chat>
-						<p>Your brower does not support iframes.</p>
-					</iframe>
-				</div>
+			<div id='project_user'>
+				<iframe src="/project/memberlist" height="220" width="278" name=user>
+				 	<p>Your browser does not support iframes.</p>
+				</iframe>
+			</div>
+			<div id='project-chat'>
+				<iframe src="/project/imagelist" height="747" width="278" name=chat>
+				 	<p>Your browser does not support iframes.</p>
+				</iframe>
+			</div>
 			</div>
 		</div>
 	</div>

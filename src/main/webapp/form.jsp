@@ -104,7 +104,7 @@
 		
 		<div>
 			<label class ="" for="email">이메일</label>
-			<input type="text" name="email" value="${user.email}" />
+			<input class="form-control" id="exampleInputEmail1" placeholder="이메일을 입력하세요" name="email" value="${user.email}" />
 		</div>
 
 		<div class="signup-footer">

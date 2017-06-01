@@ -1,7 +1,7 @@
 target/
 *.class
-.classpath
 .git
 *.lst
 .metadata
 webapps/
+bin/

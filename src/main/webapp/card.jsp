@@ -372,7 +372,7 @@
 											<ul id="sortable1" class="connectedSortable">
 												<!-- <li id="title-sortable" class="ui-state-default">이름</li> -->
 
-												<li id="sortable_card" class="ui-state-default">last</li>
+												<li id="sortable_card" value="" class="ui-state-default">last</li>
 												<li id="sortable_card" class="ui-state-default">Item 3</li>
 												<li id="sortable_card" class="ui-state-default">Item 4</li>
 												<li id="sortable_card" class="ui-state-default">Item 5</li>

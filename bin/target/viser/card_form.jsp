@@ -25,7 +25,7 @@
 				<c:if test = "${isView}" >
 				<c:set var = "TitleName" value = "VIEW_card" />
 				</c:if>
-					<h2>${TitleName}</h2></td>
+					<h2>${TitleName}</h2></td>    
 			</tr>
 			<tr>
 				<td width="70" align="center">NUMBER</td>

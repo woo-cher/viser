@@ -25,6 +25,8 @@ overflow:auto;
 
 #chat-image{
 	border: 1px solid black;
+		position:relative;
+	margin:0 auto;
 }
 #chat-image-area{
 	border: 1px solid black;

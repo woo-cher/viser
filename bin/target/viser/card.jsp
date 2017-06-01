@@ -5,132 +5,405 @@
 <%@ page import="viser.card.*"%>
 
 <%
-	List list=(List)request.getAttribute("list");
-	int count=((Integer)request.getAttribute("count")).intValue();
-	int nowpage=((Integer)request.getAttribute("page")).intValue();
-	int maxpage=((Integer)request.getAttribute("maxpage")).intValue();
-	int startpage=((Integer)request.getAttribute("startpage")).intValue();
-	int endpage=((Integer)request.getAttribute("endpage")).intValue();
+	List list = (List) request.getAttribute("list");
+	int count = ((Integer) request.getAttribute("count")).intValue();
+	int nowpage = ((Integer) request.getAttribute("page")).intValue();
+	int maxpage = ((Integer) request.getAttribute("maxpage")).intValue();
+	int startpage = ((Integer) request.getAttribute("startpage")).intValue();
+	int endpage = ((Integer) request.getAttribute("endpage")).intValue();
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<!---------------->
 
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jQuery UI Sortable - Display as grid</title>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<style>
+#sortable_box {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	/* width: 450px; ㅅㅂ 이것때문에*/
+}
+
+#sortable_box li {
+	/* margin: 3px 3px 3px 0; */
+	padding: 1px;
+	float: left;
+	width: 109px;
+	/* 	height: 90px; */
+	text-align: center;
+}
+</style>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+	$(function() {
+		$("#sortable_box").sortable();
+		$("#sortable_box").disableSelection();
+	});
+</script>
+
+
+
+
+
+<!--------------->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>card</title>
 <link href="/stylesheets/card.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<%@ include file="./commons/top.jspf"%>
-	<div class="wrap ac"> 
-		<div id="card-container_wrap">
-			<div id="top">
-				<div id="top_header">JSP_card_LIST</div>
-				<div id="mini-menu">
-					<button type="button" href="#" id="btn btn-primary">검색</button>
-					<button type="button" href="#" id="btn btn-primary">필터</button>
-					<button type="button" href="#" id="btn btn-primary">초대</button>
-					<button type="button" href="#" id="btn btn-primary">알림</button>
-					<button type="button" href="#" id="btn btn-primary">구독</button>
-					<button type="button" href="#" id="btn btn-primary">EXIT</button>
-				</div>
-			</div>
-	
-			<div id="card-container">
-				<div id="card-header">
-					<table border="1px" cellpadding="0" cellspacing="0" align="center">
-						<tr height="30">
-							<!-- card LIST -->
-							<td align="center" width="100">NUM</td>
-							<td align="center" width="600">SUBJECT</td>
-							<td align="center" width="150">USER</td>
-							<td align="center" width="150">DATE</td>
-							<td align="center" width="100">READCOUNT</td>
-						</tr>
-	
-			<%
-				if(list.size() > 0){
-					for(int i=0 ; i < list.size(); i++){
-						Card card = (Card)list.get(i); // LIST를 BoradBean 타입으로 변환
-			%>
-	
-						<tr height="50">
-							<td align="center"><%=card.getNum()%></td>
-							<td>
-								<%if(card.getRe_lev()!=0){ %> 
-								<%for(int a=0;a<=card.getRe_lev()*2;a++){ %>
-								&nbsp; <%} %> 
-							
-								<%}else{ %>
-								<%} %> 
-							<a href="/card/viewcard?num=<%=card.getNum()%>&card_userId=<%=card.getUserId() %>"> 
-							<%=card.getSubject()%>
-							</a>
-							</td>
-							<td align="center"><%=card.getUserId() %></td>
-							<td align="center"><%=card.getDate().toString() %></td>
-							<td align="center"><%=card.getReadcnt() %></td>
-						</tr>
-				<%	
-					}
-				}else{	
-				%>
-						<tr height="100">
-							<td colspan="5" align="center">NO DATA.</td>
-						</tr>
-						<%
-				}
-				%>
-						<tr>
-							<td colspan="5">
-								<form name="serach" action = "/card/Searchlist" method ="post">
-						            <select name="keyField">
-						                <option value="0"> -- 선택 --</option>
-						                <option value="userId">아이디</option>
-						                <option value="SubJect">제목</option>
-						                <option value="Content">내용</option>  
-						            </select>
-						            <input type="text" name="keyWord" />
-									<input type="submit" value="검색" onclick="/card/Searchlist" />
-					            </form>
-					            				            
-						    <div id="card-footer">
-	          					<button id="card-button" onclick="location.href='/card/createcardForm'">글쓰기</button>
-							</div>
-				            </td>
-			            </tr>
 
-	            
-						<tr height="70">
-							<!-- card PAGING -->
-							<td colspan="7" align="center">
-								<%if(nowpage<=1){ %> [PREV]&nbsp; 
-								
-								<%}else{ %> 
-								<a href="/card/cardlist?page=<%=nowpage-1 %>">[PREV]</a>&nbsp; 
-								<%} %>
-	
-							<%for(int a=startpage;a<=endpage;a++){
-								if(a==nowpage){%> [<%=a %>] 
-							
-								<%}else{ %> 
-								<a href="/card/cardlist?page=<%=a %>">[<%=a%>]
-								</a>&nbsp; <%} %> <%} %> <%if(nowpage>=maxpage){ %> [NEXT] <%}
-								else{ %> 
-								<a	href="/card/cardlist?page=<%=nowpage+1 %>">[NEXT]</a> 
-								<%}%>
+	<div class="background">
+		<%@ include file="./commons/top.jspf"%>
+		<div class="wrap ac">
+			<div id="card-container_wrap">
+				<div id="top">
+					<div id="mini-menu">
+
+						<div class="btn-group-sm" role="group" aria-label="...">  
+							<button id="addbutton" class="btn btn-info">추가</button>
 							</td>
-						</tr>
-					</table>
+							<button type="button" class="btn btn-info" href="#"
+								class="btn btn-default">검색</button>
+							<button type="button" class="btn btn-info" href="#"
+								class="btn btn-default">필터</button>
+							<button type="button" class="btn btn-info" href="#"
+								class="btn btn-default">초대</button>
+							<button type="button" class="btn btn-info" href="#"
+								class="btn btn-default">알림</button>
+							<button type="button" class="btn btn-info" href="#"
+								class="btn btn-default">구독</button>
+							<button type="button" class="btn btn-info" href="#"
+								class="btn btn-default">EXIT</button>
+
+						</div>
+
+					</div>
 				</div>
-			</div>
-<!-- 			<div id="card-footer">
+
+				<div id="card-container" style = "    overflow-x: scroll;">   
+
+
+					<!-- 			<div id="card-footer">
 	           <button id="card-button" onclick="location.href='/card/createcardForm'">글쓰기</button>
 			</div> -->
+
+					<!-- 					<div id="sortable3" class="connectedSortable_row">
+						<div id="card_wrap_indivisual">
+
+						<div id="card_wrap_top">
+							<div class="ui-state-default" id="title-sortable"><textarea class="list-header-name mod-list-name js-list-name-input" spellcheck="false" dir="auto" maxlength="512" style="overflow: hidden; word-wrap: break-word; height: 24px;">Next Week</textarea>  </div>
+							<div>
+								<textarea class="change_name" spellcheck="false" dir="auto"
+									maxlength="512"
+									style="overflow: hidden; word-wrap: break-word; height: 24px; margin-top: 5px; width: 150px;">Next Week</textarea>
+							</div>
+							<div class="ui-state-default" id="title-sortable">추가</div>
+							<div>
+								<button type="button" class="ui-state-default11"
+									id="title-sortable"
+									onclick="location.href='/card/createcardForm'">add..</button>
+							</div>
+
+							<div id="card_wrap">
+								<ul id="sortable1" class="connectedSortable">
+									<li id="title-sortable" class="ui-state-default">이름</li>
+
+									<li id="sortable_card" class="ui-state-default">Item 2</li>
+									<li id="sortable_card" class="ui-state-default">Item 3</li>
+									<li id="sortable_card" class="ui-state-default">Item 4</li>
+									<li id="sortable_card" class="ui-state-default">Item 5</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					</div>
+
+
+					<div id="sortable3" class="connectedSortable_row">
+						<div id="card_wrap_indivisual">
+
+						<div id="card_wrap_top">
+							<div class="ui-state-default" id="title-sortable"><textarea class="list-header-name mod-list-name js-list-name-input" spellcheck="false" dir="auto" maxlength="512" style="overflow: hidden; word-wrap: break-word; height: 24px;">Next Week</textarea>  </div>
+							<div>
+								<textarea class="change_name" spellcheck="false" dir="auto"
+									maxlength="512"
+									style="overflow: hidden; word-wrap: break-word; height: 24px; margin-top: 5px; width: 150px;">Next Week</textarea>
+							</div>
+							<div class="ui-state-default" id="title-sortable">추가</div>
+							<div>
+								<button type="button" class="ui-state-default11"
+									id="title-sortable"
+									onclick="location.href='/card/createcardForm'">add..</button>
+							</div>
+
+							<div id="card_wrap">
+								<ul id="sortable1" class="connectedSortable">
+									<li id="title-sortable" class="ui-state-default">이름</li>
+
+									<li id="sortable_card" class="ui-state-default">Item 2</li>
+									<li id="sortable_card" class="ui-state-default">Item 3</li>
+									<li id="sortable_card" class="ui-state-default">Item 4</li>
+									<li id="sortable_card" class="ui-state-default">Item 5</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					</div>
+
+
+
+
+
+
+
+											<div id="card_wrap_indivisual" class="connectedSortable_row">
+							<div id="card_wrap_top">
+								<div class="ui-state-default" id="title-sortable">카드이름</div>
+								<div class="ui-state-default" id="title-sortable">추가</div>
+								<div id="card_wrap">
+									<ul id="sortable1" class="connectedSortable">
+										<li id="title-sortable" class="ui-state-default">이름</li>
+
+										<li class="ui-state-default">Item 2</li>
+										<li class="ui-state-default">Item 3</li>
+										<li class="ui-state-default">Item 4</li>
+										<li class="ui-state-default">Item 5</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					추가 
+										<div id="card_wrap_indivisual_tlp" style="display: none;">
+						<div id="card_wrap_indivisual" class="connectedSortable_row">
+							<div id="card_wrap_top">
+
+								<div>
+									<textarea class="change_name" spellcheck="false" dir="auto"
+										maxlength="512"
+										style="overflow: hidden; word-wrap: break-word; height: 24px; margin-top: 5px; width: 150px;">Next Week</textarea>
+								</div>
+
+								<div>
+									<button type="button" class="ui-state-default11"
+										id="title-sortable"
+										onclick="location.href='/card/createcardForm'">add..</button>
+								</div>
+
+								<div id="card_wrap">
+									<ul id="sortable1" class="connectedSortable">
+										<li class="ui-state-default">New 1</li>
+										<li class="ui-state-default">New 2</li>
+										<li class="ui-state-default">New 3</li>
+
+									</ul>
+								</div>
+							</div>
+						</div>
+
+
+					</div> 
+					</div>
+
+
+<!-- </div> -->
+					<div id="card_wrap_indivisual_tlp" style="display: none;">
+							<li  class="ui-state-default card_margin"><div
+									id="sortable3" class="connectedSortable_row">
+									<!-- <div id="card_wrap_indivisual"> -->
+
+									<div id="card_wrap_top">
+										<!-- <div class="ui-state-default" id="title-sortable"><textarea class="list-header-name mod-list-name js-list-name-input" spellcheck="false" dir="auto" maxlength="512" style="overflow: hidden; word-wrap: break-word; height: 24px;">Next Week</textarea>  </div> -->
+										<div>
+											<textarea class="change_name" spellcheck="false" dir="auto"
+												maxlength="512"
+												style="overflow: hidden; word-wrap: break-word; height: 24px; margin-top: 5px; width: 150px;">Ref.</textarea>
+										</div>
+										<!-- <div class="ui-state-default" id="title-sortable">추가</div> -->
+										<div>
+											<button type="button" class="ui-state-default11"
+												id="title-sortable"
+												onclick="location.href='/card/createcardForm'">add..</button>
+										</div>
+
+										<div id="card_wrap">
+											<ul id="sortable1" class="connectedSortable">
+												<!-- <li id="title-sortable" class="ui-state-default">이름</li> -->
+ 
+												<li id="sortable_card" class="ui-state-default">last</li>
+												<li id="sortable_card" class="ui-state-default">Item 3</li>
+												<li id="sortable_card" class="ui-state-default">Item 4</li>
+												<li id="sortable_card" class="ui-state-default">Item 5</li>
+											</ul>
+										</div>
+									</div>
+								</div></li>
+						</div>
+
+
+
+  
+			   	<div style="width :1500px">
+						<ul id="sortable_box">
+							<li class="ui-state-default  card_margin">
+								<div id="sortable3" class="connectedSortable_row">
+									<!-- <div id="card_wrap_indivisual"> -->
+
+									<div id="card_wrap_top">
+										<!-- <div class="ui-state-default" id="title-sortable"><textarea class="list-header-name mod-list-name js-list-name-input" spellcheck="false" dir="auto" maxlength="512" style="overflow: hidden; word-wrap: break-word; height: 24px;">Next Week</textarea>  </div> -->
+										<div>
+											<textarea class="change_name" spellcheck="false" dir="auto"
+												maxlength="512"
+												style="overflow: hidden; word-wrap: break-word; height: 24px; margin-top: 5px; width: 150px;">My goal</textarea>
+										</div>
+										<!-- <div class="ui-state-default" id="title-sortable">추가</div> -->
+										<div>
+											<button type="button" class="ui-state-default11"
+												id="title-sortable"
+												onclick="location.href='/card/createcardForm'">add..</button>
+										</div>
+
+										<div id="card_wrap">
+											<ul id="sortable1" class="connectedSortable">
+												<!-- <li id="title-sortable" class="ui-state-default">이름</li> -->
+
+												<li id="sortable_card" class="ui-state-default">first</li>
+												<li id="sortable_card" class="ui-state-default">Item 3</li>
+												<li id="sortable_card" class="ui-state-default">Item 4</li>
+												<li id="sortable_card" class="ui-state-default">Item 5</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="ui-state-default  card_margin">
+								<div id="sortable3" class="connectedSortable_row">
+									<!-- <div id="card_wrap_indivisual"> -->
+
+									<div id="card_wrap_top">
+										<!-- <div class="ui-state-default" id="title-sortable"><textarea class="list-header-name mod-list-name js-list-name-input" spellcheck="false" dir="auto" maxlength="512" style="overflow: hidden; word-wrap: break-word; height: 24px;">Next Week</textarea>  </div> -->
+										<div>
+											<textarea class="change_name" spellcheck="false" dir="auto"
+												maxlength="512"
+												style="overflow: hidden; word-wrap: break-word; height: 24px; margin-top: 5px; width: 150px;">Next Week</textarea>
+										</div>
+										<!-- <div class="ui-state-default" id="title-sortable">추가</div> -->
+										<div>
+											<button type="button" class="ui-state-default11"
+												id="title-sortable"
+												onclick="location.href='/card/createcardForm'">add..</button>
+										</div>
+
+										<div id="card_wrap">
+											<ul id="sortable1" class="connectedSortable">
+												<!-- <li id="title-sortable" class="ui-state-default">이름</li> -->
+
+												<li id="sortable_card" class="ui-state-default">second</li>
+												<li id="sortable_card" class="ui-state-default">Item 3</li>
+												<li id="sortable_card" class="ui-state-default">Item 4</li>
+												<li id="sortable_card" class="ui-state-default">Item 5</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="ui-state-default  card_margin"><div
+									id="sortable3" class="connectedSortable_row">
+									<!-- <div id="card_wrap_indivisual"> -->
+
+									<div id="card_wrap_top">
+										<!-- <div class="ui-state-default" id="title-sortable"><textarea class="list-header-name mod-list-name js-list-name-input" spellcheck="false" dir="auto" maxlength="512" style="overflow: hidden; word-wrap: break-word; height: 24px;">Next Week</textarea>  </div> -->
+										<div>
+											<textarea class="change_name" spellcheck="false" dir="auto"
+												maxlength="512"
+												style="overflow: hidden; word-wrap: break-word; height: 24px; margin-top: 5px; width: 150px;">QWER</textarea>  
+										</div>
+										<!-- <div class="ui-state-default" id="title-sortable">추가</div> -->
+										<div>
+											<button type="button" class="ui-state-default11"
+												id="title-sortable"
+												onclick="location.href='/card/createcardForm'">add..</button>
+										</div>
+
+										<div id="card_wrap">
+											<ul id="sortable1" class="connectedSortable">
+												<!-- <li id="title-sortable" class="ui-state-default">이름</li> -->
+
+												<li id="sortable_card" class="ui-state-default">third</li>
+												<li id="sortable_card" class="ui-state-default">Item 3</li>
+												<li id="sortable_card" class="ui-state-default">Item 4</li>
+												<li id="sortable_card" class="ui-state-default">Item 5</li>
+											</ul>
+										</div>
+									</div>
+								</div></li>
+							<li class="ui-state-default card_margin"><div
+									id="sortable3" class="connectedSortable_row">
+									<!-- <div id="card_wrap_indivisual"> -->
+
+									<div id="card_wrap_top">
+										<!-- <div class="ui-state-default" id="title-sortable"><textarea class="list-header-name mod-list-name js-list-name-input" spellcheck="false" dir="auto" maxlength="512" style="overflow: hidden; word-wrap: break-word; height: 24px;">Next Week</textarea>  </div> -->
+										<div>
+											<textarea class="change_name" spellcheck="false" dir="auto"
+												maxlength="512"
+												style="overflow: hidden; word-wrap: break-word; height: 24px; margin-top: 5px; width: 150px;">Ref.</textarea>
+										</div>
+										<!-- <div class="ui-state-default" id="title-sortable">추가</div> -->
+										<div>
+											<button type="button" class="ui-state-default11"
+												id="title-sortable"
+												onclick="location.href='/card/createcardForm'">add..</button>
+										</div>
+
+										<div id="card_wrap">
+											<ul id="sortable1" class="connectedSortable">
+												<!-- <li id="title-sortable" class="ui-state-default">이름</li> -->
+
+												<li id="sortable_card" class="ui-state-default">last</li>
+												<li id="sortable_card" class="ui-state-default">Item 3</li>
+												<li id="sortable_card" class="ui-state-default">Item 4</li>
+												<li id="sortable_card" class="ui-state-default">Item 5</li>
+											</ul>
+										</div>
+									</div>
+								</div></li>
+
+						</ul>
+					</div>   
+
+
+
+				</div>
+
+
+<!-- 
+				<div id='project_user'>
+					<iframe src="/user.jsp" height="200" width="280" name=user>
+						<p>Your browser does not support iframes.
+					</iframe>
+				</div> -->
+				<div id='project_chat'>
+					<iframe src="/chat.jsp" height="747" width="280" name=chat>
+						<p>Your brower does not support iframes.</p>
+					</iframe>
+				</div>
+			</div>
 		</div>
 	</div>
-	</div>
-	<%@ include file="./commons/bottom.jspf"%>
 </body>
+<%@ include file="./commons/bottom.jspf"%>
+</div>
 </html>

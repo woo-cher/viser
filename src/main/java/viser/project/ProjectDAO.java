@@ -111,8 +111,8 @@ public class ProjectDAO {
 				while(rs2.next()){
 					logger.debug("project_getlist test2=조회한 프로젝트이름:"+rs2.getString("Project_Name") );
 					logger.debug("project_getlist test3=조회한 프로젝트 생성날짜:"+rs2.getDate("Project_Date") );
-					project.setProject_Name(rs2.getString("Project_Name"));
-					project.setProject_Date(rs2.getDate("Project_Date"));
+					project.setProjectName(rs2.getString("Project_Name"));
+					project.setProjectDate(rs2.getDate("Project_Date"));
 					projects.add(project);
 				}
 			}

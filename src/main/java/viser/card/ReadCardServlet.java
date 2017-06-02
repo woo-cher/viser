@@ -53,7 +53,7 @@ public class ReadCardServlet extends HttpServlet {
 			
 			req.setAttribute("isView", true);
 			req.setAttribute("card", card);
-			RequestDispatcher rd = req.getRequestDispatcher("/card_form.jsp");
+			RequestDispatcher rd = req.getRequestDispatcher("/card.jsp");
 			rd.forward(req, resp);
 			
 		} catch (Exception e) {

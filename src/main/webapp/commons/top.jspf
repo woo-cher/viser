@@ -99,9 +99,6 @@
 	 );
 	</script>   같이 박스끼리는 이동 가능-->
 
-
-
-
 <script>
 	function msg() {
 		if (confirm("정말 탈퇴 하시겠습니까?")) {

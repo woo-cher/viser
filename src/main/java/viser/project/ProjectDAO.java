@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import viser.card.Card;
+import viser.user.User;
 
 public class ProjectDAO {
 	Connection conn=null;
@@ -128,21 +129,36 @@ public class ProjectDAO {
 
 		return null;
 	}
-	public void addProject(Card card) throws SQLException {
-		String sql = "insert into cards(userId,Subject,Content,Readcnt,re_ref,re_lev,re_seq) values(?,?,?,?,?,?,?)";
-
+	
+	public void addProject(Project project) throws SQLException {
+		Timestamp date=new Timestamp(new Date().getTime());  // Datetype Obj
+		String sql = "insert into projects (Project_name,Project_Date) values (?,?)";
+		
 		try {
 			conn = getConnection();		
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setString(1, card.getUserId());
-			pstmt.setString(2, card.getSubject());
-			pstmt.setString(3, card.getContent());
-			pstmt.setInt(4, card.getReadcnt());
-			pstmt.setInt(5, card.getRe_ref());
-			pstmt.setInt(6, card.getRe_lev());
-			pstmt.setInt(7, card.getRe_seq());
+			pstmt.setString(1, project.getProjectName());
+			pstmt.setTimestamp(2 , date);
 
+			pstmt.executeUpdate();
+
+		} finally {
+			SourceReturn();
+		}
+	}
+
+	public void addprojectMember(Project project, User user, int Power) throws SQLException {
+		String sql = "insert into project_members (userId, Project_Name, Power) values (?,?,?)";
+		
+		try {
+			conn = getConnection();		
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, user.getUserId());
+			pstmt.setString(2, project.getProjectName());
+			pstmt.setInt(3, Power);
+			
 			pstmt.executeUpdate();
 
 		} finally {

@@ -23,7 +23,7 @@
 						<h3>프로젝트 현황</h3>
 					</div>
 						<div id="project-content-header" style="margin: 0 auto;">
-							<table border="1px" cellpadding="0" cellspacing="0">
+							<table class="table" border="1px" cellpadding="0" cellspacing="0">
 							<tr height="30">
 								<!-- card LIST -->
 								<td align="center" width="100">NUM</td>
@@ -44,6 +44,9 @@
 													<a href="/card/cardlist?projectname=${list.projectName}"> <!-- 형근: 나중에 보드리스트로 이동하는걸로 변경할것 --> 
 														${list.projectName}
 													</a>
+													<button type="button" class="btn btn-default" aria-label="Left Align">
+  													<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+													</button>
 												</td>
 												<td align="center"><fmt:formatDate value="${list.projectDate}" pattern="yyyy-MM-dd"/></td>
 											</tr>
@@ -51,12 +54,21 @@
 									</c:when>								
 									<c:otherwise>
 										<tr height="100">
-											<td colspan="5" align="center">NO DATA.</td>
+											<td colspan="5" align="center">
+											NO EXIST PROJECT.
+											</td>
 										</tr>
 									</c:otherwise>
 								</c:choose>
 							</div>
 						</table>
+						
+						<!-- Create Project Modal Field -->
+						<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#CreateNewProJect" style="margin: 50;">
+  						Create new ProJect
+						</button>
+								<%@include file="./modalpage/Modal_CreateNewProJect.jsp" %>
+											
 					</div>
 				</div>
 			</div>

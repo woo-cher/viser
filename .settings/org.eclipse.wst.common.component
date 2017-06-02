@@ -7,6 +7,10 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
         <property name="context-root" value="viser"/>
+<<<<<<< HEAD
         <property name="java-output-path" value="/viser/src/main/webapp/WEB-INF/classes"/>
+=======
+        <property name="java-output-path" value="/viser/target/classes"/>
+>>>>>>> branch 'master' of https://github.com/gnu-runtime/viser.git
     </wb-module>
 </project-modules>

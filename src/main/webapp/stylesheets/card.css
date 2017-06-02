@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 
 
@@ -13,12 +12,10 @@
 }
 
 #mini-menu {
-	float: right;	
+	float: center;	
 }
 
-#card-container {
-	float: left;
-}
+
 
 #card-list {
 	border-bottom: 1px solid;
@@ -48,7 +45,7 @@
 /*     border: 1px solid; */  
 }
 
-/* 梨꾪똿占�? css*/
+/* 筌�袁る샒�뜝占�? css*/
 iframe{
 	border:0px;
 }
@@ -73,9 +70,7 @@ iframe{
 	float: right;	
 }
 
-#card-container {
-	float: left;
-}
+
 
 #card-list {
 	border-bottom: 1px solid;
@@ -106,9 +101,12 @@ iframe{
     border: 1px solid;
 }
 
-/* 채팅�? css*/
+/* 梨꾪똿占�? css*/
 iframe{
 	border:0px;
 }
 
->>>>>>> branch 'master' of https://github.com/gnu-runtime/viser.git
+.widget{
+	color: white;
+	margin-top: 10px;
+}

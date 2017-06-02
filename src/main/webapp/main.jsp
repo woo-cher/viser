@@ -140,6 +140,74 @@
 					</div> --%>
 
 
+<!-- 
+
+
+<a href="javascript:popupOpen2();"> 업로드할래?! </a>
+
+<div id="wrap-sortable">
+	<!--카드박스의 이름(수정)  
+	<div id="card_wrap">
+		<li class="ui-state-default" id="title-sortable">카드이름</li>
+		<li class="ui-state-default" id="title-sortable">추가</li>
+		<ul id="sortable1" class="connectedSortable">
+			<!-- <li id="title-sortable" class="ui-state-default">이름</li>
+
+			<li class="ui-state-default">Item 2</li>
+			<li class="ui-state-default">Item 3</li>
+			<li class="ui-state-default">Item 4</li>
+			<li class="ui-state-default">Item 5</li>
+		</ul>
+	</div>
+	<ul id="sortable1" class="connectedSortable">
+		<li class="ui-state-highlight">Item 1</li>
+		<li class="ui-state-highlight">Item 2</li>
+		<li class="ui-state-highlight">Item 3</li>
+		<li class="ui-state-highlight">Item 4</li>
+		<li class="ui-state-highlight">Item 5</li>
+	</ul>
+	<ul id="sortable1" class="connectedSortable">
+		<li class="ui-state-highlight">Item 5</li>
+	</ul>
+</div>
+
+ -->
+
+
+<!-- <script type="text/javascript">
+
+
+function popupOpen2(){
+
+	var popUrl = "/upload.jsp?perposeURL=/fileUpload";	//팝업창에 출력될 페이지 URL
+
+	var popOption = "width=500, height=250, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+
+		window.open(popUrl,"",popOption);
+
+	}
+	
+function popupOpen(){
+
+	var popUrl = "/form.jsp";	//팝업창에 출력될 페이지 URL
+
+	var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+
+		window.open(popUrl,"",popOption);
+
+	}
+	
+
+</script> -->
+
+
+
+<a href="javascript:popupOpen();"> 가입할래?! </a>
+
+
+
+
+ -->
 	</div>
 	<%@ include file="./commons/bottom.jspf"%>
 </body>

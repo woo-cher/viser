@@ -1,16 +1,7 @@
-<<<<<<< HEAD
 target/
 *.class
 .git
 *.lst
 .metadata
 webapps/
-=======
-target/
-*.class
-.git
-*.lst
-.metadata
-webapps/
->>>>>>> branch 'master' of https://github.com/gnu-runtime/viser.git
-bin/
+.settings

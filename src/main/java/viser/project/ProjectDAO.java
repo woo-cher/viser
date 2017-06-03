@@ -65,6 +65,7 @@ public class ProjectDAO {
 			return null;
 		}
 	}
+		
 	List getProjectMemberList(String project_name) throws SQLException{
 		List list = new ArrayList(); // 유저목록 리턴을 위한 변수
 		String sql="select * from project_members where Project_Name=?";
@@ -94,7 +95,6 @@ public class ProjectDAO {
 	public List getProjectList(String userId) throws SQLException {
 
 		List projects = new ArrayList(); // 형근: 프로젝트목록 리턴을 위한 변수
-		Project project =new Project(); //형근: 각 프로젝트 정보를 저장할 객체
 		// 목록를 조회하기 위한 쿼리
 		String sql = "select * from project_members where userId=?";
 		String sql2= "select * from projects where Project_Name=?";
@@ -112,6 +112,7 @@ public class ProjectDAO {
 				while(rs2.next()){
 					logger.debug("project_getlist test2=조회한 프로젝트이름:"+rs2.getString("Project_Name") );
 					logger.debug("project_getlist test3=조회한 프로젝트 생성날짜:"+rs2.getDate("Project_Date") );
+					Project project =new Project(); //형근: 각 프로젝트 정보를 저장할 객체
 					project.setProjectName(rs2.getString("Project_Name"));
 					project.setProjectDate(rs2.getDate("Project_Date"));
 					projects.add(project);

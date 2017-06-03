@@ -62,7 +62,7 @@ public class SearchCardListServlet extends HttpServlet{
 		req.setAttribute("count", listcount); 		// 게시물 총 개수
 		req.setAttribute("list", list);
 		
-		RequestDispatcher rd = req.getRequestDispatcher("/card.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/card_list.jsp");
 		rd.forward(req, resp);
 	
 		} catch (Exception e) {

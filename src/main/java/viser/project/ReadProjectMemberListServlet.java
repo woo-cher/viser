@@ -37,7 +37,7 @@ public class ReadProjectMemberListServlet extends HttpServlet {
 				request.setAttribute("isMaster", true);
 			}
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("/user.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/member.jsp");
 		rd.forward(request, response);
 	
 		} catch (Exception e) {

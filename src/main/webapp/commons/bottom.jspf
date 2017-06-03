@@ -6,6 +6,7 @@
 	    <span class="text-muted">copyright. 경상대학교 데이터베이스 연구실 </span>
 	  </div>
 	</footer>
+	
 	<!-- Modal -->
 	<div class="modal fade file_modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">

@@ -30,7 +30,6 @@
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	/* width: 450px; ㅅㅂ 이것때문에*/
 }
 
 #sortable_box li {
@@ -67,7 +66,7 @@
 	<div class="background">
 		<%@ include file="./commons/top.jspf"%>
 		<div class="wrap ac">
-			<div id="card-container_wrap">
+			<div id="card-container_wrap" style = "color: azure;">
 				<div id="top">
 					<div id="mini-menu">
 
@@ -92,7 +91,7 @@
 				</div>  
 
 				<div id="card-container" style = "overflow-x: auto;"> 
-				<button id="addbutton" class="btn btn-info_c">추가</button>  
+				<button id="addbutton" class="btn_c btn-info_c">추가</button>  
 <!-- </div> --> <!-- $(this).parent().remove();-->
 					<div id="card_wrap_indivisual_tlp" style="display: none;">
 							<li class="ui-state-default  card_margin">
@@ -122,7 +121,7 @@
 										</div>
 
 								</div>
-								<button type="button" class="btn btn-info delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
+								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
 							</li>
 						</div>
 
@@ -161,7 +160,7 @@
 										</div>
 
 								</div>
-								<button type="button" class="btn btn-info delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
+								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
 							</li>
 														<li  class="ui-state-default card_margin"><div
 									id="sortable3" class="connectedSortable_row">

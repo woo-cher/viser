@@ -9,9 +9,12 @@
 <link href="stylesheets/form.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	
+		<div class="background">
+		<%@ include file="./commons/top.jspf"%>
+		<div class="wrap ac">
+			<div id="card-container_wrap">
 	<div class="signup-container">
-		<div class="signup-header">
+		<div class="signup-header" style = "padding-bottom: 5px">
 		
 			<c:set var = "pageName" value = "회원가입" />
 			<c:if test = "${isUpdate}" >  <!-- userId 유무로써 판단했던 것을 서블릿 정보로써 판단  -->
@@ -26,46 +29,42 @@
 			</c:if>
 		
 		<form id="form-sign" action="${actionUrl}" method="post">
-		
-			<c:if test = "${not empty errorMessage}">
-			<div class="Validator">
-			<label class = "error"> <h4>${errorMessage}</h4> </label>
-			</div>
-			</c:if>
-
-		<div class="first">
-			<label class="" for="name"> 이름 </label> 
+	<div
+					style="width: 300px; margin: 0 auto; text-align: right; margin-bottom: 20px;">
+		<!-- <div class="first"> -->
+		<div class="input-group">
+			<span class="input-group-addon"id="basic-addon2" for="name">이름 </span> 
 		
 		<c:choose>
 			<c:when test="${isUpdate}">
-				<input type="hidden" name ="name" value="${user.name}" />
-				${user.name}
+				<input type="hidden" class="form-control" aria-describedby="basic-addon2" name ="name" value="${user.name}" />
+				<div style="padding-left: 140px;">${user.name}</div>
 			</c:when>
 			
 			<c:otherwise>
-				<input type="text" name="name" value="${user.name}" />
+				<input type="text" class="form-control" aria-describedby="basic-addon2" name="name" value="${user.name}" />
 			</c:otherwise>
 		</c:choose>
 		</div>
-		
-		<div>
-				<label class="" for="age">나이</label> 
+<!-- 		</div> -->
+		<div class="input-group">
+				<label class="input-group-addon"id="basic-addon2" for="age">나이</label> 
 		<c:choose>
 			<c:when test="${isUpdate}">
 				<input type="hidden" name ="age" value="${user.age}" />
-				${user.age}	
+				<div id="hidden" "style ="text-align: center;">${user.age}</div>	
 			</c:when>
 			
 			<c:otherwise>
-				<input type="text" name="age" value="${user.age}" />
+				<input type="text" class="form-control" aria-describedby="basic-addon2" name="age" value="${user.age}" />
 			</c:otherwise>
 		</c:choose>
-
+</div>
 		<div>
-				<label class="" for="gender">성별</label> 
+				<label  for="gender">성별</label> 
 		<c:choose>
 			<c:when test="${isUpdate}">
-				<input type="hidden" name ="gender" value="${user.gender}" />
+				<input type="hidden" class="form-control" aria-describedby="basic-addon2" name ="gender" value="${user.gender}" />
 				${user.gender}
 			</c:when>
 			
@@ -76,39 +75,39 @@
 		</c:choose>
 		</div>
 
-		<div>
-			<label class="" for="userId">Id</label> 
+		<div class="input-group">
+			<label class="input-group-addon"id="basic-addon2" for="userId">Id</label> 
 			
 		<c:choose>
 			<c:when test="${isUpdate}">
-				<input type="hidden" name ="userId" value="${user.userId}" />
-				${user.userId}
+				<%-- <input type="hidden" style ="text-align: center;" name ="userId" value="${user.userId}" /> --%>
+				<div style ="padding-left: 121px;">${user.userId}</div>
 			</c:when>
 			
 			<c:otherwise>
-				<input type="text" name="userId" value="${user.userId}" />				
-				<button type="submit" class="Id_Check">ID 중복체크</button>
+				<input type="text" class="form-control" aria-describedby="basic-addon2" name="userId" value="${user.userId}" />				
+				
 			</c:otherwise>
-		</c:choose>
-		</div>
+		</c:choose>  
+		</div> 
 
-		<div>
-			<label class="" for="password">Password</label> 
-			<input type="password" name="password" value="${user.password}" />
+		<div class="input-group">
+			<label class="input-group-addon"id="basic-addon2" for="password">Password</label> 
+			<input type="password" class="form-control" aria-describedby="basic-addon2" name="password" value="${user.password}" />
 		</div>
 		
-		<div>
-			<label class="" for="password2">Password-check</label>
-			<input type="password" name="password2" value="${user.password}" />
+		<div class="input-group">
+			<label class="input-group-addon"id="basic-addon2" for="password2">Password-check</label>
+			<input type="password" class="form-control" aria-describedby="basic-addon2" name="password2" value="${user.password}" />
 		</div>
 		
-		<div>
-			<label class ="" for="email">이메일</label>
-			<input class="form-control" id="exampleInputEmail1" placeholder="이메일을 입력하세요" name="email" value="${user.email}" />
+		<div class="input-group">
+			<label class="input-group-addon"id="basic-addon2" for="email">이메일</label>
+			<input type="text" class="form-control" aria-describedby="basic-addon2" name="email" value="${user.email}" />
 		</div>
 
 		<div class="signup-footer">
-			<button type="submit" class="sign_up_button">
+			<button type="submit" class="btn btn-info">
 			
 				<c:set var = "buttonName" value = "가입하기" />
 				<c:if test = "${isUpdate}">
@@ -117,8 +116,12 @@
 			
 				${ buttonName }
 			</button>
+		</div>  
 		</div>
 		</form>
+	</div>
+	</div>
+	</div>
 	</div>
 
 </body>

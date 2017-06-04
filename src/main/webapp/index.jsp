@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<<<<<<< HEAD
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-=======
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
->>>>>>> branch 'master' of https://github.com/gnu-runtime/viser.git
+
 
 <link href="/stylesheets/index.css?" rel="stylesheet" type="text/css">
 <!-- jquery -->
@@ -41,7 +41,7 @@
 
 		<video style="width: 100%;" autoplay="" loop=""
 			poster="https://d2v80xjmx68n4w.cloudfront.net/intro/c1a31243becb02fba269c3e290a7e652.jpg">
-			<source type="video/mp4" src="/acc.mp4">
+			<source type="video/mp4" src="https://cdn.codeground.org/videos/Promotion_KOR.mp4">
 			<source type="video/webm" src="/acc.webm">
 			<source type="video/ogg" src="/acc.ogv">
 			<object>

@@ -26,6 +26,22 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <style>
+
+#droppable {    width: 150px;
+    height: 34px;
+    padding: 0.2em;
+    float: left;
+    margin: 10px;
+    border: 5px solid aquamarine;
+    background: azure;
+    border-radius: 10px;
+    margin-right: 30px;
+    position: absolute;
+    top: 880px;
+    left: 970px;
+     }
+
+
 #sortable_box {
 	list-style-type: none;
 	margin: 0;
@@ -44,12 +60,22 @@
 <script>
 	$(function() {
 		$("#sortable_box").sortable();
+		$("#sortable1").draggable();
 		$("#sortable_box").disableSelection();
 	    $( ".widget input[type=submit], .widget a, .widget button" ).button();
 	    $( "button, input, a" ).click( function( event ) {
 	      event.preventDefault();
 	    } );
 	});
+	
+	 $( function() {
+		    $( "#droppable " ).droppable({
+		      drop: function( event, ui ) {
+		        $( this ).find("li").remove();
+		      }
+		    });
+		  } );
+	
 </script>
 
 
@@ -71,7 +97,12 @@
 					<div id="mini-menu">
 
 						<div class="btn-group-sm" role="group" aria-label="...">  
-							
+							<div id="droppable" class="ui-widget-header">
+									<p>Drop here</p>
+								<ul id="sortable1" class="connectedSortable" style="border: 0px solid azure;">
+  
+  								</ul>
+							</div>
 							<button type="button" class="btn btn-info" href="#"
 								class="btn btn-default">검색</button>
 							<button type="button" class="btn btn-info" href="#"
@@ -91,7 +122,6 @@
 				</div>  
 
 				<div id="card-container" style = "overflow-x: auto;"> 
-				<button id="addbutton" class="btn_c btn-info_c">추가</button>  
 <!-- </div> --> <!-- $(this).parent().remove();-->
 					<div id="card_wrap_indivisual_tlp" style="display: none;">
 							<li class="ui-state-default  card_margin">
@@ -122,14 +152,14 @@
 
 								</div>
 								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
-							</li>
+							</li> 
+							
 						</div>
 
     
 
-  
-			   	<div style="width :1500px">  
-						<ul id="sortable_box">
+			   	<div id="tt" style="width :1500px">  
+						<ul id="sortable_box">  
 						
 							<li class="ui-state-default  card_margin">
 
@@ -193,15 +223,21 @@
 									</div>
 								</div><button type="button" class="btn btn-info delete" href="#"  onclick="">검색</button>
 							</li>
+							<div id = "here">							
+							</div>
+							<li>
+							<button id="addbutton" class="btn_c btn-info_c" style = "margin-top: 14px;">추가</button>
+							</li>
 						</ul>
-					</div>   
+					</div>
+ 
+ 
 
-
-
-				</div>
+				</div>  
+				
 
 			<div id='project_user'>
-				<iframe src="/project/memberlist" height="170" width="278" name=user>
+				<iframe src="/project/memberlist" height="170" width="278" name=user> 
 				 	<p>Your browser does not support iframes.</p>
 				</iframe>
 			</div>

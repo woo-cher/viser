@@ -58,8 +58,8 @@
 		    }); */
  		var card_wrap_indivisual_tlp = $('#card_wrap_indivisual_tlp').html();
 		$('#addbutton').on('click', function(){
-			$('#sortable_box').append(card_wrap_indivisual_tlp);
-			$("#sortable1, #sortable2").sortable({
+			$('#here').append(card_wrap_indivisual_tlp);
+			$("#sortable1, #sortable2 #droppable").sortable({
 				connectWith : ".connectedSortable"
 			}).disableSelection();
 			 $("#sortable4").sortable({

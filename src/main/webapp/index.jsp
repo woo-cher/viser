@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 
 <link href="/stylesheets/index.css?" rel="stylesheet" type="text/css">
 <!-- jquery -->
@@ -36,7 +41,7 @@
 
 		<video style="width: 100%;" autoplay="" loop=""
 			poster="https://d2v80xjmx68n4w.cloudfront.net/intro/c1a31243becb02fba269c3e290a7e652.jpg">
-			<source type="video/mp4" src="/acc.mp4">
+			<source type="video/mp4" src="https://cdn.codeground.org/videos/Promotion_KOR.mp4">
 			<source type="video/webm" src="/acc.webm">
 			<source type="video/ogg" src="/acc.ogv">
 			<object>
@@ -45,6 +50,17 @@
 			</object>
 		</video>
 	</div>
+	
+	<div id ="pop" style="display: none;">
+	<div>
+		<div class='alert alert-warning' style = "width:380px; display: inline-block;">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;
+			</button>${errorMessage}  
+		</div>
+	</div>
+	</div>
+	
+	
 	<div id="container" style="border: 0;">
 		<div id="title">
 			Beyond yourself with
@@ -53,25 +69,34 @@
 		<div id="content">
 			<form id="form-sign" action="/users/login" method="post"
 				class="form-inline">
+<%-- 				<script>
+				var alerts = $('#pop').html();
+				if(errorMessage!='null')
+					$(this).append(alerts)
+				</script>${errorMessage} --%>
+				
 				<c:if test="${not empty errorMessage }">
-					<div class="control-group">
-						<label class="error">${errorMessage}</label>
-					</div>
+<!-- 				javascript:pop();  
+					<script>
+				var alerts = $('#pop').html();
+					$('#content').append(alerts)
+					</script> -->
+					<label class='error alert alert-warning' style = "width:380px; display: inline-block;">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+						</button>${errorMessage}  
+					</label>
+					<!-- <label class="error"></label> -->
+<%-- 				  	<div class='error alert alert-warning' style = "width:380px; display: inline-block;">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+						</button>${errorMessage}  
+					</div> --%>
+  
 				</c:if>
-				<!-- <div style="width:300px;margin:0 auto; text-align:right;margin-bottom:20px;">
-		 			<div class="control-group" style="margin-bottom:10px;">
-						<label class="control-label" for="userId">사용자 아이디</label> 
-	 					<input type="text" class="form-control" name="userId" value="" placeholder="Enter Id"/>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="password" >비밀번호</label> 
-						<input type="password" class="form-control" name="password" value="" placeholder="Enter Password"/>
-					</div>
-				</div> -->
 				<div
 					style="width: 300px; margin: 0 auto; text-align: right; margin-bottom: 20px;">
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1"> ID </span> <input
+						<span class="input-group-addon" id="basic-addon1"> ID </span>
+						 <input
 							type="text" class="form-control" aria-describedby="basic-addon1"
 							name="userId" value="" placeholder="Enter Id" />
 					</div>
@@ -98,11 +123,4 @@
 
 	</div>
 </div>
-
-
-
-
-
-
-
 <%@ include file="./commons/bottom.jspf"%>

@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -7,6 +6,7 @@
 	    <span class="text-muted">copyright. 경상대학교 데이터베이스 연구실 </span>
 	  </div>
 	</footer>
+	
 	<!-- Modal -->
 	<div class="modal fade file_modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
@@ -43,18 +43,17 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="myModalLabel"></h4>
+				<div class="modal-title" id="myModalLabel" >
+						<c:set var = "pageName" value = "회원가입" />
+						<c:if test = "${isUpdate}" >  <!-- userId 유무로써 판단했던 것을 서블릿 정보로써 판단  -->
+						<c:set var = "pageName" value = "개인정보수정" />
+						</c:if>
+						<h2>${pageName}</h2>			
+				</div>
 			</div>
 			<div class="modal-body" style=" text-align: center;">
 			<div class="signup-container">
-		<div class="signup-header">
-		
-			<c:set var = "pageName" value = "회원가입" />
-			<c:if test = "${isUpdate}" >  <!-- userId 유무로써 판단했던 것을 서블릿 정보로써 판단  -->
-			<c:set var = "pageName" value = "개인정보수정" />
-			</c:if>
-			<h4>${pageName}</h4>			
-		</div>
+
 			
 			<c:set var = "actionUrl" value = "/users/create" />
 			<c:if test="${isUpdate}">
@@ -68,9 +67,11 @@
 			<label class = "error"> <h4>${errorMessage}</h4> </label>
 			</div>
 			</c:if>
-
-		<div class="first">
-			<label class="" for="name"> 이름 </label> 
+	<div
+					style="width: 300px; margin: 0 auto; text-align: right; margin-bottom: 20px;">
+		<!-- <div class="first"> -->
+		<div class="input-group">
+			<span class="input-group-addon"id="basic-addon2" for="name">이름 </span> 
 		
 		<c:choose>
 			<c:when test="${isUpdate}">
@@ -79,13 +80,13 @@
 			</c:when>
 			
 			<c:otherwise>
-				<input type="text" name="name" value="${user.name}" />
+				<input type="text" class="form-control" aria-describedby="basic-addon2" name="name" value="${user.name}" />
 			</c:otherwise>
 		</c:choose>
 		</div>
-		
-		<div>
-				<label class="" for="age">나이</label> 
+<!-- 		</div> -->
+		<div class="input-group">
+				<label class="input-group-addon"id="basic-addon2" for="age">나이</label> 
 		<c:choose>
 			<c:when test="${isUpdate}">
 				<input type="hidden" name ="age" value="${user.age}" />
@@ -93,15 +94,15 @@
 			</c:when>
 			
 			<c:otherwise>
-				<input type="text" name="age" value="${user.age}" />
+				<input type="text" class="form-control" aria-describedby="basic-addon2" name="age" value="${user.age}" />
 			</c:otherwise>
 		</c:choose>
-
+</div>
 		<div>
-				<label class="" for="gender">성별</label> 
+				<label  for="gender">성별</label> 
 		<c:choose>
 			<c:when test="${isUpdate}">
-				<input type="hidden" name ="gender" value="${user.gender}" />
+				<input type="hidden"class="form-control" aria-describedby="basic-addon2" name ="gender" value="${user.gender}" />
 				${user.gender}
 			</c:when>
 			
@@ -112,39 +113,40 @@
 		</c:choose>
 		</div>
 
-		<div>
-			<label class="" for="userId">Id</label> 
+		<div class="input-group">
+			<label class="input-group-addon"id="basic-addon2" for="userId">Id</label> 
 			
 		<c:choose>
 			<c:when test="${isUpdate}">
-				<input type="hidden" name ="userId" value="${user.userId}" />
+				<input type="hidden" class="form-control" aria-describedby="basic-addon2" name ="userId" value="${user.userId}" />
 				${user.userId}
 			</c:when>
 			
 			<c:otherwise>
-				<input type="text" name="userId" value="${user.userId}" />				
-				<button type="submit" class="Id_Check">ID 중복체크</button>
+				<input type="text" class="form-control" aria-describedby="basic-addon2" name="userId" value="${user.userId}" />				
+				
 			</c:otherwise>
 		</c:choose>
-		</div>
+		</div>  
+		<button type="submit" class="btn btn-info">ID 중복체크</button>  
 
-		<div>
-			<label class="" for="password">Password</label> 
-			<input type="password" name="password" value="${user.password}" />
+		<div class="input-group">
+			<label class="input-group-addon"id="basic-addon2" for="password">Password</label> 
+			<input type="password" class="form-control" aria-describedby="basic-addon2" name="password" value="${user.password}" />
 		</div>
 		
-		<div>
-			<label class="" for="password2">Password-check</label>
-			<input type="password" name="password2" value="${user.password}" />
+		<div class="input-group">
+			<label class="input-group-addon"id="basic-addon2" for="password2">Password-check</label>
+			<input type="password" class="form-control" aria-describedby="basic-addon2" name="password2" value="${user.password}" />
 		</div>
 		
-		<div>
-			<label class ="" for="email">이메일</label>
-			<input type="text" name="email" value="${user.email}" />
+		<div class="input-group">
+			<label class="input-group-addon"id="basic-addon2" for="email">이메일</label>
+			<input type="text" class="form-control" aria-describedby="basic-addon2" name="email" value="${user.email}" />
 		</div>
 
 		<div class="signup-footer">
-			<button type="submit" class="sign_up_button">
+			<button type="submit" class="btn btn-info">
 			
 				<c:set var = "buttonName" value = "가입하기" />
 				<c:if test = "${isUpdate}">
@@ -153,6 +155,7 @@
 			
 				${ buttonName }
 			</button>
+		</div>  
 		</div>
 		</form>
 	</div>
@@ -161,7 +164,7 @@
 		</div>
 	</div>
 </div>  <!-- 환용 : 회원가입과 회원정보 수집을 위한 모달 -->
-<div class="modal fade file_modal" id="myUpdateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<%-- <div class="modal fade file_modal" id="myUpdateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content" style="padding: 20px;">
 			<div class="modal-header">
@@ -169,7 +172,7 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="myModalLabel"></h4>
+				<h2 class="modal-title" id="myModalLabel"></h2>
 			</div>
 			<div class="modal-body" style=" text-align: center;">
 			<div class="signup-container">
@@ -178,7 +181,7 @@
 
 			<c:set var = "pageName" value = "개인정보수정" />
 
-			<h4>${pageName}</h4>			
+			<h2>${pageName}</h2>			
 		</div>
 			
 
@@ -283,7 +286,7 @@
 
 		</div>
 	</div>
-</div>  <!-- 환용 : 회원가입과 회원정보 수집을 위한 모달 -->
+</div>  <!-- 환용 : 회원가입과 회원정보 수집을 위한 모달 --> --%>
 </body>
 
 </html>

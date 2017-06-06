@@ -2,6 +2,7 @@ package viser.project;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,14 +31,15 @@ public class CreateProjectServlet extends HttpServlet {
 		
 		req.setCharacterEncoding("utf-8");
 		String userId = new SessionUtils().getStringValue(session, LogInServlet.SESSION_USER_ID);
-		String project_name = req.getParameter("Project_name");
+		String projectName = req.getParameter("projectName");
 		
-		project.setProjectName(project_name);
+		project.setProjectName(projectName);
 		user.setUserId(userId);
 		
 		try {
 			pjtDao.addProject(project);
 			pjtDao.addprojectMember(project, user, 1);
+			
 			resp.sendRedirect("/project/projectlist");
 			
 		} catch (Exception e) {

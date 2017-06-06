@@ -65,19 +65,20 @@ public class ProjectDAO {
 			return null;
 		}
 	}
-	List getProjectMemberList(String project_name) throws SQLException{
+		
+	List getProjectMemberList(String projectName) throws SQLException{
 		List list = new ArrayList(); // 유저목록 리턴을 위한 변수
 		String sql="select * from project_members where Project_Name=?";
 		conn=getConnection();
 		try{
 		pstmt=conn.prepareStatement(sql);
-		pstmt.setString(1, project_name);
+		pstmt.setString(1, projectName);
 		rs=pstmt.executeQuery();
 		while(rs.next()){
 			ProjectMember pm=new ProjectMember();
 			pm.setNum(rs.getInt("PM_Num"));
 			pm.setUserId(rs.getString("userId"));
-			pm.setProjectName(rs.getString("Project_Name"));
+			pm.setProjectName(rs.getString("project_Name"));
 			pm.setPower(rs.getInt("Power"));
 			list.add(pm);
 		}
@@ -94,7 +95,6 @@ public class ProjectDAO {
 	public List getProjectList(String userId) throws SQLException {
 
 		List projects = new ArrayList(); // 형근: 프로젝트목록 리턴을 위한 변수
-		Project project =new Project(); //형근: 각 프로젝트 정보를 저장할 객체
 		// 목록를 조회하기 위한 쿼리
 		String sql = "select * from project_members where userId=?";
 		String sql2= "select * from projects where Project_Name=?";
@@ -106,13 +106,14 @@ public class ProjectDAO {
 			pstmt.setString(1, userId);
 			rs = pstmt.executeQuery(); // 쿼리 실행
 			while (rs.next()) {
-				logger.debug("project_getlist test1= 유저가 참여중인 프로젝트 이름:"+rs.getString("Project_Name") );
-				pstmt2.setString(1, rs.getString("Project_Name"));
+				logger.debug("project_getlist test1= 유저가 참여중인 프로젝트 이름:"+rs.getString("Project_name") );
+				pstmt2.setString(1, rs.getString("Project_name"));
 				rs2=pstmt2.executeQuery();
 				while(rs2.next()){
-					logger.debug("project_getlist test2=조회한 프로젝트이름:"+rs2.getString("Project_Name") );
+					logger.debug("project_getlist test2=조회한 프로젝트이름:"+rs2.getString("Project_name") );
 					logger.debug("project_getlist test3=조회한 프로젝트 생성날짜:"+rs2.getDate("Project_Date") );
-					project.setProjectName(rs2.getString("Project_Name"));
+					Project project =new Project(); //형근: 각 프로젝트 정보를 저장할 객체
+					project.setProjectName(rs2.getString("Project_name"));
 					project.setProjectDate(rs2.getDate("Project_Date"));
 					projects.add(project);
 				}
@@ -165,15 +166,15 @@ public class ProjectDAO {
 			SourceReturn();
 		}
 	}
-
-	public void removeProject(int num) throws SQLException {
-		String sql = "delete from cards where Num = ?";
+	
+	public void removeProject(String projectName) throws SQLException {
+		String sql = "delete from projects where Project_name = ?";
 
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setInt(1, num);
+			pstmt.setString(1, projectName);
 
 			pstmt.executeUpdate();
 
@@ -210,35 +211,32 @@ public class ProjectDAO {
 		return card;
 	}
 
-	public void updateProject(Card card) throws SQLException {
-		String sql = "update cards set SubJect = ?, Content = ?, Date = ? where Num = ?";
+	public void updateProject(String newName, String preName) throws SQLException {
+		String sql = "update projects set Project_Name = ?, Project_Date = ? where Project_Name = ?";
 		conn = getConnection();
 		Timestamp date=new Timestamp(new Date().getTime());  //형근: datetime 타입에 맞는 현재 시간을 입력하기 위한 객체
 		try {
 
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, card.getSubject());
-			pstmt.setString(2, card.getContent());
-			pstmt.setTimestamp(3,date);
-			pstmt.setInt(4, card.getNum());
+			pstmt.setString(1, newName);
+			pstmt.setTimestamp(2,date);
+			pstmt.setString(3, preName);
 
 			pstmt.execute();
-			logger.debug("Updatecard : " + card);
 		} catch (Exception e) {
-			logger.debug("Updatecard error : " + e);
-			logger.debug(card + "");
+			logger.debug("Updateproject error : " + e);
 		} finally {
 			SourceReturn();
 		}
 	}
 	
-	public void addImage(String Image_Path,String Project_Name,String Author)throws SQLException{
+	public void addImage(String Image_Path,String projectName,String Author)throws SQLException{
 		String sql="insert into imagechats(Image_Path,Project_Name,Author) values(?,?,?)";
 		try{
 		conn=getConnection();
 		pstmt=conn.prepareStatement(sql);
 		pstmt.setString(1, Image_Path);
-		pstmt.setString(2, Project_Name);
+		pstmt.setString(2, projectName);
 		pstmt.setString(3, Author);
 		pstmt.executeUpdate();
 		}catch(SQLException e){

@@ -67,7 +67,7 @@
 		</div>
 		<div id="chat-dialogue">
 			<div id="chat-dialogue-list">
-				<textarea id="messageWindow" rows="15" cols="35" readonly="true"></textarea>
+				<textarea id="messageWindow" rows="15" cols="35" readonly="true" style = "border-color: azure;"></textarea>
 				<br />
 			</div>
 			<div id="chat-dialogue-input">

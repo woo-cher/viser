@@ -10,7 +10,8 @@
 <title>Insert title here</title>
 
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script>
 
 
 <!-- jquery -->
@@ -57,8 +58,8 @@
 		    }); */
  		var card_wrap_indivisual_tlp = $('#card_wrap_indivisual_tlp').html();
 		$('#addbutton').on('click', function(){
-			$('#sortable_box').append(card_wrap_indivisual_tlp);
-			$("#sortable1, #sortable2").sortable({
+			$('#here').append(card_wrap_indivisual_tlp);
+			$("#sortable1, #sortable2 #droppable").sortable({
 				connectWith : ".connectedSortable"
 			}).disableSelection();
 			 $("#sortable4").sortable({
@@ -139,11 +140,34 @@
 					</c:when>
 					<c:otherwise>
 						<a href="/users/logout" class="btn-default-logo">로그아웃 / </a>
-						<a href="/users/updateForm" class="btn-default-logo">개인정보수정 /
-						</a>
+						<a href="/users/updateForm" class="btn-default-logo">개인정보수정 / </a>
 						<a href="javascript:msg()" class="btn-default-logo"> 회원탈퇴 </a>
 					</c:otherwise>
 				</c:choose>
-			</span>
+			</span>  
 		</div>
 	</div>
+		<div class="modal fade file_modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content" style="padding: 20px;">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">파일업로드</h4>
+				</div>
+				<div class="modal-body" style=" text-align: center;">
+					<div id="uplode-body">
+						<h5>파일첨부</h5>
+						<form action="/imageUpload" method="post" enctype="multipart/form-data">
+	
+							<h5>첨부파일:</h5><input type="file" name="s_file" /><br />
+							<input type="submit" value="send" />
+	
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>  <!-- 환용 : 파일 업로드를 위한 모달 -->

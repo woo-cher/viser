@@ -1,55 +1,128 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>jQuery UI Menu - Default functionality</title>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-	$(function() {
-		$("#menu").menu();
-	});
-</script>
-<style>
-.ui-menu {
-	width: 150px;
-}
+<title>Runtime</title>
 
-</style>
+<link href="stylesheets/form.css" rel="stylesheet" type="text/css">
 </head>
-
 <body>
-	<div id="chat-container">
-		<div id="chat-user">
-			<h2>유저목록</h2>
-			<div id="chat-user-list">
-				<ul id="menu">
-				<c:forEach var="list" items="${memberlist }">
-					<li>
-						${list.userId }
-						<ul>
-							<c:choose>
-							<c:when test="${isMaster==true}">
-								<li><a href="추방url?userId=${list.userId }&projectName=${list.projectName}">추방</a></li>  <!-- 형근: 추방 servlet구현시 url변경 필요 -->
-							</c:when>
-							<c:otherwise>
-								<li class="ui-state-disabled">추방</li>
-							</c:otherwise>
-							</c:choose>
-							<li><div>쪽지보내기</div></li>
-						</ul>
-					</li>
-				</c:forEach>
-				</ul>
-			</div>
+		<div class="background">
+		<%@ include file="./commons/top.jspf"%>
+		<div class="wrap ac">
+			<div id="card-container_wrap">
+	<div class="signup-container">
+		<div class="signup-header" style = "padding-bottom: 5px">
+		
+			<c:set var = "pageName" value = "회원가입" />
+			<c:if test = "${isUpdate}" >  <!-- userId 유무로써 판단했던 것을 서블릿 정보로써 판단  -->
+			<c:set var = "pageName" value = "개인정보수정" />
+			</c:if>
+			<h1>${pageName}</h1>			
 		</div>
+			
+			<c:set var = "actionUrl" value = "/users/create" />
+			<c:if test="${isUpdate}">
+			<c:set var = "actionUrl" value = "/users/update" />
+			</c:if>
+		
+		<form id="form-sign" action="${actionUrl}" method="post">
+	<div
+					style="width: 300px; margin: 0 auto; text-align: right; margin-bottom: 20px;">
+		<!-- <div class="first"> -->
+		<div class="input-group">
+			<span class="input-group-addon"id="basic-addon2" for="name">이름 </span> 
+		
+		<c:choose>
+			<c:when test="${isUpdate}">
+				<input type="hidden" class="form-control" aria-describedby="basic-addon2" name ="name" value="${user.name}" />
+				<div style="padding-left: 140px;">${user.name}</div>
+			</c:when>
+			
+			<c:otherwise>
+				<input type="text" class="form-control" aria-describedby="basic-addon2" name="name" value="${user.name}" />
+			</c:otherwise>
+		</c:choose>
+		</div>
+<!-- 		</div> -->
+		<div class="input-group">
+				<label class="input-group-addon"id="basic-addon2" for="age">나이</label> 
+		<c:choose>
+			<c:when test="${isUpdate}">
+				<input type="hidden" name ="age" value="${user.age}" />
+				<div id="hidden" "style ="text-align: center;">${user.age}</div>	
+			</c:when>
+			
+			<c:otherwise>
+				<input type="text" class="form-control" aria-describedby="basic-addon2" name="age" value="${user.age}" />
+			</c:otherwise>
+		</c:choose>
+</div>
+		<div>
+				<label  for="gender">성별</label> 
+		<c:choose>
+			<c:when test="${isUpdate}">
+				<input type="hidden" class="form-control" aria-describedby="basic-addon2" name ="gender" value="${user.gender}" />
+				${user.gender}
+			</c:when>
+			
+			<c:otherwise>
+				<input type="checkbox" name="gender" value="Man" />남
+				<input type="checkbox" name="gender" value="Women" />여
+			</c:otherwise>
+		</c:choose>
+		</div>
+
+		<div class="input-group">
+			<label class="input-group-addon"id="basic-addon2" for="userId">Id</label> 
+			
+		<c:choose>
+			<c:when test="${isUpdate}">
+				<%-- <input type="hidden" style ="text-align: center;" name ="userId" value="${user.userId}" /> --%>
+				<div style ="padding-left: 121px;">${user.userId}</div>
+			</c:when>
+			
+			<c:otherwise>
+				<input type="text" class="form-control" aria-describedby="basic-addon2" name="userId" value="${user.userId}" />				
+				
+			</c:otherwise>
+		</c:choose>  
+		</div> 
+
+		<div class="input-group">
+			<label class="input-group-addon"id="basic-addon2" for="password">Password</label> 
+			<input type="password" class="form-control" aria-describedby="basic-addon2" name="password" value="${user.password}" />
+		</div>
+		
+		<div class="input-group">
+			<label class="input-group-addon"id="basic-addon2" for="password2">Password-check</label>
+			<input type="password" class="form-control" aria-describedby="basic-addon2" name="password2" value="${user.password}" />
+		</div>
+		
+		<div class="input-group">
+			<label class="input-group-addon"id="basic-addon2" for="email">이메일</label>
+			<input type="text" class="form-control" aria-describedby="basic-addon2" name="email" value="${user.email}" />
+		</div>
+
+		<div class="signup-footer">
+			<button type="submit" class="btn btn-info">
+			
+				<c:set var = "buttonName" value = "가입하기" />
+				<c:if test = "${isUpdate}">
+				<c:set var = "buttonName" value = "수정하기" />
+				</c:if>
+			
+				${ buttonName }
+			</button>
+		</div>  
+		</div>
+		</form>
 	</div>
+	</div>
+	</div>
+	</div>
+
 </body>
 </html>

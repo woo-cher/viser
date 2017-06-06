@@ -32,7 +32,7 @@ public class CreateFormCardServlet extends HttpServlet {
 			req.setAttribute("isCreate", true);
 			User user = userDao.findByUserId(userId);
 			req.setAttribute("user", user);
-			RequestDispatcher rd = req.getRequestDispatcher("/card_form.jsp");
+			RequestDispatcher rd = req.getRequestDispatcher("/card.jsp");
 			rd.forward(req, resp);
 		} catch (SQLException e) {
 		}

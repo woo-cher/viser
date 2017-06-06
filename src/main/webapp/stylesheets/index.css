@@ -193,7 +193,7 @@ body {
 	background-image: no-repeat;
 	background-size: cover;
 	background-position:;
-	color: azure;
+/* 	color: azure; */
 	background: azure;
 }
 
@@ -203,9 +203,8 @@ body {
 }
 
 .btn-default-logo {
-	color: #333;
 	font-weight: 900;
-	color: white;
+color: white;
 	/* background-color: #fff; */
 }
 
@@ -214,7 +213,10 @@ body {
 }
 
 #basic-addon1 {
-	width: 84px;
+	width: 86px;
+}
+#basic-addon2 {
+	width: 130px;
 }
 
 .signup-footer {
@@ -328,6 +330,33 @@ body {
 	background: #c5c5c5;
 	color: #fff;
 	 width: 170px;
-	
-	
+	 font-weight: bold;
+		
+}
+.btn_c{
+	    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 17px;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+#myModalLabel{
+	text-align : center;
+}
+#hidden{
+	    padding-left: 150px;
 }

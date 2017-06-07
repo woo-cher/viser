@@ -14,8 +14,6 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import viser.project.Project;
-
 public class BoardDAO {
 	private static final Logger logger = LoggerFactory.getLogger(BoardDAO.class);
 
@@ -63,36 +61,30 @@ public class BoardDAO {
 		}
 	}
 
-	public List getBoardList(Project project) throws SQLException {
+	public List getBoardList(String projectName) throws SQLException {
 
 		List boardlist = new ArrayList();
-		Board board =new Board();
-		
+
 		// 목록를 조회하기 위한 쿼리
 		
 		String sql = "select * from boards where Project_Name = ?";
-		String sql2= "select * from projects where Board_Name = ?";
 		
 		try {
 			conn = getConnection();
 			
 			// 실행을 위한 쿼리 및 파라미터 저장
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, project.getProjectName());
 			
-			pstmt2 = conn.prepareStatement(sql2);
+			pstmt.setString(1, projectName);
+			
 			rs = pstmt.executeQuery(); // 쿼리 실행
 			
 			while (rs.next()) {
-				
-				pstmt2.setString(1, rs.getString("Board_Name"));
-				rs2 = pstmt2.executeQuery();
-				while(rs2.next()){
-					
-					board.setBoardName(rs2.getString("Board_Name"));
-					boardlist.add(project);
-				}
+					Board board =new Board();
+					board.setBoardName(rs.getString("Board_Name"));
+					boardlist.add(board);
 			}
+			
 			return boardlist;
 
 		} catch (Exception e) {
@@ -105,5 +97,53 @@ public class BoardDAO {
 
 		return null;
 	}
+	
+	public void addBoard(Board board) throws SQLException {
+		
+		String sql = "insert into boards (Project_Name , Board_Name) values (? , ?)";
+		
+		try {
+			conn = getConnection();		
+			pstmt = conn.prepareStatement(sql);
 
+			pstmt.setString(1, board.getProjectName());
+			pstmt.setString(2, board.getBoardName());
+			pstmt.executeUpdate();
+
+		} finally {
+			SourceReturn();
+		}
+	}
+
+	public void removeBoard(String boardName) throws SQLException {
+		String sql = "delete from boards where Board_Name = ?";
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, boardName);
+
+			pstmt.executeUpdate();
+
+		} finally {
+			SourceReturn();
+		}
+	}
+	
+	public void updateBoard(String newName, String preName) throws SQLException {
+		String sql = "update boards set Board_Name = ? where Board_Name = ?";
+		conn = getConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newName);
+			pstmt.setString(2, preName);
+
+			pstmt.execute();
+		} catch (Exception e) {
+			logger.debug("Updateproject error : " + e);
+		} finally {
+			SourceReturn();
+		}
+	}
 }

@@ -4,9 +4,11 @@
 
 <c:set var = "ActionUrl" value = "/project/createProject" />
 <c:set var = "Modal_id" value = "CreateNewProJect" />
+<c:set var = "InputName" value = "projectName" />
 <c:if test = "${isReadBoard}">
-<c:set var = "ActionUrl" value = "" />
+<c:set var = "ActionUrl" value = "/board/createBoard" />
 <c:set var = "Modal_id" value = "CreateNewBoard" />
+<c:set var = "InputName" value = "boardName" />
 </c:if>
 
 <div class="modal fade" id="${Modal_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -21,7 +23,10 @@
 		 <form class="form-inline" action="${ActionUrl}" method="get">
 		 	 <div class="form-group">
 		 	   <label for="exampleInputName2" style="padding-right: 10px"><h2>Name</h2></label>
-			    <input type="text" class="form-control" name="Project_name" placeholder="Input ${Target} name.." style="width:300px">
+			   <input type="text" class="form-control" name="${InputName}" placeholder="Input ${Target} name.." style="width:300px">
+			   <c:if test = "${isReadBoard}">
+			   <input type="hidden" name="projectName" value="${param.Project_name}">
+			   </c:if>
 			  </div>
     	 </div>
 		  

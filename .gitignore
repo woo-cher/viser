@@ -5,4 +5,5 @@ target/
 .metadata
 webapps/
 .settings
-/.classpath
+.classpath
+.project

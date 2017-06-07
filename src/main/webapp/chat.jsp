@@ -71,10 +71,7 @@
 				<br />
 			</div>
 			<div id="chat-dialogue-input">
-				<!-- <input id="inputMessage" type="text" onKeyPress="javascript:if(event.keyCode == 13) { send() }"/>
-          -->
-				<input id="inputMessage" type="text"
-					onKeyPress="javascript:if(event.keyCode == 13) { textSend() }" />
+				<input id="inputMessage" type="text" onKeyPress="javascript:if(event.keyCode == 13) { textSend() }" />
 				<input id="send" type="submit" value="send" onclick="textSend()" />
 			</div>
 		</div>
@@ -87,6 +84,11 @@
 <!-- 채팅 js파일 -->
 <script src="/scripts/webSocketChat.js"></script>
 <script>
+	function message(){
+		alert('업로드 성공');
+		reloadSend(); //형근: 다른 사용자들 화면도 갱신 
+	}
+
 	function popupOpen() { //형근: 이미지 업로드창을 띄워줄 스크립트 함수
 
 		var popUrl = "/upload.jsp?perposeURL=/imageUpload"; //팝업창에 출력될 페이지 URL
@@ -99,7 +101,7 @@
 
 <!-- 형근: 이미지 클릭과 제거에 대한 스크립트 -->
 <script>
- $(function(){
+//형근: 이미지 버튼을 눌렀을때
  $('#chat-image-list-display button').click(function(e){
 	e.preventDefault();
 	$('#chat-image-list-display button').removeClass('selected'); //형근: 기존에 선택된 효과 제거
@@ -113,15 +115,16 @@
 	imageSend();   //형근 : 클릭한 그림 다른 클라이언트들에게도 전송
 	clickSync();   //형근 : 클릭한 그림 클릭 효과 맞춤
  });
- });
+ 
+ //형근: 이미지 삭제를 눌렀을때
  function deleteImage(){
 	 location.href='/project/imagedelete?Image_Path='+imageId;
 	 canvasInit(); //형근: 캔버스 초기화
 	 imageId='';  //형근:클릭된 이미지 경로 초기화
 	 clearSend();  //형근: 클라이언트 들의 페이지도 초기화
 	 clickSync();   //형근 : 클릭한 그림 클릭 효과 맞춤
-	 
- }
+	 reloadSend(); //형근: 다른 사용자들 화면도 갱신 
+ };
 </script>
 
 </html>

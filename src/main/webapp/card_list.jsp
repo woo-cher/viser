@@ -26,17 +26,7 @@
 
 
 
-#sortable_box {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
 
-#sortable_box li {
-/*margin: 3px 3px 3px 0; */  
-    float: left;
-    text-align: center;
-}
 </style>
 
  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -79,11 +69,41 @@
 						</div>
 
 					</div>
-				</div>  
+				</div>
+				
+				<div id = "card_wrap_indivisual_tlp" style ="display:none;" >
+				<li id = "box10" class="ui-state-default  card_margin">
+
+							<div class="card_wrap_top">
+										<div>
+											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">My goal</textarea>
+										</div>
+										<div>
+											<button type="button" class="ui-state-default add_card" id="title-sortable">add..</button>  
+										</div>
+						  	</div>
+						  	
+						  	
+								<div >
+									<!-- <div id="card_wrap_indivisual"> -->
+
+										<div id="card_wrap">
+											<ul id="sortable_two" class="connectedSortable sort_css">  
+
+											</ul>
+										</div>
+
+								</div>
+								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
+							</li>
+				</div>
+
+				
+				  
 
 		<div id="card-container" style = "overflow-x: auto;"> 
 
-			   	<div id="tt" style="width :1500px">  
+			   	<div id="tt" style="width:10000px;overflow-x: auto;    text-align: left;">
 						<ul id="sortable_box" class = "boxsort">  
 						
 							
@@ -164,54 +184,31 @@
 										</div>
 
 								</div>
-								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
+								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px; float:left">삭제</button>
 							</li>
-							
-							
-														<li id = "box2" class="ui-state-default  card_margin">
-
-							<div class="card_wrap_top">
-										<div>
-											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">My goal</textarea>
-										</div>
-										<div>
-											<button type="button" class="ui-state-default add_card" id="title-sortable">add..</button>  
-										</div>
-						  	</div>
-						  	
-						  	
-								<div >
-									<!-- <div id="card_wrap_indivisual"> -->
-
-										<div id="card_wrap">
-											<ul id="sortable_two" class="connectedSortable sort_css">  
-
-											</ul>
-										</div>
-
-								</div>
-								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
-							</li>
-							
-									
 					</ul>
+					<button type="button" id ="addbutton" class="btn btn-info_c" href="#"  onclick="" style = "margin-top: 16px;">추가</button>
+					
+
 			</div>
- 		</div>  
+      </div> 
 				
 
 			<div id='project_user'>
-				<iframe src="/project/memberlist" height="170" width="278" name=user> 
+				<iframe src="/project/memberlist" height="170" width="290" name=user> 
 				 	<p>Your browser does not support iframes.</p>
 				</iframe>
 			</div>
 			<div id='project-chat'>
-				<iframe src="/project/imagelist" height="747" width="278" name=chat>
+				<iframe src="/project/imagelist" height="850" width="290" name=chat>
 				 	<p>Your browser does not support iframes.</p>
 				</iframe>
 			</div>
 			</div>
 		</div>
 	</div>
+	
+	
 </body>
 <%@ include file="./commons/bottom.jspf"%>
 </div>
@@ -219,7 +216,7 @@
 
 
 
-<!-- 근    아래    짱 -->
+<!-- 근    아래    짱 -->  
  <script>
  
  

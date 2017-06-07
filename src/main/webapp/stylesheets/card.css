@@ -36,12 +36,12 @@
 	overflow:hidden;
 	float: left;
     width: 1150px;
-    height: 950px;
+    height: 890px;
 }
 #card-container {
 	float: left;
     width: 850px;
-    height: 850px;  
+    height: 1100px; 
 /*     border: 1px solid; */  
 }
 

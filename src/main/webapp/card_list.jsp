@@ -34,7 +34,6 @@
 
 #sortable_box li {
 /*margin: 3px 3px 3px 0; */  
-    padding: 1px;
     float: left;
     text-align: center;
 }
@@ -85,36 +84,65 @@
 		<div id="card-container" style = "overflow-x: auto;"> 
 
 			   	<div id="tt" style="width :1500px">  
-						<ul id="sortable_box" class = "boxsort_row">  
+						<ul id="sortable_box" class = "boxsort">  
 						
-							<li id = "box1" class="boxsort ui-state-default  card_margin">
+							
+							<li id = "box1" class="ui-state-default  card_margin">
 
-							<!-- <div class="card_wrap_top"> -->
-										
+							<div class="card_wrap_top">
+										<div>
 											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">My goal</textarea>
-										
-										
+										</div>
+										<div>
 											<button type="button" class="ui-state-default add_card" id="title-sortable">add..</button>  
-										
+										</div>
+						  	</div>
 						  	
 						  	
-
+								<div >
 									<!-- <div id="card_wrap_indivisual"> -->
 
-										
-											<ul id="sortable_one" class="connectedSortable sort_css">
-												<li id="1-1" class="ui-state-default">first</li>
-												<li id="1-2" class="ui-state-default">Item 3</li>
-												<li id="1-3" class="ui-state-default">Item 4</li>
+										<div id="card_wrap">
+											<ul id="sortable_two" class="connectedSortable sort_css">  
+
 											</ul>
-										
+										</div>
 
-
+								</div>
 								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
-							</li>
+							</li>		
 							
 							
-							<li id = "box1" class="boxsort ui-state-default  card_margin">
+							
+						<li id = "box2" class="ui-state-default  card_margin">
+
+							<div class="card_wrap_top">
+										<div>
+											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">My goal</textarea>
+										</div>
+										<div>
+											<button type="button" class="ui-state-default add_card" id="title-sortable">add..</button>  
+										</div>
+						  	</div>
+						  	
+						  	
+								<div >
+									<!-- <div id="card_wrap_indivisual"> -->
+
+										<div id="card_wrap">
+											<ul id="sortable_two" class="connectedSortable sort_css">  
+
+											</ul>
+										</div>
+
+								</div>
+								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
+						</li>					
+							
+							
+							
+							
+							<li id = "box3" class="ui-state-default  card_margin">
 
 							<div class="card_wrap_top">
 										<div>
@@ -139,83 +167,31 @@
 								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
 							</li>
 							
-							<li id = "box1" class="boxsort ui-state-default  card_margin">
-
-							<div class="card_wrap_top">
-										<div>
-											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">My goal</textarea>
-										</div>
-										<div>
-											<button type="button" class="ui-state-default add_card" id="title-sortable">add..</button>  
-										</div>
-						  	</div>
-						  	
-						  	
-								<div >
-									<!-- <div id="card_wrap_indivisual"> -->
-
-										<div id="card_wrap">
-											<ul id="sortable1" class="connectedSortable">  
-
-											</ul>
-										</div>
-
-								</div>
-								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
-							</li>
-							<li id = "box1" class="boxsort ui-state-default  card_margin">
-
-							<div class="card_wrap_top">
-										<div>
-											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">My goal</textarea>
-										</div>
-										<div>
-											<button type="button" class="ui-state-default add_card" id="title-sortable">add..</button>  
-										</div>
-						  	</div>
-						  	
-						  	
-								<div >
-									<!-- <div id="card_wrap_indivisual"> -->
-
-										<div id="card_wrap">
-											<ul id="sortable1" class="connectedSortable">  
-
-											</ul>
-										</div>
-
-								</div>
-								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
-							</li>
-							<li id = "box1" class="boxsort ui-state-default  card_margin">
-
-							<div class="card_wrap_top">
-										<div>
-											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">My goal</textarea>
-										</div>
-										<div>
-											<button type="button" class="ui-state-default add_card" id="title-sortable">add..</button>  
-										</div>
-						  	</div>
-						  	
-						  	
-								<div >
-									<!-- <div id="card_wrap_indivisual"> -->
-
-										<div id="card_wrap">
-											<ul id="sortable1" class="connectedSortable">
-											<li id="6-1" class="ui-state-default">sixth</li>
-												<li id="6-2" class="ui-state-default">Item 3</li>
-												<li id="6-3" class="ui-state-default">Item 4</li>
-
-											</ul>
-										</div>
-
-								</div>
-								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
-							</li>
 							
-							
+														<li id = "box2" class="ui-state-default  card_margin">
+
+							<div class="card_wrap_top">
+										<div>
+											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">My goal</textarea>
+										</div>
+										<div>
+											<button type="button" class="ui-state-default add_card" id="title-sortable">add..</button>  
+										</div>
+						  	</div>
+						  	
+						  	
+								<div >
+									<!-- <div id="card_wrap_indivisual"> -->
+
+										<div id="card_wrap">
+											<ul id="sortable_two" class="connectedSortable sort_css">  
+
+											</ul>
+										</div>
+
+								</div>
+								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
+							</li>
 							
 									
 					</ul>
@@ -269,9 +245,7 @@
     $( ".connectedSortable" ).sortable({
       connectWith: ".connectedSortable"
     }).disableSelection();
-    $( ".connectedSortable_row" ).sortable({
-        connectWith: ".connectedSortable_row"
-      }).disableSelection();
+
   } ); 
   
   

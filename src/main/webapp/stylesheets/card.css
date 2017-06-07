@@ -38,10 +38,12 @@
     width: 1150px;
     height: 890px;
 }
+
 #card-container {
 	float: left;
     width: 850px;
-    height: 1100px; 
+    height: 817px;
+    overflow:auto;
 /*     border: 1px solid; */  
 }
 
@@ -84,22 +86,8 @@ iframe{
 	float:right;
 }
 
-#card-container_wrap {
-	margin-top:20px;
-	text-align:center;
-/* 	border: 1px solid black; */
-	overflow:hidden;
-	float: left;
-    width: 1150px;
-    height: 950px;
-    border: 1px solid;
-}
-#card-container {
-	float: left;
-    width: 850px;
-    height: 700px;
-    border: 1px solid;
-}
+
+
 
 /* 梨꾪똿占�? css*/
 iframe{

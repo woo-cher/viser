@@ -41,7 +41,7 @@
 
 		<video style="width: 100%;" autoplay="" loop=""
 			poster="https://d2v80xjmx68n4w.cloudfront.net/intro/c1a31243becb02fba269c3e290a7e652.jpg">
-			<source type="video/mp4" src="https://cdn.codeground.org/videos/Promotion_KOR.mp4">
+			<source type="video/mp4" src="take5.mp4">
 			<source type="video/webm" src="/acc.webm">
 			<source type="video/ogg" src="/acc.ogv">
 			<object>

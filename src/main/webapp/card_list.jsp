@@ -16,10 +16,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<!---------------->
-
-
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>jQuery UI Sortable - Display as grid</title>
@@ -27,19 +23,7 @@
 <link rel="stylesheet" href="/resources/demos/style.css">
 <style>
 
-#droppable {    width: 150px;
-    height: 34px;
-    padding: 0.2em;
-    float: left;
-    margin: 10px;
-    border: 5px solid aquamarine;
-    background: azure;
-    border-radius: 10px;
-    margin-right: 30px;
-    position: absolute;
-    top: 880px;
-    left: 970px;
-     }
+
 
 
 #sortable_box {
@@ -55,29 +39,9 @@
     text-align: center;
 }
 </style>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-	$(function() {
-		$("#sortable_box").sortable();
-		$("#sortable1").draggable();
-		$("#sortable_box").disableSelection();
-	    $( ".widget input[type=submit], .widget a, .widget button" ).button();
-	    $( "button, input, a" ).click( function( event ) {
-	      event.preventDefault();
-	    } );
-	});
-	
-	 $( function() {
-		    $( "#droppable " ).droppable({
-		      drop: function( event, ui ) {
-		        $( this ).find("li").remove();
-		      }
-		    });
-		  } );
-	
-</script>
 
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
 
@@ -97,12 +61,9 @@
 					<div id="mini-menu">
 
 						<div class="btn-group-sm" role="group" aria-label="...">  
-							<div id="droppable" class="ui-widget-header">
+ 						    <!--<div id="droppable" class="ui-widget-header">
 									<p>Drop here</p>
-								<ul id="sortable1" class="connectedSortable" style="border: 0px solid azure;">
-  
-  								</ul>
-							</div>
+							</div> -->
 							<button type="button" class="btn btn-info" href="#"
 								class="btn btn-default">검색</button>
 							<button type="button" class="btn btn-info" href="#"
@@ -121,119 +82,145 @@
 					</div>
 				</div>  
 
-				<div id="card-container" style = "overflow-x: auto;"> 
-<!-- </div> --> <!-- $(this).parent().remove();-->
-					<div id="card_wrap_indivisual_tlp" style="display: none;">
-							<li class="ui-state-default  card_margin">
-
-							<div id="card_wrap_top">
-										<!-- <div class="ui-state-default" id="title-sortable"><textarea class="list-header-name mod-list-name js-list-name-input" spellcheck="false" dir="auto" maxlength="512" style="overflow: hidden; word-wrap: break-word; height: 24px;">Next Week</textarea>  </div> -->
-										<div>
-											<textarea class="change_name" spellcheck="false" dir="auto"
-												maxlength="512"
-												style="overflow: hidden; word-wrap: break-word; height: 24px; margin-top: 5px; width: 150px;">My goal</textarea>
-										</div>
-										<!-- <div class="ui-state-default" id="title-sortable">추가</div> -->
-										<div>
-											<button type="button" class="ui-state-default add_card" id="title-sortable">add..</button>  
-										</div>
-							</div>
-								<div id="sortable3" class="connectedSortable_row">
-									<!-- <div id="card_wrap_indivisual"> -->
-
-									
-
-										<div id="card_wrap">
-											<ul id="sortable1" class="connectedSortable">
-												<!-- <li id="title-sortable" class="ui-state-default">이름</li> -->
-
-											</ul>
-										</div>
-
-								</div>
-								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
-							</li> 
-							
-						</div>
-
-    
+		<div id="card-container" style = "overflow-x: auto;"> 
 
 			   	<div id="tt" style="width :1500px">  
-						<ul id="sortable_box">  
+						<ul id="sortable_box" class = "boxsort_row">  
 						
-							<li class="ui-state-default  card_margin">
+							<li id = "box1" class="boxsort ui-state-default  card_margin">
 
-							<div id="card_wrap_top">
-										<!-- <div class="ui-state-default" id="title-sortable"><textarea class="list-header-name mod-list-name js-list-name-input" spellcheck="false" dir="auto" maxlength="512" style="overflow: hidden; word-wrap: break-word; height: 24px;">Next Week</textarea>  </div> -->
+							<!-- <div class="card_wrap_top"> -->
+										
+											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">My goal</textarea>
+										
+										
+											<button type="button" class="ui-state-default add_card" id="title-sortable">add..</button>  
+										
+						  	
+						  	
+
+									<!-- <div id="card_wrap_indivisual"> -->
+
+										
+											<ul id="sortable_one" class="connectedSortable sort_css">
+												<li id="1-1" class="ui-state-default">first</li>
+												<li id="1-2" class="ui-state-default">Item 3</li>
+												<li id="1-3" class="ui-state-default">Item 4</li>
+											</ul>
+										
+
+
+								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
+							</li>
+							
+							
+							<li id = "box1" class="boxsort ui-state-default  card_margin">
+
+							<div class="card_wrap_top">
 										<div>
-											<textarea class="change_name" spellcheck="false" dir="auto"
-												maxlength="512"
-												style="overflow: hidden; word-wrap: break-word; height: 24px; margin-top: 5px; width: 150px;">My goal</textarea>
+											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">My goal</textarea>
 										</div>
-										<!-- <div class="ui-state-default" id="title-sortable">추가</div> -->
 										<div>
 											<button type="button" class="ui-state-default add_card" id="title-sortable">add..</button>  
 										</div>
-						  </div>
-								<div id="sortable3" class="connectedSortable_row">
+						  	</div>
+						  	
+						  	
+								<div >
 									<!-- <div id="card_wrap_indivisual"> -->
 
 										<div id="card_wrap">
-											<ul id="sortable1" class="connectedSortable">
-												<!-- <li id="title-sortable" class="ui-state-default">이름</li> -->
+											<ul id="sortable_two" class="connectedSortable sort_css">  
 
-												<li id="sortable_card" class="ui-state-default">first</li>
-												<li id="sortable_card" class="ui-state-default">Item 3</li>
-												<li id="sortable_card" class="ui-state-default">Item 4</li>
-												<li id="sortable_card" class="ui-state-default">Item 5</li>
 											</ul>
 										</div>
 
 								</div>
 								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
 							</li>
-														<li  class="ui-state-default card_margin"><div
-									id="sortable3" class="connectedSortable_row">
+							
+							<li id = "box1" class="boxsort ui-state-default  card_margin">
+
+							<div class="card_wrap_top">
+										<div>
+											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">My goal</textarea>
+										</div>
+										<div>
+											<button type="button" class="ui-state-default add_card" id="title-sortable">add..</button>  
+										</div>
+						  	</div>
+						  	
+						  	
+								<div >
 									<!-- <div id="card_wrap_indivisual"> -->
 
-									<div id="card_wrap_top">
-										<!-- <div class="ui-state-default" id="title-sortable"><textarea class="list-header-name mod-list-name js-list-name-input" spellcheck="false" dir="auto" maxlength="512" style="overflow: hidden; word-wrap: break-word; height: 24px;">Next Week</textarea>  </div> -->
-										<div>
-											<textarea class="change_name" spellcheck="false" dir="auto"
-												maxlength="512"
-												style="overflow: hidden; word-wrap: break-word; height: 24px; margin-top: 5px; width: 150px;">Ref.</textarea>
+										<div id="card_wrap">
+											<ul id="sortable1" class="connectedSortable">  
+
+											</ul>
 										</div>
-										<!-- <div class="ui-state-default" id="title-sortable">추가</div> -->
+
+								</div>
+								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
+							</li>
+							<li id = "box1" class="boxsort ui-state-default  card_margin">
+
+							<div class="card_wrap_top">
 										<div>
-											<button type="button" class="ui-state-default11"
-												id="title-sortable"
-												onclick="location.href='/card/createcardForm'">add..</button>
+											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">My goal</textarea>
 										</div>
+										<div>
+											<button type="button" class="ui-state-default add_card" id="title-sortable">add..</button>  
+										</div>
+						  	</div>
+						  	
+						  	
+								<div >
+									<!-- <div id="card_wrap_indivisual"> -->
+
+										<div id="card_wrap">
+											<ul id="sortable1" class="connectedSortable">  
+
+											</ul>
+										</div>
+
+								</div>
+								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
+							</li>
+							<li id = "box1" class="boxsort ui-state-default  card_margin">
+
+							<div class="card_wrap_top">
+										<div>
+											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">My goal</textarea>
+										</div>
+										<div>
+											<button type="button" class="ui-state-default add_card" id="title-sortable">add..</button>  
+										</div>
+						  	</div>
+						  	
+						  	
+								<div >
+									<!-- <div id="card_wrap_indivisual"> -->
 
 										<div id="card_wrap">
 											<ul id="sortable1" class="connectedSortable">
-												<!-- <li id="title-sortable" class="ui-state-default">이름</li> -->
- 
-												<li id="sortable_card" class="ui-state-default">last</li>
-												<li id="sortable_card" class="ui-state-default">..</li>
-												<li id="sortable_card" class="ui-state-default">Item 4</li>
-												<li id="sortable_card" class="ui-state-default">Item 5</li>
+											<li id="6-1" class="ui-state-default">sixth</li>
+												<li id="6-2" class="ui-state-default">Item 3</li>
+												<li id="6-3" class="ui-state-default">Item 4</li>
+
 											</ul>
 										</div>
-									</div>
-								</div><button type="button" class="btn btn-info delete" href="#"  onclick="">검색</button>
-							</li>
-							<div id = "here">							
-							</div>
-							<li>
-							<button id="addbutton" class="btn_c btn-info_c" style = "margin-top: 14px;">추가</button>
-							</li>
-						</ul>
-					</div>
- 
- 
 
-				</div>  
+								</div>
+								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
+							</li>
+							
+							
+							
+									
+					</ul>
+			</div>
+ 		</div>  
 				
 
 			<div id='project_user'>
@@ -253,3 +240,47 @@
 <%@ include file="./commons/bottom.jspf"%>
 </div>
 </html>
+
+
+
+<!-- 근    아래    짱 -->
+ <script>
+ 
+ 
+/* $(function(){
+	 $('.card_wrap_top').disableSeletion();
+ }); */
+  //리스트의 이동
+  $( function() {
+       $( ".boxsort" ).sortable({
+            update: function(event, ul) { 
+                 console.log('list update: '+ ul.item.index())
+             },
+             start: function(event, ul) { 
+                 console.log('list start: ' + ul.item.index())
+             }
+         });
+       
+       $(".card_wrap_top").disableSelection();
+  } );
+  
+  //리스트간 카드 이동
+  $( function() {
+    $( ".connectedSortable" ).sortable({
+      connectWith: ".connectedSortable"
+    }).disableSelection();
+    $( ".connectedSortable_row" ).sortable({
+        connectWith: ".connectedSortable_row"
+      }).disableSelection();
+  } ); 
+  
+  
+  </script>
+  
+  <!-- 형근: textarea 영역을 늘여주는 함수 --> 
+  <script>
+function resize(obj) {
+  obj.style.height = "1px";
+  obj.style.height = (12+obj.scrollHeight)+"px";
+}
+</script>

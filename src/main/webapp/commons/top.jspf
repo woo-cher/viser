@@ -37,33 +37,11 @@
 
 <script>
 	$(function() {
-/* 		$("#sortable1, #sortable2, #sortable3").sortable({
-			connectWith : ".connectedSortable"
-		}).disableSelection(); */
-		$("#sortable1, #sortable2").sortable({
-			connectWith : ".connectedSortable"
-		}).disableSelection();
-		 $("#sortable4").sortable({
-			connectWith : ".connectedSortable_row"
-		}).disableSelection();
-/* 		$("#sortable1").sortable({
-			cancel : "#title-sortable" 
-		}); */
-
-/* 		 $(".change_name").focus(function(){
-		        $(this).css("background-color", "#ffffff");
-		    }); */
-/* 		    $(".change_name").blur(function(){
-		        $(this).css("background-color", "#E2E4E6");
-		    }); */
  		var card_wrap_indivisual_tlp = $('#card_wrap_indivisual_tlp').html();
 		$('#addbutton').on('click', function(){
-			$('#here').append(card_wrap_indivisual_tlp);
-			$("#sortable1, #sortable2 #droppable").sortable({
+			$('#sortable_box').append(card_wrap_indivisual_tlp);
+			$(".connectedSortable, #sortable2, #droppable").sortable({
 				connectWith : ".connectedSortable"
-			}).disableSelection();
-			 $("#sortable4").sortable({
-				connectWith : ".connectedSortable_row"  
 			}).disableSelection();
 			
 		});
@@ -94,21 +72,9 @@
 		$('body').on('click','.add_card',function(){
 			$(this).parent().parent().parent().find('ul').append('<li id="sortable_card" class="ui-state-default ui-sortable-handle"> asdf </li>');  
 			});
-		/* $(this).parent().find('ul').append('<li id="sortable_card" class="ui-state-default ui-sortable-handle">Item 5</li>'); */
-		/*    children('') $(this).parent().parent().find('sortable3').find('ul').append('<li value = "ddd" id="sortable_card" class="ui-state-default ui-sortable-handle"> asdf </li>'); */
 	});
 </script>  
     
-  
-    
-
-<!--  	<script>
-	 $( function(){
-	   $( "#sortable1, #sortable2" ).sortable();
-	 }
-	 );
-	</script>   같이 박스끼리는 이동 가능-->
-
 <script>
 	function msg() {
 		if (confirm("정말 탈퇴 하시겠습니까?")) {

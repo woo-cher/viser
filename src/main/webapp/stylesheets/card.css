@@ -5,6 +5,7 @@
 	width: 850px;
 	float :left;
 	padding-top: 30px;
+	margin-bottom: 40px;  
 }
 
 #top_header {
@@ -36,13 +37,13 @@
 	overflow:hidden;
 	float: left;
     width: 1150px;
-    height: 890px;
+    height: 1000px;
 }
 
 #card-container {
 	float: left;
     width: 850px;
-    height: 817px;
+    height: 835px;
     overflow:auto;
 /*     border: 1px solid; */  
 }
@@ -57,12 +58,6 @@ iframe{
 
 
 
-#top {
-	width: 850px;
-	border-bottom: 1px solid black;
-	float :left;
-	padding-top: 30px;
-}
 
 #top_header {
 	float: left;

@@ -69,27 +69,15 @@
 		<div id="content">
 			<form id="form-sign" action="/users/login" method="post"
 				class="form-inline">
-<%-- 				<script>
-				var alerts = $('#pop').html();
-				if(errorMessage!='null')
-					$(this).append(alerts)
-				</script>${errorMessage} --%>
+
 				
 				<c:if test="${not empty errorMessage }">
-<!-- 				javascript:pop();  
-					<script>
-				var alerts = $('#pop').html();
-					$('#content').append(alerts)
-					</script> -->
+
 					<label class='error alert alert-warning' style = "width:380px; display: inline-block;">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
 						</button>${errorMessage}  
 					</label>
-					<!-- <label class="error"></label> -->
-<%-- 				  	<div class='error alert alert-warning' style = "width:380px; display: inline-block;">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
-						</button>${errorMessage}  
-					</div> --%>
+
   
 				</c:if>
 				<div
@@ -104,6 +92,14 @@
 						<span class="input-group-addon">password</span> <input
 							type="password" class="form-control" name="password" value=""
 							placeholder="Enter Password" />
+					</div>
+				</div>
+				<div id="button">
+					<div class="controls">
+						<button type="button" class="btn btn-danger" data-toggle="modal"
+							data-target="#myLoginModal">Sign up</button>
+						<button type="submit" class="btn btn-success">Sign in</button>
+						<!-- 환용 : 가입버튼에 모달 적용 -->
 					</div>
 				</div>
 

@@ -47,6 +47,4 @@ public class UpdateFormUserServlet extends HttpServlet{
 			}
 			
 	}
-	
-
 }

@@ -37,23 +37,6 @@
 	color: white;
 }
 
-/* #sortable1, #sortable2 {
-	border: 1px solid #eee;
-	width: 142px;
-	min-height: 20px;
-	list-style-type: none;
-	margin: 0;
-	padding: 5px 0 0 0;
-	float: left;
-	margin-right: 10px;
-}
-
-#sortable1 li, #sortable2 li {
-	margin: 0 5px 5px 5px;
-	padding: 5px;
-	font-size: 1.2em;
-	width: 120px;
-} */
 .sort_css {
 	width: 142px;
 	min-height: 30px;
@@ -72,12 +55,6 @@
 	width: 134px;
 }
 
-/* #header {
-	border: 1px solid black;
-	overflow: hidden;
-} */
-
-/* #header안의 .wrap에 대한 설정*/
 #header>.wrap {
 	text-align: center;
 }
@@ -268,7 +245,7 @@ body {
 	padding-right: 30px;
 }
 
-#card_wrap {
+.card_wrap {
 	/* margin-top: 20px; */
 	text-align: center;
 	margin: 0 auto;

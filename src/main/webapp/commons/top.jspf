@@ -35,45 +35,6 @@
 
 
 
-<script>
-	$(function() {
- 		var card_wrap_indivisual_tlp = $('#card_wrap_indivisual_tlp').html();
-		$('#addbutton').on('click', function(){
-			$('#sortable_box').append(card_wrap_indivisual_tlp);
-			$(".connectedSortable, #sortable2, #droppable").sortable({
-				connectWith : ".connectedSortable"
-			}).disableSelection();
-			
-		});
-		 
-	});
-<%-- 	$(document).ready(function() {
-		/*  $("#sortable_card").click(function(){
-			  $("#viewcard_js");
-			 alert("HTML");
-		 });
-		 }); */
-		$(".ui-state-default").click(function() {   
-			/* alert("HTML"); */
-			 location.assign("/card/viewcard?num=4&card_userId=dbdbdb");  //어떻게 번호를 받을 것인가
-			 location.assign("/card/viewcard?num=<%=card.getNum()%>&card_userId=<%=card.getUserId()%>");
-		});
- 		    $(".change_name").focus(function(){
-		        $(this).css("background-color", "#ffffff");
-		    });
-		    $(".change_name").blur(function(){
-		        $(this).css("background-color", "#E2E4E6");
-		    });
-	}); --%>
-	$(function(){
-		$('body').on('click','.delete',function(){
-			$(this).parent().remove();
-			});
-		$('body').on('click','.add_card',function(){
-			$(this).parent().parent().parent().find('ul').append('<li id="sortable_card" class="ui-state-default ui-sortable-handle"> asdf </li>');  
-			});
-	});
-</script>  
     
 <script>
 	function msg() {

@@ -26,7 +26,7 @@ public class ReadBoardListServlet extends HttpServlet{
 			throws ServletException, IOException {
 		
 		HttpSession session=req.getSession();
-		session.removeAttribute("boardName"); 
+		session.removeAttribute("boardNum"); 
 		
 		List boardlist = new ArrayList(); 		// 보드 목록을 가져오기 위하여 LIST 객체생성
 		BoardDAO boardDao = new BoardDAO();

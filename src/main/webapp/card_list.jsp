@@ -4,14 +4,6 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="viser.card.*"%>
 
-<%
-	List list = (List) request.getAttribute("list");
-	int count = ((Integer) request.getAttribute("count")).intValue();
-	int nowpage = ((Integer) request.getAttribute("page")).intValue();
-	int maxpage = ((Integer) request.getAttribute("maxpage")).intValue();
-	int startpage = ((Integer) request.getAttribute("startpage")).intValue();
-	int endpage = ((Integer) request.getAttribute("endpage")).intValue();
-%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -20,7 +12,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>jQuery UI Sortable - Display as grid</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
 <style>
 
 
@@ -60,9 +51,7 @@
 					<div id="mini-menu">
 
 						<div class="btn-group-sm" role="group" aria-label="...">  
- 						    <!--<div id="droppable" class="ui-widget-header">
-									<p>Drop here</p>
-							</div> -->
+
 							<button type="button" class="btn btn-info" href="#"
 								class="btn btn-default">검색</button>
 							<button type="button" class="btn btn-info" href="#"
@@ -84,118 +73,34 @@
 		<div id="card-container" style = "overflow-x: auto;"> 
 
 			   	<div id="tt" style="width :1500px">  
-						<ul id="sortable_box" class = "boxsort">  
-						
-							
-							<li id = "box1" class="ui-state-default  card_margin">
-
-							<div class="card_wrap_top">
+					<ul id="sortable_box" class = "boxsort">  
+						<c:forEach var="list" items="${lists}" varStatus="status">
+							<li id = "${status.index }" class="ui-state-default  card_margin">
+									<div class="card_wrap_top">
 										<div>
-											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">My goal</textarea>
+											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">${list.listName}</textarea>
 										</div>
 										<div>
-											<button type="button" class="ui-state-default add_card" id="title-sortable">add..</button>  
+											<button type="button" class="ui-state-default add_card" onclick="location.href='/card/createcardForm?listNum=&cardOrder='">add..</button>  
 										</div>
-						  	</div>
-						  	
-						  	
-								<div >
-									<!-- <div id="card_wrap_indivisual"> -->
-
-										<div id="card_wrap">
-											<ul id="sortable_two" class="connectedSortable sort_css">  
-
+							  		</div>
+							  	
+									<div >
+										<div class="card_wrap">
+											<ul id=" ${list.listName }" class="connectedSortable sort_css">  
+												<c:forEach var="card" items="${list.cards}">
+													<li class="ui-state-default"><a href="/card/viewcard?num=${card.cardNum }">${card.subject}</a></li>
+												</c:forEach>
 											</ul>
 										</div>
-
-								</div>
-								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
-							</li>		
-							
-							
-							
-						<li id = "box2" class="ui-state-default  card_margin">
-
-							<div class="card_wrap_top">
-										<div>
-											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">My goal</textarea>
-										</div>
-										<div>
-											<button type="button" class="ui-state-default add_card" id="title-sortable">add..</button>  
-										</div>
-						  	</div>
-						  	
-						  	
-								<div >
-									<!-- <div id="card_wrap_indivisual"> -->
-
-										<div id="card_wrap">
-											<ul id="sortable_two" class="connectedSortable sort_css">  
-
-											</ul>
-										</div>
-
-								</div>
-								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
-						</li>					
-							
-							
-							
-							
-							<li id = "box3" class="ui-state-default  card_margin">
-
-							<div class="card_wrap_top">
-										<div>
-											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">My goal</textarea>
-										</div>
-										<div>
-											<button type="button" class="ui-state-default add_card" id="title-sortable">add..</button>  
-										</div>
-						  	</div>
-						  	
-						  	
-								<div >
-									<!-- <div id="card_wrap_indivisual"> -->
-
-										<div id="card_wrap">
-											<ul id="sortable_two" class="connectedSortable sort_css">  
-
-											</ul>
-										</div>
-
-								</div>
-								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
-							</li>
-							
-							
-														<li id = "box2" class="ui-state-default  card_margin">
-
-							<div class="card_wrap_top">
-										<div>
-											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">My goal</textarea>
-										</div>
-										<div>
-											<button type="button" class="ui-state-default add_card" id="title-sortable">add..</button>  
-										</div>
-						  	</div>
-						  	
-						  	
-								<div >
-									<!-- <div id="card_wrap_indivisual"> -->
-
-										<div id="card_wrap">
-											<ul id="sortable_two" class="connectedSortable sort_css">  
-
-											</ul>
-										</div>
-
-								</div>
-								<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
-							</li>
-							
-									
-					</ul>
-			</div>
+									</div>
+									<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
+								</li>		
+							</c:forEach>
+						</ul>
+						<button type="button">생성</button>
+				</div>
+			
  		</div>  
 				
 
@@ -222,10 +127,6 @@
 <!-- 근    아래    짱 -->
  <script>
  
- 
-/* $(function(){
-	 $('.card_wrap_top').disableSeletion();
- }); */
   //리스트의 이동
   $( function() {
        $( ".boxsort" ).sortable({
@@ -258,3 +159,4 @@ function resize(obj) {
   obj.style.height = (12+obj.scrollHeight)+"px";
 }
 </script>
+

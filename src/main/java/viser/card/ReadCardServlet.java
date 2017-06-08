@@ -43,12 +43,10 @@ public class ReadCardServlet extends HttpServlet {
 		else req.setAttribute("isUser", true);
 		
 		try {
-			card = cardDao.findBycardInfo(num);
-			cardDao.updateReadcont(num);
 			card = cardDao.viewCard(num);
 			
 			if(card == null) {
-				logger.debug("card View Fail");
+				logger.debug("card View null");
 			}
 			
 			req.setAttribute("isView", true);

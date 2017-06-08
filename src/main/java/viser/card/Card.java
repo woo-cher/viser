@@ -4,105 +4,108 @@ import java.sql.Date;
 
 public class Card {
 
+	private int cardNum;
+	private String userId;
 	private String subject;
 	private String content;
-	private String userId;
-	private Date date;
-	private int readcnt;
-	private int num;
-	private int re_ref;
-	private int re_lev;
-	private int re_seq;
+	private Date modifyTime;
+	private int listNum;
+	private int cardOrder;
 	
-	public int getRe_seq() {
-		return re_seq;
+	public Card(String subject, String content, String userId, int listNum, int cardOrder) {
+		this.subject=subject;
+		this.content=content;
+		this.userId=userId;
+		this.listNum=listNum;
+		this.cardOrder=cardOrder;
 	}
-
-	public void setRe_seq(int re_seq) {
-		this.re_seq = re_seq;
-	}
-
-	public int getRe_ref() {
-		return re_ref;
-	}
-
-	public void setRe_ref(int re_ref) {
-		this.re_ref = re_ref;
-	}
-
-	public int getRe_lev() {
-		return re_lev;
-	}
-
-	public void setRe_lev(int re_lev) {
-		this.re_lev = re_lev;
-	}
-
+	
+	
 	public Card() {
+		
 	}
-	
-	public Card(String userId) {
-			
+
+
+	public Card(int listNum, int cardOrder) {
+		this.listNum=listNum;
+		this.cardOrder=cardOrder;
 	}
-	
-	public Card(String subject, String content, String userId) {
-		this.subject = subject;
-		this.content = content;
-		this.userId = userId;
+
+
+	public int getCardNum() {
+		return cardNum;
 	}
-	
-	public String getSubject() {
-		return subject;
+
+
+	public void setCardNum(int cardNum) {
+		this.cardNum = cardNum;
 	}
-	
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-	
-	public String getContent() {
-		return content;
-	}
-	
-	public void setContent(String content) {
-		this.content = content;
-	}
-	
+
+
 	public String getUserId() {
 		return userId;
 	}
-	
+
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
-	
-	public Date getDate() {
-		return date;
+
+
+	public String getSubject() {
+		return subject;
 	}
-	
-	public void setDate(Date date) {
-		this.date = date;
+
+
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
-	
-	public int getReadcnt() {
-		return readcnt;
+
+
+	public String getContent() {
+		return content;
 	}
-	
-	public void setReadcnt(int readcnt) {
-		this.readcnt = readcnt;
+
+
+	public void setContent(String content) {
+		this.content = content;
 	}
-	
-	public int getNum() {
-		return num;
+
+
+	public Date getModifyTime() {
+		return modifyTime;
 	}
-	
-	public void setNum(int num) {
-		this.num = num;
+
+
+	public void setModifyTime(Date modifyTime) {
+		this.modifyTime = modifyTime;
 	}
-	
+
+
+	public int getListNum() {
+		return listNum;
+	}
+
+
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
+	}
+
+
+	public int getCardOrder() {
+		return cardOrder;
+	}
+
+
+	public void setCardOrder(int cardOrder) {
+		this.cardOrder = cardOrder;
+	}
+
+
+	@Override
 	public String toString() {
-		return "Card [subject=" + subject + ", content=" + content + ", userId=" + userId
-				+ ", date=" + date + ", readcnt=" + readcnt + ", num=" + num + "]";
+		return "Card [cardNum=" + cardNum + ", userId=" + userId + ", subject=" + subject + ", content=" + content
+				+ ", modifyTime=" + modifyTime + ", listNum=" + listNum + ", cardOrder=" + cardOrder + "]";
 	}
 
 }

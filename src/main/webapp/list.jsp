@@ -18,7 +18,6 @@
 <c:set var = "ModifyUrl" value = "/board/updateBoard" />
 </c:if>
 
-<% List list = (List) request.getAttribute("list"); %>
 
 <head>
 <link href="/stylesheets/card.css" rel="stylesheet" type="text/css">
@@ -64,7 +63,6 @@
 
 							<div class="project-content-body">
 
-								<!-- forEach문으로 바꾸고 깃헙에 올리기 -->
 								<c:choose>
 									<c:when test="${not empty list }">
 										<c:forEach var="list" items="${list}" varStatus="status">
@@ -73,8 +71,8 @@
 												<td>
 												<c:choose>
 													<c:when test="${isReadBoard}">
-													<a href="/card/cardlist?boardName=${list.boardName}" > <!-- 형근: 나중에 보드리스트로 이동하는걸로 변경할것 : 완료 --> 
-														${list.boardName}
+													<a href="/lists/cardlist?boardNum=${list.boardNum}" > 
+														${list.boardNum}
 													</a>
 													
 													<div class="btn-group" role="group" style="float: right;">
@@ -104,7 +102,7 @@
 														</form>
 													</c:when>
 													<c:otherwise>
-													<a href="/board/boardlist?projectName=${list.projectName}"> <!-- 형근: 나중에 보드리스트로 이동하는걸로 변경할것 : 완료--> 
+													<a href="/board/boardlist?projectName=${list.projectName}">
 														${list.projectName}
 													</a>
   													 

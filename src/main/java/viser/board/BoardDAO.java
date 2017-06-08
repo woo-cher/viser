@@ -81,6 +81,7 @@ public class BoardDAO {
 			
 			while (rs.next()) {
 					Board board =new Board();
+					board.setBoardNum(rs.getInt("Board_Num"));
 					board.setBoardName(rs.getString("Board_Name"));
 					boardlist.add(board);
 			}

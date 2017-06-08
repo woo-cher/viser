@@ -12,7 +12,7 @@
 <link rel='stylesheet' href='/stylesheets/chat.css' type='text/css'>
 
 <script>
-	var now_user="<%=(String)session.getAttribute("userId") %>"; //형근: 채팅에 유저아이디를 출력 하기위해 사용하는 변수
+	var now_user="<%=(String)session.getAttribute("userId") %>;" //형근: 채팅에 유저아이디를 출력 하기위해 사용하는 변수
 </script>
 </head><body>
 	<div id="chat-image">
@@ -52,16 +52,6 @@
 				<div id="chat-image-list-control">
 					<button id="image_add" onclick=popupOpen()>이미지 추가</button>
 					<button id="image_delete" onclick=deleteImage()>이미지 삭제</button>
-					<!-- <div id="button">
-						<div class="controls">
-												<button type="button" onclick="location.href='/users/createForm'" class="btn btn-primary">Sign up</button>
-							<button type="button" onclick="popupOpen();" class="btn btn-danger">Sign up</button>
-							<button type="button" class="btn btn-danger" data-toggle="modal"
-								data-target="#myModal">Sign up</button>
-							<button type="submit" class="btn btn-success">Sign in</button>
-							환용 : 어떻게 아이프레임에 모달을 적용할 것인가?
-						</div>
-					</div> -->
 				</div>
 			</div>
 		</div>
@@ -124,7 +114,7 @@
 	 clearSend();  //형근: 클라이언트 들의 페이지도 초기화
 	 clickSync();   //형근 : 클릭한 그림 클릭 효과 맞춤
 	 reloadSend(); //형근: 다른 사용자들 화면도 갱신 
- };
+ }
 </script>
 
 </html>

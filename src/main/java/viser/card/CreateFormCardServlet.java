@@ -20,20 +20,22 @@ import viser.user.UserDAO;
 public class CreateFormCardServlet extends HttpServlet {
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		HttpSession session = req.getSession();
+		HttpSession session = request.getSession();
 		String userId = SessionUtils.getStringValue(session, LogInServlet.SESSION_USER_ID);
 		
+		int listNum=Integer.parseInt(request.getParameter("listNum"));
+		int cardOrder=Integer.parseInt(request.getParameter("cardOrder"));
 	
 		UserDAO userDao = new UserDAO();
-		
 		try {
-			req.setAttribute("isCreate", true);
+			request.setAttribute("isCreate", true);
 			User user = userDao.findByUserId(userId);
-			req.setAttribute("user", user);
-			RequestDispatcher rd = req.getRequestDispatcher("/card.jsp");
-			rd.forward(req, resp);
+			request.setAttribute("user", user);
+			request.setAttribute("card",new Card(listNum,cardOrder));
+			RequestDispatcher rd = request.getRequestDispatcher("/card.jsp");
+			rd.forward(request, response);
 		} catch (SQLException e) {
 		}
 

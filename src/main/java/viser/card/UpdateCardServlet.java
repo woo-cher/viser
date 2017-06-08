@@ -24,11 +24,12 @@ public class UpdateCardServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		req.setCharacterEncoding("UTF-8");
-		int num = Integer.parseInt( req.getParameter("num") );
+		int cardNum = Integer.parseInt( req.getParameter("cardNum") );
 		String subject = req.getParameter("subject");
 		String content = req.getParameter("content");
+		
 		Card card = new Card();
-		card.setNum(num);
+		card.setCardNum(cardNum);
 		card.setSubject(subject);
 		card.setContent(content);
 		
@@ -37,7 +38,7 @@ public class UpdateCardServlet extends HttpServlet {
 		try {
 			logger.debug("테스트 : " + card);
 			cardDao.updateCard(card);
-			resp.sendRedirect("/card/cardlist");
+			resp.sendRedirect("/card/cardlist");  //list조회 페이지로 이동
 		} catch (Exception e) {
 			logger.debug("updatecard Servlet error" + e);
 		}

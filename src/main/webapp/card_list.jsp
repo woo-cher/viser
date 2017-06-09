@@ -12,23 +12,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>jQuery UI Sortable - Display as grid</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<style>
-
-
-
-
-#sortable_box {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
-
-#sortable_box li {
-/*margin: 3px 3px 3px 0; */  
-    float: left;
-    text-align: center;
-}
-</style>
 
  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -72,16 +55,16 @@
 
 				<div id="card-container" style = "overflow-x: auto;"> 
 
-				   	<div id="tt" style="width :1500px">  
-						<ul id="sortable_box" class = "boxsort">  
-							<c:forEach var="list" items="${lists}" varStatus="status">
-								<li id = "${status.index }" class="ui-state-default  card_margin">
+			   	<div id="tt" style="width:10000px;overflow-x: auto;    text-align: left;">  
+					<ul id="sortable_box" class = "boxsort">  
+						<c:forEach var="list" items="${lists}" varStatus="status">
+							<li id = "${status.index }" class="ui-state-default  card_margin">
 									<div class="card_wrap_top">
 										<div>
 											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">${list.listName}</textarea>
 										</div>
 										<div>
-											<button type="button" class="ui-state-default add_card" onclick="location.href='/card/createcardForm?listNum=&cardOrder='">add..</button>  
+											<button type="button" class="ui-state-default add_card" id="title-sortable" onclick="location.href='/card/createcardForm?listNum=&cardOrder='">add..</button>  
 										</div>
 							  		</div>
 							  	
@@ -99,11 +82,11 @@
 							</c:forEach>
 						</ul>
 						
-						<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-						  Button with data-target
+						<button id ="addbutton" class="btn btn-info_c" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" >
+							리스트 추가
 						</button>
 						
-						<div class="collapse" id="collapseExample" style="float:right;">
+						<div class="collapse" id="collapseExample" style="float:left;">
 						  <div class="well">
 							<form method="post" action="/lists/addList">
 							  <div class="form-group">
@@ -120,15 +103,15 @@
  					</div>  
 				</div>
 				<div id='project_user'>
-					<iframe src="/project/memberlist" height="170" width="278" name=user> 
-					 	<p>Your browser does not support iframes.</p>
-					</iframe>
-				</div>					
-				<div id='project-chat'>
-					<iframe src="/project/imagelist" height="747" width="278" name=chat>
-					 	<p>Your browser does not support iframes.</p>
-					</iframe>
-				</div>
+				<iframe src="/project/memberlist" height="170" width="290" name=user> 
+				 	<p>Your browser does not support iframes.</p>
+				</iframe>
+			</div>
+			<div id='project-chat'>
+				<iframe src="/project/imagelist" height="850" width="290" name=chat>
+				 	<p>Your browser does not support iframes.</p>
+				</iframe>
+			</div>
 			</div>
 		</div>
 	</div>

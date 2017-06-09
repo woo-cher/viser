@@ -79,8 +79,8 @@
 				  </c:forEach>
 				</div>
 				<div id="chat-image-list-control">
-					<button id="image_add" onclick=popupOpen()>이미지 추가</button>
-					<button id="image_delete" onclick=deleteImage()>이미지 삭제</button>
+					<button id="image_add" class="btn-chat btn-info" onclick=popupOpen()>이미지 추가</button>
+					<button id="image_delete" class="btn-chat btn-info" onclick=deleteImage()>이미지 삭제</button>
 				</div>
 			</div>
 		</div>

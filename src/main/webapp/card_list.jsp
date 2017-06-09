@@ -70,12 +70,12 @@
 					</div>
 				</div>  
 
-		<div id="card-container" style = "overflow-x: auto;"> 
+				<div id="card-container" style = "overflow-x: auto;"> 
 
-			   	<div id="tt" style="width :1500px">  
-					<ul id="sortable_box" class = "boxsort">  
-						<c:forEach var="list" items="${lists}" varStatus="status">
-							<li id = "${status.index }" class="ui-state-default  card_margin">
+				   	<div id="tt" style="width :1500px">  
+						<ul id="sortable_box" class = "boxsort">  
+							<c:forEach var="list" items="${lists}" varStatus="status">
+								<li id = "${status.index }" class="ui-state-default  card_margin">
 									<div class="card_wrap_top">
 										<div>
 											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">${list.listName}</textarea>
@@ -89,7 +89,7 @@
 										<div class="card_wrap">
 											<ul id=" ${list.listName }" class="connectedSortable sort_css">  
 												<c:forEach var="card" items="${list.cards}">
-													<li class="ui-state-default"><a href="/card/viewcard?num=${card.cardNum }">${card.subject}</a></li>
+													<li class="ui-state-default"><a href="/card/viewcard?num=${card.cardNum }&card_userId=${card.userId}">${card.subject}</a></li>
 												</c:forEach>
 											</ul>
 										</div>
@@ -98,22 +98,37 @@
 								</li>		
 							</c:forEach>
 						</ul>
-						<button type="button">생성</button>
+						
+						<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+						  Button with data-target
+						</button>
+						
+						<div class="collapse" id="collapseExample" style="float:right;">
+						  <div class="well">
+							<form method="post" action="/lists/addList">
+							  <div class="form-group">
+							    <label for="newListName">리스트 이름</label>
+							    <input type="text" class="form-control" name="listName" placeholder="리스트 이름을 입력하세요">
+							    <input type="hidden" class="form-control" name="boardNum" value=""/>
+							    <input type="hidden" class="form-control" name="listOrder" value=""/>
+							  </div>
+							  <button type="submit" class="btn btn-default">제출</button>
+							 </form>
+						  </div>
+						</div>
+						
+ 					</div>  
 				</div>
-			
- 		</div>  
-				
-
-			<div id='project_user'>
-				<iframe src="/project/memberlist" height="170" width="278" name=user> 
-				 	<p>Your browser does not support iframes.</p>
-				</iframe>
-			</div>
-			<div id='project-chat'>
-				<iframe src="/project/imagelist" height="747" width="278" name=chat>
-				 	<p>Your browser does not support iframes.</p>
-				</iframe>
-			</div>
+				<div id='project_user'>
+					<iframe src="/project/memberlist" height="170" width="278" name=user> 
+					 	<p>Your browser does not support iframes.</p>
+					</iframe>
+				</div>					
+				<div id='project-chat'>
+					<iframe src="/project/imagelist" height="747" width="278" name=chat>
+					 	<p>Your browser does not support iframes.</p>
+					</iframe>
+				</div>
 			</div>
 		</div>
 	</div>

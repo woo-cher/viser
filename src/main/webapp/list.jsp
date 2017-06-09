@@ -87,11 +87,11 @@
 												  		<form class="form-inline" action="${ModifyUrl}" method="get">
 															<div class="collapse" id="modifyAction${status.count}" style="float: right;">
 															 <div class="input-group" >
+																<input type="text" class="form-control" id="exampleInputName2" name = "newBoardName" placeholder="Input new name. . .">
+																<input type="hidden" name = "preBoardName" value="${list.boardName}">
 																<span class="input-group-btn">
 																<button class="btn btn-default" type="submit">Modify</button>
 																</span>
-																<input type="text" class="form-control" id="exampleInputName2" name = "newBoardName" placeholder="Input new name. . .">
-																<input type="hidden" name = "preBoardName" value="${list.boardName}">
 										 						<span class="input-group-btn">
 																	<button type="button" class="close" aria-label="Close">
 																	<a href="#modifyAction${status.count}" data-toggle="collapse" aria-controls="modifyAction${status.count}"> X </a>
@@ -118,11 +118,11 @@
 														<form class="form-inline" action="${ModifyUrl}" method="get">
 															<div class="collapse" id="modifyAction${status.count}" style="float: right;">
 															 <div class="input-group" >
+																<input type="text" class="form-control" id="exampleInputName2" name = "newProjectName" placeholder="Input new name. . .">
+																<input type="hidden" name = "preProjectName" value="${list.projectName}">
 																<span class="input-group-btn">
 																<button class="btn btn-default" type="submit">Modify</button>
 																</span>
-																<input type="text" class="form-control" id="exampleInputName2" name = "newProjectName" placeholder="Input new name. . .">
-																<input type="hidden" name = "preProjectName" value="${list.projectName}">
 										 						<span class="input-group-btn">
 																	<button type="button" class="close" aria-label="Close">
 																	<a href="#modifyAction${status.count}" data-toggle="collapse" aria-controls="modifyAction${status.count}"> X </a>

@@ -42,7 +42,8 @@
 <script>
 	var now_user="<%=(String)session.getAttribute("userId") %>;" //형근: 채팅에 유저아이디를 출력 하기위해 사용하는 변수
 </script>
-</head><body style="background: azure;">
+</head>
+<body style="background: azure;">
 	<div id="chat-image">
 		<div id="chat-image-area" >
 			<canvas id="chat-image-area-canvas" width="270" height="220"></canvas>
@@ -94,8 +95,6 @@
 			</div>
 		</div>
 	</div>
-	
-	
 </body>
 
 <!-- 그림판을 위한 js파일 -->  

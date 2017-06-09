@@ -30,7 +30,7 @@
 			<tr>
 				<td width="70" align="center">NUMBER</td>
 				<td width="150">
-				<input type="hidden" name="num" value="${card.num}" />${card.num}</td>
+				<input type="hidden" name="num" value="${card.cardNum}" />${card.cardNum}</td>
 			</tr>
 			<tr>
 				<td width="70" align="center">USER</td>
@@ -56,11 +56,6 @@
 				<input type="text" size="40" maxlength="50" name="subject" value="${card.subject}"></td>
 				</c:otherwise>
 				</c:choose>
-			</tr>
-			<tr>
-				<td width="70" align="center">E-mail</td>
-				<td width="330">
-				<input type="hidden" name="email" value="보드에 저장된 이메일 받아야 한다." />보드에 저장된 이메일</td>
 			</tr>
 			<tr>
 				<td width="70" align="center">CONTENT</td>
@@ -92,7 +87,7 @@
 				</c:if>
 			
 				<c:if test = "${isUser}">
-				<input type="button" name="delete"  value="Delete" onclick="location.href='/card/removecard?num=${card.num}'" />
+				<input type="button" name="delete"  value="Delete" onclick="location.href='/card/removecard?num=${card.cardNum}'" />
 				<input type="submit" name="modify" value="Modify"/>
 				</c:if>
 			</c:when>
@@ -102,7 +97,7 @@
 				<input type="reset" value="Reset" />
 			</c:otherwise>
 			</c:choose>
-					<input type="button" value="List" onclick="location.href='/card/cardlist'" />
+					<input type="button" value="List" onclick="location.href='/lists/cardlist?boardNum=${boardNum}'" />
 				</td>
 			</tr>
 	</table>

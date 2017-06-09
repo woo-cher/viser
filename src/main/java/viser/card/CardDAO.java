@@ -178,7 +178,7 @@ public class CardDAO {
 	}
 
 	public void removeCard(int num) throws SQLException {
-		String sql = "delete from cards where Num = ?";
+		String sql = "delete from cards where Card_Num = ?";
 
 		try {
 			conn = getConnection();
@@ -194,7 +194,7 @@ public class CardDAO {
 	}
 
 	public Card viewCard(int num) throws SQLException {
-		String sql = "select * from cards where Num = ?";
+		String sql = "select * from cards where Card_Num = ?";
 		Card card = new Card();
 		try {
 			conn = getConnection();
@@ -221,7 +221,7 @@ public class CardDAO {
 	}
 
 	public void updateCard(Card card) throws SQLException {
-		String sql = "update cards set SubJect = ?, Content = ?, Date = ? where Num = ?";
+		String sql = "update cards set SubJect = ?, Content = ?, Modify_Time = ? where Card_Num = ?";
 		conn = getConnection();
 		Timestamp date=new Timestamp(new Date().getTime());  //형근: datetime 타입에 맞는 현재 시간을 입력하기 위한 객체
 		try {

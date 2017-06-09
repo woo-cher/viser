@@ -20,7 +20,6 @@
 .ui-menu {
 	width: 150px;
 }
-
 </style>
 </head>
 

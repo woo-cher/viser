@@ -107,13 +107,9 @@
 		alert('업로드 성공');
 		reloadSend(); //형근: 다른 사용자들 화면도 갱신 
 	}
-
 	function popupOpen() { //형근: 이미지 업로드창을 띄워줄 스크립트 함수
-
 		var popUrl = "/upload.jsp?perposeURL=/imageUpload"; //팝업창에 출력될 페이지 URL
-
 		var popOption = "width=500, height=250, resizable=no, scrollbars=no, status=no;"; //팝업창 옵션(optoin)
-
 	window.open(popUrl,"",popOption);
  }
 </script>

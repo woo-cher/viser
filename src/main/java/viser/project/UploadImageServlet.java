@@ -34,10 +34,10 @@ public class UploadImageServlet extends HttpServlet {
 
 			//형근: 이미지 경로를 저장하기 위한 dao객체 및 세션 생성
 			HttpSession session=request.getSession();
-			logger.debug("UploadImageServlet 에서 조회한 세션의 projectname:"+(String)session.getAttribute("projectname"));
+			logger.debug("UploadImageServlet 에서 조회한 세션의 projectname:"+(String)session.getAttribute("projectName"));
 			ProjectDAO projectDao=new ProjectDAO();
 			try {
-				projectDao.addImage("/upload_image/"+mr.getFile("s_file").getName(), (String)session.getAttribute("projectname"), (String)session.getAttribute("userId")); //형근: 파라메터로 전달한 파일이름과 세션에 저장되있는 사용자 Id와 프로젝트 이름 전달 
+				projectDao.addImage("/upload_image/"+mr.getFile("s_file").getName(), (String)session.getAttribute("projectName"), (String)session.getAttribute("userId")); //형근: 파라메터로 전달한 파일이름과 세션에 저장되있는 사용자 Id와 프로젝트 이름 전달 
 			} catch (SQLException e) {
 				logger.debug("UploadImageServlet error"+e.getMessage());
 			}

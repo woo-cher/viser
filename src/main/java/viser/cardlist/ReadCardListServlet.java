@@ -25,6 +25,7 @@ public class ReadCardListServlet extends HttpServlet{
 		
 		int boardNum=Integer.parseInt(request.getParameter("boardNum"));
 		HttpSession session=request.getSession();
+		session.getAttribute("projectName");
 		session.setAttribute("boardNum", boardNum);
 		list=cardListDao.getList(boardNum);
 		

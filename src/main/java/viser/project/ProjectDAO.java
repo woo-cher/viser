@@ -253,4 +253,98 @@ public class ProjectDAO {
 		}
 		return null;
 	}
+	
+	List getUserList(String keyword, String loginUser) throws SQLException{
+		List list = new ArrayList(); // 유저목록 리턴을 위한 변수
+		
+		String sql= "select * from users where not userId = ? and userId " + " like '%"+keyword.trim()+"%' order by age";
+		
+		conn=getConnection();
+		
+		try{
+		pstmt=conn.prepareStatement(sql);
+		pstmt.setString(1, loginUser); // 우철 : 프로젝트 초대할 유저 검색 시, 자신은 제외시키기 위해서
+		
+		rs=pstmt.executeQuery();
+		
+		while(rs.next()){
+			User user = new User();
+			user.setUserId(rs.getString("userId"));
+			user.setName(rs.getString("name"));
+			user.setAge(rs.getString("age"));
+			user.setGender(rs.getString("gender"));
+			list.add(user);
+		}
+		return list;
+		}catch(Exception e){
+			logger.debug("getProjectMemberList error :"+e);
+		}
+		finally{
+			SourceReturn();  //db관련 객체 종료
+		}
+		return null;
+	}
+	
+/*	우철 : 초대할 유저를 뿌릴 때, 해당 유저가 프로젝트 멤버이면 안뿌릴려고 해서 만든.... 함수....
+ 	public boolean isProjectMember(String projectName, String userId) {
+		String sql = "select * from porject_members where project_Name = ? and userId = ?";
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, projectName);
+			
+			pstmt.executeUpdate();
+			
+			// true 이면 프로젝트 멤버
+			if (!rs.next()) return false;
+			
+		} catch (Exception e) {
+			logger.debug("Invite Action Fail" + e);
+			
+		} finally {
+			SourceReturn();
+		}
+		 return true;
+	}*/
+	
+	public void InviteUser(String userId, String projectName, int power) throws SQLException{
+		String sql= "insert into project_members (userId, Project_Name, Power) values (?, ?, ?)";
+	
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, projectName);
+			pstmt.setInt(3, power);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			logger.debug("Invite Action Fail" + e);
+			
+		} finally {
+			SourceReturn();
+		}
+	}
+	
+	public void KickProjectUser(String userId, String projectName) throws SQLException{
+		String sql= "delete from project_members where Project_Name = ? and userId = ?";
+	
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, projectName);
+			pstmt.setString(2, userId);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			logger.debug("Kick Action Fail" + e);
+			
+		} finally {
+			SourceReturn();
+		}
+	}
 }

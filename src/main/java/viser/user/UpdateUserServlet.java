@@ -83,7 +83,7 @@ public class UpdateUserServlet extends HttpServlet {
 
 	private void errorForward(HttpServletRequest request, HttpServletResponse response, String errorMessage)
 			throws ServletException, IOException {
-		request.setAttribute("errorMessage", errorMessage);
+		request.setAttribute("formErrorMessage", errorMessage);
 		RequestDispatcher rd = request.getRequestDispatcher("/commons/top.jspf"); // 에러메시지 보낼 페이지 필요 (에이젝스)
 		rd.forward(request, response);
 	}

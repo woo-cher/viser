@@ -1,4 +1,4 @@
-var webSocket = new WebSocket('ws://localhost:7070/chat.jsp');
+var webSocket = new WebSocket('ws://localhost:8080/chat.jsp');
 var textarea = document.getElementById("messageWindow");
 var inputMessage = document.getElementById('inputMessage');
 var imageId;  //형근: 클릭된 이미지의 path를 저장하는 변수;

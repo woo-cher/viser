@@ -114,9 +114,9 @@
   <div class="modal-dialog">
     <div class="modal-content" style="padding: 20px;">
 	  <div class="modal-header">
-				  <c:if test="${not empty errorMessage }">
+				  <c:if test="${not empty formErrorMessage }">
 					<label class='error alert alert-warning' style = "width:380px; display: inline-block;">
-						</button>${errorMessage}  
+						</button>${formErrorMessage}  
 					</label>
 				</c:if>
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">

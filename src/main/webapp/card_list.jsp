@@ -28,27 +28,22 @@
 	<div class="background">
 		<%@ include file="./commons/top.jspf"%>
 		<div class="wrap ac">
-			<div id="card-container_wrap" style = "color: azure;">
-				<div id="top">
-					<div id="mini-menu">
-						<div class="btn-group-sm" role="group" aria-label="...">  
-							<button type="button" class="btn btn-info" href="#"
-								class="btn btn-default">검색</button>
-							<button type="button" class="btn btn-info" href="#"
-								class="btn btn-default">필터</button>
-							<button type="button" class="btn btn-info" href="#"
-								class="btn btn-default">초대</button>
-							<button type="button" class="btn btn-info" href="#"
-								class="btn btn-default">알림</button>
-							<button type="button" class="btn btn-info" href="#"
-								class="btn btn-default">구독</button>
-							<button type="button" class="btn btn-info" href="#"
-								class="btn btn-default">EXIT</button>
-						</div>
-					</div>
-				</div>  
-				<div id="card-container" style = "overflow-x: auto;"> 
-			   	<div id="tt" style="overflow:auto; width:auto;    text-align: left;">  
+		  <div id="card-container_wrap" style = "color: azure;">
+		   <div id="top">
+		     <div id="mini-menu">
+		 	  <div class="btn-group-sm" role="group" aria-label="...">  
+				<button type="button" class="btn btn-info" onclick="location.href='/board/boardlist?projectName=${projectName}'">
+				목록
+				</button>
+				<button type="button" class="btn btn-info" href="#" data-toggle="modal" data-target="#invite">초대</button>
+				<button type="button" class="btn btn-info" href="#" class="btn btn-default">EXIT</button>
+				 <%@include file = "./modalpage/invite.jsp" %>
+				
+			  </div>
+			</div>
+		  </div>  
+		<div id="card-container" style = "overflow-x: auto;"> 
+			  	<div id="tt" style="overflow:auto; width:auto;    text-align: left;">  
 					<ul id="sortable_box" class = "boxsort">  		
 						<c:forEach var="list" items="${lists}" varStatus="status">
 							<li id = "${status.index }" class="ui-state-default  card_margin">

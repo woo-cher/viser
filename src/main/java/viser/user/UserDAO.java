@@ -1,6 +1,5 @@
 package viser.user;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -8,9 +7,37 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class UserDAO {
+	private static final Logger logger = LoggerFactory.getLogger(UserDAO.class);
+
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+
+	public void SourceReturn() {
+		try{
+			if (this.conn != null) {
+				conn.close();
+			}
+			if (this.pstmt != null) {
+				pstmt.close();
+			}
+			if (this.rs != null) {
+				rs.close();
+			}
+		}catch(SQLException e){
+			logger.debug("SoueceReturn error:"+e.getMessage());
+		}
+
+	}
+	
 	public Connection getConnection() {
 		Properties props = new Properties();
 		InputStream in = UserDAO.class.getResourceAsStream("/db.properties");
@@ -31,17 +58,13 @@ public class UserDAO {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
+		} finally {
+			SourceReturn();
 		}
 	}
 
 	public void addUser(User user) throws SQLException{
 		String sql = "insert into users values(?,?,?,?,?,?)";
-
-		// null 로 초기화
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-
-		// JDBC 리소스 반환
 
 		try {
 			conn = getConnection();
@@ -57,23 +80,13 @@ public class UserDAO {
 			pstmt.executeUpdate();
 
 		} finally {
-			if (pstmt != null) {
-				pstmt.close();
-			}
-
-			if (conn != null) {
-				conn.close();
-			}
+			SourceReturn();
 		}
 	}
 
 	public User findByUserId(String userId) throws SQLException{
 		String sql = "select * from users where userId = ?";
 		// 리소스 반환
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 
 		try {
 			conn = getConnection();
@@ -95,26 +108,12 @@ public class UserDAO {
 					rs.getString("gender"));
 
 		} finally {
-			
-			if (rs != null) {
-				rs.close();
-			}
-			
-			if (pstmt != null) {
-				pstmt.close();
-			}
-
-			if (conn != null) {
-				conn.close();
-			}
+			SourceReturn();
 		}
 	}
 
 	public void removeUser(String userId) throws SQLException{
 		String sql = "delete from users where userId = ?";
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
 
 		try {
 			conn = getConnection();
@@ -123,23 +122,13 @@ public class UserDAO {
 
 			pstmt.executeUpdate();
 		} finally {
-
-			if (conn != null) {
-				conn.close();
-			}
-
-			if (pstmt != null) {
-				pstmt.close();
-			}
+			SourceReturn();
 		}
 	}
 
 	public void updateUser(User user) throws SQLException {
 
 		String sql = "update users set password = ?, name = ?, age = ?, email = ?, gender = ? where userId = ?";
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
 
 		try {
 			conn = getConnection();
@@ -155,14 +144,9 @@ public class UserDAO {
 			pstmt.executeUpdate();
 
 		} finally {
-
-			if (conn != null) {
-				conn.close();
-			}
-
-			if (pstmt != null) {
-				pstmt.close();
-			}
+			SourceReturn();
 		}
 	}
+	
+	
 }

@@ -49,9 +49,10 @@
 					<div class="project-header" style="padding: 10pt;">
 						<h3>${Target} STATE</h3>
 					</div>
+					<div class="container">
 						<div id="project-content-header" style="margin: 0 auto;">
-							<table class="table" border="1px" cellpadding="0" cellspacing="0">
-							<tr height="30">
+							<table class="table table-bordered" border="1px" cellpadding="0" cellspacing="0">
+							<tr class="info" height="30">
 								<!-- LIST -->
 								<td align="center" width="100">NUM</td>
 								<td align="center" width="600">${Target} NAME</td>
@@ -149,7 +150,7 @@
 								</c:choose>
 							</div>
 						</table>
-				
+				</div>
 						
 						<!-- Create Project Modal Field -->
 						<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="${Modal_target}" style="margin: 50;">

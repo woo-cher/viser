@@ -12,23 +12,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>jQuery UI Sortable - Display as grid</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<style>
-
-
-
-
-#sortable_box {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
-
-#sortable_box li {
-/*margin: 3px 3px 3px 0; */  
-    float: left;
-    text-align: center;
-}
-</style>
 
  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -72,7 +55,7 @@
 
 		<div id="card-container" style = "overflow-x: auto;"> 
 
-			   	<div id="tt" style="width :1500px">  
+			   	<div id="tt" style="width:10000px;overflow-x: auto;    text-align: left;">  
 					<ul id="sortable_box" class = "boxsort">  
 						<c:forEach var="list" items="${lists}" varStatus="status">
 							<li id = "${status.index }" class="ui-state-default  card_margin">
@@ -81,7 +64,7 @@
 											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">${list.listName}</textarea>
 										</div>
 										<div>
-											<button type="button" class="ui-state-default add_card" onclick="location.href='/card/createcardForm?listNum=&cardOrder='">add..</button>  
+											<button type="button" class="ui-state-default add_card" id="title-sortable" onclick="location.href='/card/createcardForm?listNum=&cardOrder='">add..</button>  
 										</div>
 							  		</div>
 							  	
@@ -98,19 +81,19 @@
 								</li>		
 							</c:forEach>
 						</ul>
-						<button type="button">생성</button>
+						<button type="button" id ="addbutton" class="btn btn-info_c" href="#"  onclick="" style = "margin-top: 16px;">추가</button>
 				</div>
 			
  		</div>  
 				
 
 			<div id='project_user'>
-				<iframe src="/project/memberlist" height="170" width="278" name=user> 
+				<iframe src="/project/memberlist" height="170" width="290" name=user> 
 				 	<p>Your browser does not support iframes.</p>
 				</iframe>
 			</div>
 			<div id='project-chat'>
-				<iframe src="/project/imagelist" height="747" width="278" name=chat>
+				<iframe src="/project/imagelist" height="850" width="290" name=chat>
 				 	<p>Your browser does not support iframes.</p>
 				</iframe>
 			</div>

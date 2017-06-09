@@ -42,7 +42,7 @@ public class SearchCardListServlet extends HttpServlet{
 		
 		try {
 			logger.debug(keyfield + " " + keyword);
-			list = cardDao.getSearchcardList(page, limit, keyfield, keyword); 	// 게시물을 LIST 객체에 담습니다. 
+			//list = cardDao.getSearchcardList(page, limit, keyfield, keyword); 	// 게시물을 LIST 객체에 담습니다. 
 			listcount = list.size() + 1;	// 게시물의 총 개수를 가져옵니다.
 																	
 		// 최대 페이지를 구합니다.

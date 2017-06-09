@@ -41,10 +41,12 @@ public class UpdateUserServlet extends HttpServlet {
 		// ★ 로그인의 상태일 때, 세션에 저장된 유저와 로그인 유저 ID 비교
 		String userId = req.getParameter("userId");
 
-		if (!sessionUseId.equals(userId)) {
+	/*	if (!sessionUseId.equals(userId)) {
+			logger.debug("\nsession id = " + sessionUseId + "\nlogin id = " + userId);
 			resp.sendRedirect("/");
 			return;
-		}
+		}*/
+		
 		String password = req.getParameter("password");
 		String name = req.getParameter("name");
 		String age = req.getParameter("age");
@@ -73,15 +75,15 @@ public class UpdateUserServlet extends HttpServlet {
 		} catch (SQLException e) {
 			logger.debug("SQL Exception error" + e);
 		}
-
-		resp.sendRedirect("/card/cardlist");
+		
+		resp.sendRedirect("/"); // 개인정보 수정하고 반응해줄 응답페이지 필요함.
 
 	}
 
 	private void errorForward(HttpServletRequest request, HttpServletResponse response, String errorMessage)
 			throws ServletException, IOException {
 		request.setAttribute("errorMessage", errorMessage);
-		RequestDispatcher rd = request.getRequestDispatcher("/user.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/commons/top.jspf"); // 에러메시지 보낼 페이지 필요 (에이젝스)
 		rd.forward(request, response);
 	}
 

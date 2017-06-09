@@ -1,19 +1,19 @@
 package viser.card;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
-import javax.imageio.IIOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @WebServlet("/card/createcard")
 public class CreateCardServlet extends HttpServlet{
+	public static Logger logger=LoggerFactory.getLogger(CreateCardServlet.class);
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -23,14 +23,15 @@ public class CreateCardServlet extends HttpServlet{
 		String subject = req.getParameter("subject");
 		String content = req.getParameter("content");
 		String userId = req.getParameter("userId");
+		int listNum = Integer.parseInt(req.getParameter("listNum"));
+		int cardOrder = Integer.parseInt(req.getParameter("cardOrder"));
 		
-		Card card = new Card(subject, content, userId);
+		Card card = new Card(subject, content, userId,listNum,cardOrder);
 		
 		try {
-		
 		cardDao.addCard(card);
-		} catch (SQLException e) {
-			System.out.println(e);
+		} catch (Exception e) {
+			logger.debug("CreateCardServlet error:"+e.getMessage());
 		}
 
 		resp.sendRedirect("/card/cardlist");

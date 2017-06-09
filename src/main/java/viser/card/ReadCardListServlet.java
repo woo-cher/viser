@@ -21,9 +21,13 @@ public class ReadCardListServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		HttpSession session=request.getSession();  //형근: 프로젝트 명을 저장하기 위한 세션 (추후에 board로 옮길것)
-		session.setAttribute("projectName",request.getParameter("projectName"));  //형근: 세션에 프로젝트명을 저장  
-		logger.debug("세션에 저장된 프로젝트 이름: "+session.getAttribute("projectName"));
+		HttpSession session = request.getSession(); 
+		session.getAttribute("projectName");  //우철 : 세션에 저장된 프로젝트 명을 get
+		
+		session.setAttribute("boardName", request.getAttribute("boardName")); // 우철 : 카드에서의 action 을 위한 보드 세션 세팅
+		
+		logger.debug("세션에 저장된 프로젝트 이름: "+ session.getAttribute("projectName"));
+		
 		List list = new ArrayList(); 		// 게시물 목록을 가져오기 위하여 LIST 객체생성
 		CardDAO cardDao = new CardDAO();
 		

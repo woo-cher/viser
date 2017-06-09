@@ -25,7 +25,7 @@ public class ReadProjectMemberListServlet extends HttpServlet {
 		ProjectDAO projectDao = new ProjectDAO();
 		
 		try {
-		memberlist = projectDao.getProjectMemberList((String)session.getAttribute("projectname")); 	//형근: 멤버목록을 LIST 객체에 담는다.
+		memberlist = projectDao.getProjectMemberList((String)session.getAttribute("projectName")); 	//형근: 멤버목록을 LIST 객체에 담는다.
 		request.setAttribute("memberlist", memberlist);
 		
 		for(ProjectMember pm:memberlist){  //형근: 로그인한 유저가 관리자 권한을 가지고 있는지 체크해주는 반복문

@@ -16,7 +16,7 @@ public class CreateFormUserServlet extends HttpServlet {
 			throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		req.setAttribute("user", new User());
-		RequestDispatcher rd = req.getRequestDispatcher("/user.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/modalpage/user.jsp");
 		rd.forward(req, resp);
 		
 	}

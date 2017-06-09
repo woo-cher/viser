@@ -53,7 +53,7 @@ public class CreateUserServlet extends HttpServlet {
 	private void errorForward(HttpServletRequest request, HttpServletResponse response, String errorMessage)
 			throws ServletException, IOException {
 		request.setAttribute("errorMessage", errorMessage);
-		RequestDispatcher rd = request.getRequestDispatcher("/user.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/modalpage/user.jsp");
 		rd.forward(request, response);
 	}
 }

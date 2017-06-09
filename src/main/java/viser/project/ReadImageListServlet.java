@@ -26,7 +26,7 @@ public class ReadImageListServlet extends HttpServlet {
 		try {
 			logger.debug("imageList doget처리");
 			HttpSession session=request.getSession();
-			imagelist=projectDao.getImageList((String)session.getAttribute("projectname"));
+			imagelist=projectDao.getImageList((String)session.getAttribute("projectName"));
 			request.setAttribute("imageList", imagelist);
 			RequestDispatcher rd=request.getRequestDispatcher("/chat.jsp");
 			rd.forward(request, response);

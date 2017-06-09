@@ -1,9 +1,16 @@
 package viser.board;
 
 public class Board {
+	private int boardNum; 
 	private String projectName;
 	private String boardName;
 	
+	public int getBoardNum() {
+		return boardNum;
+	}
+	public void setBoardNum(int boardNum) {
+		this.boardNum = boardNum;
+	}
 	public String getProjectName() {
 		return projectName;
 	}
@@ -19,7 +26,7 @@ public class Board {
 	
 	@Override
 	public String toString() {
-		return "Board [projectName=" + projectName + ", boardName=" + boardName + "]";
+		return "Board [boardNum=" + boardNum + ", projectName=" + projectName + ", boardName=" + boardName + "]";
 	}
 
 	

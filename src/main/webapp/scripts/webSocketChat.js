@@ -52,6 +52,9 @@ function onMessage(event) {  //형근: 클라이언트가 보낸 메세지를 �
 		 clickcontext.className='selected';  //형근: 전달받은 클릭 버튼 아이디에 선택 클래스 효과적용 
 		 }
 	 }
+	 else if(jsonDecode[0].header=='reload'){
+		 window.location.reload();
+	 }
 	 else{   //clear일때
 		 canvasInit(); //형근: 캔버스 초기화
 		 $('#chat-image-list-display button').removeClass('selected'); //형근: 모든 클라이언트의 선택 효과 제거

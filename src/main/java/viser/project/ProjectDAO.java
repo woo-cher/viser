@@ -183,34 +183,6 @@ public class ProjectDAO {
 		}
 	}
 
-	public Card viewProject(int num) throws SQLException {
-		String sql = "select * from cards where Num = ?";
-		Card card = new Card();
-		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
-
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				card.setNum(rs.getInt("Num"));
-				card.setUserId(rs.getString("userId"));
-				card.setSubject(rs.getString("SubJect"));
-				card.setContent(rs.getString("Content"));
-				card.setReadcnt(rs.getInt("Readcnt"));
-				card.setDate(rs.getDate("Date"));
-				card.setRe_lev(rs.getInt("re_ref"));
-				card.setRe_ref(rs.getInt("re_ref"));
-				card.setRe_seq(rs.getInt("re_seq"));
-			}
-			logger.debug(card + "");
-		} catch (Exception e) {
-		} finally {
-			SourceReturn();
-		}
-		return card;
-	}
-
 	public void updateProject(String newName, String preName) throws SQLException {
 		String sql = "update projects set Project_Name = ?, Project_Date = ? where Project_Name = ?";
 		conn = getConnection();

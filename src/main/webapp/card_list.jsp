@@ -55,8 +55,8 @@
 
 				<div id="card-container" style = "overflow-x: auto;"> 
 
-			   	<div id="tt" style="width:10000px;overflow-x: auto;    text-align: left;">  
-					<ul id="sortable_box" class = "boxsort">  
+			   	<div id="tt" style="overflow:auto; width:auto;    text-align: left;">  
+					<ul id="sortable_box" class = "boxsort">  		
 						<c:forEach var="list" items="${lists}" varStatus="status">
 							<li id = "${status.index }" class="ui-state-default  card_margin">
 									<div class="card_wrap_top">

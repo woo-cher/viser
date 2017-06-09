@@ -47,35 +47,36 @@
 			<div id="card-container_wrap">
 				<div class="project-container">
 					<div class="project-header" style="padding: 10pt;">
-						<h3>${Target} STATE</h3>
+						<h2>${Target} STATE</h2>
 					</div>
-						<div id="project-content-header" style="margin: 0 auto;">
-							<table class="table" border="1px" cellpadding="0" cellspacing="0">
-							<tr height="30">
+					<div class="container" style = "length: 500px;">
+							<table class="table table-hover">
+							<thead>
+							<tr >
 								<!-- LIST -->
-								<td align="center" width="100">NUM</td>
-								<td align="center" width="600">${Target} NAME</td>
+								<th>NUM</th>
+								<th>${Target} NAME</th>
 								<c:if test = "${isReadProject}">
-								<td align="center" width="150">DATE</td>
+								<th>DATE</th>
 								</c:if>
 							</tr>
-						</div>
+							</thead>
 
 							<div class="project-content-body">
 
 								<c:choose>
 									<c:when test="${not empty list }">
 										<c:forEach var="list" items="${list}" varStatus="status">
-											<tr height="50">
-												<td align="center">${status.count }</td> <!-- 형근:프로젝트 번호는 가져온 순서대로 -->
+											<tr>
+												<td>${status.count}</td> <!-- 형근:프로젝트 번호는 가져온 순서대로 -->
 												<td>
 												<c:choose>
 													<c:when test="${isReadBoard}">
 													<a href="/lists/cardlist?boardNum=${list.boardNum}" > 
-														${list.boardNum}
+														${list.boardName}
 													</a>
 													
-													<div class="btn-group" role="group" style="float: right;">
+													<div class="btn-group" role="group" >
 													    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 													    <span class="caret" aria-hidden="true"></span>
 													    </button>
@@ -84,8 +85,9 @@
 													    <li><a href="javascript:dropmsg('${list.boardName}', 'board')">Delete</a></li>
 													    </ul>
 												  	</div>
+												  	
 												  		<form class="form-inline" action="${ModifyUrl}" method="get">
-															<div class="collapse" id="modifyAction${status.count}" style="float: right;">
+															<div class="collapse" id="modifyAction${status.count}">
 															 <div class="input-group" >
 																<input type="text" class="form-control" id="exampleInputName2" name = "newBoardName" placeholder="Input new name. . .">
 																<input type="hidden" name = "preBoardName" value="${list.boardName}">
@@ -106,7 +108,7 @@
 														${list.projectName}
 													</a>
   													 
-													<div class="btn-group" role="group" style="float: right;">
+													<div class="btn-group" role="group" style="float: right; padding-right: 10px;">
 													    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 													    <span class="caret" aria-hidden="true"></span>
 													    </button>
@@ -132,7 +134,7 @@
 															</div>
 														</form>
 												</td>
-												<td align="center"><fmt:formatDate value="${list.projectDate}" pattern="yyyy-MM-dd"/></td>
+												<td><fmt:formatDate value="${list.projectDate}" pattern="yyyy-MM-dd"/></td>
 											</tr>
 													</c:otherwise>
 												</c:choose>
@@ -140,8 +142,8 @@
 										</c:forEach>
 									</c:when>								
 									<c:otherwise>
-										<tr height="100">
-											<td colspan="5" align="center">
+										<tr>
+											<td colspan="5">
 											<h2>${Exist_msg }</h2>
 											</td>
 										</tr>
@@ -149,7 +151,7 @@
 								</c:choose>
 							</div>
 						</table>
-				
+				</div>
 						
 						<!-- Create Project Modal Field -->
 						<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="${Modal_target}" style="margin: 50;">

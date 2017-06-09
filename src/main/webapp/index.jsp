@@ -31,7 +31,7 @@
 
 		<video style="width: 100%;" autoplay="" loop=""
 			poster="https://d2v80xjmx68n4w.cloudfront.net/intro/c1a31243becb02fba269c3e290a7e652.jpg">
-			<source type="video/mp4" src="https://cdn.codeground.org/videos/Promotion_KOR.mp4">
+			<source type="video/mp4" src="take5.mp4">
 			<source type="video/webm" src="/acc.webm">
 			<source type="video/ogg" src="/acc.ogv">
 			<object>
@@ -54,14 +54,12 @@
 			Beyond yourself with <p>"runtime"</p>
 		</div>
 		<div id="content">
-			
 				 <c:if test="${not empty errorMessage }">
 					<label class='error alert alert-warning' style = "width:380px; display: inline-block;">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
 						</button>${errorMessage}  
 					</label>
 				</c:if>
-
 				<div style="width: 300px; margin: 0 auto; text-align: right; margin-bottom: 20px;">
 				<form id="form-sign" action="/users/login" method="post" class="form-inline">	
 				<fieldset>
@@ -81,7 +79,6 @@
 				</fieldset>
 				</form>
 				</div>
-				
 				<div id="button">
 					<div class="controls">
 						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Create">Sign up</button>
@@ -91,7 +88,6 @@
 				<a href="#"> forget your ID/password ? </a>
 				</div>
 		</div>
-
 	</div>
 </div>
 <%@ include file="./commons/bottom.jspf"%>

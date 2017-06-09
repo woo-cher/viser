@@ -115,3 +115,9 @@ function clickSync(){
 	);
 	webSocket.send(JSON.stringify(jsonEncode));
 }
+function reloadSend(){  //형근: 클라이언트 화면에 새로고침이 필요할때 
+	var jsonEncode=new Array(
+		{header:'reload'}	
+	);
+	webSocket.send(JSON.stringify(jsonEncode)); //형근: 클라이언트의 화면에 새로고침 명령 전송
+}

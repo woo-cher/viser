@@ -59,8 +59,11 @@
 									<div >
 										<div class="card_wrap">
 											<ul id=" ${list.listName }" class="connectedSortable sort_css">  
-												<c:forEach var="card" items="${list.cards}">
-													<li class="ui-state-default"><a href="/card/viewcard?num=${card.cardNum }&card_userId=${card.userId}">${card.subject}</a></li>
+												<c:forEach var="card" items="${list.cards}" varStatus="status">
+													<li class="ui-state-default">
+													<a  data-toggle="modal" href="#cardmodal${status.count}">${card.subject}</a>
+													<%@include file = "/modalpage/template.jsp"%>
+													</li>
 												</c:forEach>
 											</ul>
 										</div>

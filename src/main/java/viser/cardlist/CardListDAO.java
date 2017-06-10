@@ -81,7 +81,6 @@ public class CardListDAO {
 				cardList.setCards(cardDao.getCardList(rs.getInt("List_Num")));
 				list.add(cardList);
 			}
-			logger.debug("getList 내용 확인:"+list.get(0).toString());
 			return list;
 		}catch(SQLException e){
 			logger.debug("getList error:"+e.getMessage());
@@ -107,5 +106,18 @@ public class CardListDAO {
 		finally{
 			SourceReturn();
 		}
+	}
+	public void removeList(int boardNum,int listOrder){
+		String sql="delete from lists where Board_Num=? && List_Order=?";
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNum);
+			pstmt.setInt(2, listOrder);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			logger.debug("removeList error:"+e.getMessage());
+		}
+		
 	}
 }

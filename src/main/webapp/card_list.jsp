@@ -43,10 +43,10 @@
 			</div>
 		  </div>  
 		<div id="card-container" style = "overflow-x: auto;"> 
-			  	<div id="tt" style="overflow:auto; width:auto;    text-align: left;">  
+			  	<div id="tt" style="overflow:auto; width:10000px;    text-align: left;">  
 					<ul id="sortable_box" class = "boxsort">  		
 						<c:forEach var="list" items="${lists}" varStatus="status">
-							<li id = "${status.index }" class="ui-state-default  card_margin">
+							<li id="${list.listOrder }" class="ui-state-default card_margin currentListNum">
 									<div class="card_wrap_top">
 										<div>
 											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">${list.listName}</textarea>
@@ -65,25 +65,24 @@
 											</ul>
 										</div>
 									</div>
-									<button type="button" class="btn btn-info_c delete" href="#"  onclick="" style = "margin-bottom: 5px;">삭제</button>
+									<button type="button" class="btn btn-info_c delete" href="#"  onclick="location.href='/lists/removeList?boardNum=${param.boardNum}&listOrder=${list.listOrder }'" style = "margin-bottom: 5px;">삭제</button>
 								</li>		
 							</c:forEach>
 						</ul>
-						
 						<button id ="addbutton" class="btn btn-info_c" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" >
 							리스트 추가
 						</button>
-						
 						<div class="collapse" id="collapseExample" style="float:left;">
 						  <div class="well">
 							<form method="post" action="/lists/addList">
 							  <div class="form-group">
 							    <label for="newListName">리스트 이름</label>
 							    <input type="text" class="form-control" name="listName" placeholder="리스트 이름을 입력하세요">
-							    <input type="hidden" class="form-control" name="boardNum" value=""/>
-							    <input type="hidden" class="form-control" name="listOrder" value=""/>
+							    <input type="hidden" class="form-control" name="boardNum" value="${param.boardNum }"/>
+							    <input id="currentListNum" type="hidden" class="form-control" name="listOrder" />
+								<script>document.getElementById('currentListNum').value=''+$('.currentListNum').length;</script>
 							  </div>
-							  <button type="submit" class="btn btn-default">제출</button>
+							  <button type="submit" class="btn btn-default" >제출</button>
 							 </form>
 						  </div>
 						</div>
@@ -109,14 +108,17 @@
 </html>
 <!-- 근    아래    짱 -->
  <script>
- 
+ var listNum;
   //리스트의 이동
   $( function() {
        $( ".boxsort" ).sortable({
             update: function(event, ul) { 
+            	//listNum=ul.item.index();
                  console.log('list update: '+ ul.item.index())
+                 
              },
-             start: function(event, ul) { 
+             start: function(event, ul) {
+            	 //listNum=ul.item.index();
                  console.log('list start: ' + ul.item.index())
              }
          });

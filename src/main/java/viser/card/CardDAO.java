@@ -154,7 +154,7 @@ public class CardDAO {
 //	}
 
 	public void addCard(Card card) {
-		String sql = "insert into cards(userId,Subject,Content,Card_Order,List_Num) values(?,?,?,?,?)";
+		String sql = "insert into cards(userId,Subject,Content, List_Num, Card_Order) values(?,?,?,?,?)";
 
 		try {
 			conn = getConnection();		

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet("/card/removecard")
+@WebServlet("/cards/removecard")
 public class DeleteCardServlet extends HttpServlet {
 	private static final Logger logger = LoggerFactory.getLogger(DeleteCardServlet.class);
 	

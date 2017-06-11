@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet("/card/updatecard")
+@WebServlet("/cards/updatecard")
 public class UpdateCardServlet extends HttpServlet {
 	private static final Logger logger = LoggerFactory.getLogger(UpdateCardServlet.class);
 	
@@ -37,6 +37,7 @@ public class UpdateCardServlet extends HttpServlet {
 		} catch (Exception e) {
 			logger.debug("updatecard Servlet error" + e);
 		}
-		
+		HttpSession session=request.getSession();
+		response.sendRedirect("/lists/cardlist?boardNum="+(int)session.getAttribute("boardNum"));
 	}
 }

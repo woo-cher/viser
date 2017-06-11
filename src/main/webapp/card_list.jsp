@@ -54,17 +54,11 @@
 											<script>
 												//형근: 카드를 생성할 때
 												$('#${list.listNum }-card-add-btn').click(function(){
-													$('#card-field').attr("action","/cards/createcard");
-													$('#Title').html("<h2>CREATE_JSP_card</h2>");
-													$('#card-user').html("<input type='hidden' name='userId' value='${userId}'>${userId}</input>");
-													$('#submit-btn').val('submit');
-													
-													var cardListNum=${list.listNum};
-													var cardOrder=$('#${list.listNum} li').length;
-													document.getElementById('cardListNum').value=cardListNum;
-													document.getElementById('cardOrder').value=cardOrder;
+													cardListNum=${list.listNum};
+													currentCardOrder=$('#${list.listNum} li').length;
 													console.log(cardOrder);
 													console.log(cardListNum);
+													addCard();
 												});
 											</script>
 										</div>
@@ -80,9 +74,11 @@
 													</li>
 													<script>
 														//형근: 카드 내용을 읽고 수정 할때
-														$('#${card.cardNum}-card-view-btn').click(function(){
-															var cardNum=${card.cardNum};
-															console.log(cardNum);
+														$(document).ready(function(){
+															$('#${card.cardNum}-card-view-btn').click(function(){
+																currentCardNum=${card.cardNum};
+																viewCard();
+															});
 														});
 													</script> 
 												</c:forEach>
@@ -132,20 +128,71 @@
 </html>
 
 <script>
-//카드 모달을 위한 스크립트
+//카드 ajax
+var currentCardNum; //형근: 클릭한 카드 번호를 저장할 변수
 
-/* $(document).ready(function(){
-	$('.card-modal-btn').click(function(){
-		callAjax();
-		});
-	});
-
-function callAjax(){
+function viewCard(){
 	$.ajax({
-		data:
-	})
-} */
+		type:'get',
+		data:{
+			cardNum:currentCardNum
+		},
+		url:'/cards/viewcard',
+		dataType:'json',
+		success:function (data){
+			$('#card-field').attr("action","/cards/updatecard");
+			$('#Title').html("<h2>View_Card</h2>");
+			$('#cardNum').val(data.cardNum);
+			$('#card-user').html("<input type='hidden' name='userId' value='"+data.userId+"'>"+data.userId+"</input>");
+			$('#cardSubject').val(data.subject);
+			$('#cardContent').val(data.content);
+			var btn="";
+			btn+="<input type='submit' class='btn btn-default' value='Modify'/>";
+			btn+="<input type='reset' class='btn btn-default' value='Reset' />";
+			btn+="<input type='button' class='btn btn-default'  value='List' data-dismiss='modal' />";
+			btn+="<input type='button' id='delete-card' class='btn btn-default' value='Delete' />";
+			$('#btn-area').html(btn);
+			$('#delete-card').attr("onclick","location.href='/cards/removecard?num="+data.cardNum+"'");
+		},
+		error:ajaxError
+	});
+}
+
+var cardListNum;  //형근: 새로 생성할 카드의 리스트 번호를 저장할 변수
+var currentCardOrder//형근: 리스트에 추가될 카드의 순서번호를 저장할 변수 
+
+function addCard(){
+	$.ajax({
+		type:'get',
+		data:{
+			listNum:cardListNum,
+			cardOrder:currentCardOrder
+		},
+		url:"/cards/createcardForm",
+		dataType:'json',
+		success:function (data){
+			$('#cardSubject').val(data.subject); //카드 읽기에서 가져온 데이터는 삭제
+			$('#cardContent').val(data.content);
+			$('#card-field').attr("action","/cards/createcard");
+			$('#Title').html("<h2>CREATE_Card</h2>");
+			$('#card-user').html("<input type='hidden' name='userId' value='${userId}'>${userId}</input>");
+			$('#cardListNum').val(cardListNum);
+			$('#cardOrder').val(currentCardOrder);
+			var btn="";
+			btn+="<input type='submit' class='btn btn-default' value='Submit'/>";
+			btn+="<input type='reset' class='btn btn-default' value='Reset' />";
+			btn+="<input type='button' class='btn btn-default'  value='List' data-dismiss='modal' />";
+			$('#btn-area').html(btn);
+		},
+		error:ajaxError
+	});
+}
+
+function ajaxError(){
+	alert("데이터 로딩 오류");
+}
 </script>
+
  <script>
  var listNum;
   //리스트의 이동

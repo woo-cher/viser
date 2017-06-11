@@ -23,7 +23,7 @@
 							</tr>
 							
 							
-							<input id="cardNum" type="hidden" name="num" value="${card.cardNum}" />
+							<input id="cardNum" type="hidden" name="num" />
 					
 							
 							<tr>
@@ -44,7 +44,7 @@
 							<tr>
 								<td>CONTENT</td>
 								<td>
-									<textarea id="cardContent" name="content"  class="form-control" rows = "13" cols="40">${card.content}</textarea>
+									<textarea id="cardContent" name="content"  class="form-control" rows = "13" cols="40"></textarea>
 								</td>
 							</tr>
 							<tr>
@@ -56,7 +56,7 @@
 								</td>
 							</tr>
 						</table>
-						<div id="btn area">
+						<div id="btn-area">
 							<input type="submit" id="submit-btn" class="btn btn-default"  />
 							<input type="reset" class="btn btn-default" value="Reset" />
 							<input type="button" class="btn btn-default"  value="List" data-dismiss="modal" />

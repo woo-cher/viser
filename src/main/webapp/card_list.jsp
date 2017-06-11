@@ -90,13 +90,13 @@
 							</c:forEach>
 						</ul>
 						<button id ="addbutton" class="btn btn-info_c_add" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" >
-							리스트 추가
+							List add.
 						</button>
 						<div class="collapse" id="collapseExample" style="float:left;">
 						  <div class="well">
 							<form method="post" action="/lists/addList">
 							  <div class="form-group">
-							    <label for="newListName">리스트 이름</label>
+							    <label for="newListName">List name.</label>
 							    <input type="text" class="form-control" name="listName" placeholder="리스트 이름을 입력하세요">
 							    <input type="hidden" class="form-control" name="boardNum" value="${param.boardNum }"/>
 							    <input id="currentListNum" type="hidden" class="form-control" name="listOrder" />

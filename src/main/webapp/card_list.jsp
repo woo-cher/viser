@@ -13,8 +13,8 @@
 <title>jQuery UI Sortable - Display as grid</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -23,26 +23,26 @@
 </head>
 <body>
 	<div class="background">
-		<%@ include file="./commons/top.jspf"%>
+		<%@ include file="./commons/top.jspf"%>				
 		<div class="wrap ac">
 		  <div id="card-container_wrap" style = "color: azure;">
 		   <div id="top">
-		     <div id="mini-menu">
-		 	  <div class="btn-group-sm" role="group" aria-label="...">  
+		     <div id="mini-menu"> 
+		 	  <div class="btn-group-sm" role="group" aria-label="...">   
 				<button type="button" class="btn btn-info" onclick="location.href='/board/boardlist?projectName=${projectName}'">
 				목록
 				</button>
 				<button type="button" class="btn btn-info" href="#" data-toggle="modal" data-target="#invite">초대</button>
 				<button type="button" class="btn btn-info" href="#" class="btn btn-default">EXIT</button>
-				 <%@include file = "./modalpage/invite.jsp" %>
+
 				
 			  </div>
 			</div>
 		  </div>  
 		<div id="card-container" style = "overflow-x: auto;"> 
-			  	<div id="tt" style="overflow:auto; width:10000px;    text-align: left;">  
-					<%@include file = "/modalpage/card.jsp"%>	
-					<ul id="sortable_box" class = "boxsort">  	
+			  	<div id="tt" style="overflow:auto; width:10000px; text-align: left; ">  
+					<%@include file = "/modalpage/card.jsp"%>
+					<ul id="sortable_box" class = "boxsort">  		
 						<c:forEach var="list" items="${lists}" varStatus="status">
 							<li id="${list.listOrder }" class="ui-state-default card_margin currentListNum">
 									<div class="card_wrap_top">
@@ -66,7 +66,7 @@
 							  	
 									<div >
 										<div class="card_wrap">
-											<ul id="${list.listNum}" class="connectedSortable sort_css">  
+											<ul id=" ${list.listNum}" class="connectedSortable sort_css">  
 												<c:forEach var="card" items="${list.cards}" varStatus="status">
 													<li id="${card.cardNum }"class="ui-state-default">
 													<a id="${card.cardNum}-card-view-btn" class="card-modal-btn" data-toggle="modal" href="#cardmodal">${card.subject}</a>
@@ -80,7 +80,7 @@
 																viewCard();
 															});
 														});
-													</script> 
+													</script>
 												</c:forEach>
 											</ul>
 										</div>
@@ -89,7 +89,7 @@
 								</li>		
 							</c:forEach>
 						</ul>
-						<button id ="addbutton" class="btn btn-info_c" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" >
+						<button id ="addbutton" class="btn btn-info_c_add" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" >
 							리스트 추가
 						</button>
 						<div class="collapse" id="collapseExample" style="float:left;">
@@ -106,8 +106,7 @@
 							 </form>
 						  </div>
 						</div>
-						
- 					</div>  
+ 					</div>
 				</div>
 				<div id='project_user'>
 				<iframe src="/project/memberlist" height="170" width="290" name=user> 
@@ -121,12 +120,13 @@
 			</div>
 			</div>
 		</div>
-	</div>
+		<%@include file = "./modalpage/invite.jsp" %>
+		<%@include file = "/modalpage/upload.jsp"%>  <!-- 업로드 추가  -->
+	</div> 
 </body>
 <%@ include file="./commons/bottom.jspf"%>
 </div>
 </html>
-
 <script>
 //카드 ajax
 var currentCardNum; //형근: 클릭한 카드 번호를 저장할 변수
@@ -228,8 +228,4 @@ function resize(obj) {
   obj.style.height = "1px";
   obj.style.height = (12+obj.scrollHeight)+"px";
 }
-</script>
-
-<script>
-	
 </script>

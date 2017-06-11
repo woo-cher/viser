@@ -55,7 +55,7 @@
 						<!-- <a href="/index.jsp" class="btn-default-logo"> LOGO </a> -->
 					</c:when>
 					<c:otherwise>
-						<a href="/project/projectlist" class="btn-default-logo" style="font-size: -webkit-xxx-large;"> LOGO</a>
+						<a href="/project/projectlist" class="btn-default-logo">VISER</a>
 
 					</c:otherwise>
 				</c:choose>
@@ -68,18 +68,18 @@
 						<!-- Single button -->
 					
 							<div class="btn-group btn-group-lg" role="group" aria-label="...">
-							<button type="button" class="btn btn-default"onclick="location.href='/users/logout'" class="btn btn-default">로그아웃</button>
-							<button type="button" class="btn btn-default" data-toggle="modal" data-target="#Update">개인정보수정</button>
-						    <button type="button" class="btn btn-default" onclick="location.href='javascript:msg()'">회원탈퇴</button>
+							<button type="button" class="btn-default-logo-side" onclick="location.href='/users/logout'">로그아웃</button>
+							<button type="button" class="btn-default-logo-side" data-toggle="modal" data-target="#Update">개인정보수정</button>
+						    <button type="button" class="btn-default-logo-side" onclick="location.href='javascript:msg()'">회원탈퇴</button>
 							</div>
 					</c:otherwise>
 				</c:choose>
 			
-			</span>  
+			</span>    
 		</div>
 	</div>
-</c:if>
-		<div class="modal fade file_modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+</c:if>  
+		<div class="modal fade file_modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  
 		<div class="modal-dialog" role="document">
 			<div class="modal-content" style="padding: 20px;">
 				<div class="modal-header">

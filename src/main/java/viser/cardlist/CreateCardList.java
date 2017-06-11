@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CreateCardList extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		int boardNum=Integer.parseInt(request.getParameter("boardNum"));
 		String listName=request.getParameter("listName");
 		int listOrder=Integer.parseInt(request.getParameter("listOrder"));

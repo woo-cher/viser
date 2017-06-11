@@ -28,16 +28,10 @@ public class CreateFormCardServlet extends HttpServlet {
 		int listNum=Integer.parseInt(request.getParameter("listNum"));
 		int cardOrder=Integer.parseInt(request.getParameter("cardOrder"));
 	
-		UserDAO userDao = new UserDAO();
-		try {
-			request.setAttribute("isCreate", true);
-			User user = userDao.findByUserId(userId);
-			request.setAttribute("user", user);
-			request.setAttribute("card",new Card(listNum,cardOrder));
-			RequestDispatcher rd = request.getRequestDispatcher("/card.jsp");
-			rd.forward(request, response);
-		} catch (SQLException e) {
-		}
+		/*request.setAttribute("isCreate", true);
+		request.setAttribute("card",new Card(listNum,cardOrder));
+		RequestDispatcher rd = request.getRequestDispatcher("/card.jsp");
+		rd.forward(request, response);*/  //json으로 변경
 
 	}
 }

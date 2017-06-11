@@ -163,8 +163,8 @@ public class CardDAO {
 			pstmt.setString(1, card.getUserId());
 			pstmt.setString(2, card.getSubject());
 			pstmt.setString(3, card.getContent());
-			pstmt.setInt(4, card.getCardOrder());
-			pstmt.setInt(5, card.getListNum());
+			pstmt.setInt(4, card.getListNum());
+			pstmt.setInt(5, card.getCardOrder());
 
 			pstmt.executeUpdate();
 

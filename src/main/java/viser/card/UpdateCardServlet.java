@@ -31,11 +31,9 @@ public class UpdateCardServlet extends HttpServlet {
 		card.setContent(content);
 		
 		CardDAO cardDao = new CardDAO();
-		HttpSession session=request.getSession();
 		try {
 			logger.debug("테스트 : " + card);
 			cardDao.updateCard(card);
-			response.sendRedirect("/lists/cardlist?boardNum="+(int)session.getAttribute("boardNum"));  //list조회 페이지로 이동
 		} catch (Exception e) {
 			logger.debug("updatecard Servlet error" + e);
 		}

@@ -3,18 +3,18 @@
 
 	 <footer class="footer">
 	  <div class="footer-inner">
-	    <span class="text-muted">copyright. 경상대학교 데이터베이스 연구실 </span>
+	    <span class="text-muted">copyright. GNU - Team VISER </span>
 	  </div>
 	</footer>
 	
 	
-
+ 
 	
 	
 	<!-- Modal -->
 	<div class="modal fade file_modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
-			<div class="modal-content" style="padding: 20px;">
+			<div class="modal-content" style="padding: 20px;">  
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">

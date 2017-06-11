@@ -125,6 +125,7 @@
 			</div>
 		</div>
 		<%@include file = "./modalpage/invite.jsp" %>
+		<%@include file = "/modalpage/upload.jsp"%>  <!-- 업로드 추가  -->
 	</div> 
 </body>
 <%@ include file="./commons/bottom.jspf"%>

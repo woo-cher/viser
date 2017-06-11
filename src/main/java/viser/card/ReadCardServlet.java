@@ -33,26 +33,21 @@ public class ReadCardServlet extends HttpServlet {
 		CardDAO cardDao = new CardDAO();
 		Card card = new Card();
 		
-		int num = Integer.parseInt( req.getParameter("num") );
-		String card_userId = req.getParameter("card_userId");
+		int cardNum = Integer.parseInt( req.getParameter("cardNum") );
 
-		if(!userId.equals(card_userId)) {
-			req.setAttribute("isNotUser", true);
-		}
-		
-		else req.setAttribute("isUser", true);
-		
 		try {
-			card = cardDao.viewCard(num);
+			card = cardDao.viewCard(cardNum);
 			
 			if(card == null) {
 				logger.debug("card View null");
 			}
 			
-			req.setAttribute("isView", true);
+			/*req.setAttribute("isView", true);
 			req.setAttribute("card", card);
 			RequestDispatcher rd = req.getRequestDispatcher("/card.jsp");
 			rd.forward(req, resp);
+			*/  //json으로 변환해서 보내주기
+			
 			
 		} catch (Exception e) {
 			logger.debug("cardviewServlet error : " + e);

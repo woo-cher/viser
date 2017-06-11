@@ -241,7 +241,7 @@ body {
 	margin: 0 auto;
 }
 
-#title-sortable {
+.add-card-btn {
 	text-align: left;
 	width: 85%;
 	margin: 0 auto;

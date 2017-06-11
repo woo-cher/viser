@@ -32,17 +32,11 @@ public class ReadCardListServlet extends HttpServlet{
 		int boardNum=Integer.parseInt(request.getParameter("boardNum"));
 		session.getAttribute("projectName");
 
-		try {
-			user = userDao.findByUserId((String)session.getAttribute("userId"));
-			
-			session.setAttribute("boardNum", boardNum);
-			
-			list=cardListDao.getList(boardNum);
-			
-			request.setAttribute("lists", list);
-			request.setAttribute("user", user);
-		} catch (SQLException e) {
-		}
+		session.setAttribute("boardNum", boardNum);
+		
+		list=cardListDao.getList(boardNum);
+		
+		request.setAttribute("lists", list);
 		
 		logger.debug("ReadCardListServlet db에서 가져온 lists:"+list);
 		RequestDispatcher rd=request.getRequestDispatcher("/card_list.jsp");

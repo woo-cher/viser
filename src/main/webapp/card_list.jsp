@@ -15,19 +15,15 @@
 
  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
-
-
-
-<!--------------->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>card</title>
 <link href="/stylesheets/card.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div class="background">
-		<%@ include file="./commons/top.jspf"%>
-				
+		<%@ include file="./commons/top.jspf"%>				
 		<div class="wrap ac">
 		  <div id="card-container_wrap" style = "color: azure;">
 		   <div id="top">
@@ -45,6 +41,7 @@
 		  </div>  
 		<div id="card-container" style = "overflow-x: auto;"> 
 			  	<div id="tt" style="overflow:auto; width:10000px; text-align: left; ">  
+					<%@include file = "/modalpage/card.jsp"%>
 					<ul id="sortable_box" class = "boxsort">  		
 						<c:forEach var="list" items="${lists}" varStatus="status">
 							<li id="${list.listOrder }" class="ui-state-default card_margin currentListNum">
@@ -53,23 +50,46 @@
 											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">${list.listName}</textarea>
 										</div>
 										<div>
-											<button type="button" class="ui-state-default add_card" id="title-sortable" onclick="location.href='/card/createcardForm?listNum=&cardOrder='">add..</button>  
+											<a id="${list.listNum }-card-add-btn" class="btn btn-default" data-toggle="modal" href="#cardmodal">카드 추가</a>
+											<script>
+												//형근: 카드를 생성할 때
+												$('#${list.listNum }-card-add-btn').click(function(){
+													$('#card-field').attr("action","/cards/createcard");
+													$('#Title').html("<h2>CREATE_JSP_card</h2>");
+													$('#card-user').html("<input type='hidden' name='userId' value='${userId}'>${userId}</input>");
+													$('#submit-btn').val('submit');
+													
+													var cardListNum=${list.listNum};
+													var cardOrder=$('#${list.listNum} li').length;
+													document.getElementById('cardListNum').value=cardListNum;
+													document.getElementById('cardOrder').value=cardOrder;
+													console.log(cardOrder);
+													console.log(cardListNum);
+												});
+											</script>
 										</div>
 							  		</div>
 							  	
 									<div >
 										<div class="card_wrap">
-											<ul id=" ${list.listName }" class="connectedSortable sort_css">  
+											<ul id=" ${list.listNum}" class="connectedSortable sort_css">  
 												<c:forEach var="card" items="${list.cards}" varStatus="status">
-													<li class="ui-state-default">
-													<a  data-toggle="modal" href="#cardmodal${status.count}">${card.subject}</a>
-													<%@include file = "/modalpage/template.jsp"%>
+													<li id="${card.cardNum }"class="ui-state-default">
+													<a id="${card.cardNum}-card-view-btn" class="card-modal-btn" data-toggle="modal" href="#cardmodal">${card.subject}</a>
+													
 													</li>
+													<script>
+														//형근: 카드 내용을 읽고 수정 할때
+														$('#${card.cardNum}-card-view-btn').click(function(){
+															var cardNum=${card.cardNum};
+															console.log(cardNum);
+														});
+													</script>
 												</c:forEach>
 											</ul>
 										</div>
 									</div>
-									<button type="button" class="btn btn-info_c delete" href="#"  onclick="location.href='/lists/removeList?boardNum=${param.boardNum}&listOrder=${list.listOrder }'" style = "margin-bottom: 5px;">삭제</button>
+									<button type="button" class="btn btn-info_c" href="#"  onclick="location.href='/lists/removeList?boardNum=${param.boardNum}&listOrder=${list.listOrder }'" style = "margin-bottom: 5px;">삭제</button>
 								</li>		
 							</c:forEach>
 						</ul>
@@ -86,7 +106,7 @@
 							    <input id="currentListNum" type="hidden" class="form-control" name="listOrder" />
 								<script>document.getElementById('currentListNum').value=''+$('.currentListNum').length;</script>
 							  </div>
-							  <button type="submit" class="btn btn-default" >제출</button>
+							  <button type="submit" class="btn btn-default" >생성</button>
 							 </form>
 						  </div>
 						</div>
@@ -110,7 +130,21 @@
 <%@ include file="./commons/bottom.jspf"%>
 </div>
 </html>
-<!-- 근    아래    짱 -->
+<script>
+//카드 모달을 위한 스크립트
+
+/* $(document).ready(function(){
+	$('.card-modal-btn').click(function(){
+		callAjax();
+		});
+	});
+
+function callAjax(){
+	$.ajax({
+		data:
+	})
+} */
+</script>
  <script>
  var listNum;
   //리스트의 이동

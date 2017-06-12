@@ -151,7 +151,7 @@ function viewCard(){
 			btn+="<input type='button' class='btn btn-default'  value='List' data-dismiss='modal' />";
 			btn+="<input type='button' id='delete-card' class='btn btn-default' value='Delete' />";
 			$('#btn-area').html(btn);
-			$('#delete-card').attr("onclick","location.href='/cards/removecard?num="+data.cardNum+"&listNum="+data.listNum+"&cardOrder"+date.cardOrder+"'");
+			$('#delete-card').attr("onclick","location.href='/cards/removecard?num="+data.cardNum+"&listNum="+data.listNum+"&cardOrder="+data.cardOrder+"'");
 		},
 		error:ajaxError
 	});
@@ -224,9 +224,6 @@ function ajaxError(){
 			},
 			url:"/lists/updateListOrder",
 			dataType:'text',
-			success:function (data){
-				alert('성공');
-			},
 			error:ajaxError
 		});		  
 	}
@@ -241,12 +238,21 @@ function ajaxError(){
   
   $( function() {
     $( ".connectedSortable" ).sortable({
-    	 update: function(event, ui) { 
+          update:function(event, ui) { 
     		  updateListOrder=ui.item.parent().parent().parent().parent().index();
     		  updateCardOrder= ui.item.index();
-         	  console.log('card receive: ' + updateListOrder);
+    		  if(updateListOrder==startListOrder){
+	         	  console.log('card receive: ' + updateListOrder);
+	              console.log('card update: '+ updateCardOrder);
+	              //changeCardOrder();
+    		  }
+          },
+          receive:function(event, ui) { 
+    		  updateListOrder=ui.item.parent().parent().parent().parent().index();
+    		  updateCardOrder= ui.item.index();
+    		  console.log('card receive: ' + updateListOrder);
               console.log('card update: '+ updateCardOrder);
-              
+              changeCardOrder();
           },
           start: function(event, ui) {
         	 startListOrder=ui.item.parent().parent().parent().parent().index();
@@ -259,6 +265,22 @@ function ajaxError(){
     }).disableSelection();
   } ); 
   
+  
+  function changeCardOrder(){
+	  	$.ajax({
+	  		type:'get',
+			data:{
+				num:boardNum,
+				currentList:startListOrder,
+				updateList:updateListOrder,
+				currentCard:startCardOrder,
+				updateCard:updateCardOrder
+			},
+			url:"/lists/updateCardOrder",
+			dataType:'text',
+			error:ajaxError
+		});		  
+	}
   
  </script>
   

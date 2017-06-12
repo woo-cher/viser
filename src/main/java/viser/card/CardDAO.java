@@ -181,7 +181,7 @@ public class CardDAO {
 		}
 	}
 
-	public void removeCard(int num,int listNum,int cardOrder) throws SQLException {
+	public void removeCard(int num,int listNum,int cardOrder){
 		String sql = "delete from cards where Card_Num = ?";
 
 		conn = getConnection();
@@ -191,9 +191,8 @@ public class CardDAO {
 			pstmt.setInt(1, num);
 
 			pstmt.executeUpdate();
-
-		} finally {
-			SourceReturn();
+		}catch(SQLException e){
+			
 		}
 		
 		sql="select Card_Num from cards where List_Num=?&& Card_Order>?";
@@ -203,16 +202,19 @@ public class CardDAO {
 			pstmt.setInt(2, cardOrder);
 			rs=pstmt.executeQuery();
 			
-			String sql2="update cards set Card_Order=? where List_Num=?"; 
+			String sql2="update cards set Card_Order=? where Card_Num=?"; 
 			int changeOrder=cardOrder;  //삭제되는 위치부터 그 뒤까지 순서 갱신을 위해 사용하는 변수
 			
 			while(rs.next()){
 				pstmt2 = conn.prepareStatement(sql2);
 				pstmt2.setInt(1, changeOrder++);
-				pstmt2.setInt(2, listNum);
+				pstmt2.setInt(2, rs.getInt("Card_Num"));
 				pstmt2.executeUpdate();
 			}
-		} finally {
+		}catch(SQLException e){
+			
+		}
+		finally {
 			SourceReturn();
 		}
 	}

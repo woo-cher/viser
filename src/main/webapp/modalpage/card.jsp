@@ -57,7 +57,6 @@
 							</tr>
 						</table>
 						<div id="btn-area">
-							
 						</div>
 					</form>
 				</div>  

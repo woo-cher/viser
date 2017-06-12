@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet("/card/updatecard")
+@WebServlet("/cards/updatecard")
 public class UpdateCardServlet extends HttpServlet {
 	private static final Logger logger = LoggerFactory.getLogger(UpdateCardServlet.class);
 	
@@ -31,14 +31,13 @@ public class UpdateCardServlet extends HttpServlet {
 		card.setContent(content);
 		
 		CardDAO cardDao = new CardDAO();
-		HttpSession session=request.getSession();
 		try {
 			logger.debug("테스트 : " + card);
 			cardDao.updateCard(card);
-			response.sendRedirect("/lists/cardlist?boardNum="+(int)session.getAttribute("boardNum"));  //list조회 페이지로 이동
 		} catch (Exception e) {
 			logger.debug("updatecard Servlet error" + e);
 		}
-		
+		HttpSession session=request.getSession();
+		response.sendRedirect("/lists/cardlist?boardNum="+(int)session.getAttribute("boardNum"));
 	}
 }

@@ -1,5 +1,5 @@
 #top {
-	width: 1150px;
+	width: 834px;;
 	float :left;
 	/* padding-top: 30px; 우철 : 검색 모달 넣으면서 채팅 쪽이 안보여서 일단 주석처리함*/
 	margin-bottom: 40px;  
@@ -40,7 +40,7 @@
 #card-container {
 	float: left;
     width: 850px;
-    height: 835px;
+    height: 863px;
     overflow:auto;
 /*     border: 1px solid; */  
 }

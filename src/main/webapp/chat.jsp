@@ -62,8 +62,8 @@
 			</ul>
 			<div id="chat-image-area-tool">
 				<div id="chat-image-area-tool-brush">
-					<label for="brush" style = "color:black">  선의 두께:</label> <input name="brush"
-						id="brush_size" type="range" value="5" min="0" max="100" />
+				<label for="brush" style = "color:black">  선의 두께:</label> 
+ 				<input name="brush"  id="brush_size" type="range" value="5" min="0" max="100" style = "margin-bottom: 5px"/>
 				</div>
 				<div id="chat-image-area-tool-control">
 					<button id="undo" class="btn-chat btn-info" href="#" disabled="disabled">Undo</button>
@@ -79,7 +79,7 @@
 				  </c:forEach>
 				</div>
 				<div id="chat-image-list-control">
-					<button id="image_add" class="btn-chat btn-info" onclick=popupOpen()>이미지 추가</button>
+					<button id="image_add" class="btn-chat btn-info" data-toggle="modal" href="#uploadmodal">이미지 추가</button>
 					<button id="image_delete" class="btn-chat btn-info" onclick=deleteImage()>이미지 삭제</button>
 				</div>
 			</div>

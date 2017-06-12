@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet("/card/removecard")
+@WebServlet("/cards/removecard")
 public class DeleteCardServlet extends HttpServlet {
 	private static final Logger logger = LoggerFactory.getLogger(DeleteCardServlet.class);
 	
@@ -21,11 +21,14 @@ public class DeleteCardServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		int num = Integer.parseInt( request.getParameter("num") );
+		int listNum = Integer.parseInt( request.getParameter("listNum") );
+		int cardOrder = Integer.parseInt( request.getParameter("cardOrder") );
+		
 		HttpSession session=request.getSession();
 		CardDAO cardDao = new CardDAO();
 		
 		try {
-			cardDao.removeCard(num);
+			cardDao.removeCard(num,listNum,cardOrder);
 			response.sendRedirect("/lists/cardlist?boardNum="+(int)session.getAttribute("boardNum"));
 		} catch (Exception e) {
 			logger.debug("RemovecardServlet error" + e);

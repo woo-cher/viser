@@ -30,7 +30,10 @@
 			<div id="chat-user-list">
 				<ul id="menu">
 				<c:forEach var="list" items="${memberlist }">
-					<li>
+					<li align="center">
+						<c:if test="${isMaster==true && list.userId eq userId}">
+							<img src="/crown.png" style="width:15px; height:10px;">
+						</c:if>
 						${list.userId }
 						<ul>
 							<c:choose>

@@ -1,10 +1,10 @@
 package viser.project;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.gson.Gson;
 
 import viser.support.SessionUtils;
 import viser.user.LogInServlet;
@@ -42,11 +44,12 @@ public class SearchUserServlet extends HttpServlet{
 		logger.debug("검색 키 : " + keyword); 
 		try {
 			list = prjDao.getUserList(keyword, loginUserId);
-			request.setAttribute("list", list);
-			request.setAttribute("loginUser", loginUserId);
+			Gson gson=new Gson();
+			String jsonData=gson.toJson(list);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/modalpage/invite.jsp");
-			rd.forward(request, response);
+			PrintWriter out=response.getWriter();
+			out.print(jsonData);
+			
 		} catch (Exception e) {
 			logger.debug("Search fail : " + e); 
 		}

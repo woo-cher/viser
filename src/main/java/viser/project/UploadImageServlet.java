@@ -41,14 +41,7 @@ public class UploadImageServlet extends HttpServlet {
 			} catch (SQLException e) {
 				logger.debug("UploadImageServlet error"+e.getMessage());
 			}
-			PrintWriter out=response.getWriter();
-			String closeScript="";
-			closeScript+="<script language='javascript'>";
-			closeScript += "opener.message();";
-			closeScript += "opener.window.location.reload();";
-			closeScript+="self.close();";
-			closeScript+="</script>";
-			out.print(closeScript);
+			response.sendRedirect("lists/cardlist?boardNum="+(int)session.getAttribute("boardNum"));
 		}
 
 }

@@ -25,7 +25,7 @@ public class InviteUserServlet extends HttpServlet{
 		HttpSession session = request.getSession();
 		
 		String projectName = (String)session.getAttribute("projectName");
-		String userId = request.getParameter("userId");
+		String userId =request.getParameter("userId");
 		String keyword = (String)session.getAttribute("keyword");
 		int power = 0;
 		
@@ -36,9 +36,7 @@ public class InviteUserServlet extends HttpServlet{
 		try {
 			prjDao.InviteUser(userId, projectName, power);
 			
-			response.sendRedirect("/projects/searchUser?keyword=" + keyword);
-			RequestDispatcher rd = request.getRequestDispatcher("/");
-			rd.forward(request, response);
+			response.sendRedirect("/lists/cardlist?boardNum=" + session.getAttribute("boardNum"));
 		} catch (Exception e) {
 			logger.debug("Search fail : " + e); 
 		}

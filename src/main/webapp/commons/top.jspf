@@ -116,7 +116,7 @@
 	  <div class="modal-header">
 				  <c:if test="${not empty formErrorMessage }">
 					<label class='error alert alert-warning' style = "width:380px; display: inline-block;">
-						</button>${formErrorMessage}  
+						${formErrorMessage}  
 					</label>
 				</c:if>
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">

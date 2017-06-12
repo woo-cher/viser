@@ -7,7 +7,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
 <div class="wrapper">
-	<div class="modal fade file_modal" id="cardmodal${status.count}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal fade file_modal" id="cardmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content" style="padding: 20px;width: 500px;height: 650px;">
 				<div class="modal-header">

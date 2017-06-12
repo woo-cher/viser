@@ -62,8 +62,8 @@
 			</ul>
 			<div id="chat-image-area-tool">
 				<div id="chat-image-area-tool-brush">
-					<label for="brush" style = "color:black">  선의 두께:</label> 
-					<input name="brush"  id="brush_size" type="range" value="5" min="0" max="100" style = "margin-bottom: 5px"/>
+				<label for="brush" style = "color:black">  선의 두께:</label> 
+ 				<input name="brush"  id="brush_size" type="range" value="5" min="0" max="100" style = "margin-bottom: 5px"/>
 				</div>
 				<div id="chat-image-area-tool-control">
 					<button id="undo" class="btn-chat btn-info" href="#" disabled="disabled">Undo</button>

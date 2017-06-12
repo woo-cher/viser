@@ -44,7 +44,7 @@
 					<%@include file = "/modalpage/card.jsp"%>
 					<ul id="sortable_box" class = "boxsort">  		
 						<c:forEach var="list" items="${lists}" varStatus="status">
-							<li id="${list.listOrder }" class="ui-state-default card_margin currentListNum">
+							<li class="ui-state-default card_margin currentListNum">
 									<div class="card_wrap_top">
 										<div>
 											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">${list.listName}</textarea>
@@ -66,12 +66,10 @@
 							  	
 									<div >
 										<div class="card_wrap">
-											<ul id=" ${list.listNum}" class="connectedSortable sort_css">  
+											<ul id="${list.listNum}" class="connectedSortable sort_css">  
 												<c:forEach var="card" items="${list.cards}" varStatus="status">
 													<li id="${card.cardNum }"class="ui-state-default">
 													<a id="${card.cardNum}-card-view-btn" class="card-modal-btn" data-toggle="modal" href="#cardmodal">${card.subject}</a>
-													
-													</li>
 													<script>
 														//형근: 카드 내용을 읽고 수정 할때
 														$(document).ready(function(){
@@ -81,6 +79,7 @@
 															});
 														});
 													</script>
+													</li>
 												</c:forEach>
 											</ul>
 										</div>
@@ -100,7 +99,7 @@
 							    <input type="text" class="form-control" name="listName" placeholder="리스트 이름을 입력하세요">
 							    <input type="hidden" class="form-control" name="boardNum" value="${param.boardNum }"/>
 							    <input id="currentListNum" type="hidden" class="form-control" name="listOrder" />
-								<script>document.getElementById('currentListNum').value=''+$('.currentListNum').length;</script>
+								<script>$('#currentListNum').val(''+$('.currentListNum').length);</script>
 							  </div>
 							  <button type="submit" class="btn btn-default" >생성</button>
 							 </form>
@@ -152,7 +151,7 @@ function viewCard(){
 			btn+="<input type='button' class='btn btn-default'  value='List' data-dismiss='modal' />";
 			btn+="<input type='button' id='delete-card' class='btn btn-default' value='Delete' />";
 			$('#btn-area').html(btn);
-			$('#delete-card').attr("onclick","location.href='/cards/removecard?num="+data.cardNum+"'");
+			$('#delete-card').attr("onclick","location.href='/cards/removecard?num="+data.cardNum+"&listNum="+data.listNum+"&cardOrder"+date.cardOrder+"'");
 		},
 		error:ajaxError
 	});
@@ -194,33 +193,74 @@ function ajaxError(){
 </script>
 
  <script>
- var listNum;
-  //리스트의 이동
+ 
+  //리스트 이동
+ var boardNum=${boardNum};
+ var startListOrder;
+ var updateListOrder;
+ 
   $( function() {
        $( ".boxsort" ).sortable({
             update: function(event, ul) { 
-            	//listNum=ul.item.index();
-                 console.log('list update: '+ ul.item.index())
-                 
+            	updateListOrder=ul.item.index();
+                 console.log('list update: '+ updateListOrder);
+                 changeListOrder();
              },
              start: function(event, ul) {
-            	 //listNum=ul.item.index();
-                 console.log('list start: ' + ul.item.index())
-             }
+            	 startListOrder=ul.item.index();
+                 console.log('list start: ' + startListOrder);
+             },
          });
-       
        $(".card_wrap_top").disableSelection();
   } );
   
+  function changeListOrder(){
+	  	$.ajax({
+	  		type:'get',
+			data:{
+				num:boardNum,
+				current:startListOrder,
+				update:updateListOrder
+			},
+			url:"/lists/updateListOrder",
+			dataType:'text',
+			success:function (data){
+				alert('성공');
+			},
+			error:ajaxError
+		});		  
+	}
+
+  
+  
   //리스트간 카드 이동
+  var startListOrder;
+  var updateListOrder;
+  var startCardOrder;
+  var updateCardOrder;
+  
   $( function() {
     $( ".connectedSortable" ).sortable({
+    	 update: function(event, ui) { 
+    		  updateListOrder=ui.item.parent().parent().parent().parent().index();
+    		  updateCardOrder= ui.item.index();
+         	  console.log('card receive: ' + updateListOrder);
+              console.log('card update: '+ updateCardOrder);
+              
+          },
+          start: function(event, ui) {
+        	 startListOrder=ui.item.parent().parent().parent().parent().index();
+    		 startCardOrder= ui.item.index();
+         	 console.log('card receive: ' + startListOrder);
+             console.log('card start: ' + startCardOrder);
+          },
+          
       connectWith: ".connectedSortable"
     }).disableSelection();
   } ); 
   
   
-  </script>
+ </script>
   
   <!-- 형근: textarea 영역을 늘여주는 함수 --> 
   <script>

@@ -57,9 +57,7 @@
 							</tr>
 						</table>
 						<div id="btn-area">
-							<input type="submit" id="submit-btn" class="btn btn-default"  />
-							<input type="reset" class="btn btn-default" value="Reset" />
-							<input type="button" class="btn btn-default"  value="List" data-dismiss="modal" />
+							
 						</div>
 					</form>
 				</div>  

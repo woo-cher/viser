@@ -97,6 +97,12 @@
 	</div>
 </body>
 
+<script>
+	$('#image_add').click(function(){
+		parent.upload_popup();
+	})
+</script>
+
 <!-- 그림판을 위한 js파일 -->  
 <script src="http://reali.kr/js/jquery.min.js"></script>  
 <script src="/scripts/paintCanvas.js"></script>

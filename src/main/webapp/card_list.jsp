@@ -119,13 +119,20 @@
 			</div>
 			</div>
 		</div>
-		<%@include file = "./modalpage/invite.jsp" %>
 		<%@include file = "/modalpage/upload.jsp"%>  <!-- 업로드 추가  -->
+		<%@include file = "./modalpage/invite.jsp" %>
 	</div> 
 </body>
 <%@ include file="./commons/bottom.jspf"%>
 </div>
 </html>
+<script>
+function upload_popup(){
+	$('#uploadmodal').modal();
+}
+</script>
+
+
 <script>
 //카드 ajax
 var currentCardNum; //형근: 클릭한 카드 번호를 저장할 변수

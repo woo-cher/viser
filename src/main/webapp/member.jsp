@@ -34,14 +34,13 @@
 						${list.userId }
 						<ul>
 							<c:choose>
-							<c:when test="${isMaster==true}">															
+							<c:when test="${isMaster==true && list.userId ne userId}">															
 								<li><a href="/projects/kickProjectUser?userId=${list.userId}">추방</a></li>  <!-- 우철: ProjectName 은 get 세션 하여 얻는걸로 구현함. -->
 							</c:when>
 							<c:otherwise>
 								<li class="ui-state-disabled">추방</li>
 							</c:otherwise>
 							</c:choose>
-							<li><div>쪽지보내기</div></li>
 						</ul>
 					</li>
 				</c:forEach>

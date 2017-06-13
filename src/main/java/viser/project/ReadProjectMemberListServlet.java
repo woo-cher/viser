@@ -32,10 +32,6 @@ public class ReadProjectMemberListServlet extends HttpServlet {
 			logger.debug("관리자 권한 확인 반복문 시작");
 			logger.debug("ReadProjectMemberListServlet db에서 조회 아이디 :"+pm.getUserId());
 			logger.debug("ReadProjectMemberListServlet 세션에서 조회 아이디 :"+session.getAttribute("userId"));
-			if(pm.getUserId().equals(session.getAttribute("userId"))&&pm.getPower()==1){
-				logger.debug("ReadProjectMemberListServlet db에서 조회한 권한 :"+pm.getPower());
-				request.setAttribute("isMaster", true);
-			}
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("/member.jsp");
 		rd.forward(request, response);

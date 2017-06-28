@@ -6,3 +6,5 @@ target/
 webapps/
 .settings
 .classpath
+.project
+src/main/resources/db.properties

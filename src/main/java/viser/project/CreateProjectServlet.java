@@ -25,7 +25,10 @@ public class CreateProjectServlet extends HttpServlet {
 		
 		Project project = new Project();
 		User user = new User();
-		
+
+		/**
+		 * review : ProjectDAO를 pjtDao로 줄인 이유는??
+		 */
 		ProjectDAO pjtDao = new ProjectDAO();
 		HttpSession session = req.getSession();
 		

@@ -101,7 +101,10 @@ public class Card {
 		this.cardOrder = cardOrder;
 	}
 
-
+	/**
+	 * review : 포매터를 돌리면 불필요한 2줄 개행 같은 것을 방지 할 수 있음
+	 * 팀 내에서 포매터를 사용하지 않으면 불필요한 file diff가 발생하여 리뷰하기 어려울 수 있음
+     */
 	@Override
 	public String toString() {
 		return "Card [cardNum=" + cardNum + ", userId=" + userId + ", subject=" + subject + ", content=" + content

@@ -14,6 +14,10 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * review :
+ * XXXDAO에서 Connection 맺는 부분의 중복이 많은데 중복 제거할 수 있지 않을까?
+ */
 public class BoardDAO {
 	private static final Logger logger = LoggerFactory.getLogger(BoardDAO.class);
 

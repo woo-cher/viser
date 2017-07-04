@@ -20,7 +20,10 @@ public class DeleteProjectServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+
+		/**
+		 * review : 불필요한 변수 제거
+		 */
 		HttpSession session = request.getSession();
 		ProjectDAO prjDao = new ProjectDAO();		
 		

@@ -19,6 +19,9 @@ public class DeleteImageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ProjectDAO projectDao=new ProjectDAO();
 		String imagePath=request.getParameter("Image_Path");
+		/**
+		 * review : 경로는 final static으로 선언하면 좋음
+		 */
 		File f=new File("C:/web-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/viser"+imagePath);
 		//형근: 현재는 절대주소라서 자신의 로컬 환경에 맞는 경로 변경이 필요하다 따라서 추후에 상대경로로 변경하거나 서버 경로로 변경 필요함  
 		try {

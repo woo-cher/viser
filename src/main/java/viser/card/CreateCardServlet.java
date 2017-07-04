@@ -12,6 +12,9 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * review : 포매터가 필요해 보임
+ */
 @WebServlet("/cards/createcard")
 public class CreateCardServlet extends HttpServlet{
 	public static Logger logger=LoggerFactory.getLogger(CreateCardServlet.class);

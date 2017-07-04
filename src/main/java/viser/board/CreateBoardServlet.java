@@ -19,9 +19,13 @@ public class CreateBoardServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/**
+		 * review : 모든 Servlet에서 UTF-8 셋팅을 해주는 Filter를 쓰면 이 부분을 모을 수 있을 것 같음
+		 * ref : http://javacan.tistory.com/entry/58
+		 */
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		
+
 		Board board = new Board();
 		BoardDAO boardDao = new BoardDAO();
 		
@@ -29,7 +33,7 @@ public class CreateBoardServlet extends HttpServlet {
 		
 		String projectName = (String)session.getAttribute("projectName");
 		String boardName = request.getParameter("boardName");
-		
+
 		board.setProjectName(projectName);
 		board.setBoardName(boardName);
 	
@@ -40,7 +44,11 @@ public class CreateBoardServlet extends HttpServlet {
 			response.sendRedirect("/board/boardlist?projectName=" + projectName);
 			
 		} catch (Exception e) {
-		logger.debug("Board create fail : " + e);
+			/**
+			 * review : catch절에서 로그만 찍어주는 것 보다 error 응답을 client에 내려주는게 좋을 수 있음
+			 * ref : https://slipp.net/questions/350
+			 */
+			logger.debug("Board create fail : " + e);
 		}
 		
 	}

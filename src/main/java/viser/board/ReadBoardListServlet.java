@@ -26,18 +26,19 @@ public class ReadBoardListServlet extends HttpServlet{
 			throws ServletException, IOException {
 		
 		HttpSession session=req.getSession();
-		session.removeAttribute("boardNum"); 
-		
-		List boardlist = new ArrayList(); 		// 보드 목록을 가져오기 위하여 LIST 객체생성
+		session.removeAttribute("boardNum");
+
 		BoardDAO boardDao = new BoardDAO();
 		
 		String projectName = req.getParameter("projectName");
 		session.setAttribute("projectName", projectName);
 		
 		try {
-			boardlist = boardDao.getBoardList(projectName);
 			req.setAttribute("isReadBoard", true);
-			req.setAttribute("list", boardlist);
+			/**
+			 * review : 위에서 선언 해 줄 필요 없이 여기서 사용하면 됨
+			 */
+			req.setAttribute("list", boardDao.getBoardList(projectName));
 			
 			RequestDispatcher rd = req.getRequestDispatcher("/list.jsp");
 			rd.forward(req, resp);

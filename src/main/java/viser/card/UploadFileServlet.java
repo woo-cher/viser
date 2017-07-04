@@ -49,7 +49,9 @@ public class UploadFileServlet extends HttpServlet {
 
 			// MultipartRequest가 생성되어야 한다.
 
-			
+			/**
+			 * reivew : 여기도 이런 이력은 코드 중간에 주석으로 남기지 말고 굳이 꼭 남겨야 한다면 클래스 윗 쪽에 따로 기록해두면 좋을 듯
+			 */
 			// 형근: 아래 주석 업로드한 파일명이 겹칠경우 원래 파일명과 함께 맞는지 확인하기 위한 코드
 //			File s_file = mr.getFile("s_file"); // 업로드 후에 파일객체 반환!
 //

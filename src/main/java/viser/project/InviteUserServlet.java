@@ -27,6 +27,9 @@ public class InviteUserServlet extends HttpServlet{
 		String projectName = (String)session.getAttribute("projectName");
 		String userId =request.getParameter("userId");
 		String keyword = (String)session.getAttribute("keyword");
+		/**
+		 * review : 상수로( final static으로) 선언하면 좋음
+		 */
 		int power = 0;
 		
 		logger.debug("프로젝트 명 : " + projectName + "\n초대할 유저명 : " + userId);

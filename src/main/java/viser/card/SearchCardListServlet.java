@@ -47,7 +47,10 @@ public class SearchCardListServlet extends HttpServlet{
 																	
 		// 최대 페이지를 구합니다.
    		int maxpage = (int)((double)listcount / limit + 0.95); // 0.95 올림처리
-   		
+
+		/**
+		 * review : 이런 부분은 메서드로 추출하는게 가독성에 좋을 듯
+		 */
    		// 시작 페이지를 구합니다. ex ) start page count(1, 11, 21...)
    		int startpage = (((int)((double)page / 10 + 0.9)) - 1) * 10 + 1;
    		

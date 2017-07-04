@@ -103,6 +103,10 @@ public class CardDAO {
 		return null;
 	}
 
+	/**
+	 * review : 사용하지 않는 코드는 주석으로 남기지 말도록..
+	 * 코드 이력은 깃에서 확인이 가능하므로
+     */
 	//형근: card검색기능 현재 사용하지 않음
 //	public List getSearchcardList(int page, int limit, String keyField, String keyWord) 
 //			throws SQLException {

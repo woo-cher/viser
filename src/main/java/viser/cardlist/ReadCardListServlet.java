@@ -24,6 +24,9 @@ public class ReadCardListServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CardListDAO cardListDao=new CardListDAO();
+		/**
+		 * review : 사용하지 않는 변수와 객체는 제거하기
+		 */
 		UserDAO userDao = new UserDAO();
 		User user = new User();
 		HttpSession session=request.getSession();

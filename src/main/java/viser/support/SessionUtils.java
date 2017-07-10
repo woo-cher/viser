@@ -16,6 +16,7 @@ public class SessionUtils {
   }
 
   public static String getStringValue(HttpSession session, String key) {
+    
     // 세션 값이 존재할 경우의 키 값 추출
     if (isEmpty(session, key)) {
       return null;

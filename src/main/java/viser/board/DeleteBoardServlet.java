@@ -22,10 +22,10 @@ public class DeleteBoardServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-		BoardDAO boardDao = new BoardDAO();		
+		BoardDAO boardDao = new BoardDAO();
 		HttpSession session = request.getSession();
-		
-		String projectName = (String)session.getAttribute("projectName");
+
+		String projectName = (String) session.getAttribute("projectName");
 		String boardName = request.getParameter("boardName");
 
 		logger.debug("delete board name = " + boardName);

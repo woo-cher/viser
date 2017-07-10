@@ -28,20 +28,19 @@ public class CreateUserServlet extends HttpServlet {
 		String age = request.getParameter("age");
 		String email = request.getParameter("email");
 		String gender = request.getParameter("gender");
-		
-		
+
 		User user = new User(userId, password, name, age, email, gender);
 		// Validator 유효성 체크
 		Validator validator = MyvalidatorFactory.createValidator();
-		Set<ConstraintViolation<User>> constraintViolations = validator.validate( user );
-		
-		if ( constraintViolations.size() > 0) {
+		Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
+
+		if (constraintViolations.size() > 0) {
 			request.setAttribute("user", user);
 			String errorMessage = constraintViolations.iterator().next().getMessage();
 			errorForward(request, response, errorMessage);
 			return;
 		}
-		
+
 		UserDAO userDAO = new UserDAO();
 		try {
 			userDAO.addUser(user);
@@ -49,7 +48,7 @@ public class CreateUserServlet extends HttpServlet {
 		}
 		response.sendRedirect("/index.jsp");
 	}
-	
+
 	private void errorForward(HttpServletRequest request, HttpServletResponse response, String errorMessage)
 			throws ServletException, IOException {
 		request.setAttribute("formErrorMessage", errorMessage);

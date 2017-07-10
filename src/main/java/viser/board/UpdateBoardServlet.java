@@ -23,8 +23,8 @@ public class UpdateBoardServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		BoardDAO boardDao = new BoardDAO();
-		
-		String projectName = (String)session.getAttribute("projectName");
+
+		String projectName = (String) session.getAttribute("projectName");
 		String preBoardName = request.getParameter("preBoardName");
 		String newBoardName = request.getParameter("newBoardName");
 

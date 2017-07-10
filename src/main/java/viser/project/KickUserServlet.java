@@ -12,27 +12,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @WebServlet("/projects/kickProjectUser")
-public class KickUserServlet extends HttpServlet{
-	public static Logger logger=LoggerFactory.getLogger(KickUserServlet.class);
-	
+public class KickUserServlet extends HttpServlet {
+	public static Logger logger = LoggerFactory.getLogger(KickUserServlet.class);
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+
 		ProjectDAO prjDao = new ProjectDAO();
 		HttpSession session = request.getSession();
-		
+
 		String userId = request.getParameter("userId");
-		String projectName = (String)session.getAttribute("projectName");
-		
+		String projectName = (String) session.getAttribute("projectName");
+
 		logger.debug("추방할 userId " + userId + "\n현재 프로젝트 =" + projectName);
 		try {
 			prjDao.KickProjectUser(userId, projectName);
-			
+
 			response.sendRedirect("/project/memberlist");
 		} catch (Exception e) {
-			logger.debug("kickUser fail : " + e); 
+			logger.debug("kickUser fail : " + e);
 		}
 	}
 }

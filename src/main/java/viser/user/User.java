@@ -10,24 +10,24 @@ public class User {
 	@NotNull(message = "아이디를 입력하세요.")
 	@Size(min = 4, max = 12, message = "아이디는 4자 이상 12자 이하여야 합니다.")
 	private String userId;
-	
+
 	@NotNull(message = "패스워드를 입력하세요.")
 	@Size(min = 4, max = 12, message = "비밀번호는 4자 이상 12자 이하여야 합니다.")
 	private String password;
-	
+
 	@NotNull(message = "이름을 입력하세요.")
 	@Size(min = 2, max = 10, message = "이름은 2자 이상 10자 이하여야 합니다.")
 	private String name;
-	
+
 	@NotNull(message = "나이를 입력하세요.")
 	@Size(min = 1, max = 2, message = "나이는 1자 이상 2자 이하여야 합니다.")
 	private String age;
-	
+
 	@NotNull
 	@NotEmpty(message = "이메일을 입력하세요.")
 	@Email
 	private String email;
-	
+
 	@NotNull(message = "성별을 골라주세요.")
 	private String gender;
 
@@ -150,7 +150,7 @@ public class User {
 
 	public String toString() {
 		return "User [userId=" + userId + ", password=" + password + ", name=" + name + ", age=" + age + ", email="
-				+ email + ", gender=" + gender +  "]";
+				+ email + ", gender=" + gender + "]";
 	}
 
 	public boolean matchPassword(String newPassword) {

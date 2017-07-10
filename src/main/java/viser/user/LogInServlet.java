@@ -16,27 +16,28 @@ import org.slf4j.LoggerFactory;
 @WebServlet("/users/login")
 public class LogInServlet extends HttpServlet {
 	public static final String SESSION_USER_ID = "userId";
-	private static final Logger logger=LoggerFactory.getLogger(LogInServlet.class);
+	private static final Logger logger = LoggerFactory.getLogger(LogInServlet.class);
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		UserDAO userDao = new UserDAO();
-		
+
 		String userId = request.getParameter(SESSION_USER_ID);
 		String password = request.getParameter("password");
-		
+
 		try {
 			logger.debug("로그인 서블릿");
 			User.login(userId, password);
 			HttpSession session = request.getSession();
 			session.setAttribute(SESSION_USER_ID, userId);
 			logger.debug("로그인 처리성공");
-			
+
 			User user = userDao.findByUserId(userId);
 			session.setAttribute("userId", user.getUserId());
 			session.setAttribute("isUpdate", true);
 			session.setAttribute("user", user);
-			
+
 			response.sendRedirect("/project/projectlist");
 		} catch (UserNotFoundException e) {
 			errorForward(request, response, "존재하지 않는 사용자 입니다. 다시 로그인하세요.");

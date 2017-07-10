@@ -5,36 +5,45 @@ public class ProjectMember {
 	private String userId;
 	private String projectName;
 	private int power;
-	
+
 	public int getNum() {
 		return num;
 	}
+
 	public void setNum(int num) {
 		this.num = num;
 	}
+
 	public String getUserId() {
 		return userId;
 	}
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
 	public String getProjectName() {
 		return projectName;
 	}
+
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
+
 	public int getPower() {
 		return power;
 	}
+
 	public void setPower(int power) {
 		this.power = power;
 	}
+
 	@Override
 	public String toString() {
 		return "ProjectMember [num=" + num + ", userId=" + userId + ", projectName=" + projectName + ", power=" + power
 				+ "]";
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -45,6 +54,7 @@ public class ProjectMember {
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -70,5 +80,5 @@ public class ProjectMember {
 			return false;
 		return true;
 	}
-	
+
 }

@@ -27,7 +27,7 @@ public class UpdateUserServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		
+
 		HttpSession session = req.getSession();
 		String sessionUseId = SessionUtils.getStringValue(session, LogInServlet.SESSION_USER_ID);
 
@@ -39,14 +39,14 @@ public class UpdateUserServlet extends HttpServlet {
 		}
 
 		// ★ 로그인의 상태일 때, 세션에 저장된 유저와 로그인 유저 ID 비교
-		String userId = (String)sessionUseId;
+		String userId = (String) sessionUseId;
 
-	/*	if (!sessionUseId.equals(userId)) {
-			logger.debug("\nsession id = " + sessionUseId + "\nlogin id = " + userId);
-			resp.sendRedirect("/");
-			return;
-		}*/
-		
+		/*
+		 * if (!sessionUseId.equals(userId)) { logger.debug("\nsession id = " +
+		 * sessionUseId + "\nlogin id = " + userId); resp.sendRedirect("/");
+		 * return; }
+		 */
+
 		String password = req.getParameter("password");
 		String name = req.getParameter("name");
 		String age = req.getParameter("age");
@@ -54,7 +54,7 @@ public class UpdateUserServlet extends HttpServlet {
 		String gender = req.getParameter("gender");
 
 		User user = new User(userId, password, name, age, email, gender);
-		
+
 		// Validator 유효성 체크
 		Validator validator = MyvalidatorFactory.createValidator();
 		Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
@@ -76,7 +76,7 @@ public class UpdateUserServlet extends HttpServlet {
 		} catch (SQLException e) {
 			logger.debug("SQL Exception error" + e);
 		}
-		
+
 		resp.sendRedirect("/project/projectlist"); // 개인정보 수정하고 반응해줄 응답페이지 필요함.
 
 	}
@@ -84,7 +84,11 @@ public class UpdateUserServlet extends HttpServlet {
 	private void errorForward(HttpServletRequest request, HttpServletResponse response, String errorMessage)
 			throws ServletException, IOException {
 		request.setAttribute("formErrorMessage", errorMessage);
-		RequestDispatcher rd = request.getRequestDispatcher("/commons/top.jspf"); // 에러메시지 보낼 페이지 필요 (에이젝스)
+		RequestDispatcher rd = request.getRequestDispatcher("/commons/top.jspf"); // 에러메시지
+																					// 보낼
+																					// 페이지
+																					// 필요
+																					// (에이젝스)
 		rd.forward(request, response);
 	}
 

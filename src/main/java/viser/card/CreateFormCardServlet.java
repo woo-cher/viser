@@ -20,26 +20,26 @@ import viser.user.LogInServlet;
 
 @WebServlet("/cards/createcardForm")
 public class CreateFormCardServlet extends HttpServlet {
-	public static Logger logger=LoggerFactory.getLogger(CreateFormCardServlet.class);
+	public static Logger logger = LoggerFactory.getLogger(CreateFormCardServlet.class);
+
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
 		String userId = SessionUtils.getStringValue(session, LogInServlet.SESSION_USER_ID);
-		PrintWriter out=response.getWriter();
-	
-		int listNum=Integer.parseInt(request.getParameter("listNum"));
-		int cardOrder=Integer.parseInt(request.getParameter("cardOrder"));
-		
-		
-		try{
-			Gson gson=new Gson();
-			String jsonData=gson.toJson(new Card(listNum,cardOrder));
+		PrintWriter out = response.getWriter();
+
+		int listNum = Integer.parseInt(request.getParameter("listNum"));
+		int cardOrder = Integer.parseInt(request.getParameter("cardOrder"));
+
+		try {
+			Gson gson = new Gson();
+			String jsonData = gson.toJson(new Card(listNum, cardOrder));
 			out.print(jsonData);
-		}catch(Exception e){
-			logger.debug("CreateFormCardServlet error:"+e.getMessage());
-		}
-		finally{
+		} catch (Exception e) {
+			logger.debug("CreateFormCardServlet error:" + e.getMessage());
+		} finally {
 			out.close();
 		}
 	}

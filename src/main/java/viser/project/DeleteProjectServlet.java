@@ -20,10 +20,10 @@ public class DeleteProjectServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+
 		HttpSession session = request.getSession();
-		ProjectDAO prjDao = new ProjectDAO();		
-		
+		ProjectDAO prjDao = new ProjectDAO();
+
 		String projectName = request.getParameter("projectName");
 
 		logger.debug("delete project name = " + projectName);

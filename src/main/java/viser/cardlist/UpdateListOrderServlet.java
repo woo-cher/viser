@@ -14,17 +14,15 @@ import org.slf4j.LoggerFactory;
 
 @WebServlet("/lists/updateListOrder")
 public class UpdateListOrderServlet extends HttpServlet {
-	public static Logger logger = LoggerFactory.getLogger(UpdateListOrderServlet.class);
+  public static Logger logger = LoggerFactory.getLogger(UpdateListOrderServlet.class);
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		CardListDAO cardListDao = new CardListDAO();
-		int boardNum = Integer.parseInt(request.getParameter("num"));
-		int currentListOrder = Integer.parseInt(request.getParameter("current"));
-		int updateListOrder = Integer.parseInt(request.getParameter("update"));
-		logger.debug("UpdateListOrderServlet : currentListOrder:" + currentListOrder + " updateListOrder:"
-				+ updateListOrder);
-		cardListDao.updateListOrder(boardNum, currentListOrder, updateListOrder);
-	}
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    CardListDAO cardListDao = new CardListDAO();
+    int boardNum = Integer.parseInt(request.getParameter("num"));
+    int currentListOrder = Integer.parseInt(request.getParameter("current"));
+    int updateListOrder = Integer.parseInt(request.getParameter("update"));
+    logger.debug("UpdateListOrderServlet : currentListOrder:" + currentListOrder + " updateListOrder:" + updateListOrder);
+    cardListDao.updateListOrder(boardNum, currentListOrder, updateListOrder);
+  }
 }

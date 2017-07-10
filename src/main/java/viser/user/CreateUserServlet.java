@@ -18,41 +18,39 @@ import viser.support.MyvalidatorFactory;
 
 @WebServlet("/users/create")
 public class CreateUserServlet extends HttpServlet {
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		String userId = request.getParameter("userId");
-		String password = request.getParameter("password");
-		String name = request.getParameter("name");
-		String age = request.getParameter("age");
-		String email = request.getParameter("email");
-		String gender = request.getParameter("gender");
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    request.setCharacterEncoding("UTF-8");
+    String userId = request.getParameter("userId");
+    String password = request.getParameter("password");
+    String name = request.getParameter("name");
+    String age = request.getParameter("age");
+    String email = request.getParameter("email");
+    String gender = request.getParameter("gender");
 
-		User user = new User(userId, password, name, age, email, gender);
-		// Validator 유효성 체크
-		Validator validator = MyvalidatorFactory.createValidator();
-		Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
+    User user = new User(userId, password, name, age, email, gender);
+    // Validator 유효성 체크
+    Validator validator = MyvalidatorFactory.createValidator();
+    Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 
-		if (constraintViolations.size() > 0) {
-			request.setAttribute("user", user);
-			String errorMessage = constraintViolations.iterator().next().getMessage();
-			errorForward(request, response, errorMessage);
-			return;
-		}
+    if (constraintViolations.size() > 0) {
+      request.setAttribute("user", user);
+      String errorMessage = constraintViolations.iterator().next().getMessage();
+      errorForward(request, response, errorMessage);
+      return;
+    }
 
-		UserDAO userDAO = new UserDAO();
-		try {
-			userDAO.addUser(user);
-		} catch (SQLException e) {
-		}
-		response.sendRedirect("/index.jsp");
-	}
+    UserDAO userDAO = new UserDAO();
+    try {
+      userDAO.addUser(user);
+    } catch (SQLException e) {
+    }
+    response.sendRedirect("/index.jsp");
+  }
 
-	private void errorForward(HttpServletRequest request, HttpServletResponse response, String errorMessage)
-			throws ServletException, IOException {
-		request.setAttribute("formErrorMessage", errorMessage);
-		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-		rd.forward(request, response);
-	}
+  private void errorForward(HttpServletRequest request, HttpServletResponse response, String errorMessage) throws ServletException, IOException {
+    request.setAttribute("formErrorMessage", errorMessage);
+    RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+    rd.forward(request, response);
+  }
 }

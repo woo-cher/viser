@@ -22,35 +22,34 @@ import viser.user.LogInServlet;
 
 @WebServlet("/projects/searchUser")
 public class SearchUserServlet extends HttpServlet {
-	public static Logger logger = LoggerFactory.getLogger(SearchUserServlet.class);
+  public static Logger logger = LoggerFactory.getLogger(SearchUserServlet.class);
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    request.setCharacterEncoding("UTF-8");
 
-		List list = new ArrayList();
-		ProjectDAO prjDao = new ProjectDAO();
-		HttpSession session = request.getSession();
+    List list = new ArrayList();
+    ProjectDAO prjDao = new ProjectDAO();
+    HttpSession session = request.getSession();
 
-		session.removeAttribute("keyword");
+    session.removeAttribute("keyword");
 
-		String loginUserId = SessionUtils.getStringValue(session, LogInServlet.SESSION_USER_ID);
+    String loginUserId = SessionUtils.getStringValue(session, LogInServlet.SESSION_USER_ID);
 
-		String keyword = request.getParameter("keyword");
-		session.setAttribute("keyword", keyword);
+    String keyword = request.getParameter("keyword");
+    session.setAttribute("keyword", keyword);
 
-		logger.debug("검색 키 : " + keyword);
-		try {
-			list = prjDao.getUserList(keyword, loginUserId);
-			Gson gson = new Gson();
-			String jsonData = gson.toJson(list);
+    logger.debug("검색 키 : " + keyword);
+    try {
+      list = prjDao.getUserList(keyword, loginUserId);
+      Gson gson = new Gson();
+      String jsonData = gson.toJson(list);
 
-			PrintWriter out = response.getWriter();
-			out.print(jsonData);
+      PrintWriter out = response.getWriter();
+      out.print(jsonData);
 
-		} catch (Exception e) {
-			logger.debug("Search fail : " + e);
-		}
-	}
+    } catch (Exception e) {
+      logger.debug("Search fail : " + e);
+    }
+  }
 }

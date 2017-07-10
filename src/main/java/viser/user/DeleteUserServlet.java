@@ -18,26 +18,26 @@ import viser.support.SessionUtils;
 @WebServlet("/users/dropuser")
 public class DeleteUserServlet extends HttpServlet {
 
-	private static final Logger logger = LoggerFactory.getLogger(UpdateUserServlet.class);
+  private static final Logger logger = LoggerFactory.getLogger(UpdateUserServlet.class);
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+  @Override
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		HttpSession session = req.getSession();
+    HttpSession session = req.getSession();
 
-		String userId = SessionUtils.getStringValue(session, LogInServlet.SESSION_USER_ID);
+    String userId = SessionUtils.getStringValue(session, LogInServlet.SESSION_USER_ID);
 
-		logger.debug("" + userId);
-		try {
-			UserDAO userDao = new UserDAO();
-			userDao.removeUser(userId);
-			session.removeAttribute("userId");
+    logger.debug("" + userId);
+    try {
+      UserDAO userDao = new UserDAO();
+      userDao.removeUser(userId);
+      session.removeAttribute("userId");
 
-		} catch (Exception e) {
-			logger.debug("\ndrop fail" + e);
-		}
+    } catch (Exception e) {
+      logger.debug("\ndrop fail" + e);
+    }
 
-		resp.sendRedirect("/");
+    resp.sendRedirect("/");
 
-	}
+  }
 }

@@ -14,24 +14,23 @@ import org.slf4j.LoggerFactory;
 
 @WebServlet("/project/updateProject")
 public class UpdateProjectServlet extends HttpServlet {
-	public static Logger logger = LoggerFactory.getLogger(UpdateProjectServlet.class);
+  public static Logger logger = LoggerFactory.getLogger(UpdateProjectServlet.class);
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    request.setCharacterEncoding("UTF-8");
 
-		ProjectDAO prjDao = new ProjectDAO();
-		String preProjectName = request.getParameter("preProjectName");
-		String newProjectName = request.getParameter("newProjectName");
+    ProjectDAO prjDao = new ProjectDAO();
+    String preProjectName = request.getParameter("preProjectName");
+    String newProjectName = request.getParameter("newProjectName");
 
-		try {
-			prjDao.updateProject(newProjectName, preProjectName);
-			response.sendRedirect("/project/projectlist");
+    try {
+      prjDao.updateProject(newProjectName, preProjectName);
+      response.sendRedirect("/project/projectlist");
 
-		} catch (Exception e) {
-			logger.debug("Update Project fail = " + e);
-		}
+    } catch (Exception e) {
+      logger.debug("Update Project fail = " + e);
+    }
 
-	}
+  }
 }

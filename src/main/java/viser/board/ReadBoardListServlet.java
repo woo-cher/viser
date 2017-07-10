@@ -20,30 +20,30 @@ import viser.project.Project;
 
 @WebServlet("/board/boardlist")
 public class ReadBoardListServlet extends HttpServlet {
-	public static Logger logger = LoggerFactory.getLogger(ReadBoardListServlet.class);
+  public static Logger logger = LoggerFactory.getLogger(ReadBoardListServlet.class);
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+  @Override
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		HttpSession session = req.getSession();
-		session.removeAttribute("boardNum");
+    HttpSession session = req.getSession();
+    session.removeAttribute("boardNum");
 
-		List boardlist = new ArrayList(); // 보드 목록을 가져오기 위하여 LIST 객체생성
-		BoardDAO boardDao = new BoardDAO();
+    List boardlist = new ArrayList(); // 보드 목록을 가져오기 위하여 LIST 객체생성
+    BoardDAO boardDao = new BoardDAO();
 
-		String projectName = req.getParameter("projectName");
-		session.setAttribute("projectName", projectName);
+    String projectName = req.getParameter("projectName");
+    session.setAttribute("projectName", projectName);
 
-		try {
-			boardlist = boardDao.getBoardList(projectName);
-			req.setAttribute("isReadBoard", true);
-			req.setAttribute("list", boardlist);
+    try {
+      boardlist = boardDao.getBoardList(projectName);
+      req.setAttribute("isReadBoard", true);
+      req.setAttribute("list", boardlist);
 
-			RequestDispatcher rd = req.getRequestDispatcher("/list.jsp");
-			rd.forward(req, resp);
+      RequestDispatcher rd = req.getRequestDispatcher("/list.jsp");
+      rd.forward(req, resp);
 
-		} catch (SQLException e) {
-			logger.debug("ReadProjectListServlet error:" + e.getMessage());
-		}
-	}
+    } catch (SQLException e) {
+      logger.debug("ReadProjectListServlet error:" + e.getMessage());
+    }
+  }
 }

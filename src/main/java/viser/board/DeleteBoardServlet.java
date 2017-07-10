@@ -15,28 +15,27 @@ import org.slf4j.LoggerFactory;
 
 @WebServlet("/board/deleteBoard")
 public class DeleteBoardServlet extends HttpServlet {
-	public static Logger logger = LoggerFactory.getLogger(DeleteBoardServlet.class);
+  public static Logger logger = LoggerFactory.getLogger(DeleteBoardServlet.class);
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    request.setCharacterEncoding("UTF-8");
 
-		BoardDAO boardDao = new BoardDAO();
-		HttpSession session = request.getSession();
+    BoardDAO boardDao = new BoardDAO();
+    HttpSession session = request.getSession();
 
-		String projectName = (String) session.getAttribute("projectName");
-		String boardName = request.getParameter("boardName");
+    String projectName = (String) session.getAttribute("projectName");
+    String boardName = request.getParameter("boardName");
 
-		logger.debug("delete board name = " + boardName);
-		projectName = URLEncoder.encode(projectName, "UTF-8");
-		try {
-			boardDao.removeBoard(boardName);
-			response.sendRedirect("/board/boardlist?projectName=" + projectName);
-		} catch (Exception e) {
-			logger.debug("Delete fail : " + e);
-		}
+    logger.debug("delete board name = " + boardName);
+    projectName = URLEncoder.encode(projectName, "UTF-8");
+    try {
+      boardDao.removeBoard(boardName);
+      response.sendRedirect("/board/boardlist?projectName=" + projectName);
+    } catch (Exception e) {
+      logger.debug("Delete fail : " + e);
+    }
 
-	}
+  }
 
 }

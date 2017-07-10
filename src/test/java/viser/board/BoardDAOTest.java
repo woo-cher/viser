@@ -10,71 +10,60 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import viser.project.ProjectDAO;
+import viser.project.ProjectDAOTest;
+
 public class BoardDAOTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(BoardDAOTest.class);
-	private static Board TEST_BOARD = new Board(0, "TestBoard", "TEST");
-	private BoardDAO boardDAO;
+  private static final Logger logger = LoggerFactory.getLogger(BoardDAOTest.class);
+  private static Board TEST_BOARD = new Board(0, "TEST_BOARD", ProjectDAOTest.TEST_PROJECT.getProjectName());
+  private ProjectDAO projectDAO;
+  private BoardDAO boardDAO;
 
-	@Before
-	public void setup() {
-		boardDAO = new BoardDAO();
-	}
+  @Before
+  public void setup() throws SQLException {
+    boardDAO = new BoardDAO();
+    projectDAO = new ProjectDAO();
+    projectDAO.removeProject(ProjectDAOTest.TEST_PROJECT.getProjectName());
+    projectDAO.addProject(ProjectDAOTest.TEST_PROJECT);
+  }
 
-	@Test
-	public void Connection() throws SQLException {
-		Connection con = boardDAO.getConnection();
-		assertNotNull(con);
-	}
+  @After
+  public void returns() throws SQLException {
+    projectDAO.removeProject(ProjectDAOTest.TEST_PROJECT.getProjectName());
+  }
 
-	@Test
-	public void crud() throws SQLException {
-		Board board = TEST_BOARD;
-		boardDAO.removeBoard(board.getBoardName());
-		boardDAO.addBoard(board);
-		Board dbBoard = boardDAO.findByBoardName(board.getBoardName());
-		assertEquals(board.getBoardName(), dbBoard.getBoardName());
-		logger.debug("dbBoard : {}", dbBoard);
+  @Test
+  public void Connection() throws SQLException {
+    Connection con = boardDAO.getConnection();
+    assertNotNull(con);
+  }
 
-		Board UpdateBoard = new Board();
-		UpdateBoard.setBoardName("UpdateBoard");
-		boardDAO.updateBoard(UpdateBoard.getBoardName(), dbBoard.getBoardName());
-		dbBoard = boardDAO.findByBoardName(UpdateBoard.getBoardName());
-		assertEquals(dbBoard.getBoardName(), UpdateBoard.getBoardName());
+  @Test
+  public void crud() throws SQLException {
+    Board board = TEST_BOARD;
+    boardDAO.removeBoard(board.getBoardName());
+    boardDAO.addBoard(board);
+    Board dbBoard = boardDAO.findByBoardName(board.getBoardName());
+    assertEquals(board.getBoardName(), dbBoard.getBoardName());
+    logger.debug("dbBoard : {}", dbBoard);
 
-		boardDAO.removeBoard(UpdateBoard.getBoardName());
-	}
+    Board UpdateBoard = new Board();
+    UpdateBoard.setBoardName("UpdateBoard");
+    boardDAO.updateBoard(UpdateBoard.getBoardName(), dbBoard.getBoardName());
+    dbBoard = boardDAO.findByBoardName(UpdateBoard.getBoardName());
+    assertEquals(dbBoard.getBoardName(), UpdateBoard.getBoardName());
+  }
 
-	@Test
-	public void getList() throws SQLException {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		List<Board> list = new ArrayList<Board>();
-		String sql = "select * from boards where Project_Name = ?";
-
-		conn = boardDAO.getConnection();
-
-		// 실행을 위한 쿼리 및 파라미터 저장
-		pstmt = conn.prepareStatement(sql);
-
-		pstmt.setString(1, "TEST");
-
-		rs = pstmt.executeQuery(); // 쿼리 실행
-
-		while (rs.next()) {
-			Board board = new Board();
-			board.setBoardNum(rs.getInt("Board_Num"));
-			board.setBoardName(rs.getString("Board_Name"));
-			list.add(board);
-		}
-		assertNotNull(list);
-		logger.debug("list : {}", list);
-	}
+  @Test
+  public void getList() throws SQLException {
+    logger.debug("list : {}", boardDAO.getBoardList(ProjectDAOTest.TEST_PROJECT.getProjectName()));
+    assertNotNull(boardDAO.getBoardList(ProjectDAOTest.TEST_PROJECT.getProjectName()));
+  }
 }

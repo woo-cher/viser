@@ -15,27 +15,26 @@ import org.slf4j.LoggerFactory;
 
 @WebServlet("/board/updateBoard")
 public class UpdateBoardServlet extends HttpServlet {
-	public static Logger logger = LoggerFactory.getLogger(UpdateBoardServlet.class);
+  public static Logger logger = LoggerFactory.getLogger(UpdateBoardServlet.class);
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		BoardDAO boardDao = new BoardDAO();
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    request.setCharacterEncoding("UTF-8");
+    HttpSession session = request.getSession();
+    BoardDAO boardDao = new BoardDAO();
 
-		String projectName = (String) session.getAttribute("projectName");
-		String preBoardName = request.getParameter("preBoardName");
-		String newBoardName = request.getParameter("newBoardName");
+    String projectName = (String) session.getAttribute("projectName");
+    String preBoardName = request.getParameter("preBoardName");
+    String newBoardName = request.getParameter("newBoardName");
 
-		projectName = URLEncoder.encode(projectName, "UTF-8");
-		try {
-			boardDao.updateBoard(newBoardName, preBoardName);
-			response.sendRedirect("/board/boardlist?projectName=" + projectName);
+    projectName = URLEncoder.encode(projectName, "UTF-8");
+    try {
+      boardDao.updateBoard(newBoardName, preBoardName);
+      response.sendRedirect("/board/boardlist?projectName=" + projectName);
 
-		} catch (Exception e) {
-			logger.debug("Update Project fail = " + e);
-		}
+    } catch (Exception e) {
+      logger.debug("Update Project fail = " + e);
+    }
 
-	}
+  }
 }

@@ -25,7 +25,7 @@ public class LogInServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    UserDAO userDao = new UserDAO();
+    UserDAO userDAO = new UserDAO();
 
     String userId = request.getParameter(SESSION_USER_ID);
     String password = request.getParameter("password");
@@ -37,7 +37,7 @@ public class LogInServlet extends HttpServlet {
       session.setAttribute(SESSION_USER_ID, userId);
       logger.debug("로그인 처리성공");
 
-      User user = userDao.findByUserId(userId);
+      User user = userDAO.findByUserId(userId);
       session.setAttribute("userId", user.getUserId());
       session.setAttribute("isUpdate", true);
       session.setAttribute("user", user);

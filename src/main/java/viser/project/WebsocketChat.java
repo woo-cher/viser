@@ -16,18 +16,15 @@ import javax.websocket.server.ServerEndpoint;
 public class WebsocketChat {
   private static Set<Session> clients = Collections.synchronizedSet(new HashSet<Session>());
 
-  // 클라이언트로 부터 메세지가 도착했을경우
+  // 클라이언트로 부터 메세지가 도착
   @OnMessage
   public void onMessage(String message, Session session) throws IOException {
     synchronized (clients) {
-      
-      // Iterate over the connected sessions
-      // and broadcast the received message
       for (Session client : clients) {
         if (!client.equals(session)) {
           System.out.println("브로드캐스팅");
 
-          // 용량 설정
+          // 용량
           client.setMaxTextMessageBufferSize(10000000);
           client.getBasicRemote().sendText(message);
         }

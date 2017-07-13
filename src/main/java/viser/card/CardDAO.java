@@ -38,7 +38,6 @@ public class CardDAO {
     } catch (SQLException e) {
       logger.debug("SoueceReturn error:" + e.getMessage());
     }
-
   }
 
   public Connection getConnection() {
@@ -65,18 +64,15 @@ public class CardDAO {
   }
 
   public List getCardList(int listNum) throws SQLException {
-
-    List list = new ArrayList(); // 목록 리턴을 위한 변수
-
-    // 목록를 조회하기 위한 쿼리
     String sql = "select * from cards where List_Num=? order by Card_Order asc";
+    List list = new ArrayList();
 
     try {
       conn = getConnection();
-      // 실행을 위한 쿼리 및 파라미터 저장
       pstmt = conn.prepareStatement(sql);
       pstmt.setInt(1, listNum);
-      rs = pstmt.executeQuery(); // 쿼리 실행
+      
+      rs = pstmt.executeQuery();
 
       while (rs.next()) {
         Card card = new Card();
@@ -87,18 +83,16 @@ public class CardDAO {
         card.setModifyTime(rs.getDate("Modify_Time"));
         card.setListNum(rs.getInt("List_Num"));
 
-        list.add(card); // 행을 하나씩 리스트에 추가
+        list.add(card);
       }
+      
       return list;
 
     } catch (Exception e) {
       logger.debug("getcardList error : " + e);
-    }
-
-    finally { // DB 관련들 객체를 종료
+    } finally {
       SourceReturn();
     }
-
     return null;
   }
 
@@ -165,20 +159,17 @@ public class CardDAO {
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
-
       pstmt.setString(1, card.getUserId());
       pstmt.setString(2, card.getSubject());
       pstmt.setString(3, card.getContent());
       pstmt.setInt(4, card.getListNum());
       pstmt.setInt(5, card.getCardOrder());
-
+      
       pstmt.executeUpdate();
 
     } catch (SQLException e) {
       logger.debug("addCard error:" + e.getMessage());
-    }
-
-    finally {
+    } finally {
       SourceReturn();
     }
   }
@@ -186,22 +177,22 @@ public class CardDAO {
   public void removeCard(int num, int listNum, int cardOrder) {
     String sql = "delete from cards where Card_Num = ?";
 
-    conn = getConnection();
     try {
+      conn = getConnection();
       pstmt = conn.prepareStatement(sql);
-
       pstmt.setInt(1, num);
-
+      
       pstmt.executeUpdate();
     } catch (SQLException e) {
-
     }
 
     sql = "select Card_Num from cards where List_Num=?&& Card_Order>?";
+    
     try {
       pstmt = conn.prepareStatement(sql);
       pstmt.setInt(1, listNum);
       pstmt.setInt(2, cardOrder);
+      
       rs = pstmt.executeQuery();
 
       String sql2 = "update cards set Card_Order=? where Card_Num=?";
@@ -214,7 +205,6 @@ public class CardDAO {
         pstmt2.executeUpdate();
       }
     } catch (SQLException e) {
-
     } finally {
       SourceReturn();
     }
@@ -223,12 +213,14 @@ public class CardDAO {
   public Card viewCard(int num) throws SQLException {
     String sql = "select * from cards where Card_Num = ?";
     Card card = new Card();
+    
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setInt(1, num);
-
+      
       rs = pstmt.executeQuery();
+      
       if (rs.next()) {
         card.setCardNum(rs.getInt("Card_Num"));
         card.setUserId(rs.getString("userId"));
@@ -236,9 +228,8 @@ public class CardDAO {
         card.setContent(rs.getString("Content"));
         card.setModifyTime(rs.getDate("Modify_Time"));
         card.setListNum(rs.getInt("List_Num"));
-
       }
-      logger.debug(card + "");
+      
     } catch (Exception e) {
     } finally {
       SourceReturn();
@@ -248,19 +239,17 @@ public class CardDAO {
 
   public void updateCard(Card card) throws SQLException {
     String sql = "update cards set SubJect = ?, Content = ?, Modify_Time = ? where Card_Num = ?";
-    conn = getConnection();
-    Timestamp date = new Timestamp(new Date().getTime()); // 형근: datetime
-                                                          // 타입에 맞는 현재 시간을
-                                                          // 입력하기 위한 객체
+    Timestamp date = new Timestamp(new Date().getTime());
+    
     try {
-
+      conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, card.getSubject());
       pstmt.setString(2, card.getContent());
       pstmt.setTimestamp(3, date);
       pstmt.setInt(4, card.getCardNum());
-
       pstmt.execute();
+      
       logger.debug("Updatecard : " + card);
     } catch (Exception e) {
       logger.debug("Updatecard error : " + e);

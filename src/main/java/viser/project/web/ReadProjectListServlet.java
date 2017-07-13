@@ -26,18 +26,14 @@ public class ReadProjectListServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     HttpSession session = request.getSession();
-
-    // 목록으로돌와왔을때 이전에 세션에 저장했던 프로젝트 이름 삭제하기위해
+    List<Project> projectlist = new ArrayList<Project>();
+    ProjectDAO projectDAO = new ProjectDAO();
+    
     session.removeAttribute("projectName");
-
-    // 프로젝트 목록으로 돌와왔을때 이전에 세션에 저장했던 프로젝트 이름이 잘 삭제되었는지 확인
     logger.debug("ReadProjectListServlet에서 세션에서 불러온  projectname:" + (String) session.getAttribute("projectname"));
 
-    List<Project> projectlist = new ArrayList<Project>();
-
-    ProjectDAO projectDao = new ProjectDAO();
     try {
-      projectlist = projectDao.getProjectList((String) session.getAttribute("userId"));
+      projectlist = projectDAO.getProjectList((String) session.getAttribute("userId"));
       request.setAttribute("isReadProject", true);
       request.setAttribute("list", projectlist);
 

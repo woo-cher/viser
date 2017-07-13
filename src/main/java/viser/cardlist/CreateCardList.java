@@ -17,8 +17,8 @@ public class CreateCardList extends HttpServlet {
     String listName = request.getParameter("listName");
     int listOrder = Integer.parseInt(request.getParameter("listOrder"));
 
-    CardListDAO cardListDao = new CardListDAO();
-    cardListDao.addList(boardNum, listName, listOrder);
+    CardListDAO cardListDAO = new CardListDAO();
+    cardListDAO.addList(boardNum, listName, listOrder);
 
     response.sendRedirect("/lists/cardlist?boardNum=" + boardNum);
   }

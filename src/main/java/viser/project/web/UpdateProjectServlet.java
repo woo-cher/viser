@@ -22,12 +22,12 @@ public class UpdateProjectServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     request.setCharacterEncoding("UTF-8");
 
-    ProjectDAO prjDao = new ProjectDAO();
+    ProjectDAO projectDAO = new ProjectDAO();
     String preProjectName = request.getParameter("preProjectName");
     String newProjectName = request.getParameter("newProjectName");
 
     try {
-      prjDao.updateProject(newProjectName, preProjectName);
+      projectDAO.updateProject(newProjectName, preProjectName);
       response.sendRedirect("/project/projectlist");
 
     } catch (Exception e) {

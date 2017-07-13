@@ -1,4 +1,4 @@
-package viser.user.web; // 우철 - 개인정보수정폼 개발
+package viser.user.web;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -33,11 +33,11 @@ public class UpdateFormUserServlet extends HttpServlet {
       return;
     }
     logger.debug("User Id : " + userId);
-
-    UserDAO userDao = new UserDAO();
+    
+    UserDAO userDAO = new UserDAO();
 
     try {
-      User user = userDao.findByUserId(userId);
+      User user = userDAO.findByUserId(userId);
       request.setAttribute("isUpdate", true);
       request.setAttribute("user", user);
       RequestDispatcher rd = request.getRequestDispatcher("/modalpage/user.jsp");
@@ -45,6 +45,5 @@ public class UpdateFormUserServlet extends HttpServlet {
 
     } catch (SQLException e) {
     }
-
   }
 }

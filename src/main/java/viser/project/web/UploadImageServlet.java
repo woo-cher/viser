@@ -26,19 +26,15 @@ public class UploadImageServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    String path = request.getRealPath("/upload_image");
-
-    MultipartRequest mr = new MultipartRequest(
-
-        request, path, 1024 * 1024 * 5, "utf-8", new DefaultFileRenamePolicy());
+    final String path = request.getRealPath("/upload_image");
+    MultipartRequest mr = new MultipartRequest(request, path, 1024 * 1024 * 5, "utf-8", new DefaultFileRenamePolicy());
 
     HttpSession session = request.getSession();
     logger.debug("UploadImageServlet 에서 조회한 세션의 projectname:" + (String) session.getAttribute("projectName"));
-    ProjectDAO projectDao = new ProjectDAO();
+    ProjectDAO projectDAO = new ProjectDAO();
 
-    // 파라미터로 전달한 파일이름과 세션에 저장되어있는 userId, ProjectName 전달
     try {
-      projectDao.addImage("/upload_image/" + mr.getFile("s_file").getName(), (String) session.getAttribute("projectName"), (String) session.getAttribute("userId"));
+      projectDAO.addImage("/upload_image/" + mr.getFile("s_file").getName(), (String) session.getAttribute("projectName"), (String) session.getAttribute("userId"));
     } catch (SQLException e) {
       logger.debug("UploadImageServlet error" + e.getMessage());
     }

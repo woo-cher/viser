@@ -23,7 +23,7 @@ public class SearchCardListServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    CardDAO cardDao = new CardDAO();
+    CardDAO cardDAO = new CardDAO();
     List list = new ArrayList();
 
     int page = 1; // 기본 페이지

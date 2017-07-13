@@ -23,7 +23,7 @@ public class UpdateBoardServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     request.setCharacterEncoding("UTF-8");
     HttpSession session = request.getSession();
-    BoardDAO boardDao = new BoardDAO();
+    BoardDAO boardDAO = new BoardDAO();
 
     String projectName = (String) session.getAttribute("projectName");
     String preBoardName = request.getParameter("preBoardName");
@@ -31,7 +31,7 @@ public class UpdateBoardServlet extends HttpServlet {
 
     projectName = URLEncoder.encode(projectName, "UTF-8");
     try {
-      boardDao.updateBoard(newBoardName, preBoardName);
+      boardDAO.updateBoard(newBoardName, preBoardName);
       response.sendRedirect("/board/boardlist?projectName=" + projectName);
 
     } catch (Exception e) {

@@ -26,7 +26,7 @@ public class CreateBoardServlet extends HttpServlet {
     response.setCharacterEncoding("UTF-8");
 
     Board board = new Board();
-    BoardDAO boardDao = new BoardDAO();
+    BoardDAO boardDAO = new BoardDAO();
 
     HttpSession session = request.getSession();
 
@@ -39,7 +39,7 @@ public class CreateBoardServlet extends HttpServlet {
     projectName = URLEncoder.encode(projectName, "UTF-8");
 
     try {
-      boardDao.addBoard(board);
+      boardDAO.addBoard(board);
       response.sendRedirect("/board/boardlist?projectName=" + projectName);
 
     } catch (Exception e) {

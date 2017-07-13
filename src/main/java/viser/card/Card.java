@@ -89,5 +89,4 @@ public class Card {
   public String toString() {
     return "Card [cardNum=" + cardNum + ", userId=" + userId + ", subject=" + subject + ", content=" + content + ", modifyTime=" + modifyTime + ", listNum=" + listNum + ", cardOrder=" + cardOrder + "]";
   }
-
 }

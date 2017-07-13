@@ -23,7 +23,7 @@ public class DeleteBoardServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     request.setCharacterEncoding("UTF-8");
 
-    BoardDAO boardDao = new BoardDAO();
+    BoardDAO boardDAO = new BoardDAO();
     HttpSession session = request.getSession();
 
     String projectName = (String) session.getAttribute("projectName");
@@ -32,7 +32,7 @@ public class DeleteBoardServlet extends HttpServlet {
     logger.debug("delete board name = " + boardName);
     projectName = URLEncoder.encode(projectName, "UTF-8");
     try {
-      boardDao.removeBoard(boardName);
+      boardDAO.removeBoard(boardName);
       response.sendRedirect("/board/boardlist?projectName=" + projectName);
     } catch (Exception e) {
       logger.debug("Delete fail : " + e);

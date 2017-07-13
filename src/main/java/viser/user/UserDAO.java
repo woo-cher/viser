@@ -35,7 +35,6 @@ public class UserDAO {
     } catch (SQLException e) {
       logger.debug("SoueceReturn error:" + e.getMessage());
     }
-
   }
 
   public Connection getConnection() {
@@ -69,16 +68,14 @@ public class UserDAO {
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
-
       pstmt.setString(1, user.getUserId());
       pstmt.setString(2, user.getPassword());
       pstmt.setString(3, user.getName());
       pstmt.setString(4, user.getAge());
       pstmt.setString(5, user.getEmail());
       pstmt.setString(6, user.getGender());
-
+      
       pstmt.executeUpdate();
-
     } finally {
       SourceReturn();
     }
@@ -86,15 +83,14 @@ public class UserDAO {
 
   public User findByUserId(String userId) throws SQLException {
     String sql = "select * from users where userId = ?";
-    // 리소스 반환
 
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, userId);
-
-      rs = pstmt.executeQuery(); // 결과를 받아와 저장
-
+      
+      rs = pstmt.executeQuery();
+      
       if (!rs.next()) {
         return null;
       }
@@ -113,7 +109,7 @@ public class UserDAO {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, userId);
-
+      
       pstmt.executeUpdate();
     } finally {
       SourceReturn();
@@ -127,7 +123,6 @@ public class UserDAO {
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
-
       pstmt.setString(1, user.getPassword());
       pstmt.setString(2, user.getName());
       pstmt.setString(3, user.getAge());
@@ -136,7 +131,6 @@ public class UserDAO {
       pstmt.setString(6, user.getUserId());
 
       pstmt.executeUpdate();
-
     } finally {
       SourceReturn();
     }

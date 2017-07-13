@@ -26,10 +26,10 @@ public class DeleteCardServlet extends HttpServlet {
     int cardOrder = Integer.parseInt(request.getParameter("cardOrder"));
 
     HttpSession session = request.getSession();
-    CardDAO cardDao = new CardDAO();
+    CardDAO cardDAO = new CardDAO();
 
     try {
-      cardDao.removeCard(num, listNum, cardOrder);
+      cardDAO.removeCard(num, listNum, cardOrder);
       response.sendRedirect("/lists/cardlist?boardNum=" + (int) session.getAttribute("boardNum"));
     } catch (Exception e) {
       logger.debug("RemovecardServlet error" + e);

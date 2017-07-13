@@ -27,10 +27,10 @@ public class UserDAOTest {
 
   @Test
   public void crud() throws Exception {
-    userDAO.removeUser(user.getUserId()); // d
-    userDAO.addUser(user); // c
+    userDAO.removeUser(user.getUserId());
+    userDAO.addUser(user);
 
-    User dbUser = userDAO.findByUserId(user.getUserId()); // r
+    User dbUser = userDAO.findByUserId(user.getUserId());
     assertEquals(dbUser, user);
 
     User updateUser = new User(user.getUserId(), "uPSW", "uName", "u25", "viser@visermail.net", "Her");
@@ -42,8 +42,8 @@ public class UserDAOTest {
 
   @Test
   public void findWhenNotExsitUser() throws Exception {
-    userDAO.removeUser(user.getUserId()); // d
-    User dbUser = userDAO.findByUserId(user.getUserId()); // r
+    userDAO.removeUser(user.getUserId());
+    User dbUser = userDAO.findByUserId(user.getUserId());
     assertNull(dbUser);
   }
 }

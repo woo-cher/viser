@@ -25,10 +25,10 @@ public class ReadProjectMemberListServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     HttpSession session = request.getSession();
     List<ProjectMember> memberlist = new ArrayList();
-    ProjectDAO projectDao = new ProjectDAO();
+    ProjectDAO projectDAO = new ProjectDAO();
 
     try {
-      memberlist = projectDao.getProjectMemberList((String) session.getAttribute("projectName")); 
+      memberlist = projectDAO.getProjectMemberList((String) session.getAttribute("projectName")); 
       request.setAttribute("memberlist", memberlist);
 
       // 로그인 유저 권한 체크

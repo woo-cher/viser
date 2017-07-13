@@ -20,13 +20,13 @@ public class UpdateCardOrderServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    CardListDAO cardListDao = new CardListDAO();
+    CardListDAO cardListDAO = new CardListDAO();
     int boardNum = Integer.parseInt(request.getParameter("num"));
     int currentListOrder = Integer.parseInt(request.getParameter("currentList"));
     int updateListOrder = Integer.parseInt(request.getParameter("updateList"));
     int currentCardOrder = Integer.parseInt(request.getParameter("currentCard"));
     int updateCardOrder = Integer.parseInt(request.getParameter("updateCard"));
     logger.debug("UpdateCardOrderServlet : currentListOrder:" + currentListOrder + " updateListOrder:" + updateListOrder);
-    cardListDao.updateCardOrder(boardNum, currentListOrder, updateListOrder, currentCardOrder, updateCardOrder);
+    cardListDAO.updateCardOrder(boardNum, currentListOrder, updateListOrder, currentCardOrder, updateCardOrder);
   }
 }

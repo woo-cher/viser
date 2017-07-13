@@ -27,7 +27,6 @@ public class BoardDAO {
   ResultSet rs2 = null;
 
   public void SourceReturn() throws SQLException {
-
     if (this.conn != null) {
       conn.close();
     }
@@ -64,55 +63,44 @@ public class BoardDAO {
   }
 
   public List getBoardList(String projectName) throws SQLException {
-
-    List boardlist = new ArrayList();
-
-    // 목록를 조회하기 위한 쿼리
-
     String sql = "select * from boards where Project_Name = ?";
+    List boardlist = new ArrayList();
 
     try {
       conn = getConnection();
-
-      // 실행을 위한 쿼리 및 파라미터 저장
       pstmt = conn.prepareStatement(sql);
-
       pstmt.setString(1, projectName);
-
-      rs = pstmt.executeQuery(); // 쿼리 실행
-
+      
+      rs = pstmt.executeQuery();
+      
       while (rs.next()) {
         Board board = new Board();
         board.setBoardNum(rs.getInt("Board_Num"));
         board.setBoardName(rs.getString("Board_Name"));
         boardlist.add(board);
       }
-
+      
       return boardlist;
-
+      
     } catch (Exception e) {
       logger.debug("getBoardList Error : " + e);
-    }
-
-    finally { // DB 관련들 객체를 종료
+    } finally {
       SourceReturn();
     }
-
+    
     return null;
   }
 
   public void addBoard(Board board) throws SQLException {
-
     String sql = "insert into boards (Project_Name , Board_Name) values (? , ?)";
 
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
-
       pstmt.setString(1, board.getProjectName());
       pstmt.setString(2, board.getBoardName());
+      
       pstmt.executeUpdate();
-
     } finally {
       SourceReturn();
     }
@@ -124,11 +112,9 @@ public class BoardDAO {
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
-
       pstmt.setString(1, boardName);
-
+      
       pstmt.executeUpdate();
-
     } finally {
       SourceReturn();
     }
@@ -136,12 +122,13 @@ public class BoardDAO {
 
   public void updateBoard(String newName, String preName) throws SQLException {
     String sql = "update boards set Board_Name = ? where Board_Name = ?";
-    conn = getConnection();
+  
     try {
+      conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, newName);
       pstmt.setString(2, preName);
-
+      
       pstmt.execute();
     } catch (Exception e) {
       logger.debug("Updateproject error : " + e);
@@ -152,14 +139,13 @@ public class BoardDAO {
 
   public Board findByBoardName(String Board_Name) throws SQLException {
     String sql = "select * from boards where Board_Name = ?";
-    // 리소스 반환
 
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, Board_Name);
-
-      rs = pstmt.executeQuery(); // 결과를 받아와 저장
+      
+      rs = pstmt.executeQuery();
 
       if (!rs.next()) {
         return null;

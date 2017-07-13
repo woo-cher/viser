@@ -28,8 +28,8 @@ public class DeleteUserServlet extends HttpServlet {
 
     logger.debug("" + userId);
     try {
-      UserDAO userDao = new UserDAO();
-      userDao.removeUser(userId);
+      UserDAO userDAO = new UserDAO();
+      userDAO.removeUser(userId);
       session.removeAttribute("userId");
 
     } catch (Exception e) {

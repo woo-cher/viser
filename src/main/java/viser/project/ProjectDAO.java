@@ -22,8 +22,8 @@ public class ProjectDAO {
   Connection conn = null;
   PreparedStatement pstmt = null;
   ResultSet rs = null;
-  PreparedStatement pstmt2 = null; // 형근: 이중 sql문을 위해 생성
-  ResultSet rs2 = null; // 형근: 이중 sql문을 위해 생성
+  PreparedStatement pstmt2 = null;
+  ResultSet rs2 = null;
 
   private static final Logger logger = LoggerFactory.getLogger(ProjectDAO.class);
 
@@ -67,13 +67,16 @@ public class ProjectDAO {
   }
 
   public List getProjectMemberList(String projectName) throws SQLException {
-    List list = new ArrayList(); // 유저목록 리턴을 위한 변수
+    List list = new ArrayList();
     String sql = "select * from project_members where Project_Name=?";
-    conn = getConnection();
+    
     try {
+      conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, projectName);
+      
       rs = pstmt.executeQuery();
+      
       while (rs.next()) {
         ProjectMember pm = new ProjectMember();
         pm.setNum(rs.getInt("PM_Num"));
@@ -82,65 +85,63 @@ public class ProjectDAO {
         pm.setPower(rs.getInt("Power"));
         list.add(pm);
       }
+      
       return list;
+      
     } catch (Exception e) {
       logger.debug("getProjectMemberList error :" + e);
     } finally {
-      SourceReturn(); // db관련 객체 종료
+      SourceReturn();
     }
     return null;
   }
 
   public List getProjectList(String userId) throws SQLException {
-
-    List projects = new ArrayList(); // 형근: 프로젝트목록 리턴을 위한 변수
-    // 목록를 조회하기 위한 쿼리
+    List projects = new ArrayList();
     String sql = "select * from project_members where userId=?";
     String sql2 = "select * from projects where Project_Name=?";
 
     try {
       conn = getConnection();
-      // 실행을 위한 쿼리 및 파라미터 저장
       pstmt = conn.prepareStatement(sql);
       pstmt2 = conn.prepareStatement(sql2);
       pstmt.setString(1, userId);
-      rs = pstmt.executeQuery(); // 쿼리 실행
+      
+      rs = pstmt.executeQuery();
+      
       while (rs.next()) {
         pstmt2.setString(1, rs.getString("Project_name"));
         rs2 = pstmt2.executeQuery();
+        
         while (rs2.next()) {
-          Project project = new Project(); // 형근: 각 프로젝트 정보를 저장할 객체
+          Project project = new Project();
           project.setProjectName(rs2.getString("Project_name"));
           project.setProjectDate(rs2.getDate("Project_Date"));
           projects.add(project);
         }
       }
+      
       return projects;
-
+      
     } catch (Exception e) {
       logger.debug("getProjectList Error : " + e);
-    }
-
-    finally { // DB 관련들 객체를 종료
+    } finally {
       SourceReturn();
     }
-
     return null;
   }
 
   public void addProject(Project project) throws SQLException {
-    Timestamp date = new Timestamp(new Date().getTime()); // Datetype Obj
+    Timestamp date = new Timestamp(new Date().getTime());
     String sql = "insert into projects (Project_name,Project_Date) values (?,?)";
 
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
-
       pstmt.setString(1, project.getProjectName());
       pstmt.setTimestamp(2, date);
-
+      
       pstmt.executeUpdate();
-
     } finally {
       SourceReturn();
     }
@@ -152,13 +153,11 @@ public class ProjectDAO {
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
-
       pstmt.setString(1, user.getUserId());
       pstmt.setString(2, project.getProjectName());
       pstmt.setInt(3, Power);
-
+      
       pstmt.executeUpdate();
-
     } finally {
       SourceReturn();
     }
@@ -170,11 +169,9 @@ public class ProjectDAO {
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
-
       pstmt.setString(1, projectName);
-
+      
       pstmt.executeUpdate();
-
     } finally {
       SourceReturn();
     }
@@ -182,15 +179,15 @@ public class ProjectDAO {
 
   public void updateProject(String newName, String preName) throws SQLException {
     String sql = "update projects set Project_Name = ?, Project_Date = ? where Project_Name = ?";
-    conn = getConnection();
-    Timestamp date = new Timestamp(new Date().getTime()); // 형근: datetime
+    Timestamp date = new Timestamp(new Date().getTime());
+    
     try {
-
+      conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, newName);
       pstmt.setTimestamp(2, date);
       pstmt.setString(3, preName);
-
+      
       pstmt.execute();
     } catch (Exception e) {
       logger.debug("Updateproject error : " + e);
@@ -201,12 +198,14 @@ public class ProjectDAO {
 
   public void addImage(String Image_Path, String projectName, String Author) throws SQLException {
     String sql = "insert into imagechats(Image_Path,Project_Name,Author) values(?,?,?)";
+    
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, Image_Path);
       pstmt.setString(2, projectName);
       pstmt.setString(3, Author);
+      
       pstmt.executeUpdate();
     } catch (SQLException e) {
       logger.debug("addImage error:" + e.getMessage());
@@ -217,10 +216,12 @@ public class ProjectDAO {
 
   public void removeImage(String Image_Path) throws SQLException {
     String sql = "delete from imagechats where Image_Path=?";
+    
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, Image_Path);
+      
       pstmt.executeUpdate();
       logger.debug("deleteimage 성공" + Image_Path);
     } catch (SQLException e) {
@@ -233,15 +234,20 @@ public class ProjectDAO {
   public List getImageList(String projectName) throws SQLException {
     String sql = "select Image_Path from imagechats where Project_Name=? order by ImageChat_Time asc";
     List<String> imagelists = new ArrayList<String>();
+    
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, projectName);
+      
       rs = pstmt.executeQuery();
+      
       while (rs.next()) {
         imagelists.add(rs.getString("Image_Path").toString());
       }
+      
       return imagelists;
+      
     } catch (SQLException e) {
       logger.debug("getImageList Error:" + e.getMessage());
     } finally {
@@ -250,18 +256,16 @@ public class ProjectDAO {
     return null;
   }
 
+  // issue #105
   public List getUserList(String keyword, String loginUser) throws SQLException {
-    List list = new ArrayList(); // 유저목록 리턴을 위한 변수
-
     String sql = "select * from users where not userId = ? and userId " + " like '%" + keyword.trim() + "%' order by age";
-
-    conn = getConnection();
+    List list = new ArrayList();
 
     try {
+      conn = getConnection();
       pstmt = conn.prepareStatement(sql);
-      pstmt.setString(1, loginUser); // 우철 : 프로젝트 초대할 유저 검색 시, 자신은 제외시키기
-                                     // 위해서
-
+      pstmt.setString(1, loginUser);
+      
       rs = pstmt.executeQuery();
 
       while (rs.next()) {
@@ -272,31 +276,16 @@ public class ProjectDAO {
         user.setGender(rs.getString("gender"));
         list.add(user);
       }
+      
       return list;
+      
     } catch (Exception e) {
       logger.debug("getProjectMemberList error :" + e);
     } finally {
-      SourceReturn(); // db관련 객체 종료
+      SourceReturn();
     }
     return null;
   }
-
-  /*
-   * 우철 : 초대할 유저를 뿌릴 때, 해당 유저가 프로젝트 멤버이면 안뿌릴려고 해서 만든.... 함수.... public boolean
-   * isProjectMember(String projectName, String userId) { String sql =
-   * "select * from porject_members where project_Name = ? and userId = ?";
-   * 
-   * try { conn = getConnection(); pstmt = conn.prepareStatement(sql); pstmt.setString(1, userId);
-   * pstmt.setString(2, projectName);
-   * 
-   * pstmt.executeUpdate();
-   * 
-   * // true 이면 프로젝트 멤버 if (!rs.next()) return false;
-   * 
-   * } catch (Exception e) { logger.debug("Invite Action Fail" + e);
-   * 
-   * } finally { SourceReturn(); } return true; }
-   */
 
   public void InviteUser(String userId, String projectName, int power) throws SQLException {
     String sql = "insert into project_members (userId, Project_Name, Power) values (?, ?, ?)";
@@ -307,12 +296,10 @@ public class ProjectDAO {
       pstmt.setString(1, userId);
       pstmt.setString(2, projectName);
       pstmt.setInt(3, power);
-
+      
       pstmt.executeUpdate();
-
     } catch (Exception e) {
       logger.debug("Invite Action Fail" + e);
-
     } finally {
       SourceReturn();
     }
@@ -326,12 +313,10 @@ public class ProjectDAO {
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, projectName);
       pstmt.setString(2, userId);
-
+      
       pstmt.executeUpdate();
-
     } catch (Exception e) {
       logger.debug("Kick Action Fail" + e);
-
     } finally {
       SourceReturn();
     }
@@ -339,21 +324,20 @@ public class ProjectDAO {
 
   public Project findByProjectName(String projectName) throws SQLException {
     String sql = "select * from projects where Project_name = ?";
-    // 리소스 반환
 
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, projectName);
-
-      rs = pstmt.executeQuery(); // 결과를 받아와 저장
-
+      
+      rs = pstmt.executeQuery();
+      
       if (!rs.next()) {
         return null;
       }
-
+      
       return new Project(rs.getString("Project_name"));
-
+      
     } finally {
       SourceReturn();
     }
@@ -368,8 +352,8 @@ public class ProjectDAO {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, projectName);
-
-      rs = pstmt.executeQuery(); // 결과를 받아와 저장
+      
+      rs = pstmt.executeQuery();
 
       if (!rs.next()) {
         return null;

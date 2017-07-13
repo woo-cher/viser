@@ -29,16 +29,15 @@ public class ReadBoardListServlet extends HttpServlet {
     HttpSession session = request.getSession();
     session.removeAttribute("boardNum");
 
-    List boardlist = new ArrayList(); // 보드 목록을 가져오기 위하여 LIST 객체생성
-    BoardDAO boardDao = new BoardDAO();
+    List boardlist = new ArrayList();
+    BoardDAO boardDAO = new BoardDAO();
 
     String projectName = request.getParameter("projectName");
     session.setAttribute("projectName", projectName);
 
     try {
-      boardlist = boardDao.getBoardList(projectName);
       request.setAttribute("isReadBoard", true);
-      request.setAttribute("list", boardlist);
+      request.setAttribute("list", boardlist = boardDAO.getBoardList(projectName));
 
       RequestDispatcher rd = request.getRequestDispatcher("/list.jsp");
       rd.forward(request, response);

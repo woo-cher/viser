@@ -21,7 +21,7 @@ public class KickUserServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     request.setCharacterEncoding("UTF-8");
 
-    ProjectDAO prjDao = new ProjectDAO();
+    ProjectDAO projectDAO = new ProjectDAO();
     HttpSession session = request.getSession();
 
     String userId = request.getParameter("userId");
@@ -29,7 +29,7 @@ public class KickUserServlet extends HttpServlet {
 
     logger.debug("추방할 userId " + userId + "\n현재 프로젝트 =" + projectName);
     try {
-      prjDao.KickProjectUser(userId, projectName);
+      projectDAO.KickProjectUser(userId, projectName);
 
       response.sendRedirect("/project/memberlist");
     } catch (Exception e) {

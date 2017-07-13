@@ -23,13 +23,13 @@ public class DeleteProjectServlet extends HttpServlet {
     request.setCharacterEncoding("UTF-8");
 
     HttpSession session = request.getSession();
-    ProjectDAO prjDao = new ProjectDAO();
+    ProjectDAO projectDAO = new ProjectDAO();
 
     String projectName = request.getParameter("projectName");
 
     logger.debug("delete project name = " + projectName);
     try {
-      prjDao.removeProject(projectName);
+      projectDAO.removeProject(projectName);
       response.sendRedirect("/project/projectlist");
     } catch (Exception e) {
       logger.debug("Delete fail : " + e);

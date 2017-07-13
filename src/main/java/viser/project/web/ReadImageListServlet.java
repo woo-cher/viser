@@ -25,11 +25,11 @@ public class ReadImageListServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     List<String> imagelist = new ArrayList<String>();
-    ProjectDAO projectDao = new ProjectDAO();
+    ProjectDAO projectDAO = new ProjectDAO();
     try {
       logger.debug("imageList doget처리");
       HttpSession session = request.getSession();
-      imagelist = projectDao.getImageList((String) session.getAttribute("projectName"));
+      imagelist = projectDAO.getImageList((String) session.getAttribute("projectName"));
       request.setAttribute("imageList", imagelist);
       RequestDispatcher rd = request.getRequestDispatcher("/chat.jsp");
       rd.forward(request, response);

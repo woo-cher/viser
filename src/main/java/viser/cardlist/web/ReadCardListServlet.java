@@ -1,7 +1,6 @@
 package viser.cardlist.web;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import viser.cardlist.CardListDAO;
-import viser.user.*;
 
 @WebServlet("/lists/cardlist")
 public class ReadCardListServlet extends HttpServlet {
@@ -25,9 +23,7 @@ public class ReadCardListServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    CardListDAO cardListDao = new CardListDAO();
-    UserDAO userDao = new UserDAO();
-    User user = new User();
+    CardListDAO cardListDAO = new CardListDAO();
     HttpSession session = request.getSession();
     List list = new ArrayList();
 
@@ -36,7 +32,7 @@ public class ReadCardListServlet extends HttpServlet {
 
     session.setAttribute("boardNum", boardNum);
 
-    list = cardListDao.getList(boardNum);
+    list = cardListDAO.getList(boardNum);
 
     request.setAttribute("lists", list);
 

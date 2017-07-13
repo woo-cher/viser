@@ -31,7 +31,6 @@ public class CreateUserServlet extends HttpServlet {
     String gender = request.getParameter("gender");
 
     User user = new User(userId, password, name, age, email, gender);
-    // Validator 유효성 체크
     Validator validator = MyvalidatorFactory.createValidator();
     Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 

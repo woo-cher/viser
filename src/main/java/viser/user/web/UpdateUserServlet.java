@@ -62,10 +62,10 @@ public class UpdateUserServlet extends HttpServlet {
       return;
     }
 
-    UserDAO userDao = new UserDAO();
+    UserDAO userDAO = new UserDAO();
 
     try {
-      userDao.updateUser(user);
+      userDAO.updateUser(user);
       session.setAttribute("user", user);
       logger.debug("개인정보 수정 : " + password);
     } catch (SQLException e) {

@@ -21,7 +21,7 @@ public class UserValidatorTest {
     validator = factory.getValidator();
   }
 
-  @Test // ID 가 Null 일 경우
+  @Test
   public void UserIdIsNull() throws Exception {
     User user = new User(null, "password", "name", "25", "email@visermail.net", "Gender");
 
@@ -30,7 +30,7 @@ public class UserValidatorTest {
     System.out.println(constraintViolations.iterator().next().getMessage());
   }
 
-  @Test // ID 가 제한 범위를 초과한 경우
+  @Test
   public void UserIdLength() throws Exception {
     User user = new User("us", "password", "name", "25", "email@visermail.net", "Man");
 
@@ -44,7 +44,7 @@ public class UserValidatorTest {
     System.out.println(constraintViolations.iterator().next().getMessage());
   }
 
-  @Test // 비밀번호 유효성 체크
+  @Test
   public void UserPasswordLength() throws Exception {
     User user = new User("userId", "pd", "name", "25", "email@visermail.net", "Man");
     Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
@@ -57,7 +57,7 @@ public class UserValidatorTest {
     System.out.println(constraintViolations.iterator().next().getMessage());
   }
 
-  @Test // 이메일 유효성 체크
+  @Test
   public void UserEmailCheck() throws Exception {
     User user = new User("userId", "password", "name", "25", "", "Man");
     Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);

@@ -28,13 +28,13 @@ public class ReadCardServlet extends HttpServlet {
     HttpSession session = request.getSession();
     String userId = (String) session.getAttribute("userId");
 
-    CardDAO cardDao = new CardDAO();
+    CardDAO cardDAO = new CardDAO();
     Card card = new Card();
 
     int cardNum = Integer.parseInt(request.getParameter("cardNum"));
 
     try {
-      card = cardDao.viewCard(cardNum);
+      card = cardDAO.viewCard(cardNum);
 
       if (card == null) {
         logger.debug("card View null");

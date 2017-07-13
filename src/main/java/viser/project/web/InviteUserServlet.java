@@ -32,10 +32,10 @@ public class InviteUserServlet extends HttpServlet {
 
     logger.debug("프로젝트 명 : " + projectName + "\n초대할 유저명 : " + userId);
 
-    ProjectDAO prjDao = new ProjectDAO();
+    ProjectDAO projectDAO = new ProjectDAO();
 
     try {
-      prjDao.InviteUser(userId, projectName, power);
+      projectDAO.InviteUser(userId, projectName, power);
 
       response.sendRedirect("/lists/cardlist?boardNum=" + session.getAttribute("boardNum"));
     } catch (Exception e) {

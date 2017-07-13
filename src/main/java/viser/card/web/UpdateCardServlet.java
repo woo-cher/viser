@@ -32,10 +32,10 @@ public class UpdateCardServlet extends HttpServlet {
     card.setSubject(subject);
     card.setContent(content);
 
-    CardDAO cardDao = new CardDAO();
+    CardDAO cardDAO = new CardDAO();
     try {
       logger.debug("테스트 : " + card);
-      cardDao.updateCard(card);
+      cardDAO.updateCard(card);
     } catch (Exception e) {
       logger.debug("updatecard Servlet error" + e);
     }

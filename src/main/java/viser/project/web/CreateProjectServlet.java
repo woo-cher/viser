@@ -29,7 +29,7 @@ public class CreateProjectServlet extends HttpServlet {
     Project project = new Project();
     User user = new User();
 
-    ProjectDAO pjtDao = new ProjectDAO();
+    ProjectDAO projectDAO = new ProjectDAO();
     HttpSession session = request.getSession();
 
     request.setCharacterEncoding("utf-8");
@@ -40,8 +40,8 @@ public class CreateProjectServlet extends HttpServlet {
     user.setUserId(userId);
 
     try {
-      pjtDao.addProject(project);
-      pjtDao.addprojectMember(project, user, 1);
+      projectDAO.addProject(project);
+      projectDAO.addprojectMember(project, user, 1);
 
       response.sendRedirect("/project/projectlist");
 

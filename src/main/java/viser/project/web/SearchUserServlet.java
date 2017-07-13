@@ -30,7 +30,7 @@ public class SearchUserServlet extends HttpServlet {
     request.setCharacterEncoding("UTF-8");
 
     List list = new ArrayList();
-    ProjectDAO prjDao = new ProjectDAO();
+    ProjectDAO projectDAO = new ProjectDAO();
     HttpSession session = request.getSession();
 
     session.removeAttribute("keyword");
@@ -42,7 +42,7 @@ public class SearchUserServlet extends HttpServlet {
 
     logger.debug("검색 키 : " + keyword);
     try {
-      list = prjDao.getUserList(keyword, loginUserId);
+      list = projectDAO.getUserList(keyword, loginUserId);
       Gson gson = new Gson();
       String jsonData = gson.toJson(list);
 

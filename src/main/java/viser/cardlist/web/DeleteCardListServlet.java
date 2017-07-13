@@ -20,8 +20,8 @@ public class DeleteCardListServlet extends HttpServlet {
 
     HttpSession session = request.getSession();
 
-    CardListDAO cardListDao = new CardListDAO();
-    cardListDao.removeList(boardNum, listOrder);
+    CardListDAO cardListDAO = new CardListDAO();
+    cardListDAO.removeList(boardNum, listOrder);
     response.sendRedirect("/lists/cardlist?boardNum=" + (int) session.getAttribute("boardNum"));
   }
 }

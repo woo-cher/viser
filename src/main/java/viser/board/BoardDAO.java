@@ -137,13 +137,13 @@ public class BoardDAO {
     }
   }
 
-  public Board findByBoardName(String Board_Name) throws SQLException {
-    String sql = "select * from boards where Board_Name = ?";
-
+  public Board findByBoardNum(int boardNum) throws SQLException {
+    String sql = "select * from boards where Board_Num = ?";
+    
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
-      pstmt.setString(1, Board_Name);
+      pstmt.setInt(1, boardNum);
       
       rs = pstmt.executeQuery();
 
@@ -157,5 +157,29 @@ public class BoardDAO {
       SourceReturn();
     }
   }
-
+  
+  public int getBoardNum(String boardName, String projectName) throws SQLException {
+    String sql = "select * from boards where Board_Name = ? and Project_Name = ?";
+    int getter = 0;
+    
+    try {
+      conn = getConnection();
+      pstmt = conn.prepareStatement(sql);
+      pstmt.setString(1, boardName);
+      pstmt.setString(2, projectName);
+      
+      rs = pstmt.executeQuery();
+      
+      if (!rs.next()) {
+       return 0;
+      }
+      getter = rs.getInt("Board_Num");
+      
+    } catch (Exception e) {
+      logger.debug("getBoardNum error : " + e);
+    } finally {
+      SourceReturn();
+    }
+    return getter;
+  }
 }

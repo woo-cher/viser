@@ -50,14 +50,19 @@ public class BoardDAOTest {
     Board board = TEST_BOARD;
     boardDAO.removeBoard(board.getBoardName());
     boardDAO.addBoard(board);
-    Board dbBoard = boardDAO.findByBoardName(board.getBoardName());
+    board.setBoardNum(boardDAO.getBoardNum(board.getBoardName(), ProjectDAOTest.TEST_PROJECT.getProjectName()));
+    logger.debug("board : {}", board);
+    Board dbBoard = boardDAO.findByBoardNum(board.getBoardNum());
+    
     assertEquals(board.getBoardName(), dbBoard.getBoardName());
     logger.debug("dbBoard : {}", dbBoard);
 
     Board UpdateBoard = new Board();
     UpdateBoard.setBoardName("UpdateBoard");
+    
     boardDAO.updateBoard(UpdateBoard.getBoardName(), dbBoard.getBoardName());
-    dbBoard = boardDAO.findByBoardName(UpdateBoard.getBoardName());
+    
+    dbBoard = boardDAO.findByBoardNum(dbBoard.getBoardNum());
     assertEquals(dbBoard.getBoardName(), UpdateBoard.getBoardName());
   }
 

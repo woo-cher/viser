@@ -96,63 +96,6 @@ public class CardDAO {
     return null;
   }
 
-  // 형근: card검색기능 현재 사용하지 않음
-  // public List getSearchcardList(int page, int limit, String keyField,
-  // String keyWord)
-  // throws SQLException {
-  // String keyfield = keyField;
-  // String keyword = keyWord;
-  //
-  // List list = new ArrayList(); // 목록 리턴을 위한 변수s
-  //
-  // // 목록를 조회하기 위한 쿼리
-  // String sql = "select * from cards where "+keyfield.trim()+" like
-  // '%"+keyword.trim()+"%' order by Num limit ?, ?";
-  //
-  // // 조회범위
-  // int startrow = (page - 1) * 10; // ex ) 0, 10, 20, 30 ...
-  // int endrow = limit; // ex ) limit 만큼 리스트에 나열
-  //
-  // try {
-  // conn = getConnection();
-  // // 실행을 위한 쿼리 및 파라미터 저장
-  // pstmt = conn.prepareStatement(sql);
-  //// pstmt.setString(1, keyfield); --> 이렇게 하면 왜 안되지??
-  // pstmt.setInt(1, startrow);
-  // pstmt.setInt(2, endrow);
-  //
-  // logger.debug("쿼리 = " + sql + "\n" + "startrow = " + startrow + "\n" +
-  // "endrow = " + endrow);
-  //
-  // rs = pstmt.executeQuery(); // 쿼리 실행
-  // while (rs.next()) {
-  // Card card = new Card();
-  // card.setNum(rs.getInt("Num"));
-  // card.setUserId(rs.getString("userId"));
-  // card.setSubject(rs.getString("SubJect"));
-  // card.setContent(rs.getString("Content"));
-  // card.setReadcnt(rs.getInt("Readcnt"));
-  // card.setDate(rs.getDate("Date"));
-  // card.setRe_ref(rs.getInt("re_ref"));
-  // card.setRe_lev(rs.getInt("re_lev"));
-  // card.setRe_seq(rs.getInt("re_seq"));
-  //
-  // list.add(card); // 행을 하나씩 리스트에 추가
-  // }
-  // logger.debug(list.size() + "");
-  // return list;
-  //
-  // } catch (Exception e) {
-  // logger.debug("Search list Error : " + e);
-  // }
-  //
-  // finally { // DB 관련들 객체를 종료
-  // SourceReturn();
-  // }
-  //
-  // return null;
-  // }
-
   public void addCard(Card card) {
     String sql = "insert into cards(userId,Subject,Content, List_Num, Card_Order) values(?,?,?,?,?)";
 

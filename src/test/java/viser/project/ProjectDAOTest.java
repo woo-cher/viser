@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -54,9 +56,11 @@ public class ProjectDAOTest {
   }
 
   @Test
-  public void UserCrd_ProjectU() throws SQLException {
+  public void projectMemberCrud() throws SQLException {
     User user = UserTest.TEST_USER;
-
+    List ProjectMemberlist = new ArrayList();
+    List Projectlist = new ArrayList();
+    
     userDAO.removeUser(user.getUserId());
     userDAO.addUser(user);
 
@@ -66,23 +70,25 @@ public class ProjectDAOTest {
     assertEquals(user.getUserId(), invitedUser.getUserId());
 
     // getProjectMemberList Test
-    assertNotNull(projectDAO.getProjectMemberList(TEST_PROJECT.getProjectName()));
-    logger.debug("projectMember : {}", projectDAO.getProjectMemberList(TEST_PROJECT.getProjectName()));
+    ProjectMemberlist = projectDAO.getProjectMemberList(TEST_PROJECT.getProjectName());
+    assertNotNull(ProjectMemberlist);
+    logger.debug("projectMember : {}", ProjectMemberlist);
 
     // getProjectList Test
-    assertNotNull(projectDAO.getProjectList(user.getUserId()));
-    logger.debug("projectList : {}", projectDAO.getProjectMemberList(TEST_PROJECT.getProjectName()));
+    Projectlist = projectDAO.getProjectList(user.getUserId());
+    assertNotNull(Projectlist);
+    logger.debug("projectList : {}", Projectlist);
 
-    // kick Test
+    // remove Test
     projectDAO.KickProjectUser(invitedUser.getUserId(), TEST_PROJECT.getProjectName());
     invitedUser = projectDAO.findProjectMember(TEST_PROJECT.getProjectName());
     assertNull(invitedUser);
 
     userDAO.removeUser(user.getUserId());
   }
-
+  
   @Test
-  public void getUserList() throws Exception {
+  public void getUserList() throws SQLException {
     userDAO.addUser(new User("loginUser", "", "", "", "", ""));
     userDAO.addUser(new User("TestId1", "", "", "", "", ""));
     userDAO.addUser(new User("TestId2", "", "", "", "", ""));
@@ -94,9 +100,11 @@ public class ProjectDAOTest {
     userDAO.removeUser("TestId1");
     userDAO.removeUser("TestId2");
   }
-
+  
   @Test
-  public void getMemberList() throws Exception {
-
+  public void imageCrd() throws Exception {
+    User user = UserTest.TEST_USER;
+    projectDAO.addImage("TEST_PATH", ProjectDAOTest.TEST_PROJECT.getProjectName(), user.getUserId());
+    
   }
 }

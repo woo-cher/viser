@@ -20,8 +20,6 @@ public class UpdateProjectServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    request.setCharacterEncoding("UTF-8");
-
     ProjectDAO projectDAO = new ProjectDAO();
     String preProjectName = request.getParameter("preProjectName");
     String newProjectName = request.getParameter("newProjectName");

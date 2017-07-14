@@ -21,8 +21,6 @@ public class UpdateCardServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    response.setCharacterEncoding("UTF-8");
     int cardNum = Integer.parseInt(request.getParameter("num"));
     String subject = request.getParameter("subject");
     String content = request.getParameter("content");

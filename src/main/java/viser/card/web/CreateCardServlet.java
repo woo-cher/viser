@@ -22,7 +22,6 @@ public class CreateCardServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     CardDAO cardDAO = new CardDAO();
-    request.setCharacterEncoding("UTF-8");
 
     String subject = request.getParameter("subject");
     String content = request.getParameter("content");

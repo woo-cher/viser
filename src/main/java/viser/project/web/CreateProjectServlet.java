@@ -25,14 +25,12 @@ public class CreateProjectServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     Project project = new Project();
     User user = new User();
 
     ProjectDAO projectDAO = new ProjectDAO();
     HttpSession session = request.getSession();
 
-    request.setCharacterEncoding("utf-8");
     String userId = new SessionUtils().getStringValue(session, LogInServlet.SESSION_USER_ID);
     String projectName = request.getParameter("projectName");
 

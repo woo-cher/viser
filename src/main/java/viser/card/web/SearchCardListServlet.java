@@ -22,7 +22,6 @@ public class SearchCardListServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     CardDAO cardDAO = new CardDAO();
     List list = new ArrayList();
 
@@ -34,7 +33,6 @@ public class SearchCardListServlet extends HttpServlet {
       page = Integer.parseInt(request.getParameter("page"));
     }
 
-    request.setCharacterEncoding("utf-8");
     String keyfield = request.getParameter("keyField");
     String keyword = request.getParameter("keyWord");
 

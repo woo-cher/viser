@@ -25,12 +25,11 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 // response.setCharacterEncoding("utf-8");
 // PrintWriter out=response.getWriter();
 // out.print("상태: "+ s_file.getName()+"="+ o_name+ "저장 완료!");
-
 @WebServlet("/fileUpload")
 public class UploadFileServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String path = request.getRealPath("/upload_file");
+    final String path = request.getRealPath("/upload_file");
     MultipartRequest mr = new MultipartRequest(request, path, 1024 * 1024 * 5, "utf-8", new DefaultFileRenamePolicy());
 
     response.sendRedirect("/index.jsp");

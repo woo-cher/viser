@@ -21,8 +21,6 @@ public class DeleteBoardServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    request.setCharacterEncoding("UTF-8");
-
     BoardDAO boardDAO = new BoardDAO();
     HttpSession session = request.getSession();
 

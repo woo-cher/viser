@@ -61,7 +61,7 @@
 				<div style="width: 300px; margin: 0 auto; text-align: right; margin-bottom: 20px;">
 				<form id="form-sign" action="/users/login" method="post" class="form-inline">	
 				<fieldset>
-					<div class="form-group" style="float: left; padding-right: 26px;">
+					<div class="form-group" style="float: left;">
 						<div class = "input-group" style="">
 							<span class="input-group-addon" id="basic-addon1"> ID </span>
 						    <input type="text" class="form-control" aria-describedby="basic-addon1" name="userId" value="" placeholder="Enter Id" />

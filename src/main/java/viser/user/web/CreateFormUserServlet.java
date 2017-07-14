@@ -15,7 +15,6 @@ import viser.user.User;
 public class CreateFormUserServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    request.setCharacterEncoding("utf-8");
     request.setAttribute("user", new User());
     RequestDispatcher rd = request.getRequestDispatcher("/modalpage/user.jsp");
     rd.forward(request, response);

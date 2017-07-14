@@ -21,14 +21,12 @@ public class InviteUserServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    request.setCharacterEncoding("UTF-8");
-
     HttpSession session = request.getSession();
 
     String projectName = (String) session.getAttribute("projectName");
     String userId = request.getParameter("userId");
     String keyword = (String) session.getAttribute("keyword");
-    int power = 0;
+    final int power = 0;
 
     logger.debug("프로젝트 명 : " + projectName + "\n초대할 유저명 : " + userId);
 

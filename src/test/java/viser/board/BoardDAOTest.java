@@ -22,7 +22,7 @@ import viser.project.ProjectDAOTest;
 public class BoardDAOTest {
 
   private static final Logger logger = LoggerFactory.getLogger(BoardDAOTest.class);
-  private static Board TEST_BOARD = new Board(0, "TEST_BOARD", ProjectDAOTest.TEST_PROJECT.getProjectName());
+  private static Board TEST_BOARD = new Board("TEST_BOARD", ProjectDAOTest.TEST_PROJECT.getProjectName());
   private ProjectDAO projectDAO;
   private BoardDAO boardDAO;
 
@@ -61,8 +61,8 @@ public class BoardDAOTest {
     UpdateBoard.setBoardName("UpdateBoard");
     
     boardDAO.updateBoard(UpdateBoard.getBoardName(), dbBoard.getBoardName());
-    
-    dbBoard = boardDAO.findByBoardNum(dbBoard.getBoardNum());
+    logger.debug("boardNum = " + board.getBoardNum());
+    dbBoard = boardDAO.findByBoardNum(board.getBoardNum());
     assertEquals(dbBoard.getBoardName(), UpdateBoard.getBoardName());
   }
 

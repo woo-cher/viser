@@ -151,7 +151,7 @@ public class BoardDAO {
         return null;
       }
 
-      return new Board(rs.getInt("Board_Num"), rs.getString("Board_Name"), rs.getString("Project_Name"));
+      return new Board(rs.getString("Board_Name"), rs.getString("Project_Name"));
 
     } finally {
       SourceReturn();

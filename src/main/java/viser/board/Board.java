@@ -10,8 +10,7 @@ public class Board {
 
   }
 
-  public Board(int boardNum, String boardName, String projectName) {
-    this.boardNum = boardNum;
+  public Board(String boardName, String projectName) {
     this.boardName = boardName;
     this.projectName = projectName;
   }

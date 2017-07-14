@@ -60,7 +60,7 @@ public class ProjectDAOTest {
     User user = UserTest.TEST_USER;
     List ProjectMemberlist = new ArrayList();
     List Projectlist = new ArrayList();
-    
+
     userDAO.removeUser(user.getUserId());
     userDAO.addUser(user);
 
@@ -86,7 +86,7 @@ public class ProjectDAOTest {
 
     userDAO.removeUser(user.getUserId());
   }
-  
+
   @Test
   public void getUserList() throws SQLException {
     userDAO.addUser(new User("loginUser", "", "", "", "", ""));
@@ -100,11 +100,26 @@ public class ProjectDAOTest {
     userDAO.removeUser("TestId1");
     userDAO.removeUser("TestId2");
   }
-  
+
   @Test
   public void imageCrd() throws Exception {
     User user = UserTest.TEST_USER;
-    projectDAO.addImage("TEST_PATH", ProjectDAOTest.TEST_PROJECT.getProjectName(), user.getUserId());
+    Image image = new Image("TEST_PATH", user.getUserId());
+    List list = new ArrayList();
     
+    projectDAO.removeImage(image.getImagePath());
+    projectDAO.addImage(image, TEST_PROJECT.getProjectName());
+    
+    image.setImageNum(projectDAO.getImageNum(TEST_PROJECT.getProjectName(), image.getAuthor()));
+
+    Image dbimage = projectDAO.findByImageNum(image.getImageNum());
+    logger.debug("image : {}", image);
+    logger.debug("DBimage : {}", dbimage);
+    assertEquals(image.getImagePath(), dbimage.getImagePath());
+    assertEquals(image.getAuthor(), dbimage.getAuthor());
+    
+    list = projectDAO.getImageList(TEST_PROJECT.getProjectName());
+    assertNotNull(list);
+    logger.debug("imageList : {}", list);
   }
 }

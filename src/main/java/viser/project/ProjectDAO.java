@@ -69,14 +69,14 @@ public class ProjectDAO {
   public List getProjectMemberList(String projectName) throws SQLException {
     List list = new ArrayList();
     String sql = "select * from project_members where Project_Name=?";
-    
+
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, projectName);
-      
+
       rs = pstmt.executeQuery();
-      
+
       while (rs.next()) {
         ProjectMember pm = new ProjectMember();
         pm.setNum(rs.getInt("PM_Num"));
@@ -85,9 +85,9 @@ public class ProjectDAO {
         pm.setPower(rs.getInt("Power"));
         list.add(pm);
       }
-      
+
       return list;
-      
+
     } catch (Exception e) {
       logger.debug("getProjectMemberList error :" + e);
     } finally {
@@ -106,13 +106,13 @@ public class ProjectDAO {
       pstmt = conn.prepareStatement(sql);
       pstmt2 = conn.prepareStatement(sql2);
       pstmt.setString(1, userId);
-      
+
       rs = pstmt.executeQuery();
-      
+
       while (rs.next()) {
         pstmt2.setString(1, rs.getString("Project_name"));
         rs2 = pstmt2.executeQuery();
-        
+
         while (rs2.next()) {
           Project project = new Project();
           project.setProjectName(rs2.getString("Project_name"));
@@ -120,9 +120,9 @@ public class ProjectDAO {
           projects.add(project);
         }
       }
-      
+
       return projects;
-      
+
     } catch (Exception e) {
       logger.debug("getProjectList Error : " + e);
     } finally {
@@ -140,7 +140,7 @@ public class ProjectDAO {
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, project.getProjectName());
       pstmt.setTimestamp(2, date);
-      
+
       pstmt.executeUpdate();
     } finally {
       SourceReturn();
@@ -156,7 +156,7 @@ public class ProjectDAO {
       pstmt.setString(1, user.getUserId());
       pstmt.setString(2, project.getProjectName());
       pstmt.setInt(3, Power);
-      
+
       pstmt.executeUpdate();
     } finally {
       SourceReturn();
@@ -170,7 +170,7 @@ public class ProjectDAO {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, projectName);
-      
+
       pstmt.executeUpdate();
     } finally {
       SourceReturn();
@@ -180,14 +180,14 @@ public class ProjectDAO {
   public void updateProject(String newName, String preName) throws SQLException {
     String sql = "update projects set Project_Name = ?, Project_Date = ? where Project_Name = ?";
     Timestamp date = new Timestamp(new Date().getTime());
-    
+
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, newName);
       pstmt.setTimestamp(2, date);
       pstmt.setString(3, preName);
-      
+
       pstmt.execute();
     } catch (Exception e) {
       logger.debug("Updateproject error : " + e);
@@ -196,16 +196,16 @@ public class ProjectDAO {
     }
   }
 
-  public void addImage(String Image_Path, String projectName, String Author) throws SQLException {
+  public void addImage(Image image, String projectName) throws SQLException {
     String sql = "insert into imagechats(Image_Path,Project_Name,Author) values(?,?,?)";
-    
+
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
-      pstmt.setString(1, Image_Path);
+      pstmt.setString(1, image.getImagePath());
       pstmt.setString(2, projectName);
-      pstmt.setString(3, Author);
-      
+      pstmt.setString(3, image.getAuthor());
+
       pstmt.executeUpdate();
     } catch (SQLException e) {
       logger.debug("addImage error:" + e.getMessage());
@@ -216,12 +216,12 @@ public class ProjectDAO {
 
   public void removeImage(String Image_Path) throws SQLException {
     String sql = "delete from imagechats where Image_Path=?";
-    
+
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, Image_Path);
-      
+
       pstmt.executeUpdate();
       logger.debug("deleteimage 성공" + Image_Path);
     } catch (SQLException e) {
@@ -234,20 +234,20 @@ public class ProjectDAO {
   public List getImageList(String projectName) throws SQLException {
     String sql = "select Image_Path from imagechats where Project_Name=? order by ImageChat_Time asc";
     List<String> imagelists = new ArrayList<String>();
-    
+
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, projectName);
-      
+
       rs = pstmt.executeQuery();
-      
+
       while (rs.next()) {
         imagelists.add(rs.getString("Image_Path").toString());
       }
-      
+
       return imagelists;
-      
+
     } catch (SQLException e) {
       logger.debug("getImageList Error:" + e.getMessage());
     } finally {
@@ -265,7 +265,7 @@ public class ProjectDAO {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, loginUser);
-      
+
       rs = pstmt.executeQuery();
 
       while (rs.next()) {
@@ -276,9 +276,9 @@ public class ProjectDAO {
         user.setGender(rs.getString("gender"));
         list.add(user);
       }
-      
+
       return list;
-      
+
     } catch (Exception e) {
       logger.debug("getProjectMemberList error :" + e);
     } finally {
@@ -296,7 +296,7 @@ public class ProjectDAO {
       pstmt.setString(1, userId);
       pstmt.setString(2, projectName);
       pstmt.setInt(3, power);
-      
+
       pstmt.executeUpdate();
     } catch (Exception e) {
       logger.debug("Invite Action Fail" + e);
@@ -313,7 +313,7 @@ public class ProjectDAO {
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, projectName);
       pstmt.setString(2, userId);
-      
+
       pstmt.executeUpdate();
     } catch (Exception e) {
       logger.debug("Kick Action Fail" + e);
@@ -329,15 +329,15 @@ public class ProjectDAO {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, projectName);
-      
+
       rs = pstmt.executeQuery();
-      
+
       if (!rs.next()) {
         return null;
       }
-      
+
       return new Project(rs.getString("Project_name"));
-      
+
     } finally {
       SourceReturn();
     }
@@ -352,7 +352,7 @@ public class ProjectDAO {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
       pstmt.setString(1, projectName);
-      
+
       rs = pstmt.executeQuery();
 
       if (!rs.next()) {
@@ -366,4 +366,51 @@ public class ProjectDAO {
       SourceReturn();
     }
   }
+
+  public Image findByImageNum(int imageNum) throws SQLException {
+    String sql = "select * from imagechats where Image_Num = ?";
+
+    try {
+      conn = getConnection();
+      pstmt = conn.prepareStatement(sql);
+      pstmt.setInt(1, imageNum);
+
+      rs = pstmt.executeQuery();
+
+      if (!rs.next()) {
+        return null;
+      }
+
+      return new Image(rs.getString("Image_Path"), rs.getString("Author"));
+    } finally {
+      SourceReturn();
+    }
+  }
+  
+  public int getImageNum(String projectName, String author) {
+    String sql = "select * from imagechats where Project_Name = ? and Author = ?";
+    int getter = 0;
+    
+    try {
+      conn = getConnection();
+      pstmt = conn.prepareStatement(sql);
+      pstmt.setString(1, projectName);
+      pstmt.setString(2, author);
+      
+      rs = pstmt.executeQuery();
+      
+      if (!rs.next()) {
+       return 0;
+      }
+      
+      getter = rs.getInt("Image_Num");
+      
+    } catch (Exception e) {
+      logger.debug("getBoardNum error : " + e);
+    } finally {
+      SourceReturn();
+    }
+    return getter;
+  }
+  
 }

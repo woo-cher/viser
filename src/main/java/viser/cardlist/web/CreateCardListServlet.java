@@ -1,4 +1,4 @@
-package viser.cardlist;
+package viser.cardlist.web;
 
 import java.io.IOException;
 
@@ -8,11 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import viser.cardlist.CardListDAO;
+
 @WebServlet("/lists/addList")
-public class CreateCardList extends HttpServlet {
+public class CreateCardListServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    request.setCharacterEncoding("utf-8");
     int boardNum = Integer.parseInt(request.getParameter("boardNum"));
     String listName = request.getParameter("listName");
     int listOrder = Integer.parseInt(request.getParameter("listOrder"));

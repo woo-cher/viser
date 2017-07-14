@@ -22,8 +22,8 @@ import viser.support.SessionUtils;
 import viser.user.web.LogInServlet;
 
 @WebServlet("/projects/searchUser")
-public class SearchUserServlet extends HttpServlet {
-  public static Logger logger = LoggerFactory.getLogger(SearchUserServlet.class);
+public class ReadUserListServlet extends HttpServlet {
+  public static Logger logger = LoggerFactory.getLogger(ReadUserListServlet.class);
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

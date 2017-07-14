@@ -44,12 +44,12 @@ public class ProjectDAOTest {
 
   @Test
   public void projectCrud() throws SQLException {
-    Project dbProject = projectDAO.findByProjectName(TEST_PROJECT.getProjectName());
+    Project dbProject = projectDAO.getByProjectName(TEST_PROJECT.getProjectName());
     assertEquals(TEST_PROJECT.getProjectName(), dbProject.getProjectName());
 
     Project UpdateProject = new Project("UpdateProject");
     projectDAO.updateProject(UpdateProject.getProjectName(), dbProject.getProjectName());
-    dbProject = projectDAO.findByProjectName(UpdateProject.getProjectName());
+    dbProject = projectDAO.getByProjectName(UpdateProject.getProjectName());
     assertEquals(dbProject.getProjectName(), UpdateProject.getProjectName());
 
     projectDAO.removeProject(UpdateProject.getProjectName());
@@ -66,7 +66,7 @@ public class ProjectDAOTest {
 
     // invite Test
     projectDAO.InviteUser(user.getUserId(), TEST_PROJECT.getProjectName(), 0);
-    User invitedUser = projectDAO.findProjectMember(TEST_PROJECT.getProjectName());
+    User invitedUser = projectDAO.getProjectMember(TEST_PROJECT.getProjectName());
     assertEquals(user.getUserId(), invitedUser.getUserId());
 
     // getProjectMemberList Test
@@ -80,8 +80,8 @@ public class ProjectDAOTest {
     logger.debug("projectList : {}", Projectlist);
 
     // remove Test
-    projectDAO.KickProjectUser(invitedUser.getUserId(), TEST_PROJECT.getProjectName());
-    invitedUser = projectDAO.findProjectMember(TEST_PROJECT.getProjectName());
+    projectDAO.removeProjectMember(invitedUser.getUserId(), TEST_PROJECT.getProjectName());
+    invitedUser = projectDAO.getProjectMember(TEST_PROJECT.getProjectName());
     assertNull(invitedUser);
 
     userDAO.removeUser(user.getUserId());
@@ -112,7 +112,7 @@ public class ProjectDAOTest {
     
     image.setImageNum(projectDAO.getImageNum(TEST_PROJECT.getProjectName(), image.getAuthor()));
 
-    Image dbimage = projectDAO.findByImageNum(image.getImageNum());
+    Image dbimage = projectDAO.getByImageNum(image.getImageNum());
     logger.debug("image : {}", image);
     logger.debug("DBimage : {}", dbimage);
     assertEquals(image.getImagePath(), dbimage.getImagePath());

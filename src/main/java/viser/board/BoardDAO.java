@@ -137,7 +137,7 @@ public class BoardDAO {
     }
   }
 
-  public Board findByBoardNum(int boardNum) throws SQLException {
+  public Board getByBoardNum(int boardNum) throws SQLException {
     String sql = "select * from boards where Board_Num = ?";
     
     try {

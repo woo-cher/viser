@@ -52,7 +52,7 @@ public class BoardDAOTest {
     boardDAO.addBoard(board);
     board.setBoardNum(boardDAO.getBoardNum(board.getBoardName(), ProjectDAOTest.TEST_PROJECT.getProjectName()));
     logger.debug("board : {}", board);
-    Board dbBoard = boardDAO.findByBoardNum(board.getBoardNum());
+    Board dbBoard = boardDAO.getByBoardNum(board.getBoardNum());
     
     assertEquals(board.getBoardName(), dbBoard.getBoardName());
     logger.debug("dbBoard : {}", dbBoard);
@@ -62,7 +62,7 @@ public class BoardDAOTest {
     
     boardDAO.updateBoard(UpdateBoard.getBoardName(), dbBoard.getBoardName());
     logger.debug("boardNum = " + board.getBoardNum());
-    dbBoard = boardDAO.findByBoardNum(board.getBoardNum());
+    dbBoard = boardDAO.getByBoardNum(board.getBoardNum());
     assertEquals(dbBoard.getBoardName(), UpdateBoard.getBoardName());
   }
 

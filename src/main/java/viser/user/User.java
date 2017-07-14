@@ -158,7 +158,7 @@ public class User {
 
   public static boolean login(String userId, String password) throws Exception {
     UserDAO userDAO = new UserDAO();
-    User user = userDAO.findByUserId(userId);
+    User user = userDAO.getByUserId(userId);
     if (user == null) {
       throw new UserNotFoundException();
     }

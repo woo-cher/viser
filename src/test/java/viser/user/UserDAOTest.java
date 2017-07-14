@@ -30,20 +30,20 @@ public class UserDAOTest {
     userDAO.removeUser(user.getUserId());
     userDAO.addUser(user);
 
-    User dbUser = userDAO.findByUserId(user.getUserId());
+    User dbUser = userDAO.getByUserId(user.getUserId());
     assertEquals(dbUser, user);
 
     User updateUser = new User(user.getUserId(), "uPSW", "uName", "u25", "viser@visermail.net", "Her");
     userDAO.updateUser(updateUser);
 
-    dbUser = userDAO.findByUserId(updateUser.getUserId());
+    dbUser = userDAO.getByUserId(updateUser.getUserId());
     assertEquals(updateUser, dbUser);
   }
 
   @Test
-  public void findWhenNotExsitUser() throws Exception {
+  public void getWhenNotExsitUser() throws Exception {
     userDAO.removeUser(user.getUserId());
-    User dbUser = userDAO.findByUserId(user.getUserId());
+    User dbUser = userDAO.getByUserId(user.getUserId());
     assertNull(dbUser);
   }
 }

@@ -81,7 +81,7 @@ public class UserDAO {
     }
   }
 
-  public User findByUserId(String userId) throws SQLException {
+  public User getByUserId(String userId) throws SQLException {
     String sql = "select * from users where userId = ?";
 
     try {

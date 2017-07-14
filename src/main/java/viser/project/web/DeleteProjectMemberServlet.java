@@ -14,8 +14,8 @@ import org.slf4j.LoggerFactory;
 import viser.project.ProjectDAO;
 
 @WebServlet("/projects/kickProjectUser")
-public class KickUserServlet extends HttpServlet {
-  public static Logger logger = LoggerFactory.getLogger(KickUserServlet.class);
+public class DeleteProjectMemberServlet extends HttpServlet {
+  public static Logger logger = LoggerFactory.getLogger(DeleteProjectMemberServlet.class);
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,7 +27,7 @@ public class KickUserServlet extends HttpServlet {
 
     logger.debug("추방할 userId " + userId + "\n현재 프로젝트 =" + projectName);
     try {
-      projectDAO.KickProjectUser(userId, projectName);
+      projectDAO.removeProjectMember(userId, projectName);
 
       response.sendRedirect("/project/memberlist");
     } catch (Exception e) {

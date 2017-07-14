@@ -305,7 +305,7 @@ public class ProjectDAO {
     }
   }
 
-  public void KickProjectUser(String userId, String projectName) throws SQLException {
+  public void removeProjectMember(String userId, String projectName) throws SQLException {
     String sql = "delete from project_members where Project_Name = ? and userId = ?";
 
     try {
@@ -316,13 +316,13 @@ public class ProjectDAO {
 
       pstmt.executeUpdate();
     } catch (Exception e) {
-      logger.debug("Kick Action Fail" + e);
+      logger.debug("removeProjectMember error" + e.getMessage());
     } finally {
       SourceReturn();
     }
   }
 
-  public Project findByProjectName(String projectName) throws SQLException {
+  public Project getByProjectName(String projectName) throws SQLException {
     String sql = "select * from projects where Project_name = ?";
 
     try {
@@ -343,7 +343,7 @@ public class ProjectDAO {
     }
   }
 
-  public User findProjectMember(String projectName) throws SQLException {
+  public User getProjectMember(String projectName) throws SQLException {
     User user = new User();
 
     String sql = "select * from project_members where Project_name = ?";
@@ -367,7 +367,7 @@ public class ProjectDAO {
     }
   }
 
-  public Image findByImageNum(int imageNum) throws SQLException {
+  public Image getByImageNum(int imageNum) throws SQLException {
     String sql = "select * from imagechats where Image_Num = ?";
 
     try {

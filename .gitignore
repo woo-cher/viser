@@ -8,3 +8,4 @@ webapps/
 .classpath
 .project
 src/main/resources/db.properties
+/bin/

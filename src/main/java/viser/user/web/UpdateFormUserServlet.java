@@ -37,7 +37,7 @@ public class UpdateFormUserServlet extends HttpServlet {
     UserDAO userDAO = new UserDAO();
 
     try {
-      User user = userDAO.findByUserId(userId);
+      User user = userDAO.getByUserId(userId);
       request.setAttribute("isUpdate", true);
       request.setAttribute("user", user);
       RequestDispatcher rd = request.getRequestDispatcher("/modalpage/user.jsp");

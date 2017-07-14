@@ -37,7 +37,7 @@ public class LogInServlet extends HttpServlet {
       session.setAttribute(SESSION_USER_ID, userId);
       logger.debug("로그인 처리성공");
 
-      User user = userDAO.findByUserId(userId);
+      User user = userDAO.getByUserId(userId);
       session.setAttribute("userId", user.getUserId());
       session.setAttribute("isUpdate", true);
       session.setAttribute("user", user);

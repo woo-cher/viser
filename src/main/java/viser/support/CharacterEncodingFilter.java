@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 public class CharacterEncodingFilter implements Filter {
   private static final Logger logger = LoggerFactory.getLogger(CharacterEncodingFilter.class);
 
+  
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
     logger.info("Character encoding filter initing -> UTF-8");
@@ -25,6 +26,7 @@ public class CharacterEncodingFilter implements Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     request.setCharacterEncoding("UTF-8");
+    response.setCharacterEncoding("UTF-8");
     chain.doFilter(request, response);
   }
 

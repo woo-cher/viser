@@ -2,13 +2,10 @@ package viser.board;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -53,17 +50,21 @@ public class BoardDAOTest {
     board.setBoardNum(boardDAO.getBoardNum(board.getBoardName(), ProjectDAOTest.TEST_PROJECT.getProjectName()));
     logger.debug("board : {}", board);
     Board dbBoard = boardDAO.getByBoardNum(board.getBoardNum());
-    
+
     assertEquals(board.getBoardName(), dbBoard.getBoardName());
     logger.debug("dbBoard : {}", dbBoard);
 
-    Board UpdateBoard = new Board();
-    UpdateBoard.setBoardName("UpdateBoard");
-    
-    boardDAO.updateBoard(UpdateBoard.getBoardName(), dbBoard.getBoardName());
+    Board updateBoard = new Board();
+    updateBoard.setBoardName("UpdateBoard");
+    updateBoard.setBoardNum(dbBoard.getBoardNum());
+
+    boardDAO.updateBoard(updateBoard.getBoardName(), dbBoard.getBoardName());
     logger.debug("boardNum = " + board.getBoardNum());
     dbBoard = boardDAO.getByBoardNum(board.getBoardNum());
-    assertEquals(dbBoard.getBoardName(), UpdateBoard.getBoardName());
+    assertEquals(dbBoard.getBoardName(), updateBoard.getBoardName());
+
+    boardDAO.removeBoard(updateBoard.getBoardName());
+    assertNull(boardDAO.getByBoardNum(updateBoard.getBoardNum()));
   }
 
   @Test

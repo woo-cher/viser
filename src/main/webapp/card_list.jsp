@@ -47,11 +47,19 @@
 							<li class="ui-state-default card_margin currentListNum">
 									<div class="card_wrap_top">
 										<div>
-											<textarea class="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">${list.listName}</textarea>
+											<textarea id="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">${list.listName}</textarea>
 										</div>
 										<div>
 											<a id="${list.listNum }-card-add-btn" class="btn btn-default" data-toggle="modal" href="#cardmodal">카드 추가</a>
 											<script>
+											  $(function ()
+													    {
+													        $('#list_name').change(function () {
+													        	updateListName(${list.listNum },$('#list_name').val())
+													            alert($('#list_name').val());
+													        });
+													    });
+											
 												//형근: 카드를 생성할 때
 												$('#${list.listNum }-card-add-btn').click(function(){
 													cardListNum=${list.listNum};
@@ -291,10 +299,24 @@ function ajaxError(){
   
  </script>
   
-  <!-- 형근: textarea 영역을 늘여주는 함수 --> 
-  <script>
+<script>
+
+
+
 function resize(obj) {
   obj.style.height = "1px";
   obj.style.height = (12+obj.scrollHeight)+"px";
+}
+
+function updateListName(listNum,listName){
+	$.ajax({
+	type:'post',
+	data:{
+		num:listNum,
+		name:listName
+	},
+	url:"/lists/updateListName",
+	error:ajaxError
+	});
 }
 </script>

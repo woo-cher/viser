@@ -69,7 +69,7 @@ public class CardListDAO {
     return null;
   }
 
-  public List getList(int boardNum) {
+  public List getLists(int boardNum) {
     String sql = "select*from lists where Board_Num=? order by List_Order";
     CardDAO cardDAO = new CardDAO();
     List<CardList> list = new ArrayList<CardList>();
@@ -101,15 +101,15 @@ public class CardListDAO {
     return null;
   }
 
-  public void addList(int boardNum, String listName, int listOrder) {
+  public void addList(CardList list) {
     String sql = "insert into lists(Board_Num,List_Name,List_Order) values(?,?,?)";
 
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
-      pstmt.setInt(1, boardNum);
-      pstmt.setString(2, listName);
-      pstmt.setInt(3, listOrder);
+      pstmt.setInt(1, list.getBoardNum());
+      pstmt.setString(2, list.getListName());
+      pstmt.setInt(3, list.getListOrder());
       
       pstmt.executeUpdate();
     } catch (SQLException e) {
@@ -150,6 +150,22 @@ public class CardListDAO {
     } catch (SQLException e) {
       logger.debug("removeList error:" + e.getMessage());
     } finally {
+      SourceReturn();
+    }
+  }
+  
+  public void updateListName(int listNum,String listName){
+    String sql="update lists set List_Name=? where List_Num=?";
+    try {
+      conn=getConnection();
+      pstmt=conn.prepareStatement(sql);
+      pstmt.setString(1, listName);
+      pstmt.setInt(2, listNum);
+      pstmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    finally {
       SourceReturn();
     }
   }
@@ -452,4 +468,31 @@ public class CardListDAO {
       SourceReturn();
     }
   }
+  
+  CardList findByListNum(int listNum) throws SQLException{
+    String sql="select * from lists where List_Num=?";
+
+    conn=getConnection();
+    pstmt=conn.prepareStatement(sql);
+    pstmt.setInt(1, listNum);
+    
+    rs=pstmt.executeQuery();
+    
+    return new CardList(rs.getInt("List_Num"),rs.getInt("Board_Num"),rs.getString("List_Name"),rs.getInt("List_Order"));
+  }
+ 
+  int getListNum(CardList list) throws SQLException{
+    String sql="select List_Num from lists where BoardNum=? && List_Name=? && List_Order=?";
+    
+    conn=getConnection();
+    pstmt=conn.prepareStatement(sql);
+    pstmt.setInt(1, list.getBoardNum());
+    pstmt.setString(2, list.getListName());
+    pstmt.setInt(3, list.getListOrder());
+    
+    rs=pstmt.executeQuery();
+    
+    return rs.getInt("List_Num"); 
+  }
+  
 }

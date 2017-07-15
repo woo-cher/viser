@@ -56,17 +56,12 @@
 													    {
 													        $('#list_name').change(function () {
 													        	updateListName(${list.listNum },$('#list_name').val())
-													            alert($('#list_name').val());
 													        });
 													    });
 											
 												//형근: 카드를 생성할 때
 												$('#${list.listNum }-card-add-btn').click(function(){
-													cardListNum=${list.listNum};
-													currentCardOrder=$('#${list.listNum} li').length;
-													console.log(cardOrder);
-													console.log(cardListNum);
-													addCard();
+													addCard(${list.listNum},$('#${list.listNum} li').length);
 												});
 											</script>
 										</div>
@@ -82,8 +77,7 @@
 														//형근: 카드 내용을 읽고 수정 할때
 														$(document).ready(function(){
 															$('#${card.cardNum}-card-view-btn').click(function(){
-																currentCardNum=${card.cardNum};
-																viewCard();
+																viewCard({card.cardNum});
 															});
 														});
 													</script>
@@ -145,7 +139,7 @@ function upload_popup(){
 //카드 ajax
 var currentCardNum; //형근: 클릭한 카드 번호를 저장할 변수
 
-function viewCard(){
+function viewCard(currentCardNum){
 	$.ajax({
 		type:'get',
 		data:{
@@ -172,10 +166,7 @@ function viewCard(){
 	});
 }
 
-var cardListNum;  //형근: 새로 생성할 카드의 리스트 번호를 저장할 변수
-var currentCardOrder//형근: 리스트에 추가될 카드의 순서번호를 저장할 변수 
-
-function addCard(){
+function addCard(cardListNum,currentCardOrder){
 	$.ajax({
 		type:'get',
 		data:{
@@ -245,7 +236,7 @@ function ajaxError(){
 
   
   
-  //리스트간 카드 이동
+  //카드 이동
   var startListOrder;
   var updateListOrder;
   var startCardOrder;
@@ -259,7 +250,6 @@ function ajaxError(){
     		  if(updateListOrder==startListOrder){
 	         	  console.log('card receive: ' + updateListOrder);
 	              console.log('card update: '+ updateCardOrder);
-	              //changeCardOrder();
     		  }
           },
           receive:function(event, ui) { 
@@ -300,9 +290,7 @@ function ajaxError(){
  </script>
   
 <script>
-
-
-
+//리스트 이름에 변경에 사용되는 함수들
 function resize(obj) {
   obj.style.height = "1px";
   obj.style.height = (12+obj.scrollHeight)+"px";

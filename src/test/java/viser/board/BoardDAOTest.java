@@ -19,7 +19,7 @@ import viser.project.ProjectDAOTest;
 public class BoardDAOTest {
 
   private static final Logger logger = LoggerFactory.getLogger(BoardDAOTest.class);
-  private static Board TEST_BOARD = new Board("TEST_BOARD", ProjectDAOTest.TEST_PROJECT.getProjectName());
+  public static Board TEST_BOARD = new Board("TEST_BOARD", ProjectDAOTest.TEST_PROJECT.getProjectName());
   private ProjectDAO projectDAO;
   private BoardDAO boardDAO;
 
@@ -27,7 +27,6 @@ public class BoardDAOTest {
   public void setup() throws SQLException {
     boardDAO = new BoardDAO();
     projectDAO = new ProjectDAO();
-    projectDAO.removeProject(ProjectDAOTest.TEST_PROJECT.getProjectName());
     projectDAO.addProject(ProjectDAOTest.TEST_PROJECT);
   }
 
@@ -45,14 +44,13 @@ public class BoardDAOTest {
   @Test
   public void crud() throws SQLException {
     Board board = TEST_BOARD;
-    boardDAO.removeBoard(board.getBoardName());
     boardDAO.addBoard(board);
     board.setBoardNum(boardDAO.getBoardNum(board.getBoardName(), ProjectDAOTest.TEST_PROJECT.getProjectName()));
     logger.debug("board : {}", board);
+    
     Board dbBoard = boardDAO.getByBoardNum(board.getBoardNum());
-
-    assertEquals(board.getBoardName(), dbBoard.getBoardName());
     logger.debug("dbBoard : {}", dbBoard);
+    assertEquals(board.getBoardName(), dbBoard.getBoardName());
 
     Board updateBoard = new Board();
     updateBoard.setBoardName("UpdateBoard");

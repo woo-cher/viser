@@ -32,7 +32,7 @@ public class ReadCardListServlet extends HttpServlet {
 
     session.setAttribute("boardNum", boardNum);
 
-    list = cardListDAO.getList(boardNum);
+    list = cardListDAO.getLists(boardNum);
 
     request.setAttribute("lists", list);
 

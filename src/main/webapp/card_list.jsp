@@ -77,7 +77,7 @@
 														//형근: 카드 내용을 읽고 수정 할때
 														$(document).ready(function(){
 															$('#${card.cardNum}-card-view-btn').click(function(){
-																viewCard({card.cardNum});
+																viewCard(${card.cardNum});
 															});
 														});
 													</script>
@@ -248,21 +248,23 @@ function ajaxError(){
     		  updateListOrder=ui.item.parent().parent().parent().parent().index();
     		  updateCardOrder= ui.item.index();
     		  if(updateListOrder==startListOrder){
-	         	  console.log('card receive: ' + updateListOrder);
+    			  
+	         	  console.log('update> card receive: ' + updateListOrder);
 	              console.log('card update: '+ updateCardOrder);
+	              changeCardOrder();
     		  }
           },
           receive:function(event, ui) { 
     		  updateListOrder=ui.item.parent().parent().parent().parent().index();
     		  updateCardOrder= ui.item.index();
-    		  console.log('card receive: ' + updateListOrder);
+    		  console.log('receive> card receive: ' + updateListOrder);
               console.log('card update: '+ updateCardOrder);
               changeCardOrder();
           },
           start: function(event, ui) {
         	 startListOrder=ui.item.parent().parent().parent().parent().index();
     		 startCardOrder= ui.item.index();
-         	 console.log('card receive: ' + startListOrder);
+         	 console.log('start> card receive: ' + startListOrder);
              console.log('card start: ' + startCardOrder);
           },
           

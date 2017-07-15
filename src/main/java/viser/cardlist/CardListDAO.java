@@ -173,39 +173,23 @@ public class CardListDAO {
   // listNum : 기존 list 위치, changeOrder : 인덱스 변경 시, 사용할 순서 번호
   // 1. 변경된 위치 < 기존 리스트 순서 : 기존 리스트 순서 ~ 바뀐 리스트 전 리스트까지 sorting
   // 2. 기존 리스트 순서 < 바뀐 리스트 순서 : 기존 리스트 옆 ~ 바뀐 리스트까지 sorting
-  public void updateListOrder(int boardNum, int currentListOrder, int updateListOrder) {
-    int listNum = 0, changeOrder = 0;
+  public void updateListOrder(int boardNum, int currentListOrder, int changeListOrder) {
+    int listNum=0 ,changeOrder = 0;
     String sql, sql2;
     
-    sql = "select List_Num from lists where Board_Num=? && List_Order=?";
-    
-    try {
-      conn = getConnection();
-      pstmt = conn.prepareStatement(sql);
-      pstmt.setInt(1, boardNum);
-      pstmt.setInt(2, currentListOrder);
-      
-      rs = pstmt.executeQuery();
-      
-      while (rs.next()) {
-        listNum = rs.getInt("List_Num");
-      }
-    } catch (SQLException e) {
-      logger.debug("updateListOrder error:" + e.getMessage());
-    } finally {
-      SourceReturn();
-    }
+    CardList currentList=new CardList(boardNum,currentListOrder);
+    listNum=getListNum(currentList);
 
-    if (currentListOrder > updateListOrder) {
+    if (currentListOrder > changeListOrder) {
       sql = "select List_Num from lists where Board_Num=? && List_Order>=? && List_Order<?  order by List_Order asc";
       sql2 = "update lists set List_Order = ? where List_Num=?";
-      changeOrder = updateListOrder + 1;
+      changeOrder = changeListOrder + 1;
       
       try {
         conn = getConnection();
         pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, boardNum);
-        pstmt.setInt(2, updateListOrder);
+        pstmt.setInt(2, changeListOrder);
         pstmt.setInt(3, currentListOrder);
         
         rs = pstmt.executeQuery();
@@ -233,7 +217,7 @@ public class CardListDAO {
         pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, boardNum);
         pstmt.setInt(2, currentListOrder);
-        pstmt.setInt(3, updateListOrder);
+        pstmt.setInt(3, changeListOrder);
         
         rs = pstmt.executeQuery();
         
@@ -256,7 +240,7 @@ public class CardListDAO {
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
-      pstmt.setInt(1, updateListOrder);
+      pstmt.setInt(1, changeListOrder);
       pstmt.setInt(2, listNum);
       
       pstmt.executeUpdate();
@@ -267,44 +251,34 @@ public class CardListDAO {
     }
   }
 
-  // cardNum : 기존 위치의 카드 순서 번호, listNum1 : 추가 카드 번호, listnum2 : 삭제 카드 번호, changeOrder : 인덱스 변화시 사용 순서 번호
-  public void updateCardOrder(int boardNum, int currentListOrder, int updateListOrder, int currentCardOrder, int updateCardOrder) {
+  // cardNum : 기존 위치의 카드 순서 번호, listNum1 : 추가 카드의 리스트 번호, listnum2 : 삭제 카드의 리스트 번호, changeOrder : 인덱스 변화시 사용 순서 번호
+  public void updateCardOrder(int boardNum, int currentListOrder, int changeListOrder, int currentCardOrder, int changeCardOrder) {
     int cardNum = 0, listNum1 = 0, listNum2 = 0, changeOrder = 0;
     String sql, sql2;
     Timestamp date = new Timestamp(new Date().getTime());
     
-    // Find delete Card of listNum
-    sql = "select List_Num from lists where Board_Num=? && List_Order=?";
-   
-    try {
-      conn = getConnection();
-      pstmt = conn.prepareStatement(sql);
-      pstmt.setInt(1, boardNum);
-      pstmt.setInt(2, currentListOrder);
-      
-      rs = pstmt.executeQuery();
-      
-      while (rs.next()) {
-        listNum1 = listNum2 = rs.getInt("List_Num");
-      }
-    } catch (SQLException e) {
-      logger.debug("updateCardOrder error:" + e.getMessage());
-    } finally {
-      SourceReturn();
-    }
-
+    // Find listNum
+    CardList addedList=new CardList(boardNum,changeListOrder);
+    CardList removedList=new CardList(boardNum,currentListOrder);
+      listNum1=getListNum(addedList);
+      listNum2=getListNum(removedList);
+    
+    // Find Updated CardNum
+    CardDAO cardDAO=new CardDAO();
+    cardNum=cardDAO.getCardNum(listNum2, currentCardOrder);
+    
     // If Card drag in same list
-    if (currentListOrder == updateListOrder) {
-      if (currentListOrder > updateListOrder) {
+    if (currentListOrder == changeListOrder) {
+      if (currentCardOrder > changeCardOrder) {
         sql = "select Card_Num from cards where List_Num=? && Card_Order>=? && Card_Order<?  order by Card_Order asc";
         sql2 = "update cards set Card_Order = ? where Card_Num=?";
-        changeOrder = updateCardOrder + 1;
+        changeOrder = changeCardOrder + 1;
         
         try {
           conn = getConnection();
           pstmt = conn.prepareStatement(sql);
           pstmt.setInt(1, listNum2);
-          pstmt.setInt(2, updateCardOrder);
+          pstmt.setInt(2, changeCardOrder);
           pstmt.setInt(3, currentCardOrder);
           
           rs = pstmt.executeQuery();
@@ -333,7 +307,7 @@ public class CardListDAO {
           pstmt = conn.prepareStatement(sql);
           pstmt.setInt(1, listNum2);
           pstmt.setInt(2, currentCardOrder);
-          pstmt.setInt(3, updateCardOrder);
+          pstmt.setInt(3, changeCardOrder);
           
           rs = pstmt.executeQuery();
           
@@ -354,45 +328,6 @@ public class CardListDAO {
     
     // If drag Card in differ list
     else {
-      sql = "select List_Num from lists where Board_Num=? && List_Order=?";
-      
-      try {
-        conn = getConnection();
-        pstmt = conn.prepareStatement(sql);
-        pstmt.setInt(1, boardNum);
-        pstmt.setInt(2, updateListOrder);
-        
-        rs = pstmt.executeQuery();
-        
-        while (rs.next()) {
-          listNum1 = rs.getInt("List_Num");
-          logger.debug("listNum1:" + listNum1);
-        }
-      } catch (SQLException e) {
-        logger.debug("updateCardOrder error:" + e.getMessage());
-      } finally {
-        SourceReturn();
-      }
-      // // Find Update Card of listNum
-      sql = "select Card_Num from cards where List_Num=? && Card_Order=?";
-      
-      try {
-        conn = getConnection();
-        pstmt = conn.prepareStatement(sql);
-        pstmt.setInt(1, listNum2);
-        pstmt.setInt(2, currentCardOrder);
-        
-        rs = pstmt.executeQuery();
-        while (rs.next()) {
-          cardNum = rs.getInt("Card_Num");
-          logger.debug("드래그 된 카드 정보 알아내기:" + listNum2 + "  " + currentCardOrder + "   " + cardNum);
-        }
-      } catch (SQLException e) {
-        logger.debug("updateCardOrder error:" + e.getMessage());
-      } finally {
-        SourceReturn();
-      }
-      
       // 카드가 없어지는 리스트에 카드 번호 갱신
       changeOrder = currentCardOrder;
       sql = "select Card_Num from cards where List_Num=? && Card_Order>? order by Card_Order asc";
@@ -420,17 +355,17 @@ public class CardListDAO {
       }
 
       // 카드가 추가된 리스트에 카드 번호 갱신
-      changeOrder = updateCardOrder + 1;
+      changeOrder = changeCardOrder + 1;
       sql = "select Card_Num from cards where List_Num=? && Card_Order>=? order by Card_Order asc";
       
       try {
         conn = getConnection();
         pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, listNum1);
-        pstmt.setInt(2, updateCardOrder);
+        pstmt.setInt(2, changeCardOrder);
         
         rs = pstmt.executeQuery();
-        logger.debug("카드 추가되는 리스트:" + listNum1 + "    " + updateCardOrder);
+        logger.debug("카드 추가되는 리스트:" + listNum1 + "    " + changeCardOrder);
 
         sql2 = "update cards set Card_Order=? where Card_Num=?";
         
@@ -455,13 +390,13 @@ public class CardListDAO {
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
-      pstmt.setInt(1, updateCardOrder);
+      pstmt.setInt(1, changeCardOrder);
       pstmt.setTimestamp(2, date);
       pstmt.setInt(3, listNum1);
       pstmt.setInt(4, cardNum);
       
       pstmt.executeUpdate();
-      logger.debug("드래그 된 카드:" + updateCardOrder + "  " + listNum1 + "   " + cardNum);
+      logger.debug("드래그 된 카드:" +changeCardOrder +"  " + listNum1 + "   " + cardNum);
     } catch (SQLException e) {
       logger.debug("updateCardOrder error:" + e.getMessage());
     } finally {
@@ -469,30 +404,35 @@ public class CardListDAO {
     }
   }
   
-  CardList findByListNum(int listNum) throws SQLException{
+  CardList findByListNum(int listNum){
     String sql="select * from lists where List_Num=?";
-
-    conn=getConnection();
-    pstmt=conn.prepareStatement(sql);
-    pstmt.setInt(1, listNum);
-    
-    rs=pstmt.executeQuery();
-    
-    return new CardList(rs.getInt("List_Num"),rs.getInt("Board_Num"),rs.getString("List_Name"),rs.getInt("List_Order"));
+    try {
+      conn=getConnection();
+      pstmt=conn.prepareStatement(sql);
+      pstmt.setInt(1, listNum);
+      rs=pstmt.executeQuery();
+      while(rs.next())
+        return new CardList(rs.getInt("List_Num"),rs.getInt("Board_Num"),rs.getString("List_Name"),rs.getInt("List_Order"));
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
   }
  
-  int getListNum(CardList list) throws SQLException{
-    String sql="select List_Num from lists where BoardNum=? && List_Name=? && List_Order=?";
-    
-    conn=getConnection();
-    pstmt=conn.prepareStatement(sql);
-    pstmt.setInt(1, list.getBoardNum());
-    pstmt.setString(2, list.getListName());
-    pstmt.setInt(3, list.getListOrder());
-    
-    rs=pstmt.executeQuery();
-    
-    return rs.getInt("List_Num"); 
+  int getListNum(CardList list){
+    String sql="select List_Num from lists where Board_Num=? && List_Order=?";
+    try {
+      conn=getConnection();
+      pstmt=conn.prepareStatement(sql);
+      pstmt.setInt(1, list.getBoardNum());
+      pstmt.setInt(2, list.getListOrder());
+      rs=pstmt.executeQuery();
+      while(rs.next())
+        return rs.getInt("List_Num");  
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return 0;
   }
   
 }

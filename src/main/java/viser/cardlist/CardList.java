@@ -26,6 +26,11 @@ public class CardList {
     this.listName=listName;
     this.listOrder=listOrder;
   }
+  
+  public CardList(int borardNum, int listOrder) {
+    this.boardNum=borardNum;
+    this.listOrder=listOrder;
+  }
 
   public CardList(int listNum, int boardNum, String listName, int listOrder) {
     this.listNum=listNum;

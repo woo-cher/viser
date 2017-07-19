@@ -1,7 +1,6 @@
 package viser.cardlist.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import viser.cardlist.CardListDAO;
+import viser.card.CardDAO;
 
 @WebServlet("/lists/updateCardOrder")
 public class UpdateCardOrderServlet extends HttpServlet {
@@ -20,13 +19,13 @@ public class UpdateCardOrderServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    CardListDAO cardListDAO = new CardListDAO();
+    CardDAO cardDAO = new CardDAO();
     int boardNum = Integer.parseInt(request.getParameter("num"));
     int currentListOrder = Integer.parseInt(request.getParameter("currentList"));
     int updateListOrder = Integer.parseInt(request.getParameter("updateList"));
     int currentCardOrder = Integer.parseInt(request.getParameter("currentCard"));
     int updateCardOrder = Integer.parseInt(request.getParameter("updateCard"));
     logger.debug("UpdateCardOrderServlet : currentListOrder:" + currentListOrder + " updateListOrder:" + updateListOrder);
-    cardListDAO.updateCardOrder(boardNum, currentListOrder, updateListOrder, currentCardOrder, updateCardOrder);
+    cardDAO.updateCardOrder(boardNum, currentListOrder, updateListOrder, currentCardOrder, updateCardOrder);
   }
 }

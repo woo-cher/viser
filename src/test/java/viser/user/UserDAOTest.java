@@ -1,9 +1,13 @@
 package viser.user;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,16 +22,19 @@ public class UserDAOTest {
     user = UserTest.TEST_USER;
   }
 
+  @After
+  public void returns() throws SQLException{
+    userDAO.removeUser(user.getUserId());
+  }
+  
   @Test
   public void connection() throws Exception {
-    UserDAO userDAO = new UserDAO();
     Connection con = userDAO.getConnection();
     assertNotNull(con);
   }
 
   @Test
   public void crud() throws Exception {
-    userDAO.removeUser(user.getUserId());
     userDAO.addUser(user);
 
     User dbUser = userDAO.getByUserId(user.getUserId());
@@ -38,11 +45,15 @@ public class UserDAOTest {
 
     dbUser = userDAO.getByUserId(updateUser.getUserId());
     assertEquals(updateUser, dbUser);
+    
+    userDAO.removeUser(user.getUserId());
+    dbUser=null;
+    dbUser = userDAO.getByUserId(updateUser.getUserId());
+    assertNull(dbUser);
   }
 
   @Test
   public void getWhenNotExsitUser() throws Exception {
-    userDAO.removeUser(user.getUserId());
     User dbUser = userDAO.getByUserId(user.getUserId());
     assertNull(dbUser);
   }

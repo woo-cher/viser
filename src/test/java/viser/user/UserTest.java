@@ -3,19 +3,26 @@ package viser.user;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.sql.SQLException;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class UserTest {
-  public static User TEST_USER = new User("TestId", "PSW", "Name", "Age", "WooCher@viser.com", "Man");
+  public static User TEST_USER = new User("TestId", "PSW", "Name", "Age", "test@viser.com", "Man");
   private UserDAO userDAO;
 
   @Before
   public void setUp() throws Exception {
     userDAO = new UserDAO();
-    userDAO.removeUser(TEST_USER.getUserId());
   }
 
+  @After
+  public void returns() throws SQLException{
+    userDAO.removeUser(TEST_USER.getUserId());
+  }
+  
   @Test
   public void matchPassword() {
     assertTrue(TEST_USER.matchPassword("PSW"));
@@ -39,7 +46,6 @@ public class UserTest {
 
   @Test
   public void login() throws Exception {
-    userDAO.removeUser(TEST_USER.getUserId());
     userDAO.addUser(TEST_USER);
     assertTrue(User.login(TEST_USER.getUserId(), TEST_USER.getPassword()));
   }

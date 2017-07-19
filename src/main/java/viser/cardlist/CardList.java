@@ -22,11 +22,6 @@ public class CardList {
     this.listOrder=listOrder;
   }
 
-  public CardList(String listName, int listOrder) {
-    this.listName=listName;
-    this.listOrder=listOrder;
-  }
-  
   public CardList(int borardNum, int listOrder) {
     this.boardNum=borardNum;
     this.listOrder=listOrder;
@@ -37,6 +32,13 @@ public class CardList {
     this.boardNum=boardNum;
     this.listName=listName;
     this.listOrder=listOrder;
+  }
+
+  public CardList(CardList list) {
+    this.boardNum=list.boardNum;
+    this.listName=list.listName;
+    this.listNum=list.listNum;
+    this.listOrder=list.listOrder;
   }
 
   public int getListNum() {
@@ -82,6 +84,46 @@ public class CardList {
   @Override
   public String toString() {
     return "CardList [listNum=" + listNum + ", boardNum=" + boardNum + ", listName=" + listName + ", listOrder=" + listOrder + ", cards=" + cards + "]";
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + boardNum;
+    result = prime * result + ((cards == null) ? 0 : cards.hashCode());
+    result = prime * result + ((listName == null) ? 0 : listName.hashCode());
+    result = prime * result + listNum;
+    result = prime * result + listOrder;
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    CardList other = (CardList) obj;
+    if (boardNum != other.boardNum)
+      return false;
+    if (cards == null) {
+      if (other.cards != null)
+        return false;
+    } else if (!cards.equals(other.cards))
+      return false;
+    if (listName == null) {
+      if (other.listName != null)
+        return false;
+    } else if (!listName.equals(other.listName))
+      return false;
+    if (listNum != other.listNum)
+      return false;
+    if (listOrder != other.listOrder)
+      return false;
+    return true;
   }
 
 }

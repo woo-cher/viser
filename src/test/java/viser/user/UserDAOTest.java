@@ -11,6 +11,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import viser.dao.user.UserDAO;
+import viser.domain.user.User;
+
 public class UserDAOTest {
 
   private UserDAO userDAO;

@@ -11,6 +11,8 @@ import javax.validation.ValidatorFactory;
 
 import org.junit.*;
 
+import viser.domain.user.User;
+
 public class UserValidatorTest {
 
   private static Validator validator;

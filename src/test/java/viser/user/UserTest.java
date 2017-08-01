@@ -9,6 +9,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import viser.dao.user.UserDAO;
+import viser.domain.user.PasswordMismatchException;
+import viser.domain.user.User;
+import viser.domain.user.UserNotFoundException;
+
 public class UserTest {
   public static User TEST_USER = new User("TestId", "PSW", "Name", "Age", "test@viser.com", "Man");
   private UserDAO userDAO;

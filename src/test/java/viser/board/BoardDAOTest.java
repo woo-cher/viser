@@ -13,7 +13,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import viser.project.ProjectDAO;
+import viser.dao.board.BoardDAO;
+import viser.dao.project.ProjectDAO;
+import viser.domain.board.Board;
 import viser.project.ProjectDAOTest;
 
 public class BoardDAOTest {

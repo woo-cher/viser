@@ -1,6 +1,8 @@
 package viser.cardlist;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -15,10 +17,8 @@ import org.slf4j.LoggerFactory;
 
 import viser.board.BoardDAOTest;
 import viser.dao.board.BoardDAO;
-import viser.dao.card.CardDAO;
 import viser.dao.cardlist.CardListDAO;
 import viser.dao.project.ProjectDAO;
-import viser.domain.card.Card;
 import viser.domain.cardlist.CardList;
 import viser.project.ProjectDAOTest;
 
@@ -28,6 +28,9 @@ public class CardListDAOTest {
   private BoardDAO boardDAO;
   private CardListDAO cardListDAO;
   private int boardNum;
+  private CardList listA;
+  private CardList listB;
+  private CardList listC;
 
   @Before
   public void setUp() throws SQLException {
@@ -38,6 +41,10 @@ public class CardListDAOTest {
     projectDAO.addProject(ProjectDAOTest.TEST_PROJECT);
     boardDAO.addBoard(BoardDAOTest.TEST_BOARD);
     boardNum=boardDAO.getBoardNum(BoardDAOTest.TEST_BOARD.getBoardName(), BoardDAOTest.TEST_BOARD.getProjectName());
+    
+    listA=new CardList(boardNum,"TEST_LIST_A",0);
+    listB=new CardList(boardNum,"TEST_LIST_B",1);
+    listC=new CardList(boardNum,"TEST_LIST_C",2);
   }
 
   @After
@@ -53,29 +60,30 @@ public class CardListDAOTest {
 
   @Test
   public void crud() throws Exception {
-    CardList testCardList = new CardList(boardNum,"TEST_LIST", 0);
-    
     //create
-    cardListDAO.addList(testCardList);
-    int listNum=cardListDAO.getListNum(testCardList.getBoardNum(),testCardList.getListOrder());
-    testCardList.setListNum(listNum);
-    logger.debug("CREATE TEST_CARDLIST: {}",testCardList);
+    cardListDAO.addList(listA);
+    cardListDAO.addList(listB);
+    cardListDAO.addList(listC);
+    int listNum=cardListDAO.getListNum(listA.getBoardNum(),listA.getListOrder());
+    listA.setListNum(listNum);
+    logger.debug("CREATE TEST_CARDLIST: {}",listA);
     
     //update
-    testCardList.setListName("UPDATE_TEST");
+    listA.setListName("UPDATE_TEST");
     cardListDAO.updateListName(listNum, "UPDATE_TEST");
-    logger.debug("UPDATE TEST_CARDLIST: {}",testCardList);
+    logger.debug("UPDATE TEST_CARDLIST: {}",listA);
     CardList dbList=cardListDAO.findByListNum(listNum);
-    assertEquals(dbList,testCardList);
+    assertEquals(dbList,listA);
     
     //read
-    List<CardList> dbLists=cardListDAO.getLists(testCardList.getBoardNum());
+    List<CardList> dbLists=cardListDAO.getLists(listA.getBoardNum());
     logger.debug("READ CARDLISTS: {}",dbLists);
     assertNotNull(dbLists);
     
     //delete
-    cardListDAO.removeList(testCardList.getBoardNum(), testCardList.getListOrder());
+    cardListDAO.removeList(listA.getBoardNum(), listA.getListOrder());
     assertNull(cardListDAO.findByListNum(listNum));
+    logger.debug("CardList : {}",cardListDAO.getLists(boardNum));
   }
   
   @Test
@@ -83,9 +91,6 @@ public class CardListDAOTest {
     //create
     List<Integer> standardOrders=new ArrayList<Integer>();
     List<Integer> dbOrders=new ArrayList<Integer>();
-    CardList listA=new CardList(boardNum,"TEST_LIST_A",0);
-    CardList listB=new CardList(boardNum,"TEST_LIST_B",1);
-    CardList listC=new CardList(boardNum,"TEST_LIST_C",2);
     cardListDAO.addList(listA);
     cardListDAO.addList(listB);
     cardListDAO.addList(listC);

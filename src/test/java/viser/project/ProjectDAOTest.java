@@ -30,13 +30,16 @@ public class ProjectDAOTest {
   public void setup() throws SQLException {
     projectDAO = new ProjectDAO();
     userDAO = new UserDAO();
-    projectDAO.removeProject(ProjectDAOTest.TEST_PROJECT.getProjectName());
     projectDAO.addProject(ProjectDAOTest.TEST_PROJECT);
+    projectDAO.addProject(new Project("TEST_PROJECT2"));
+    projectDAO.addProject(new Project("TEST_PROJECT3"));
   }
 
   @After
   public void returns() throws SQLException {
     projectDAO.removeProject(ProjectDAOTest.TEST_PROJECT.getProjectName());
+    projectDAO.removeProject("TEST_PROJECT2");
+    projectDAO.removeProject("TEST_PROJECT3");
   }
 
   @Test
@@ -64,11 +67,12 @@ public class ProjectDAOTest {
     List ProjectMemberlist = new ArrayList();
     List Projectlist = new ArrayList();
 
-    userDAO.removeUser(user.getUserId());
     userDAO.addUser(user);
 
     // invite Test
     projectDAO.InviteUser(user.getUserId(), TEST_PROJECT.getProjectName(), 0);
+    projectDAO.InviteUser(user.getUserId(), "TEST_PROJECT2", 0);
+    projectDAO.InviteUser(user.getUserId(), "TEST_PROJECT3", 0);
     User invitedUser = projectDAO.getProjectMember(TEST_PROJECT.getProjectName());
     assertEquals(user.getUserId(), invitedUser.getUserId());
 

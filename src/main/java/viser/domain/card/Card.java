@@ -12,8 +12,9 @@ public class Card {
   private int listNum;
   private int cardOrder;
 
+  public Card() {}
+  
   public Card(int cardNum, String userId, String subject, String content, Date modifyTime, int listNum, int cardOrder) {
-    super();
     this.cardNum = cardNum;
     this.userId = userId;
     this.subject = subject;
@@ -31,9 +32,6 @@ public class Card {
     this.cardOrder = cardOrder;
   }
 
-  public Card() {
-
-  }
 
   public Card(int listNum, int cardOrder) {
     this.listNum = listNum;

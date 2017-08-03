@@ -24,9 +24,6 @@ public class BoardDAO {
   PreparedStatement pstmt = null;
   ResultSet rs = null;
 
-  PreparedStatement pstmt2 = null;
-  ResultSet rs2 = null;
-
   public void SourceReturn() throws SQLException {
     if (this.conn != null) {
       conn.close();

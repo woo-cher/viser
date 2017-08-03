@@ -25,9 +25,7 @@ public class ProjectDAO {
   Connection conn = null;
   PreparedStatement pstmt = null;
   ResultSet rs = null;
-  PreparedStatement pstmt2 = null;
-  ResultSet rs2 = null;
-
+  
   private static final Logger logger = LoggerFactory.getLogger(ProjectDAO.class);
 
   public void SourceReturn() {
@@ -101,31 +99,21 @@ public class ProjectDAO {
 
   public List getProjectList(String userId) throws SQLException {
     List projects = new ArrayList();
-    String sql = "select * from project_members where userId=?";
-    String sql2 = "select * from projects where Project_Name=?";
+    String sql= "select * from projects where Project_Name in (select Project_Name from project_members where userId=?)";
 
     try {
       conn = getConnection();
       pstmt = conn.prepareStatement(sql);
-      pstmt2 = conn.prepareStatement(sql2);
       pstmt.setString(1, userId);
 
       rs = pstmt.executeQuery();
-
-      while (rs.next()) {
-        pstmt2.setString(1, rs.getString("Project_name"));
-        rs2 = pstmt2.executeQuery();
-
-        while (rs2.next()) {
+        while (rs.next()) {
           Project project = new Project();
-          project.setProjectName(rs2.getString("Project_name"));
-          project.setProjectDate(rs2.getDate("Project_Date"));
+          project.setProjectName(rs.getString("Project_name"));
+          project.setProjectDate(rs.getDate("Project_Date"));
           projects.add(project);
         }
-      }
-
-      return projects;
-
+        return projects;
     } catch (Exception e) {
       logger.debug("getProjectList Error : " + e);
     } finally {

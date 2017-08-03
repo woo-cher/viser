@@ -53,7 +53,7 @@ public class LogInServlet extends HttpServlet {
 
   private void errorForward(HttpServletRequest request, HttpServletResponse response, String errorMessage) throws ServletException, IOException {
     request.setAttribute("errorMessage", errorMessage);
-    RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
     rd.forward(request, response);
   }
 

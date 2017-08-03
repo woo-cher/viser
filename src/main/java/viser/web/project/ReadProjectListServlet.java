@@ -37,7 +37,7 @@ public class ReadProjectListServlet extends HttpServlet {
       request.setAttribute("isReadProject", true);
       request.setAttribute("list", projectlist);
 
-      RequestDispatcher rd = request.getRequestDispatcher("/list.jsp");
+      RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/list.jsp");
       rd.forward(request, response);
     } catch (SQLException e) {
       logger.debug("ReadProjectListServlet error:" + e.getMessage());

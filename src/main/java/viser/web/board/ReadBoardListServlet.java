@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import viser.dao.board.BoardDAO;
-import viser.domain.project.Project;
 
 @WebServlet("/board/boardlist")
 public class ReadBoardListServlet extends HttpServlet {
@@ -39,7 +38,7 @@ public class ReadBoardListServlet extends HttpServlet {
       request.setAttribute("isReadBoard", true);
       request.setAttribute("list", boardlist = boardDAO.getBoardList(projectName));
 
-      RequestDispatcher rd = request.getRequestDispatcher("/list.jsp");
+      RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/list.jsp");
       rd.forward(request, response);
 
     } catch (SQLException e) {

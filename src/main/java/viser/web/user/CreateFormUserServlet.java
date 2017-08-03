@@ -16,7 +16,7 @@ public class CreateFormUserServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     request.setAttribute("user", new User());
-    RequestDispatcher rd = request.getRequestDispatcher("/modalpage/user.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modalpage/user.jsp");
     rd.forward(request, response);
   }
 }

@@ -2,7 +2,6 @@ package viser.web.user;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
@@ -46,12 +45,12 @@ public class CreateUserServlet extends HttpServlet {
       userDAO.addUser(user);
     } catch (SQLException e) {
     }
-    response.sendRedirect("/index.jsp");
+    response.sendRedirect("/WEB-INF/jsp/index.jsp");
   }
 
   private void errorForward(HttpServletRequest request, HttpServletResponse response, String errorMessage) throws ServletException, IOException {
     request.setAttribute("formErrorMessage", errorMessage);
-    RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
     rd.forward(request, response);
   }
 }

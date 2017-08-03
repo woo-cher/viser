@@ -41,7 +41,7 @@
 		  </div>  
 		<div id="card-container" style = "overflow-x: auto;"> 
 			  	<div id="tt" style="overflow:auto; width:10000px; text-align: left; ">  
-					<%@include file = "/modalpage/card.jsp"%>
+					<%@include file = "/WEB-INF/jsp/modalpage/card.jsp"%>
 					<ul id="sortable_box" class = "boxsort">  		
 						<c:forEach var="list" items="${lists}" varStatus="status">
 							<li class="ui-state-default card_margin currentListNum">
@@ -121,8 +121,8 @@
 			</div>
 			</div>
 		</div>
-		<%@include file = "/modalpage/upload.jsp"%>  <!-- 업로드 추가  -->
-		<%@include file = "./modalpage/invite.jsp" %>
+		<%@include file = "/WEB-INF/jsp/modalpage/upload.jsp"%>  <!-- 업로드 추가  -->
+		<%@include file = "/WEB-INF/jsp/modalpage/invite.jsp" %>
 	</div> 
 </body>
 <%@ include file="./commons/bottom.jspf"%>

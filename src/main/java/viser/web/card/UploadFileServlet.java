@@ -30,6 +30,6 @@ public class UploadFileServlet extends HttpServlet {
     final String path = request.getRealPath("/upload_file");
     MultipartRequest mr = new MultipartRequest(request, path, 1024 * 1024 * 5, "utf-8", new DefaultFileRenamePolicy());
 
-    response.sendRedirect("/index.jsp");
+    response.sendRedirect("/WEB-INF/jsp/index.jsp");
   }
 }

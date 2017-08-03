@@ -37,7 +37,7 @@ public class ReadCardListServlet extends HttpServlet {
     request.setAttribute("lists", list);
 
     logger.debug("ReadCardListServlet db에서 가져온 lists:" + list);
-    RequestDispatcher rd = request.getRequestDispatcher("/card_list.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/card_list.jsp");
     rd.forward(request, response);
   }
 }

@@ -40,7 +40,7 @@ public class UpdateFormUserServlet extends HttpServlet {
       User user = userDAO.getByUserId(userId);
       request.setAttribute("isUpdate", true);
       request.setAttribute("user", user);
-      RequestDispatcher rd = request.getRequestDispatcher("/modalpage/user.jsp");
+      RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modalpage/user.jsp");
       rd.forward(request, response);
 
     } catch (SQLException e) {

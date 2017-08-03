@@ -42,7 +42,7 @@ public class ReadProjectMemberListServlet extends HttpServlet {
           request.setAttribute("isMaster", true);
         }
       }
-      RequestDispatcher rd = request.getRequestDispatcher("/member.jsp");
+      RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/member.jsp");
       rd.forward(request, response);
 
     } catch (Exception e) {

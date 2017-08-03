@@ -7,5 +7,5 @@ webapps/
 .settings
 .classpath
 .project
-src/main/resources/db.properties
 /bin/
+src/main/resources/application-properties.xml

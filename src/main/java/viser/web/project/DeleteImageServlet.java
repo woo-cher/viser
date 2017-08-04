@@ -24,18 +24,14 @@ public class DeleteImageServlet extends HttpServlet {
     ProjectDAO projectDAO = new ProjectDAO();
     final String imagePath = request.getParameter("Image_Path");
     final File f = new File("C:/web-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/viser" + imagePath);
-
     try {
       if (f.delete()) {
         logger.debug("파일 삭제 성공");
-      } else {
-        logger.debug("파일 삭제 실패");
       }
       projectDAO.removeImage(imagePath);
-    } catch (SQLException e) {
-      logger.debug("DeleteImageServlet error:" + e.getMessage());
-    } finally {
       response.sendRedirect("/project/imagelist");
+    } catch (IOException e) {
+      logger.debug("파일 삭제 실패");
     }
   }
 }

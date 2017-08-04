@@ -43,12 +43,6 @@ public class ProjectDAOTest {
   }
 
   @Test
-  public void Connection() throws SQLException {
-    Connection con = projectDAO.getConnection();
-    assertNotNull(con);
-  }
-
-  @Test
   public void projectCrud() throws SQLException {
     Project dbProject = projectDAO.getByProjectName(TEST_PROJECT.getProjectName());
     assertEquals(TEST_PROJECT.getProjectName(), dbProject.getProjectName());

@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import viser.dao.project.ProjectDAO;
 import viser.domain.project.Project;
+import viser.service.support.SessionUtils;
 
 @WebServlet("/project/projectlist")
 public class ReadProjectListServlet extends HttpServlet {
@@ -28,19 +29,15 @@ public class ReadProjectListServlet extends HttpServlet {
     HttpSession session = request.getSession();
     List<Project> projectlist = new ArrayList<Project>();
     ProjectDAO projectDAO = new ProjectDAO();
-    
+    SessionUtils sessionUtils=new SessionUtils();
+
     session.removeAttribute("projectName");
-    logger.debug("ReadProjectListServlet에서 세션에서 불러온  projectname:" + (String) session.getAttribute("projectname"));
 
-    try {
-      projectlist = projectDAO.getProjectList((String) session.getAttribute("userId"));
-      request.setAttribute("isReadProject", true);
-      request.setAttribute("list", projectlist);
+    projectlist = projectDAO.getProjectList(sessionUtils.getStringValue(session, "userId"));
+    request.setAttribute("isReadProject", true);
+    request.setAttribute("list", projectlist);
 
-      RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/list.jsp");
-      rd.forward(request, response);
-    } catch (SQLException e) {
-      logger.debug("ReadProjectListServlet error:" + e.getMessage());
-    }
+    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/list.jsp");
+    rd.forward(request, response);
   }
 }

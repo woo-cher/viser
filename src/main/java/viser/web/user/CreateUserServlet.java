@@ -19,7 +19,7 @@ import viser.service.support.MyvalidatorFactory;
 
 @WebServlet("/users/create")
 public class CreateUserServlet extends HttpServlet {
-  
+
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String userId = request.getParameter("userId");
@@ -41,10 +41,8 @@ public class CreateUserServlet extends HttpServlet {
     }
 
     UserDAO userDAO = new UserDAO();
-    try {
-      userDAO.addUser(user);
-    } catch (SQLException e) {
-    }
+    userDAO.addUser(user);
+
     response.sendRedirect("/WEB-INF/jsp/index.jsp");
   }
 

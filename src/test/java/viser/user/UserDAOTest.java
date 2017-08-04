@@ -31,12 +31,6 @@ public class UserDAOTest {
   }
   
   @Test
-  public void connection() throws Exception {
-    Connection con = userDAO.getConnection();
-    assertNotNull(con);
-  }
-
-  @Test
   public void crud() throws Exception {
     userDAO.addUser(user);
 

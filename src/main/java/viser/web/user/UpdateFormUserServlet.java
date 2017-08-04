@@ -33,17 +33,13 @@ public class UpdateFormUserServlet extends HttpServlet {
       return;
     }
     logger.debug("User Id : " + userId);
-    
+
     UserDAO userDAO = new UserDAO();
 
-    try {
-      User user = userDAO.getByUserId(userId);
-      request.setAttribute("isUpdate", true);
-      request.setAttribute("user", user);
-      RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modalpage/user.jsp");
-      rd.forward(request, response);
-
-    } catch (SQLException e) {
-    }
+    User user = userDAO.getByUserId(userId);
+    request.setAttribute("isUpdate", true);
+    request.setAttribute("user", user);
+    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modalpage/user.jsp");
+    rd.forward(request, response);
   }
 }

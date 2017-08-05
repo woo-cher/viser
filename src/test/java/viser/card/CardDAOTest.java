@@ -55,12 +55,6 @@ public class CardDAOTest {
   }
 
   @Test
-  public void connection() {
-    Connection conn = cardDAO.getConnection();
-    assertNotNull(conn);
-  }
-
-  @Test
   public void crud() throws Exception {
     CardList list = new CardList(boardNum, "TEST_LIST1", 0);
     cardListDAO.addList(list);

@@ -38,12 +38,6 @@ public class BoardDAOTest {
   }
 
   @Test
-  public void Connection() throws SQLException {
-    Connection con = boardDAO.getConnection();
-    assertNotNull(con);
-  }
-
-  @Test
   public void crud() throws SQLException {
     Board board = TEST_BOARD;
     boardDAO.addBoard(board);

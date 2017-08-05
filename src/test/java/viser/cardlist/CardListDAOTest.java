@@ -53,12 +53,6 @@ public class CardListDAOTest {
   }
   
   @Test
-  public void connection() {
-    Connection conn = cardListDAO.getConnection();
-    assertNotNull(conn);
-  }
-
-  @Test
   public void crud() throws Exception {
     //create
     cardListDAO.addList(listA);
@@ -83,7 +77,7 @@ public class CardListDAOTest {
     //delete
     cardListDAO.removeList(listA.getBoardNum(), listA.getListOrder());
     assertNull(cardListDAO.findByListNum(listNum));
-    logger.debug("CardList : {}",cardListDAO.getLists(boardNum));
+    logger.debug("AFTER DELETE CARDLIST : {}",cardListDAO.getLists(boardNum));
   }
   
   @Test

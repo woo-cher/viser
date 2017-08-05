@@ -27,48 +27,6 @@ import viser.service.support.jdbc.RowMapper;
 public class ProjectDAO {
   private static final Logger logger = LoggerFactory.getLogger(ProjectDAO.class);
   JdbcTemplate jdbc = new JdbcTemplate();
-  Connection conn;
-  PreparedStatement pstmt;
-  ResultSet rs;
-
-  public Connection getConnection() {
-    Properties props = new Properties();
-    InputStream in = ProjectDAO.class.getResourceAsStream("/db.properties");
-    try {
-      props.load(in);
-      in.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    String driver = props.getProperty("jdbc.driver");
-    String url = props.getProperty("jdbc.url");
-    String username = props.getProperty("jdbc.username");
-    String password = props.getProperty("jdbc.password");
-    try {
-      Class.forName(driver);
-      return DriverManager.getConnection(url, username, password);
-    } catch (Exception e) {
-      logger.debug(e.getMessage());
-      return null;
-    }
-  }
-
-  public void SourceReturn() {
-    try {
-      if (this.conn != null) {
-        conn.close();
-      }
-      if (this.pstmt != null) {
-        pstmt.close();
-      }
-      if (this.rs != null) {
-        rs.close();
-      }
-    } catch (SQLException e) {
-      logger.debug("sourceReturn error:" + e.getMessage());
-    }
-  }
-  //
 
   public List getProjectMemberList(String projectName) {
     List list = new ArrayList();

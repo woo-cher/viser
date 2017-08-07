@@ -1,7 +1,7 @@
 package viser.web.project;
 
-import java.io.*;
-import java.sql.SQLException;
+import java.io.File;
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import viser.dao.project.ProjectDAO;
 
-// 현재는 절대주소라서 추후에 상대경로로 변경하거나 서버 경로로 변경 필요함
 @WebServlet("/project/imagedelete")
 public class DeleteImageServlet extends HttpServlet {
   public static Logger logger = LoggerFactory.getLogger(DeleteImageServlet.class);

@@ -1,21 +1,26 @@
 package viser.user;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import viser.dao.user.UserDAO;
 import viser.domain.user.User;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:/applicationContext.xml")
 public class UserDAOTest {
 
+  @Autowired
   private UserDAO userDAO;
   private User user;
 

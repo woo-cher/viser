@@ -1,4 +1,4 @@
-package viser.domain.project;
+package viser.service;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -16,7 +16,6 @@ import javax.websocket.server.ServerEndpoint;
 public class WebsocketChat {
   private static Set<Session> clients = Collections.synchronizedSet(new HashSet<Session>());
 
-  // 클라이언트로 부터 메세지가 도착
   @OnMessage
   public void onMessage(String message, Session session) throws IOException {
     synchronized (clients) {
@@ -24,7 +23,6 @@ public class WebsocketChat {
         if (!client.equals(session)) {
           System.out.println("브로드캐스팅");
 
-          // 용량
           client.setMaxTextMessageBufferSize(10000000);
           client.getBasicRemote().sendText(message);
         }

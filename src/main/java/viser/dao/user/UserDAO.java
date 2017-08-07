@@ -1,13 +1,8 @@
 package viser.dao.user;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,17 +31,17 @@ public class UserDAO {
     });
   }
 
-  public User getByUserId(String userId){
+  public User getByUserId(String userId) {
     String sql = "select * from users where userId = ?";
     return jdbc.executeQuery(sql, new PreparedStatementSetter() {
       @Override
       public void setParameters(PreparedStatement pstmt) throws SQLException {
-        pstmt.setString(1, userId); 
+        pstmt.setString(1, userId);
       }
     }, new RowMapper() {
       @Override
       public User mapRow(ResultSet rs) throws SQLException {
-        while(!rs.next())
+        while (!rs.next())
           return null;
         return new User(rs.getString("userId"), rs.getString("password"), rs.getString("name"), rs.getString("age"), rs.getString("email"), rs.getString("gender"));
       }

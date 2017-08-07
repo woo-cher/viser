@@ -59,7 +59,6 @@
 													        });
 													    });
 											
-												//형근: 카드를 생성할 때
 												$('#${list.listNum }-card-add-btn').click(function(){
 													addCard(${list.listNum},$('#${list.listNum} li').length);
 												});
@@ -74,7 +73,6 @@
 													<li id="${card.cardNum }"class="ui-state-default">
 													<a id="${card.cardNum}-card-view-btn" class="card-modal-btn" data-toggle="modal" href="#cardmodal">${card.subject}</a>
 													<script>
-														//형근: 카드 내용을 읽고 수정 할때
 														$(document).ready(function(){
 															$('#${card.cardNum}-card-view-btn').click(function(){
 																viewCard(${card.cardNum});
@@ -136,8 +134,7 @@ function upload_popup(){
 
 
 <script>
-//카드 ajax
-var currentCardNum; //형근: 클릭한 카드 번호를 저장할 변수
+var currentCardNum;
 
 function viewCard(currentCardNum){
 	$.ajax({
@@ -176,7 +173,7 @@ function addCard(cardListNum,currentCardOrder){
 		url:"/cards/createcardForm",
 		dataType:'json',
 		success:function (data){
-			$('#cardSubject').val(data.subject); //카드 읽기에서 가져온 데이터는 삭제
+			$('#cardSubject').val(data.subject);
 			$('#cardContent').val(data.content);
 			$('#card-field').attr("action","/cards/createcard");
 			$('#Title').html("<h2>CREATE_Card</h2>");
@@ -200,7 +197,6 @@ function ajaxError(){
 
  <script>
  
-  //리스트 이동
  var boardNum=${boardNum};
  var startListOrder;
  var updateListOrder;
@@ -234,9 +230,6 @@ function ajaxError(){
 		});		  
 	}
 
-  
-  
-  //카드 이동
   var startListOrder;
   var updateListOrder;
   var startCardOrder;
@@ -272,7 +265,6 @@ function ajaxError(){
     }).disableSelection();
   } ); 
   
-  
   function changeCardOrder(){
 	  	$.ajax({
 	  		type:'get',
@@ -292,7 +284,6 @@ function ajaxError(){
  </script>
   
 <script>
-//리스트 이름에 변경에 사용되는 함수들
 function resize(obj) {
   obj.style.height = "1px";
   obj.style.height = (12+obj.scrollHeight)+"px";

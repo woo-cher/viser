@@ -31,7 +31,6 @@ public class ReadProjectMemberListServlet extends HttpServlet {
       memberlist = projectDAO.getProjectMemberList((String) session.getAttribute("projectName")); 
       request.setAttribute("memberlist", memberlist);
 
-      // 로그인 유저 권한 체크
       for (ProjectMember pm : memberlist) {
                                          
         logger.debug("관리자 권한 확인 반복문 시작");

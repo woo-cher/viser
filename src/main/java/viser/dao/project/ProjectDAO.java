@@ -1,9 +1,5 @@
 package viser.dao.project;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +7,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -151,7 +146,6 @@ public class ProjectDAO {
     });
   }
 
-  // issue #105
   public List getUserList(String keyword, String loginUser) {
     String sql = "select * from users where not userId = ? and userId " + " like '%" + keyword.trim() + "%' order by age";
     return jdbc.list(sql, new PreparedStatementSetter() {

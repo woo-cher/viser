@@ -47,15 +47,15 @@
 							<li class="ui-state-default card_margin currentListNum">
 									<div class="card_wrap_top">
 										<div>
-											<textarea id="list_name" onkeydown="resize(this)" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">${list.listName}</textarea>
+											<textarea class="list_name" id="${list.listNum }-list-name" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">${list.listName}</textarea>
 										</div>
 										<div>
 											<a id="${list.listNum }-card-add-btn" class="btn btn-default" data-toggle="modal" href="#cardmodal">카드 추가</a>
 											<script>
 											  $(function ()
 													    {
-													        $('#list_name').change(function () {
-													        	updateListName(${list.listNum },$('#list_name').val())
+													        $('#'+${list.listNum }+'-list-name').change(function () {
+													        	updateListName(${list.listNum },$('#'+${list.listNum }+'-list-name').val())
 													        });
 													    });
 											

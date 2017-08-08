@@ -58,15 +58,17 @@ public class CardListDAOTest {
     cardListDAO.addList(listA);
     cardListDAO.addList(listB);
     cardListDAO.addList(listC);
-    int listNum=cardListDAO.getListNum(listA.getBoardNum(),listA.getListOrder());
-    listA.setListNum(listNum);
+    int listNumA=cardListDAO.getListNum(listA.getBoardNum(),listA.getListOrder());
+    int listNumB=cardListDAO.getListNum(listB.getBoardNum(), listB.getListOrder());
+    int listNumC=cardListDAO.getListNum(listC.getBoardNum(), listC.getListOrder());
+    listA.setListNum(listNumA);
     logger.debug("CREATE TEST_CARDLIST: {}",listA);
     
     //update
     listA.setListName("UPDATE_TEST");
-    cardListDAO.updateListName(listNum, "UPDATE_TEST");
+    cardListDAO.updateListName(listNumA, "UPDATE_TEST");
     logger.debug("UPDATE TEST_CARDLIST: {}",listA);
-    CardList dbList=cardListDAO.findByListNum(listNum);
+    CardList dbList=cardListDAO.findByListNum(listNumA);
     assertEquals(dbList,listA);
     
     //read
@@ -76,8 +78,10 @@ public class CardListDAOTest {
     
     //delete
     cardListDAO.removeList(listA.getBoardNum(), listA.getListOrder());
-    assertNull(cardListDAO.findByListNum(listNum));
     logger.debug("AFTER DELETE CARDLIST : {}",cardListDAO.getLists(boardNum));
+    assertNull(cardListDAO.findByListNum(listNumA));
+    assertEquals(cardListDAO.getListNum(listB.getBoardNum(),0),listNumB);
+    assertEquals(cardListDAO.getListNum(listC.getBoardNum(),1),listNumC);
   }
   
   @Test

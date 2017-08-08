@@ -71,7 +71,7 @@ public class CardListDAO {
     });
 
     // select and update listOrder
-    sql = "select List_Num from lists where Board_Num=? && List_Order>?";
+    sql = "select List_Num from lists where Board_Num=? && List_Order>? order by List_Order asc";
     String sql2 = "update lists set List_Order=? where List_Num=?";
     jdbc.selectAndUpdate(sql, sql2, new PreparedStatementSetter() {
       @Override
@@ -84,10 +84,8 @@ public class CardListDAO {
 
       @Override
       public void setParametersBySelect(PreparedStatement pstmt, ResultSet rs) throws SQLException {
-        while (rs.next()) {
           pstmt.setInt(1, changeOrder++);
           pstmt.setInt(2, rs.getInt("List_Num"));
-        }
       }
     });
   }

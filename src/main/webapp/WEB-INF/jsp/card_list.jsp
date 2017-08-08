@@ -19,13 +19,11 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>card</title>
-<link href="/stylesheets/card.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div class="background">
 		<%@ include file="./commons/top.jspf"%>				
-		<div class="wrap ac">
-		  <div id="card-container_wrap" style = "color: azure;">
+		<div class="wrap">
 		   <div id="top">
 		     <div id="mini-menu"> 
 		 	  <div class="btn-group-sm" role="group" aria-label="...">   
@@ -34,17 +32,15 @@
 				</button>
 				<button type="button" class="btn btn-info" href="#" data-toggle="modal" data-target="#invite">초대</button>
 				<button type="button" class="btn btn-info" href="#" class="btn btn-default">EXIT</button>
-
-				
 			  </div>
 			</div>
 		  </div>  
 		<div id="card-container" style = "overflow-x: auto;"> 
 			  	<div id="tt" style="overflow:auto; width:10000px; text-align: left; ">  
 					<%@include file = "/WEB-INF/jsp/modalpage/card.jsp"%>
-					<ul id="sortable_box" class = "boxsort">  		
+					<ul id="cardlists" class = "boxsort">  		
 						<c:forEach var="list" items="${lists}" varStatus="status">
-							<li class="ui-state-default card_margin currentListNum">
+							<li class="ui-state-default card_margin">
 									<div class="card_wrap_top">
 										<div>
 											<textarea class="list_name" id="${list.listNum }-list-name" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">${list.listName}</textarea>
@@ -84,42 +80,35 @@
 											</ul>
 										</div>
 									</div>
-									<button type="button" class="btn btn-info_c" href="#"  onclick="location.href='/lists/removeList?boardNum=${param.boardNum}&listOrder=${list.listOrder }'" style = "margin-bottom: 5px;">삭제</button>
+									<button type="button" class="btn btn-cardlist" href="#"  onclick="location.href='/lists/removeList?boardNum=${param.boardNum}&listOrder=${list.listOrder }'" style = "margin-bottom: 5px;">삭제</button>
 								</li>		
 							</c:forEach>
 						</ul>
-						<button id ="addbutton" class="btn btn-info_c_add" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" >
+						<button id ="addbutton" class="btn btn-cardlist" type="button" data-toggle="collapse" data-target="#addList" aria-expanded="false" aria-controls="collapseExample" >
 							List add.
 						</button>
-						<div class="collapse" id="collapseExample" style="float:left;">
-						  <div class="well">
+						<div class="collapse collapse-list" id="addList">
 							<form method="post" action="/lists/addList">
 							  <div class="form-group">
 							    <label for="newListName">List name.</label>
 							    <input type="text" class="form-control" name="listName" placeholder="리스트 이름을 입력하세요">
 							    <input type="hidden" class="form-control" name="boardNum" value="${param.boardNum }"/>
 							    <input id="currentListNum" type="hidden" class="form-control" name="listOrder" />
-								<script>$('#currentListNum').val(''+$('.currentListNum').length);</script>
+								<script>$('#currentListNum').val(''+$('#cardlists li').length);</script>
 							  </div>
 							  <button type="submit" class="btn btn-default" >생성</button>
 							 </form>
-						  </div>
 						</div>
  					</div>
 				</div>
-				<div id='project_user'>
-				<iframe src="/project/memberlist" height="170" width="290" name=user> 
+				<iframe id='project-user' src="/project/memberlist"  name=user> 
 				 	<p>Your browser does not support iframes.</p>
 				</iframe>
-			</div>
-			<div id='project-chat'>
-				<iframe src="/project/imagelist" height="850" width="290" name=chat>
+				<iframe id='project-chat' src="/project/imagelist" name=chat>
 				 	<p>Your browser does not support iframes.</p>
 				</iframe>
-			</div>
-			</div>
 		</div>
-		<%@include file = "/WEB-INF/jsp/modalpage/upload.jsp"%>  <!-- 업로드 추가  -->
+		<%@include file = "/WEB-INF/jsp/modalpage/upload.jsp"%> 
 		<%@include file = "/WEB-INF/jsp/modalpage/invite.jsp" %>
 	</div> 
 </body>

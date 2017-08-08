@@ -43,7 +43,7 @@
 <body>
 	<div class="background">
 		<%@ include file="./commons/top.jspf" %>
-		<div class="wrap ac">
+		<div class="wrap">
 			<div id="card-container_wrap">
 				<div class="project-container">
 					<div class="project-header" style="padding: 10pt;">

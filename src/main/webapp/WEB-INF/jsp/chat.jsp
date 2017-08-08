@@ -7,8 +7,7 @@
 <title>Insert title here</title>
 
 <head>
-<link href="/stylesheets/index.css?" rel="stylesheet" type="text/css">
-<link rel='stylesheet' href='/stylesheets/chat.css' type='text/css'>
+<link href="/stylesheets/style.css?" rel="stylesheet" type="text/css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -53,9 +52,9 @@
  				<input name="brush"  id="brush_size" type="range" value="5" min="0" max="100" style = "margin-bottom: 5px"/>
 				</div>
 				<div id="chat-image-area-tool-control">
-					<button id="undo" class="btn-chat btn-info" href="#" disabled="disabled">Undo</button>
-					<button id="clear" class="btn-chat btn-info" href="#">Reset</button>
-					<button id="export" class="btn-chat btn-info" href="#">Export as Image</button>
+					<button id="undo" class="btn-info" href="#" disabled="disabled">Undo</button>
+					<button id="clear" class="btn-info" href="#">Reset</button>
+					<button id="export" class="btn-info" href="#">Export as Image</button>
 				</div>
 			</div>
 			<div id="chat-image-list">
@@ -66,8 +65,8 @@
 				  </c:forEach>
 				</div>
 				<div id="chat-image-list-control">
-					<button id="image_add" class="btn-chat btn-info" data-toggle="modal" href="#uploadmodal">이미지 추가</button>
-					<button id="image_delete" class="btn-chat btn-info" onclick=deleteImage()>이미지 삭제</button>
+					<button id="image_add" class="btn-info" data-toggle="modal" href="#uploadmodal">이미지 추가</button>
+					<button id="image_delete" class="btn-info" onclick=deleteImage()>이미지 삭제</button>
 				</div>
 			</div>
 		</div>
@@ -78,7 +77,7 @@
 			</div>
 			<div id="chat-dialogue-input">
 				<input id="inputMessage" class="form-control" type="text" onKeyPress="javascript:if(event.keyCode == 13) { textSend() }" style = "width : 70%; display:inline-table" />
-				<input id="send" class="btn-chat btn-info" type="submit" value="send" onclick="textSend()" />
+				<input id="send" class="btn-info" type="submit" value="send" onclick="textSend()" />
 			</div>
 		</div>
 	</div>

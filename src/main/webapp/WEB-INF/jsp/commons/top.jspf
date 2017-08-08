@@ -6,7 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
-<link href="/stylesheets/index.css?" rel="stylesheet" type="text/css">
+<link href="/stylesheets/style.css?" rel="stylesheet" type="text/css">
 <head>
 <title>Insert title here</title>
 
@@ -50,7 +50,8 @@
 <c:if test = "${not empty userId}">
 	<div id="header">
 		<div class="wrap">
-			<span id="logo"> <c:choose>
+			<span id="logo"> 
+				<c:choose>
 					<c:when test="${empty userId }">
 						<!-- <a href="/WEB-INF/jsp/index.jsp" class="btn-default-logo"> LOGO </a> -->
 					</c:when>
@@ -59,7 +60,9 @@
 
 					</c:otherwise>
 				</c:choose>
-			</span> <span id="user"> <c:choose>
+			</span> 
+			<span id="user"> 
+				<c:choose>
 					<c:when test="${empty userId }">
 						<a> 로그인이 필요한 서비스입니다. </a>
 					</c:when>
@@ -101,7 +104,7 @@
 				</div>
 			</div>
 		</div>
-	</div>  <!-- 환용 : 파일 업로드를 위한 모달 -->
+	</div>
 
 
 <!-- user form 모달 -->

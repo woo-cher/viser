@@ -19,26 +19,24 @@ import viser.domain.user.User;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/applicationContext.xml")
 public class UserDAOTest {
-
+  
   @Autowired
   private UserDAO userDAO;
   private User user;
 
   @Before
   public void setUp() {
-    userDAO = new UserDAO();
     user = UserTest.TEST_USER;
   }
 
   @After
-  public void returns() throws SQLException{
+  public void returns() throws SQLException {
     userDAO.removeUser(user.getUserId());
   }
-  
+
   @Test
   public void crud() throws Exception {
     userDAO.addUser(user);
-
     User dbUser = userDAO.getByUserId(user.getUserId());
     assertEquals(dbUser, user);
 
@@ -47,9 +45,9 @@ public class UserDAOTest {
 
     dbUser = userDAO.getByUserId(updateUser.getUserId());
     assertEquals(updateUser, dbUser);
-    
+
     userDAO.removeUser(user.getUserId());
-    dbUser=null;
+    dbUser = null;
     dbUser = userDAO.getByUserId(updateUser.getUserId());
     assertNull(dbUser);
   }

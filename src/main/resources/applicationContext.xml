@@ -9,6 +9,8 @@
 	<context:annotation-config />
 
 	<context:property-placeholder location="classpath*:application-properties.xml" />
+	
+	<bean id="applicationContextProvider" class="viser.service.ApplicationContextProvider" />
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		p:driverClassName="${database.driverClassName}" 
@@ -16,5 +18,20 @@
 		p:username="${database.username}" 
 		p:password="${database.password}" 
 	/>
-		
+	
+	<bean id="jdbcTemplate" class="viser.service.support.jdbc.JdbcTemplate"
+		p:dataSource-ref="dataSource"
+	/>
+	
+	<bean id="userDAO" class="viser.dao.user.UserDAO"
+		p:dataSource-ref="dataSource"
+	/>
+	
+	<bean id="boardDAO" class="viser.dao.board.BoardDAO"
+		p:dataSource-ref="dataSource"
+	/>
+	
+	<bean id="projectDAO" class="viser.dao.project.ProjectDAO"
+		p:dataSource-ref="dataSource"
+	/>
 </beans>

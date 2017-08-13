@@ -1,8 +1,9 @@
 package viser.project;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +11,12 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import viser.dao.project.ProjectDAO;
 import viser.dao.user.UserDAO;
@@ -20,16 +25,18 @@ import viser.domain.project.Project;
 import viser.domain.user.User;
 import viser.user.UserTest;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:/applicationContext.xml")
 public class ProjectDAOTest {
   private static final Logger logger = LoggerFactory.getLogger(ProjectDAOTest.class);
   public static Project TEST_PROJECT = new Project("TEST_PROJECT");
+  
+  @Autowired
   private ProjectDAO projectDAO;
   private UserDAO userDAO;
 
   @Before
   public void setup() throws SQLException {
-    projectDAO = new ProjectDAO();
-    userDAO = new UserDAO();
     projectDAO.addProject(ProjectDAOTest.TEST_PROJECT);
     projectDAO.addProject(new Project("TEST_PROJECT2"));
     projectDAO.addProject(new Project("TEST_PROJECT3"));

@@ -1,17 +1,13 @@
 package viser.dao.cardlist;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import viser.dao.card.CardDAO;
 import viser.domain.cardlist.CardList;
@@ -20,7 +16,7 @@ import viser.service.support.jdbc.PreparedStatementSetter;
 import viser.service.support.jdbc.RowMapper;
 import viser.service.support.jdbc.SelectAndUpdateSetter;
 
-public class CardListDAO {
+public class CardListDAO extends JdbcDaoSupport{
   public static Logger logger = LoggerFactory.getLogger(CardList.class);
   JdbcTemplate jdbc = new JdbcTemplate();
 

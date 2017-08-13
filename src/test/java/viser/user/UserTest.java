@@ -8,14 +8,22 @@ import java.sql.SQLException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import viser.dao.user.UserDAO;
 import viser.domain.user.PasswordMismatchException;
 import viser.domain.user.User;
 import viser.domain.user.UserNotFoundException;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:/applicationContext.xml")
 public class UserTest {
-  public static User TEST_USER = new User("TestId", "PSW", "Name", "Age", "test@viser.com", "Man");
+  public static User TEST_USER = new User("Test_Id", "PSW", "Name", "Age", "test@viser.com", "Man");
+ 
+  @Autowired
   private UserDAO userDAO;
 
   @Before

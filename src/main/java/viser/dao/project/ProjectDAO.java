@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import viser.domain.project.Image;
 import viser.domain.project.Project;
@@ -19,8 +20,9 @@ import viser.service.support.jdbc.JdbcTemplate;
 import viser.service.support.jdbc.PreparedStatementSetter;
 import viser.service.support.jdbc.RowMapper;
 
-public class ProjectDAO {
+public class ProjectDAO extends JdbcDaoSupport {
   private static final Logger logger = LoggerFactory.getLogger(ProjectDAO.class);
+ 
   JdbcTemplate jdbc = new JdbcTemplate();
 
   public List getProjectMemberList(String projectName) {

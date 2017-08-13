@@ -1,8 +1,9 @@
 package viser.card;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +11,12 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import viser.board.BoardDAOTest;
 import viser.dao.board.BoardDAO;
@@ -24,8 +29,12 @@ import viser.domain.cardlist.CardList;
 import viser.project.ProjectDAOTest;
 import viser.user.UserTest;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:/applicationContext.xml")
 public class CardDAOTest {
   private static final Logger logger = LoggerFactory.getLogger(CardDAOTest.class);
+  
+  @Autowired
   private ProjectDAO projectDAO;
   private BoardDAO boardDAO;
   private CardListDAO cardListDAO;

@@ -1,29 +1,24 @@
 package viser.dao.board;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import viser.domain.board.Board;
-import viser.domain.user.User;
 import viser.service.support.jdbc.JdbcTemplate;
 import viser.service.support.jdbc.PreparedStatementSetter;
 import viser.service.support.jdbc.RowMapper;
 
-public class BoardDAO {
+public class BoardDAO extends JdbcDaoSupport{
   private static final Logger logger = LoggerFactory.getLogger(BoardDAO.class);
+  
   JdbcTemplate jdbc = new JdbcTemplate();
-
+  
   public List getBoardList(String projectName) throws SQLException {
     String sql = "select * from boards where Project_Name = ?";
     return jdbc.list(sql, new PreparedStatementSetter() {

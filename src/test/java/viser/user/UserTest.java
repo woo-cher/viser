@@ -5,10 +5,11 @@ import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,18 +22,14 @@ import viser.domain.user.UserNotFoundException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/applicationContext.xml")
 public class UserTest {
-  public static User TEST_USER = new User("Test_Id", "PSW", "Name", "Age", "test@viser.com", "Man");
- 
+  private static final Logger logger = LoggerFactory.getLogger(UserTest.class);
+  public static User TEST_USER = new User("Test_Id", "PSW", "Name", "25", "test@viser.com", "Man");
+  
   @Autowired
   private UserDAO userDAO;
-
+  
   @Before
-  public void setUp() throws Exception {
-    userDAO = new UserDAO();
-  }
-
-  @After
-  public void returns() throws SQLException{
+  public void returns() throws SQLException {
     userDAO.removeUser(TEST_USER.getUserId());
   }
   

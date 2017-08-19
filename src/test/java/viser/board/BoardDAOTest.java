@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -27,9 +28,8 @@ public class BoardDAOTest {
   private static final Logger logger = LoggerFactory.getLogger(BoardDAOTest.class);
   public static Board TEST_BOARD = new Board("TEST_BOARD", ProjectDAOTest.TEST_PROJECT.getProjectName());
  
-  @Autowired
-  private BoardDAO boardDAO = new BoardDAO();
-  private ProjectDAO projectDAO = new ProjectDAO();
+  @Autowired private BoardDAO boardDAO;
+  @Autowired private ProjectDAO projectDAO;
 
   @Before
   public void setup() throws SQLException {
@@ -67,7 +67,8 @@ public class BoardDAOTest {
 
   @Test
   public void getList() throws SQLException {
-    logger.debug("list : {}", boardDAO.getBoardList(ProjectDAOTest.TEST_PROJECT.getProjectName()));
-    assertNotNull(boardDAO.getBoardList(ProjectDAOTest.TEST_PROJECT.getProjectName()));
+    List boardList = boardDAO.getBoardList(ProjectDAOTest.TEST_PROJECT.getProjectName());
+    logger.debug("list : {}", boardList);
+    assertNotNull(boardList);
   }
 }

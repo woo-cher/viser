@@ -7,7 +7,6 @@ public class Project {
   private Date projectDate;
 
   public Project() {
-
   }
 
   public Project(String projectName) {

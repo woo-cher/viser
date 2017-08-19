@@ -12,7 +12,6 @@ import javax.validation.ValidatorFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -22,7 +21,6 @@ import viser.domain.user.User;
 @ContextConfiguration("classpath:/applicationContext.xml")
 public class UserValidatorTest {
 
-  @Autowired
   private static Validator validator;
 
   @BeforeClass

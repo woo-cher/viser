@@ -9,11 +9,13 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import viser.dao.cardlist.CardListDAO;
 import viser.domain.card.Card;
 import viser.domain.cardlist.CardList;
+import viser.service.support.ApplicationContextProvider;
 import viser.service.support.jdbc.JdbcTemplate;
 import viser.service.support.jdbc.PreparedStatementSetter;
 import viser.service.support.jdbc.RowMapper;
@@ -21,7 +23,11 @@ import viser.service.support.jdbc.SelectAndUpdateSetter;
 
 public class CardDAO extends JdbcDaoSupport {
   private static final Logger logger = LoggerFactory.getLogger(CardDAO.class);
-  JdbcTemplate jdbc = new JdbcTemplate();
+  
+  @Autowired
+  public JdbcTemplate jdbc;
+  @Autowired
+  CardListDAO cardListDAO;
 
   public List<Card> getCards(int listNum) throws SQLException {
     String sql = "select * from cards where List_Num=? order by Card_Order asc";
@@ -123,20 +129,17 @@ public class CardDAO extends JdbcDaoSupport {
   // cardNum : 기존 위치의 카드 순서 번호, listNum1 : 추가 카드의 리스트 번호, listnum2 : 삭제 카드의 리스트 번호, changeOrder : 인덱스 변화시 사용 순서 번호
   public void updateCardOrder(int boardNum, int currentListOrder, int changeListOrder, int currentCardOrder, int changeCardOrder) {
     String sql, sql2;
-    CardListDAO cardListDAO = new CardListDAO();
-
+    
     // Find listNum
     CardList addedList = new CardList(boardNum, changeListOrder);
     CardList removedList = new CardList(boardNum, currentListOrder);
     final int listNum1 = cardListDAO.getListNum(addedList.getBoardNum(), addedList.getListOrder());
     final int listNum2 = cardListDAO.getListNum(removedList.getBoardNum(), removedList.getListOrder());
-
     // Find Updated CardNum
-    CardDAO cardDAO = new CardDAO();
+    CardDAO cardDAO = ApplicationContextProvider.getApplicationContext().getBean(CardDAO.class);
     final int cardNum = cardDAO.getCardNum(listNum2, currentCardOrder);
 
     int changeOrder;
-
     // If Card drag in same list
     if (currentListOrder == changeListOrder) {
       if (currentCardOrder > changeCardOrder) {

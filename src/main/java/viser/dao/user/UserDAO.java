@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import viser.domain.user.User;
@@ -16,11 +17,10 @@ import viser.service.support.jdbc.RowMapper;
 public class UserDAO extends JdbcDaoSupport {
   private static final Logger logger = LoggerFactory.getLogger(UserDAO.class);
   
-  JdbcTemplate jdbc = new JdbcTemplate();
+  @Autowired
+  public JdbcTemplate jdbc;
   
   public void addUser(User user) {
-    logger.debug("Connection : {}", jdbc.conn);
-    
     String sql = "insert into users values(?,?,?,?,?,?)";
     jdbc.executeUpdate(sql, new PreparedStatementSetter() {
       @Override

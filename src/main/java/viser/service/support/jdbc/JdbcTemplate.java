@@ -17,8 +17,7 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 
 public class JdbcTemplate extends JdbcDaoSupport {
   private static final Logger logger = LoggerFactory.getLogger(JdbcTemplate.class);
-  
-  public static Connection conn;
+  public Connection conn;
   public DataSource ds;
   public PreparedStatement pstmt;
   public PreparedStatement pstmt2;
@@ -78,7 +77,6 @@ public class JdbcTemplate extends JdbcDaoSupport {
 
   public <T> List<T> list(String sql, PreparedStatementSetter pss, RowMapper rm) {
     List<T> list = new ArrayList<T>();
-    conn = getConnection();
     try {
       pstmt = conn.prepareStatement(sql);
       pss.setParameters(pstmt);

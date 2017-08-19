@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
@@ -9,29 +8,36 @@
 	<context:annotation-config />
 
 	<context:property-placeholder location="classpath*:application-properties.xml" />
-	
-	<bean id="applicationContextProvider" class="viser.service.ApplicationContextProvider" />
 
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		p:driverClassName="${database.driverClassName}" 
-		p:url="${database.url}"
-		p:username="${database.username}" 
-		p:password="${database.password}" 
-	/>
-	
+	<!-- ServiceClass beans -->
+	<bean id="applicationContextProvider" class="viser.service.support.ApplicationContextProvider" />
 	<bean id="jdbcTemplate" class="viser.service.support.jdbc.JdbcTemplate"
-		p:dataSource-ref="dataSource"
-	/>
+		p:dataSource-ref="dataSource" />
 	
+	<!-- DataSource bean -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		p:driverClassName="${database.driverClassName}" p:url="${database.url}"
+		p:username="${database.username}" p:password="${database.password}" />
+	
+	
+
+	<!-- DAO beans -->
 	<bean id="userDAO" class="viser.dao.user.UserDAO"
-		p:dataSource-ref="dataSource"
-	/>
-	
+		p:dataSource-ref="dataSource" />
 	<bean id="boardDAO" class="viser.dao.board.BoardDAO"
-		p:dataSource-ref="dataSource"
-	/>
-	
+		p:dataSource-ref="dataSource" />
 	<bean id="projectDAO" class="viser.dao.project.ProjectDAO"
-		p:dataSource-ref="dataSource"
-	/>
+		p:dataSource-ref="dataSource" />
+	<bean id="cardDAO" class="viser.dao.card.CardDAO"
+		p:dataSource-ref="dataSource" />
+	<bean id="cardListDAO" class="viser.dao.cardlist.CardListDAO"
+		p:dataSource-ref="dataSource" />
+
+	<!-- Domain beans -->
+	<bean id="user" class="viser.domain.user.User" />
+	<bean id="project" class="viser.domain.project.Project" />
+	<bean id="board" class="viser.domain.board.Board" />
+	<bean id="card" class="viser.domain.card.Card" />
+	<bean id="cardlist" class="viser.domain.cardlist.CardList" />
+
 </beans>

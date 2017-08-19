@@ -20,9 +20,8 @@ import viser.domain.user.User;
 @ContextConfiguration("classpath:/applicationContext.xml")
 public class UserDAOTest {
   
-  @Autowired
-  private UserDAO userDAO;
-  private User user;
+  @Autowired private UserDAO userDAO;
+  @Autowired private User user;
 
   @Before
   public void setUp() {

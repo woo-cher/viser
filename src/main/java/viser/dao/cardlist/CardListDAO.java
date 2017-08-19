@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import viser.dao.card.CardDAO;
@@ -16,9 +17,11 @@ import viser.service.support.jdbc.PreparedStatementSetter;
 import viser.service.support.jdbc.RowMapper;
 import viser.service.support.jdbc.SelectAndUpdateSetter;
 
-public class CardListDAO extends JdbcDaoSupport{
+public class CardListDAO extends JdbcDaoSupport {
   public static Logger logger = LoggerFactory.getLogger(CardList.class);
-  JdbcTemplate jdbc = new JdbcTemplate();
+
+  @Autowired
+  public JdbcTemplate jdbc;
 
   public List<CardList> getLists(int boardNum) {
     CardDAO cardDAO = new CardDAO();
@@ -80,8 +83,8 @@ public class CardListDAO extends JdbcDaoSupport{
 
       @Override
       public void setParametersBySelect(PreparedStatement pstmt, ResultSet rs) throws SQLException {
-          pstmt.setInt(1, changeOrder++);
-          pstmt.setInt(2, rs.getInt("List_Num"));
+        pstmt.setInt(1, changeOrder++);
+        pstmt.setInt(2, rs.getInt("List_Num"));
       }
     });
   }

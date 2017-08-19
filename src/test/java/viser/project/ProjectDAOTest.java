@@ -29,14 +29,16 @@ import viser.user.UserTest;
 @ContextConfiguration("classpath:/applicationContext.xml")
 public class ProjectDAOTest {
   private static final Logger logger = LoggerFactory.getLogger(ProjectDAOTest.class);
+  
   public static Project TEST_PROJECT = new Project("TEST_PROJECT");
   
-  @Autowired
-  private ProjectDAO projectDAO;
-  private UserDAO userDAO;
+  @Autowired private ProjectDAO projectDAO;
+  @Autowired private User user;
+  @Autowired private UserDAO userDAO;
 
   @Before
   public void setup() throws SQLException {
+    logger.debug("DataSource = " + projectDAO.jdbc.getDataSource());
     projectDAO.addProject(ProjectDAOTest.TEST_PROJECT);
     projectDAO.addProject(new Project("TEST_PROJECT2"));
     projectDAO.addProject(new Project("TEST_PROJECT3"));
@@ -64,11 +66,11 @@ public class ProjectDAOTest {
 
   @Test
   public void projectMemberCrud() throws SQLException {
-    User user = UserTest.TEST_USER;
+    user = UserTest.TEST_USER;
+    userDAO.addUser(user);
+
     List ProjectMemberlist = new ArrayList();
     List Projectlist = new ArrayList();
-
-    userDAO.addUser(user);
 
     // invite Test
     projectDAO.InviteUser(user.getUserId(), TEST_PROJECT.getProjectName(), 0);
@@ -111,7 +113,7 @@ public class ProjectDAOTest {
 
   @Test
   public void imageCrd() throws Exception {
-    User user = UserTest.TEST_USER;
+    user = UserTest.TEST_USER;
     Image image = new Image("TEST_PATH", user.getUserId());
     List list = new ArrayList();
     

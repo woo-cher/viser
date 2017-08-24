@@ -3,7 +3,6 @@ package viser.domain.project;
 import java.sql.Date;
 
 public class Project {
-
   private String projectName;
   private Date projectDate;
 
@@ -13,6 +12,11 @@ public class Project {
 
   public Project(String projectName) {
     this.projectName = projectName;
+  }
+
+  public Project(String projectName, Date projectDate) {
+    this.projectName = projectName;
+    this.projectDate = projectDate;
   }
 
   public String getProjectName() {

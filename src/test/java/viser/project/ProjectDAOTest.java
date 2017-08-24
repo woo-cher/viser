@@ -1,8 +1,9 @@
 package viser.project;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,19 +31,16 @@ public class ProjectDAOTest {
   public void setup() throws SQLException {
     projectDAO = new ProjectDAO();
     userDAO = new UserDAO();
-    projectDAO.removeProject(ProjectDAOTest.TEST_PROJECT.getProjectName());
     projectDAO.addProject(ProjectDAOTest.TEST_PROJECT);
+    projectDAO.addProject(new Project("TEST_PROJECT2"));
+    projectDAO.addProject(new Project("TEST_PROJECT3"));
   }
 
   @After
   public void returns() throws SQLException {
     projectDAO.removeProject(ProjectDAOTest.TEST_PROJECT.getProjectName());
-  }
-
-  @Test
-  public void Connection() throws SQLException {
-    Connection con = projectDAO.getConnection();
-    assertNotNull(con);
+    projectDAO.removeProject("TEST_PROJECT2");
+    projectDAO.removeProject("TEST_PROJECT3");
   }
 
   @Test
@@ -64,11 +62,12 @@ public class ProjectDAOTest {
     List ProjectMemberlist = new ArrayList();
     List Projectlist = new ArrayList();
 
-    userDAO.removeUser(user.getUserId());
     userDAO.addUser(user);
 
     // invite Test
     projectDAO.InviteUser(user.getUserId(), TEST_PROJECT.getProjectName(), 0);
+    projectDAO.InviteUser(user.getUserId(), "TEST_PROJECT2", 0);
+    projectDAO.InviteUser(user.getUserId(), "TEST_PROJECT3", 0);
     User invitedUser = projectDAO.getProjectMember(TEST_PROJECT.getProjectName());
     assertEquals(user.getUserId(), invitedUser.getUserId());
 
@@ -109,10 +108,10 @@ public class ProjectDAOTest {
     User user = UserTest.TEST_USER;
     Image image = new Image("TEST_PATH", user.getUserId());
     List list = new ArrayList();
-    
+
     projectDAO.removeImage(image.getImagePath());
     projectDAO.addImage(image, TEST_PROJECT.getProjectName());
-    
+
     image.setImageNum(projectDAO.getImageNum(TEST_PROJECT.getProjectName(), image.getAuthor()));
 
     Image dbimage = projectDAO.getByImageNum(image.getImageNum());
@@ -120,7 +119,7 @@ public class ProjectDAOTest {
     logger.debug("DBimage : {}", dbimage);
     assertEquals(image.getImagePath(), dbimage.getImagePath());
     assertEquals(image.getAuthor(), dbimage.getAuthor());
-    
+
     list = projectDAO.getImageList(TEST_PROJECT.getProjectName());
     assertNotNull(list);
     logger.debug("imageList : {}", list);

@@ -1,8 +1,6 @@
 package viser.web.user;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
@@ -20,7 +18,7 @@ import viser.service.support.MyvalidatorFactory;
 
 @WebServlet("/users/create")
 public class CreateUserServlet extends HttpServlet {
-  
+
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String userId = request.getParameter("userId");
@@ -42,16 +40,14 @@ public class CreateUserServlet extends HttpServlet {
     }
 
     UserDAO userDAO = new UserDAO();
-    try {
-      userDAO.addUser(user);
-    } catch (SQLException e) {
-    }
-    response.sendRedirect("/index.jsp");
+    userDAO.addUser(user);
+
+    response.sendRedirect("/WEB-INF/jsp/index.jsp");
   }
 
   private void errorForward(HttpServletRequest request, HttpServletResponse response, String errorMessage) throws ServletException, IOException {
     request.setAttribute("formErrorMessage", errorMessage);
-    RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
     rd.forward(request, response);
   }
 }

@@ -1,10 +1,8 @@
 package viser.user;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.junit.After;
@@ -15,7 +13,6 @@ import viser.dao.user.UserDAO;
 import viser.domain.user.User;
 
 public class UserDAOTest {
-
   private UserDAO userDAO;
   private User user;
 
@@ -26,14 +23,8 @@ public class UserDAOTest {
   }
 
   @After
-  public void returns() throws SQLException{
+  public void returns() throws SQLException {
     userDAO.removeUser(user.getUserId());
-  }
-  
-  @Test
-  public void connection() throws Exception {
-    Connection con = userDAO.getConnection();
-    assertNotNull(con);
   }
 
   @Test
@@ -48,9 +39,9 @@ public class UserDAOTest {
 
     dbUser = userDAO.getByUserId(updateUser.getUserId());
     assertEquals(updateUser, dbUser);
-    
+
     userDAO.removeUser(user.getUserId());
-    dbUser=null;
+    dbUser = null;
     dbUser = userDAO.getByUserId(updateUser.getUserId());
     assertNull(dbUser);
   }

@@ -1,7 +1,6 @@
 package viser.web.user;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,17 +32,13 @@ public class UpdateFormUserServlet extends HttpServlet {
       return;
     }
     logger.debug("User Id : " + userId);
-    
+
     UserDAO userDAO = new UserDAO();
 
-    try {
-      User user = userDAO.getByUserId(userId);
-      request.setAttribute("isUpdate", true);
-      request.setAttribute("user", user);
-      RequestDispatcher rd = request.getRequestDispatcher("/modalpage/user.jsp");
-      rd.forward(request, response);
-
-    } catch (SQLException e) {
-    }
+    User user = userDAO.getByUserId(userId);
+    request.setAttribute("isUpdate", true);
+    request.setAttribute("user", user);
+    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modalpage/user.jsp");
+    rd.forward(request, response);
   }
 }

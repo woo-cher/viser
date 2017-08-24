@@ -1,7 +1,6 @@
 package viser.web.project;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +17,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import viser.dao.project.ProjectDAO;
 import viser.domain.project.Image;
+import viser.service.support.SessionUtils;
 
 @WebServlet("/imageUpload")
 public class UploadImageServlet extends HttpServlet {
@@ -28,19 +28,13 @@ public class UploadImageServlet extends HttpServlet {
 
     final String path = request.getRealPath("/upload_image/");
     MultipartRequest mr = new MultipartRequest(request, path, 1024 * 1024 * 5, "utf-8", new DefaultFileRenamePolicy());
-
+    SessionUtils sessionUtils = new SessionUtils();
     ProjectDAO projectDAO = new ProjectDAO();
 
     HttpSession session = request.getSession();
-    logger.debug("UploadImageServlet 에서 조회한 세션의 projectname:" + (String) session.getAttribute("projectName"));
+    Image image = new Image(path + mr.getFile("s_file").getName(), sessionUtils.getStringValue(session, "userId"));
 
-    Image image = new Image(path + mr.getFile("s_file").getName(), (String) session.getAttribute("userId"));
-
-    try {
-      projectDAO.addImage(image, (String) session.getAttribute("projectName"));
-    } catch (SQLException e) {
-      logger.debug("UploadImageServlet error" + e.getMessage());
-    }
-    response.sendRedirect("lists/cardlist?boardNum=" + (int) session.getAttribute("boardNum"));
+    projectDAO.addImage(image, sessionUtils.getStringValue(session, "projectName"));
+    response.sendRedirect("lists/cardlist?boardNum=" + Integer.parseInt(sessionUtils.getStringValue(session, "boardNum")));
   }
 }

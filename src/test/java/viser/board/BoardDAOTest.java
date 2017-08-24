@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.junit.After;
@@ -38,18 +37,12 @@ public class BoardDAOTest {
   }
 
   @Test
-  public void Connection() throws SQLException {
-    Connection con = boardDAO.getConnection();
-    assertNotNull(con);
-  }
-
-  @Test
   public void crud() throws SQLException {
     Board board = TEST_BOARD;
     boardDAO.addBoard(board);
     board.setBoardNum(boardDAO.getBoardNum(board.getBoardName(), ProjectDAOTest.TEST_PROJECT.getProjectName()));
     logger.debug("board : {}", board);
-    
+
     Board dbBoard = boardDAO.getByBoardNum(board.getBoardNum());
     logger.debug("dbBoard : {}", dbBoard);
     assertEquals(board.getBoardName(), dbBoard.getBoardName());

@@ -1,7 +1,6 @@
 package viser.web.project;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import viser.dao.project.ProjectDAO;
+import viser.service.support.SessionUtils;
 
 @WebServlet("/project/imagelist")
 public class ReadImageListServlet extends HttpServlet {
@@ -26,15 +26,12 @@ public class ReadImageListServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     List<String> imagelist = new ArrayList<String>();
     ProjectDAO projectDAO = new ProjectDAO();
-    try {
-      logger.debug("imageList doget처리");
-      HttpSession session = request.getSession();
-      imagelist = projectDAO.getImageList((String) session.getAttribute("projectName"));
-      request.setAttribute("imageList", imagelist);
-      RequestDispatcher rd = request.getRequestDispatcher("/chat.jsp");
-      rd.forward(request, response);
-    } catch (SQLException e) {
-      logger.debug("imagelist doget error" + e.getMessage());
-    }
+    HttpSession session = request.getSession();
+    SessionUtils sessionUtils = new SessionUtils();
+
+    imagelist = projectDAO.getImageList(sessionUtils.getStringValue(session, "projectName"));
+    request.setAttribute("imageList", imagelist);
+    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/chat.jsp");
+    rd.forward(request, response);
   }
 }

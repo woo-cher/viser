@@ -52,7 +52,6 @@
 		<div class="wrap">
 			<span id="logo"> <c:choose>
 					<c:when test="${empty userId }">
-						<!-- <a href="/index.jsp" class="btn-default-logo"> LOGO </a> -->
 					</c:when>
 					<c:otherwise>
 						<a href="/project/projectlist" class="btn-default-logo">VISER</a>

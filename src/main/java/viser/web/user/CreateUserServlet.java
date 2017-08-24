@@ -42,12 +42,12 @@ public class CreateUserServlet extends HttpServlet {
     UserDAO userDAO = new UserDAO();
     userDAO.addUser(user);
 
-    response.sendRedirect("/WEB-INF/jsp/index.jsp");
+    response.sendRedirect("/index.jsp");
   }
 
   private void errorForward(HttpServletRequest request, HttpServletResponse response, String errorMessage) throws ServletException, IOException {
     request.setAttribute("formErrorMessage", errorMessage);
-    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
     rd.forward(request, response);
   }
 }

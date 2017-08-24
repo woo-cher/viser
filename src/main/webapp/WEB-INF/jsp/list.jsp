@@ -42,7 +42,7 @@
 	
 <body>
 	<div class="background">
-		<%@ include file="./commons/top.jspf" %>
+		<%@ include file="/WEB-INF/jsp/commons/top.jspf" %>
 		<div class="wrap ac">
 			<div id="card-container_wrap">
 				<div class="project-container">
@@ -157,7 +157,7 @@
 						<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="${Modal_target}" style="margin: 50;">
   						Create New ${Target}
 						</button>
-								<%@include file="./modalpage/form.jsp" %>
+								<%@include file="/WEB-INF/jsp//modalpage/form.jsp" %>
 								
 								<c:if test = "${isReadBoard}">
 								<button type="button" onclick="location.href='/project/projectlist'" class="btn btn-default btn-lg">GO TO BACK</button>
@@ -168,5 +168,5 @@
 		</div>
 	</div>
 </body>
-<%@ include file="./commons/bottom.jspf"%>
+<%@ include file="/WEB-INF/jsp/commons/bottom.jspf"%>
 </html>

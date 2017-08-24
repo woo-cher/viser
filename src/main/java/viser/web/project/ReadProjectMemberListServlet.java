@@ -28,12 +28,11 @@ public class ReadProjectMemberListServlet extends HttpServlet {
     ProjectDAO projectDAO = new ProjectDAO();
 
     try {
-      memberlist = projectDAO.getProjectMemberList((String) session.getAttribute("projectName")); 
+      memberlist = projectDAO.getProjectMemberList((String) session.getAttribute("projectName"));
       request.setAttribute("memberlist", memberlist);
 
-      // 로그인 유저 권한 체크
       for (ProjectMember pm : memberlist) {
-                                         
+
         logger.debug("관리자 권한 확인 반복문 시작");
         logger.debug("ReadProjectMemberListServlet db에서 조회 아이디 :" + pm.getUserId());
         logger.debug("ReadProjectMemberListServlet 세션에서 조회 아이디 :" + session.getAttribute("userId"));
@@ -42,7 +41,7 @@ public class ReadProjectMemberListServlet extends HttpServlet {
           request.setAttribute("isMaster", true);
         }
       }
-      RequestDispatcher rd = request.getRequestDispatcher("/member.jsp");
+      RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/member.jsp");
       rd.forward(request, response);
 
     } catch (Exception e) {

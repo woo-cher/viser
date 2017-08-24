@@ -32,7 +32,7 @@
 				<c:forEach var="list" items="${memberlist }">
 					<li align="center">
 						<c:if test="${list.power==1}">
-							<img src="/crown.png" style="width:15px; height:10px;">
+							<img src="/WEB-INF/image/crown.png" style="width:15px; height:10px;">
 						</c:if>
 						${list.userId }
 						<ul>

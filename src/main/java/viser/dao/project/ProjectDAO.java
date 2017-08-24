@@ -146,7 +146,6 @@ public class ProjectDAO {
     });
   }
 
-  // issue #105
   public List getUserList(String keyword, String loginUser) {
     String sql = "select * from users where not userId = ? and userId " + " like '%" + keyword.trim() + "%' order by age";
     return jdbc.list(sql, new PreparedStatementSetter() {

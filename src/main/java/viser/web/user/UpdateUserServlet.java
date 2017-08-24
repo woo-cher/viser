@@ -31,14 +31,12 @@ public class UpdateUserServlet extends HttpServlet {
     HttpSession session = request.getSession();
     String sessionUseId = SessionUtils.getStringValue(session, LogInServlet.SESSION_USER_ID);
 
-    // 로그인 여부 판단
     if (sessionUseId == null) {
       response.sendRedirect("/");
       logger.debug("UpdateUserServlet error");
       return;
     }
 
-    // 로그인의 상태일 때, 세션에 저장된 유저와 로그인 유저 ID 비교
     String userId = (String) sessionUseId;
     String password = request.getParameter("password");
     String name = request.getParameter("name");
@@ -48,7 +46,6 @@ public class UpdateUserServlet extends HttpServlet {
 
     User user = new User(userId, password, name, age, email, gender);
 
-    // Validator
     Validator validator = MyvalidatorFactory.createValidator();
     Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 
@@ -75,7 +72,7 @@ public class UpdateUserServlet extends HttpServlet {
 
   private void errorForward(HttpServletRequest request, HttpServletResponse response, String errorMessage) throws ServletException, IOException {
     request.setAttribute("formErrorMessage", errorMessage);
-    RequestDispatcher rd = request.getRequestDispatcher("/commons/top.jspf");
+    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/commons/top.jspf");
     rd.forward(request, response);
   }
 }

@@ -12,11 +12,10 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint("/chat.jsp")
+@ServerEndpoint("/WEB-INF/jsp/chat.jsp")
 public class WebsocketChat {
   private static Set<Session> clients = Collections.synchronizedSet(new HashSet<Session>());
 
-  // 클라이언트로 부터 메세지가 도착
   @OnMessage
   public void onMessage(String message, Session session) throws IOException {
     synchronized (clients) {
@@ -24,7 +23,6 @@ public class WebsocketChat {
         if (!client.equals(session)) {
           System.out.println("브로드캐스팅");
 
-          // 용량
           client.setMaxTextMessageBufferSize(10000000);
           client.getBasicRemote().sendText(message);
         }
@@ -45,6 +43,5 @@ public class WebsocketChat {
   }
 
   @OnError
-  public void onErr(Session session, Throwable t) throws IOException {
-  }
+  public void onErr(Session session, Throwable t) throws IOException {}
 }

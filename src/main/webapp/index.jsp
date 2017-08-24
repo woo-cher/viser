@@ -25,13 +25,13 @@
 	position: absolute;
 }
 </style>
-<%@ include file="./commons/top.jspf"%>
+<%@ include file="/WEB-INF/jsp/commons/top.jspf"%>
 <div style="position: relative;">
 	<div style="position: absolute; height: 100%; width: 100%; left: 0; top: 0; z-index: -1; overflow: hidden;">
 
 		<video style="width: 100%;" autoplay="" loop=""
 			poster="https://d2v80xjmx68n4w.cloudfront.net/intro/c1a31243becb02fba269c3e290a7e652.jpg">
-			<source type="video/mp4" src="/video/take5.mp4">
+			<source type="video/mp4" src="/WEB-INF/video/take5.mp4">
 			<object>
 				<embed src="/acc.mp4" type="application/x-shockwave-flash" allowfullscreen="false" allowscriptaccess="always">
 			</object>
@@ -88,4 +88,4 @@
 		</div>
 	</div>
 </div>
-<%@ include file="./commons/bottom.jspf"%>
+<%@ include file="/WEB-INF/jsp/commons/bottom.jspf"%>

@@ -31,7 +31,7 @@ public class ReadImageListServlet extends HttpServlet {
 
     imagelist = projectDAO.getImageList(sessionUtils.getStringValue(session, "projectName"));
     request.setAttribute("imageList", imagelist);
-    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/chat.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("/chat.jsp");
     rd.forward(request, response);
   }
 }

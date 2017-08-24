@@ -18,4 +18,12 @@ public class SessionUtils {
     }
     return (String) session.getAttribute(key);
   }
+  
+  public static Integer getIntegerValue(HttpSession session, String key) {
+    if (isEmpty(session, key)) {
+      return null;
+    }
+    return (Integer) session.getAttribute(key);
+  }
+  
 }

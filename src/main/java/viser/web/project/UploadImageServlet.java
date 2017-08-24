@@ -35,6 +35,6 @@ public class UploadImageServlet extends HttpServlet {
     Image image = new Image(path + mr.getFile("s_file").getName(), sessionUtils.getStringValue(session, "userId"));
 
     projectDAO.addImage(image, sessionUtils.getStringValue(session, "projectName"));
-    response.sendRedirect("lists/cardlist?boardNum=" + Integer.parseInt(sessionUtils.getStringValue(session, "boardNum")));
+    response.sendRedirect("lists/cardlist?boardNum=" + sessionUtils.getIntegerValue(session, "boardNum"));
   }
 }

@@ -12,7 +12,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint("/WEB-INF/jsp/chat.jsp")
+@ServerEndpoint("/chat.jsp")
 public class WebsocketChat {
   private static Set<Session> clients = Collections.synchronizedSet(new HashSet<Session>());
 

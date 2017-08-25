@@ -3,7 +3,7 @@ target/
 .git
 *.lst
 .metadata
-webapps/
+webapp/WEB-INF/classes
 .settings
 .classpath
 .project

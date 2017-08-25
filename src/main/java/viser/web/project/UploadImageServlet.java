@@ -26,8 +26,8 @@ public class UploadImageServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    final String path = request.getRealPath("/upload_image/");
-    MultipartRequest mr = new MultipartRequest(request, path, 1024 * 1024 * 5, "utf-8", new DefaultFileRenamePolicy());
+    final String path ="/upload_image/";
+    MultipartRequest mr = new MultipartRequest(request, request.getRealPath(path), 1024 * 1024 * 5, "utf-8", new DefaultFileRenamePolicy());
     SessionUtils sessionUtils = new SessionUtils();
     ProjectDAO projectDAO = new ProjectDAO();
 

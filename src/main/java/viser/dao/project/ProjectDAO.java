@@ -146,12 +146,12 @@ public class ProjectDAO {
     });
   }
 
-  public List getUserList(String keyword, String loginUser) {
-    String sql = "select * from users where not userId = ? and userId " + " like '%" + keyword.trim() + "%' order by age";
+  public List getUserList(String keyword, String projectName) {
+    String sql = "select * from users where not userId In (select userId from project_members where Project_Name = ?)";
     return jdbc.list(sql, new PreparedStatementSetter() {
       @Override
       public void setParameters(PreparedStatement pstmt) throws SQLException {
-        pstmt.setString(1, loginUser);
+        pstmt.setString(1, projectName);
       }
     }, new RowMapper() {
       @Override

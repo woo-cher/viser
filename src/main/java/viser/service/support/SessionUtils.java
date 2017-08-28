@@ -26,4 +26,11 @@ public class SessionUtils {
     return (Integer) session.getAttribute(key);
   }
   
+  public static Object getObjectValue(HttpSession session, String key) {
+    if (isEmpty(session, key)) {
+      return null;
+    }
+    return session.getAttribute(key);
+  }
+  
 }

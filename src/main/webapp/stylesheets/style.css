@@ -18,12 +18,14 @@
    z-index : -1;
 }
 
+#start-button{
+	width:300px;
+}
+
 video {
    position : fixed;
    top : 0; 
    left : 0;
-   min-width : 100 %;
-   min-height : 100 %;
    width : auto;
    height : auto;
    z-index : -1;
@@ -37,6 +39,7 @@ video {
    font-size: 100px;
    font-weight: bold;
    color: white;
+   padding: 100px;
 }
 
 .sort_css {
@@ -115,6 +118,17 @@ html {
 
 #basic-addon2 {
    width: 130px;
+}
+
+.thumb-image{
+ float:left;width:100px;
+ position:relative;
+ padding:5px;
+}
+
+#profile-border{
+	border: 1px solid lightgray;
+	padding: 2px;
 }
 
 .signup-footer {
@@ -362,6 +376,15 @@ overflow:auto;
 
 #chat-image-list-control{ 
 /*    border:1px solid black; */
+}
+
+.regis-button-center{
+	margin: 0px 115px;
+}
+
+.update-hidden-box{
+	border:1px solid coral;
+	padding:3px 0px 0px 9px;
 }
 
 /*web-kit 관련*/

@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 
 import viser.dao.project.ProjectDAO;
+import viser.domain.user.User;
 import viser.service.support.SessionUtils;
 import viser.web.user.LogInServlet;
 
@@ -33,7 +34,9 @@ public class ReadUserListServlet extends HttpServlet {
 
     session.removeAttribute("keyword");
 
-    String loginUserId = SessionUtils.getStringValue(session, LogInServlet.SESSION_USER_ID);
+    User sessionUser=(User)SessionUtils.getObjectValue(session, "user");
+    String userId = sessionUser.getUserId();
+    String loginUserId = SessionUtils.getStringValue(session, userId);
 
     String keyword = request.getParameter("keyword");
     session.setAttribute("keyword", keyword);

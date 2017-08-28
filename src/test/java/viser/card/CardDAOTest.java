@@ -45,6 +45,7 @@ public class CardDAOTest {
 
     projectDAO.addProject(ProjectDAOTest.TEST_PROJECT);
     boardDAO.addBoard(BoardDAOTest.TEST_BOARD);
+    UserTest.TEST_USER.setImage("/upload_image/default.png");
     userDAO.addUser(UserTest.TEST_USER);
     boardNum = boardDAO.getBoardNum(BoardDAOTest.TEST_BOARD.getBoardName(), BoardDAOTest.TEST_BOARD.getProjectName());
   }

@@ -159,8 +159,7 @@ public class ProjectDAO {
         User user = new User();
         user.setUserId(rs.getString("userId"));
         user.setName(rs.getString("name"));
-        user.setAge(rs.getString("age"));
-        user.setGender(rs.getString("gender"));
+        user.setBirth(rs.getString("birth"));
         return user;
       }
     });

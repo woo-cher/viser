@@ -2,7 +2,6 @@ package viser.web.project;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +16,6 @@ import viser.dao.project.ProjectDAO;
 import viser.domain.project.Project;
 import viser.domain.user.User;
 import viser.service.support.SessionUtils;
-import viser.web.user.LogInServlet;
 
 @WebServlet("/project/createProject")
 public class CreateProjectServlet extends HttpServlet {
@@ -31,7 +29,8 @@ public class CreateProjectServlet extends HttpServlet {
     ProjectDAO projectDAO = new ProjectDAO();
     HttpSession session = request.getSession();
 
-    String userId = new SessionUtils().getStringValue(session, LogInServlet.SESSION_USER_ID);
+    User sessionUser=(User)SessionUtils.getObjectValue(session, "user");
+    String userId = sessionUser.getUserId();
     String projectName = request.getParameter("projectName");
 
     project.setProjectName(projectName);

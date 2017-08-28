@@ -14,7 +14,7 @@
 	<h2 class="modal-title" id="MyModalLabel"></h2>
 	<form action="/imageUpload" method="post" enctype="multipart/form-data">
 
-		첨부파일:<input type="file" class="form-control" name="s_file" value="보내기" style="margin-left: 17px" ><br/>
+		첨부파일:<input type="file" class="form-control" name="uploadFile" value="보내기" style="margin-left: 17px" ><br/>
 		<input type="submit" class="form-control" value="보내기 " style= "margin-top: 68px;"/>
 
 	</form>

@@ -25,7 +25,8 @@ public class UpdateFormUserServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     HttpSession session = request.getSession();
-    String userId = SessionUtils.getStringValue(session, LogInServlet.SESSION_USER_ID);
+    User sessionUser=(User)SessionUtils.getObjectValue(session, "user");
+    String userId = sessionUser.getUserId();
 
     if (userId == null) {
       response.sendRedirect("/");
@@ -36,9 +37,8 @@ public class UpdateFormUserServlet extends HttpServlet {
     UserDAO userDAO = new UserDAO();
 
     User user = userDAO.getByUserId(userId);
-    request.setAttribute("isUpdate", true);
     request.setAttribute("user", user);
-    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modalpage/user.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/register.jsp");
     rd.forward(request, response);
   }
 }

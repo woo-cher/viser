@@ -59,6 +59,8 @@ public class ProjectDAOTest {
   @Test
   public void projectMemberCrud() throws SQLException {
     User user = UserTest.TEST_USER;
+    user.setImage("/upload_image/default.png");
+    
     List ProjectMemberlist = new ArrayList();
     List Projectlist = new ArrayList();
 
@@ -91,9 +93,16 @@ public class ProjectDAOTest {
 
   @Test
   public void getUserList() throws SQLException {
-    userDAO.addUser(new User("loginUser", "", "", "", "", ""));
-    userDAO.addUser(new User("TestId1", "", "", "", "", ""));
-    userDAO.addUser(new User("TestId2", "", "", "", "", ""));
+    User user1=new User("loginUser", "1234", "test", "2017-08-26", "test@test.com");
+    user1.setImage("/upload_image/default.png");
+    User user2=new User("TestId1", "1234", "test", "2017-08-26", "test@test.com");
+    user2.setImage("/upload_image/default.png");
+    User user3=new User("TestId2", "1234", "test", "2017-08-26", "test@test.com");
+    user3.setImage("/upload_image/default.png");
+    
+    userDAO.addUser(user1);
+    userDAO.addUser(user2);
+    userDAO.addUser(user3);
 
     logger.debug("Users : {}", projectDAO.getUserList("te", "loginUser"));
     assertNotNull(projectDAO.getUserList("te", "loginUser"));

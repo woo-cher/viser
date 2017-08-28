@@ -1,5 +1,6 @@
 package viser.web.user;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Set;
@@ -17,6 +18,9 @@ import javax.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import viser.dao.user.UserDAO;
 import viser.domain.user.User;
 import viser.service.support.MyvalidatorFactory;
@@ -29,28 +33,29 @@ public class UpdateUserServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     HttpSession session = request.getSession();
-    String sessionUseId = SessionUtils.getStringValue(session, LogInServlet.SESSION_USER_ID);
 
-    if (sessionUseId == null) {
+    User sessionUser=(User)SessionUtils.getObjectValue(session, "user");
+    if (sessionUser == null) {
       response.sendRedirect("/");
       logger.debug("UpdateUserServlet error");
       return;
     }
+    
+    String path="/upload_image/";
+    MultipartRequest mr = new MultipartRequest(request, request.getRealPath(path), 1024 * 1024 * 5, "utf-8", new DefaultFileRenamePolicy());
+    
+    String userId = mr.getParameter("userId");
+    String password = mr.getParameter("password");
+    String name = mr.getParameter("name");
+    String birth = mr.getParameter("birth");
+    String email = mr.getParameter("email");
 
-    String userId = (String) sessionUseId;
-    String password = request.getParameter("password");
-    String name = request.getParameter("name");
-    String age = request.getParameter("age");
-    String email = request.getParameter("email");
-    String gender = request.getParameter("gender");
-
-    User user = new User(userId, password, name, age, email, gender);
+    User user = new User(userId, password, name, birth, email);
 
     Validator validator = MyvalidatorFactory.createValidator();
     Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 
     if (constraintViolations.size() > 0) {
-      request.setAttribute("isUpdate", true);
       request.setAttribute("user", user);
       String errorMessage = constraintViolations.iterator().next().getMessage();
       errorForward(request, response, errorMessage);
@@ -60,19 +65,32 @@ public class UpdateUserServlet extends HttpServlet {
     UserDAO userDAO = new UserDAO();
 
     try {
-      userDAO.updateUser(user);
+      File uploadImage=mr.getFile("image");
+      logger.debug("imageFile: {}",uploadImage);
+      
+      String filePath;
+      
+      if(uploadImage!=null){
+        filePath=path+uploadImage.getName();
+        user.setImage(filePath);
+        userDAO.updateUserWithFile(user);
+      }
+      else{
+        filePath=userDAO.getByUserId(userId).getImage();
+        user.setImage(filePath);
+        userDAO.updateUser(user);
+      }
       session.setAttribute("user", user);
-      logger.debug("개인정보 수정 : " + password);
     } catch (SQLException e) {
       logger.debug("SQL Exception error" + e);
     }
 
-    response.sendRedirect("/project/projectlist");
+    response.sendRedirect("/main.jsp");
   }
 
   private void errorForward(HttpServletRequest request, HttpServletResponse response, String errorMessage) throws ServletException, IOException {
     request.setAttribute("formErrorMessage", errorMessage);
-    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/commons/top.jspf");
+    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/register.jsp");
     rd.forward(request, response);
   }
 }

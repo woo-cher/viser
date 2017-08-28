@@ -17,6 +17,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import viser.dao.project.ProjectDAO;
 import viser.domain.project.Image;
+import viser.domain.user.User;
 import viser.service.support.SessionUtils;
 
 @WebServlet("/imageUpload")
@@ -28,13 +29,16 @@ public class UploadImageServlet extends HttpServlet {
 
     final String path ="/upload_image/";
     MultipartRequest mr = new MultipartRequest(request, request.getRealPath(path), 1024 * 1024 * 5, "utf-8", new DefaultFileRenamePolicy());
-    SessionUtils sessionUtils = new SessionUtils();
     ProjectDAO projectDAO = new ProjectDAO();
 
     HttpSession session = request.getSession();
-    Image image = new Image(path + mr.getFile("s_file").getName(), sessionUtils.getStringValue(session, "userId"));
+    
+    User sessionUser=(User)SessionUtils.getObjectValue(session, "user");
+    String userId = sessionUser.getUserId();
+    
+    Image image = new Image(path + mr.getFile("uploadFile").getName(), userId);
 
-    projectDAO.addImage(image, sessionUtils.getStringValue(session, "projectName"));
-    response.sendRedirect("lists/cardlist?boardNum=" + sessionUtils.getIntegerValue(session, "boardNum"));
+    projectDAO.addImage(image, SessionUtils.getStringValue(session, "projectName"));
+    response.sendRedirect("lists/cardlist?boardNum=" + SessionUtils.getIntegerValue(session, "boardNum"));
   }
 }

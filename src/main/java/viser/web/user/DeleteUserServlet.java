@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import viser.dao.user.UserDAO;
+import viser.domain.user.User;
 import viser.service.support.SessionUtils;
 
 @WebServlet("/users/dropuser")
@@ -24,13 +25,14 @@ public class DeleteUserServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
     HttpSession session = req.getSession();
-    String userId = SessionUtils.getStringValue(session, LogInServlet.SESSION_USER_ID);
+    User sessionUser=(User)SessionUtils.getObjectValue(session, "user");
+    String userId = sessionUser.getUserId();
 
     logger.debug("" + userId);
     try {
       UserDAO userDAO = new UserDAO();
+      session.removeAttribute("user");
       userDAO.removeUser(userId);
-      session.removeAttribute("userId");
 
     } catch (Exception e) {
       logger.debug("\ndrop fail" + e);

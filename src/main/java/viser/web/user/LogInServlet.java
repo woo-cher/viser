@@ -34,17 +34,15 @@ public class LogInServlet extends HttpServlet {
       logger.debug("로그인 서블릿");
       User.login(userId, password);
       HttpSession session = request.getSession();
-      session.setAttribute(SESSION_USER_ID, userId);
+      User user = userDAO.getByUserId(userId);
+      session.setAttribute("user", user);
       logger.debug("로그인 처리성공");
 
-      User user = userDAO.getByUserId(userId);
-      session.setAttribute("userId", user.getUserId());
-      session.setAttribute("isUpdate", true);
-      session.setAttribute("user", user);
 
-      response.sendRedirect("/project/projectlist");
+      response.sendRedirect("/main.jsp");
+      
     } catch (UserNotFoundException e) {
-      errorForward(request, response, "존재하지 않는 사용자 입니다. 다시 로그인하세요.");
+      errorForward(request, response, "존재하지 않는 사용자 입니다.");
     } catch (PasswordMismatchException e) {
       errorForward(request, response, "비밀번호가 일치 하지 않습니다.");
     } catch (Exception e) {
@@ -53,7 +51,7 @@ public class LogInServlet extends HttpServlet {
 
   private void errorForward(HttpServletRequest request, HttpServletResponse response, String errorMessage) throws ServletException, IOException {
     request.setAttribute("errorMessage", errorMessage);
-    RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
     rd.forward(request, response);
   }
 

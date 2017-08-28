@@ -20,6 +20,7 @@ public class UserDAOTest {
   public void setUp() {
     userDAO = new UserDAO();
     user = UserTest.TEST_USER;
+    user.setImage("/upload_image/default.png");
   }
 
   @After
@@ -34,7 +35,8 @@ public class UserDAOTest {
     User dbUser = userDAO.getByUserId(user.getUserId());
     assertEquals(dbUser, user);
 
-    User updateUser = new User(user.getUserId(), "uPSW", "uName", "u25", "viser@visermail.net", "Her");
+    User updateUser = new User(user.getUserId(), "uPSW", "uName", "1992-10-08", "viser@visermail.net");
+    updateUser.setImage("/upload_image/default.png");
     userDAO.updateUser(updateUser);
 
     dbUser = userDAO.getByUserId(updateUser.getUserId());

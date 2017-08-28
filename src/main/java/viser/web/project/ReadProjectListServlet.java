@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import viser.dao.project.ProjectDAO;
 import viser.domain.project.Project;
+import viser.domain.user.User;
 import viser.service.support.SessionUtils;
 
 @WebServlet("/project/projectlist")
@@ -28,11 +29,12 @@ public class ReadProjectListServlet extends HttpServlet {
     HttpSession session = request.getSession();
     List<Project> projectlist = new ArrayList<Project>();
     ProjectDAO projectDAO = new ProjectDAO();
-    SessionUtils sessionUtils = new SessionUtils();
 
     session.removeAttribute("projectName");
 
-    projectlist = projectDAO.getProjectList(sessionUtils.getStringValue(session, "userId"));
+    User sessionUser=(User)SessionUtils.getObjectValue(session, "user");
+    String userId = sessionUser.getUserId();
+    projectlist = projectDAO.getProjectList(userId);
     request.setAttribute("isReadProject", true);
     request.setAttribute("list", projectlist);
 

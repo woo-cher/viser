@@ -17,6 +17,8 @@ import org.slf4j.LoggerFactory;
 
 import viser.dao.project.ProjectDAO;
 import viser.domain.project.ProjectMember;
+import viser.domain.user.User;
+import viser.service.support.SessionUtils;
 
 @WebServlet("/project/memberlist")
 public class ReadProjectMemberListServlet extends HttpServlet {
@@ -26,6 +28,9 @@ public class ReadProjectMemberListServlet extends HttpServlet {
     HttpSession session = request.getSession();
     List<ProjectMember> memberlist = new ArrayList();
     ProjectDAO projectDAO = new ProjectDAO();
+    
+    User sessionUser=(User)SessionUtils.getObjectValue(session, "user");
+    String userId = sessionUser.getUserId();
 
     try {
       memberlist = projectDAO.getProjectMemberList((String) session.getAttribute("projectName"));
@@ -35,8 +40,8 @@ public class ReadProjectMemberListServlet extends HttpServlet {
 
         logger.debug("관리자 권한 확인 반복문 시작");
         logger.debug("ReadProjectMemberListServlet db에서 조회 아이디 :" + pm.getUserId());
-        logger.debug("ReadProjectMemberListServlet 세션에서 조회 아이디 :" + session.getAttribute("userId"));
-        if (pm.getUserId().equals(session.getAttribute("userId")) && pm.getPower() == 1) {
+        logger.debug("ReadProjectMemberListServlet 세션에서 조회 아이디 :" + userId);
+        if (pm.getUserId().equals(userId) && pm.getPower() == 1) {
           logger.debug("ReadProjectMemberListServlet db에서 조회한 권한 :" + pm.getPower());
           request.setAttribute("isMaster", true);
         }

@@ -17,6 +17,8 @@ import com.google.gson.Gson;
 
 import viser.dao.card.CardDAO;
 import viser.domain.card.Card;
+import viser.domain.user.User;
+import viser.service.support.SessionUtils;
 
 @WebServlet("/cards/viewcard")
 public class ReadCardServlet extends HttpServlet {
@@ -26,7 +28,8 @@ public class ReadCardServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
     HttpSession session = request.getSession();
-    String userId = (String) session.getAttribute("userId");
+    User sessionUser=(User)SessionUtils.getObjectValue(session, "user");
+    String userId = sessionUser.getUserId();
 
     CardDAO cardDAO = new CardDAO();
     Card card = new Card();

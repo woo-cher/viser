@@ -18,20 +18,19 @@ public class User {
   private String password;
 
   @NotNull(message = "이름을 입력하세요.")
-  @Size(min = 2, max = 10, message = "이름은 2자 이상 10자 이하여야 합니다.")
+  @Size(min = 2, max = 12, message = "이름은 2자 이상 10자 이하여야 합니다.")
   private String name;
 
-  @NotNull(message = "나이를 입력하세요.")
-  @Size(min = 1, max = 2, message = "나이는 1자 이상 2자 이하여야 합니다.")
-  private String age;
+  @NotNull(message = "생년월일을 입력하세요.")
+  @Size(min = 10, max = 10, message = "YYYY-MM-DD 형식으로 입력해야 합니다.")
+  private String birth;
 
   @NotNull
   @NotEmpty(message = "이메일을 입력하세요.")
   @Email
   private String email;
 
-  @NotNull(message = "성별을 골라주세요.")
-  private String gender;
+  private String image;
 
   public User() {
 
@@ -41,23 +40,30 @@ public class User {
     this.userId = userId;
   }
 
-  public User(String userId, String password, String name, String age, String email, String gender) {
-    super();
+  public User(String userId, String password, String name, String birth, String email) {
     this.userId = userId;
     this.password = password;
     this.name = name;
-    this.age = age;
+    this.birth = birth;
     this.email = email;
-    this.gender = gender;
+  }
+
+  public User(String userId, String password, String name, String birth, String email, String image) {
+    this.userId = userId;
+    this.password = password;
+    this.name = name;
+    this.birth = birth;
+    this.email = email;
+    this.image = image;
   }
 
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((age == null) ? 0 : age.hashCode());
+    result = prime * result + ((birth == null) ? 0 : birth.hashCode());
     result = prime * result + ((email == null) ? 0 : email.hashCode());
-    result = prime * result + ((gender == null) ? 0 : gender.hashCode());
+    result = prime * result + ((image == null) ? 0 : image.hashCode());
     result = prime * result + ((name == null) ? 0 : name.hashCode());
     result = prime * result + ((password == null) ? 0 : password.hashCode());
     result = prime * result + ((userId == null) ? 0 : userId.hashCode());
@@ -73,20 +79,20 @@ public class User {
     if (getClass() != obj.getClass())
       return false;
     User other = (User) obj;
-    if (age == null) {
-      if (other.age != null)
+    if (birth == null) {
+      if (other.birth != null)
         return false;
-    } else if (!age.equals(other.age))
+    } else if (!birth.equals(other.birth))
       return false;
     if (email == null) {
       if (other.email != null)
         return false;
     } else if (!email.equals(other.email))
       return false;
-    if (gender == null) {
-      if (other.gender != null)
+    if (image == null) {
+      if (other.image != null)
         return false;
-    } else if (!gender.equals(other.gender))
+    } else if (!image.equals(other.image))
       return false;
     if (name == null) {
       if (other.name != null)
@@ -104,30 +110,6 @@ public class User {
     } else if (!userId.equals(other.userId))
       return false;
     return true;
-  }
-
-  public String getGender() {
-    return gender;
-  }
-
-  public void setGender(String gender) {
-    this.gender = gender;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getAge() {
-    return age;
-  }
-
-  public void setAge(String age) {
-    this.age = age;
   }
 
   public String getUserId() {
@@ -154,8 +136,33 @@ public class User {
     this.name = name;
   }
 
+  public String getBirth() {
+    return birth;
+  }
+
+  public void setBirth(String birth) {
+    this.birth = birth;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getImage() {
+    return image;
+  }
+
+  public void setImage(String image) {
+    this.image = image;
+  }
+
+  @Override
   public String toString() {
-    return "User [userId=" + userId + ", password=" + password + ", name=" + name + ", age=" + age + ", email=" + email + ", gender=" + gender + "]";
+    return "User [userId=" + userId + ", password=" + password + ", name=" + name + ", birth=" + birth + ", email=" + email + ", image=" + image + "]";
   }
 
   public boolean matchPassword(String newPassword) {

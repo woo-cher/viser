@@ -16,8 +16,8 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 
 import viser.domain.card.Card;
+import viser.domain.user.User;
 import viser.service.support.SessionUtils;
-import viser.web.user.LogInServlet;
 
 @WebServlet("/cards/createcardForm")
 public class CreateFormCardServlet extends HttpServlet {
@@ -27,7 +27,8 @@ public class CreateFormCardServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     HttpSession session = request.getSession();
-    String userId = SessionUtils.getStringValue(session, LogInServlet.SESSION_USER_ID);
+    User sessionUser=(User)SessionUtils.getObjectValue(session, "user");
+    String userId = sessionUser.getUserId();
     PrintWriter out = response.getWriter();
 
     int listNum = Integer.parseInt(request.getParameter("listNum"));

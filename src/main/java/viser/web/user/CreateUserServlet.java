@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import viser.dao.user.UserDAO;
 import viser.domain.user.User;
 import viser.service.support.MyvalidatorFactory;
@@ -21,14 +24,15 @@ public class CreateUserServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String userId = request.getParameter("userId");
-    String password = request.getParameter("password");
-    String name = request.getParameter("name");
-    String age = request.getParameter("age");
-    String email = request.getParameter("email");
-    String gender = request.getParameter("gender");
+    MultipartRequest mr = new MultipartRequest(request, request.getRealPath(""), 1024 * 1024 * 5, "utf-8", new DefaultFileRenamePolicy());
+    
+    String userId = mr.getParameter("userId");
+    String password = mr.getParameter("password");
+    String name = mr.getParameter("name");
+    String birth = mr.getParameter("birth");
+    String email = mr.getParameter("email");
 
-    User user = new User(userId, password, name, age, email, gender);
+    User user = new User(userId, password, name, birth, email);
     Validator validator = MyvalidatorFactory.createValidator();
     Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 
@@ -40,14 +44,15 @@ public class CreateUserServlet extends HttpServlet {
     }
 
     UserDAO userDAO = new UserDAO();
+    user.setImage("/upload_image/default.png");
     userDAO.addUser(user);
 
-    response.sendRedirect("/index.jsp");
+    response.sendRedirect("/login.jsp");
   }
 
   private void errorForward(HttpServletRequest request, HttpServletResponse response, String errorMessage) throws ServletException, IOException {
     request.setAttribute("formErrorMessage", errorMessage);
-    RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/register.jsp");
     rd.forward(request, response);
   }
 }

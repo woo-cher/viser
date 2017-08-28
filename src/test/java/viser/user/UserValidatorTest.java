@@ -25,7 +25,7 @@ public class UserValidatorTest {
 
   @Test
   public void UserIdIsNull() throws Exception {
-    User user = new User(null, "password", "name", "25", "email@visermail.net", "Gender");
+    User user = new User(null, "password", "name", "1992-10-08", "email@visermail.net");
 
     Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
     assertEquals(1, constraintViolations.size());
@@ -34,13 +34,13 @@ public class UserValidatorTest {
 
   @Test
   public void UserIdLength() throws Exception {
-    User user = new User("us", "password", "name", "25", "email@visermail.net", "Man");
+    User user = new User("us", "password", "name", "1992-10-08", "email@visermail.net");
 
     Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
     assertEquals(1, constraintViolations.size());
     System.out.println(constraintViolations.iterator().next().getMessage());
 
-    user = new User("userIddddddddddd", "password", "name", "25", "email@visermail.net", "Man");
+    user = new User("userIddddddddddd", "password", "name", "1992-10-08", "email@visermail.net");
     constraintViolations = validator.validate(user);
     assertEquals(1, constraintViolations.size());
     System.out.println(constraintViolations.iterator().next().getMessage());
@@ -48,20 +48,20 @@ public class UserValidatorTest {
 
   @Test
   public void UserPasswordLength() throws Exception {
-    User user = new User("userId", "pd", "name", "25", "email@visermail.net", "Man");
+    User user = new User("userId", "pd", "name", "1992-10-08", "email@visermail.net");
     Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 
     assertEquals(1, constraintViolations.size());
     System.out.println(constraintViolations.iterator().next().getMessage());
 
-    user = new User("userId", "pdddddddddddd", "name", "25", "email@visermail.net", "Man");
+    user = new User("userId", "pdddddddddddd", "name", "1992-10-08", "email@visermail.net");
     assertEquals(1, constraintViolations.size());
     System.out.println(constraintViolations.iterator().next().getMessage());
   }
 
   @Test
   public void UserEmailCheck() throws Exception {
-    User user = new User("userId", "password", "name", "25", "", "Man");
+    User user = new User("userId", "password", "name", "1992-10-08", "");
     Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 
     assertEquals(1, constraintViolations.size());

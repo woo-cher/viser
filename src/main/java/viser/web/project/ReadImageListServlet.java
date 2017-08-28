@@ -27,9 +27,8 @@ public class ReadImageListServlet extends HttpServlet {
     List<String> imagelist = new ArrayList<String>();
     ProjectDAO projectDAO = new ProjectDAO();
     HttpSession session = request.getSession();
-    SessionUtils sessionUtils = new SessionUtils();
 
-    imagelist = projectDAO.getImageList(sessionUtils.getStringValue(session, "projectName"));
+    imagelist = projectDAO.getImageList(SessionUtils.getStringValue(session, "projectName"));
     request.setAttribute("imageList", imagelist);
     RequestDispatcher rd = request.getRequestDispatcher("/chat.jsp");
     rd.forward(request, response);

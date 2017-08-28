@@ -24,9 +24,9 @@ public class UserDAO {
         pstmt.setString(1, user.getUserId());
         pstmt.setString(2, user.getPassword());
         pstmt.setString(3, user.getName());
-        pstmt.setString(4, user.getAge());
+        pstmt.setString(4, user.getBirth());
         pstmt.setString(5, user.getEmail());
-        pstmt.setString(6, user.getGender());
+        pstmt.setString(6, user.getImage());
       }
     });
   }
@@ -43,7 +43,7 @@ public class UserDAO {
       public User mapRow(ResultSet rs) throws SQLException {
         while (!rs.next())
           return null;
-        return new User(rs.getString("userId"), rs.getString("password"), rs.getString("name"), rs.getString("age"), rs.getString("email"), rs.getString("gender"));
+        return new User(rs.getString("userId"), rs.getString("password"), rs.getString("name"), rs.getString("birth"), rs.getString("email"), rs.getString("image"));
       }
     });
   }
@@ -59,15 +59,30 @@ public class UserDAO {
   }
 
   public void updateUser(User user) throws SQLException {
-    String sql = "update users set password = ?, name = ?, age = ?, email = ?, gender = ? where userId = ?";
+    logger.debug("user: {}",user);
+    String sql = "update users set password = ?, name = ?, birth = ?, email = ? where userId = ?";
     jdbc.executeUpdate(sql, new PreparedStatementSetter() {
       @Override
       public void setParameters(PreparedStatement pstmt) throws SQLException {
         pstmt.setString(1, user.getPassword());
         pstmt.setString(2, user.getName());
-        pstmt.setString(3, user.getAge());
+        pstmt.setString(3, user.getBirth());
         pstmt.setString(4, user.getEmail());
-        pstmt.setString(5, user.getGender());
+        pstmt.setString(5, user.getUserId());
+      }
+    });
+  }
+  
+  public void updateUserWithFile(User user) throws SQLException {
+    String sql = "update users set password = ?, name = ?, birth = ?, email = ?, image= ? where userId = ?";
+    jdbc.executeUpdate(sql, new PreparedStatementSetter() {
+      @Override
+      public void setParameters(PreparedStatement pstmt) throws SQLException {
+        pstmt.setString(1, user.getPassword());
+        pstmt.setString(2, user.getName());
+        pstmt.setString(3, user.getBirth());
+        pstmt.setString(4, user.getEmail());
+        pstmt.setString(5, user.getImage());
         pstmt.setString(6, user.getUserId());
       }
     });

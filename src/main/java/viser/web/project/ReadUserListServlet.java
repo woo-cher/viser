@@ -18,9 +18,7 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 
 import viser.dao.project.ProjectDAO;
-import viser.domain.user.User;
 import viser.service.support.SessionUtils;
-import viser.web.user.LogInServlet;
 
 @WebServlet("/projects/searchUser")
 public class ReadUserListServlet extends HttpServlet {
@@ -34,16 +32,15 @@ public class ReadUserListServlet extends HttpServlet {
 
     session.removeAttribute("keyword");
 
-    User sessionUser=(User)SessionUtils.getObjectValue(session, "user");
-    String userId = sessionUser.getUserId();
-    String loginUserId = SessionUtils.getStringValue(session, userId);
-
+    String projectName=SessionUtils.getStringValue(session, "projectName");
     String keyword = request.getParameter("keyword");
+    
     session.setAttribute("keyword", keyword);
 
     logger.debug("검색 키 : " + keyword);
+    logger.debug("Session_projectName = " + projectName);
     try {
-      list = projectDAO.getUserList(keyword, loginUserId);
+      list = projectDAO.getUserList(keyword, projectName);
       Gson gson = new Gson();
       String jsonData = gson.toJson(list);
 
@@ -55,3 +52,4 @@ public class ReadUserListServlet extends HttpServlet {
     }
   }
 }
+

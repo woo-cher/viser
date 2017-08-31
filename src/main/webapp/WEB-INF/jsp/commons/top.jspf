@@ -135,7 +135,7 @@
          
          <c:set var = "actionUrl" value = "/users/create" />
          <c:if test="${isUpdate}">
-         <c:set var = "actionUrl" value = "/users/update" />
+         <c:set var = "actionUrl" value = "" />
          </c:if>
       
       <div class="modal-body" style=" text-align: center;">
@@ -158,15 +158,15 @@
             </div>
             
             <div class="input-group">
-               <label class="input-group-addon" id="basic-addon2" for="age">나이</label> 
+               <label class="input-group-addon" id="basic-addon2" for="birth">나이</label> 
                <c:choose>
                   <c:when test="${isUpdate}">
-                     <input type="hidden" name ="age" value="${user.age}" />
-                     <div id="hidden" "style ="text-align: center;">${user.age}</div>   
+                     <input type="hidden" name ="birth" value="${user.birth}" />
+                     <div id="hidden" "style ="text-align: center;">${user.birth}</div>   
                   </c:when>
                   
                   <c:otherwise>
-                     <input type="text" class="form-control" aria-describedby="basic-addon2" name="age" value="${user.age}" />
+                     <input type="text" class="form-control" aria-describedby="basic-addon2" name="birth" value="${user.birth}" />
                   </c:otherwise>
                </c:choose>
             </div>

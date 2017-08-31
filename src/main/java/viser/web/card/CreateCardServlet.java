@@ -26,11 +26,14 @@ public class CreateCardServlet extends HttpServlet {
     String subject = request.getParameter("subject");
     String content = request.getParameter("content");
     String userId = request.getParameter("userId");
+    String duedate = request.getParameter("dueDate");
     int listNum = Integer.parseInt(request.getParameter("listNum"));
     int cardOrder = Integer.parseInt(request.getParameter("cardOrder"));
-
-    Card card = new Card(subject, content, userId, listNum, cardOrder);
-    logger.debug("CreateCardServlet 에서 받은 card객체:" + card.toString());
+    
+    logger.debug("카드 생성 위한 dueDate" + duedate);
+    
+    Card card = new Card(subject, content, userId, listNum, cardOrder, duedate);
+    logger.debug("CreateCardServlet 에서 받은 card객체 : " + card.toString());
     try {
       cardDAO.addCard(card);
     } catch (Exception e) {

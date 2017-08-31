@@ -11,6 +11,7 @@ public class Card {
   private Date modifyTime;
   private int listNum;
   private int cardOrder;
+  private String dueDate;
 
   public Card() {}
 
@@ -23,25 +24,41 @@ public class Card {
     this.listNum = listNum;
     this.cardOrder = cardOrder;
   }
+  
+  public Card(int cardNum, String userId, String subject, String content, Date modifyTime, int listNum, int cardOrder, String dueDate) {
+    this.cardNum = cardNum;
+    this.userId = userId;
+    this.subject = subject;
+    this.content = content;
+    this.modifyTime = modifyTime;
+    this.listNum = listNum;
+    this.cardOrder = cardOrder;
+    this.dueDate = dueDate;
+  }
 
-  public Card(String subject, String content, String userId, int listNum, int cardOrder) {
+  public Card(String subject, String content, String userId, int listNum, int cardOrder, String dueDate) {
     this.subject = subject;
     this.content = content;
     this.userId = userId;
     this.listNum = listNum;
     this.cardOrder = cardOrder;
+    this.dueDate = dueDate;
   }
-
 
   public Card(int listNum, int cardOrder) {
     this.listNum = listNum;
     this.cardOrder = cardOrder;
   }
 
+  public Card(int cardNum, String dueDate) {
+    this.cardNum = cardNum;
+    this.dueDate = dueDate;
+  }
+
   public int getCardNum() {
     return cardNum;
   }
-
+  
   public void setCardNum(int cardNum) {
     this.cardNum = cardNum;
   }
@@ -93,10 +110,18 @@ public class Card {
   public void setCardOrder(int cardOrder) {
     this.cardOrder = cardOrder;
   }
+  
+  public String getDueDate() {
+    return dueDate;
+  }
+  
+  public void setDueDate(String dueDate) {
+    this.dueDate = dueDate;
+  }
 
   @Override
   public String toString() {
-    return "Card [cardNum=" + cardNum + ", userId=" + userId + ", subject=" + subject + ", content=" + content + ", modifyTime=" + modifyTime + ", listNum=" + listNum + ", cardOrder=" + cardOrder + "]";
+    return "Card [cardNum=" + cardNum + ", userId=" + userId + ", subject=" + subject + ", content=" + content + ", modifyTime=" + modifyTime + ", listNum=" + listNum + ", cardOrder=" + cardOrder + ", dueDate = " + dueDate + "]";
   }
 
   @Override
@@ -106,6 +131,7 @@ public class Card {
     result = prime * result + cardNum;
     result = prime * result + cardOrder;
     result = prime * result + ((content == null) ? 0 : content.hashCode());
+    result = prime * result + ((dueDate == null) ? 0 : dueDate.hashCode());
     result = prime * result + listNum;
     result = prime * result + ((modifyTime == null) ? 0 : modifyTime.hashCode());
     result = prime * result + ((subject == null) ? 0 : subject.hashCode());
@@ -131,6 +157,11 @@ public class Card {
         return false;
     } else if (!content.equals(other.content))
       return false;
+    if (dueDate == null) {
+      if (other.dueDate != null)
+        return false;
+    } else if (!dueDate.equals(other.dueDate))
+      return false;
     if (listNum != other.listNum)
       return false;
     if (modifyTime == null) {
@@ -150,5 +181,4 @@ public class Card {
       return false;
     return true;
   }
-
 }

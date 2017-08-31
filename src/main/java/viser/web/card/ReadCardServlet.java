@@ -28,9 +28,9 @@ public class ReadCardServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
     HttpSession session = request.getSession();
-    User sessionUser=(User)SessionUtils.getObjectValue(session, "user");
+    User sessionUser = (User) SessionUtils.getObjectValue(session, "user");
     String userId = sessionUser.getUserId();
-
+    
     CardDAO cardDAO = new CardDAO();
     Card card = new Card();
 
@@ -38,7 +38,8 @@ public class ReadCardServlet extends HttpServlet {
 
     try {
       card = cardDAO.viewCard(cardNum);
-
+      logger.debug("카드 : {}", card);
+      
       if (card == null) {
         logger.debug("card View null");
       }

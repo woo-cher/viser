@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 
 import viser.dao.project.ProjectDAO;
-import viser.service.support.SessionUtils;
 
 @WebServlet("/projects/searchUser")
 public class ReadUserListServlet extends HttpServlet {
@@ -31,10 +30,10 @@ public class ReadUserListServlet extends HttpServlet {
     HttpSession session = request.getSession();
 
     session.removeAttribute("keyword");
-
-    String projectName=SessionUtils.getStringValue(session, "projectName");
-    String keyword = request.getParameter("keyword");
     
+    String projectName = (String)session.getAttribute("projectName");
+    String keyword = request.getParameter("keyword");
+   
     session.setAttribute("keyword", keyword);
 
     logger.debug("검색 키 : " + keyword);
@@ -52,4 +51,3 @@ public class ReadUserListServlet extends HttpServlet {
     }
   }
 }
-

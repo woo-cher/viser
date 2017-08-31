@@ -4,7 +4,6 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="viser.card.*"%>
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,9 +12,16 @@
 <title>jQuery UI Sortable - Display as grid</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<link rel="stylesheet" href="/resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
+<!-- Google Font -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+<!-- bootstrap datepicker -->
+<link rel="stylesheet" href="/resources/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+<!-- jQuery 3 -->
+<script src="/resources/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>card</title>
@@ -27,9 +33,7 @@
          <div id="top">
            <div id="mini-menu"> 
             <div class="btn-group-sm" role="group" aria-label="...">   
-            <button type="button" class="btn btn-info" onclick="location.href='/board/boardlist?projectName=${projectName}'">
-            목록
-            </button>
+            <button type="button" class="btn btn-info" onclick="location.href='/board/boardlist?projectName=${projectName}'">목록</button>
             <button type="button" class="btn btn-info" href="#" data-toggle="modal" data-target="#invite">초대</button>
             <button type="button" class="btn btn-info" href="#" class="btn btn-default">EXIT</button>
            </div>
@@ -74,6 +78,8 @@
                                                 viewCard(${card.cardNum});
                                              });
                                           });
+                                          
+                                     
                                        </script>
                                        </li>
                                     </c:forEach>
@@ -134,8 +140,17 @@ function viewCard(currentCardNum){
       url:'/cards/viewcard',
       dataType:'json',
       success:function (data){
+    	 var str='';
          $('#card-field').attr("action","/cards/updatecard");
          $('#Title').html("<h2>View_Card</h2>");
+         if(data.dueDate) {
+        		str+="<td>DUEDATE</td>";
+				str+="<td>";
+				str+="<input type='hidden' class='form-control'>";
+				str+=data.dueDate;
+				str+="</td>"
+				$('#card-duedate').html(str);
+         };
          $('#cardNum').val(data.cardNum);
          $('#card-user').html("<input type='hidden' name='userId' value='"+data.userId+"'>"+data.userId+"</input>");
          $('#cardSubject').val(data.subject);
@@ -147,6 +162,7 @@ function viewCard(currentCardNum){
          btn+="<input type='button' id='delete-card' class='btn btn-default' value='Delete' />";
          $('#btn-area').html(btn);
          $('#delete-card').attr("onclick","location.href='/cards/removecard?num="+data.cardNum+"&listNum="+data.listNum+"&cardOrder="+data.cardOrder+"'");
+      	 $('#close-card-btn').remove();
       },
       error:ajaxError
    });
@@ -162,11 +178,14 @@ function addCard(cardListNum,currentCardOrder){
       url:"/cards/createcardForm",
       dataType:'json',
       success:function (data){
+    	 $('#cardNum').val(data.cardNum);
+		 $('#card-duedate').empty();
          $('#cardSubject').val(data.subject);
          $('#cardContent').val(data.content);
          $('#card-field').attr("action","/cards/createcard");
          $('#Title').html("<h2>CREATE_Card</h2>");
-         $('#card-user').html("<input type='hidden' name='userId' value='${userId}'>${userId}</input>");
+         $('#card-user').html("<input type='hidden' name='userId' value='${user.userId}'>${user.userId}</input>");
+         console.log(data.dueDate);
          $('#cardListNum').val(cardListNum);
          $('#cardOrder').val(currentCardOrder);
          var btn="";
@@ -184,7 +203,7 @@ function ajaxError(){
 }
 </script>
 
- <script>
+<script>
  
  var boardNum=${boardNum};
  var startListOrder;
@@ -288,5 +307,47 @@ function updateListName(listNum,listName){
    url:"/lists/updateListName",
    error:ajaxError
    });
+}
+
+// -- DueDate Ajax --
+function ajaxError(){
+	   alert("데이터 로딩 오류");
+}
+
+$('#datepicker').datepicker({
+	autoclose : true,
+	format : 'yyyy-mm-dd',
+})
+
+function cuDueDate(){
+	$.ajax({
+		type:'get',
+		data:{
+			cardNum:$('#cardNum').val(),
+			duedate:$('#datepicker').val()
+			},
+		url:"/cards/CreateDueDate",
+		dataType: "json",
+		
+		success:function(data){
+			var str='';
+			$('#card-duedate').html(str);
+			console.log("Connected Ajax");
+			console.log(data.cardNum);
+			console.log(data.dueDate);
+			console.log("Due date Added");
+				str+="<td>DUEDATE</td>";
+				str+="<td>";
+				str+="<input id='dueDate' type='hidden' class='form-control' name='dueDate' value='" + data.dueDate + "'>";
+				str+=data.dueDate;
+				str+="</td>";
+				$('#card-duedate').html(str);
+		},
+		
+ 		complete:function() {
+			$('#close-btn').click();
+		}, 
+		error:ajaxError
+	});
 }
 </script>

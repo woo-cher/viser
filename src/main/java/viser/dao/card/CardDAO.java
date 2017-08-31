@@ -45,7 +45,7 @@ public class CardDAO {
   }
 
   public void addCard(Card card) {
-    String sql = "insert into cards(userId,Subject,Content, List_Num, Card_Order) values(?,?,?,?,?)";
+    String sql = "insert into cards(userId, Subject, Content, List_Num, Card_Order, DueDate) values(?,?,?,?,?,?)";
     jdbc.executeUpdate(sql, new PreparedStatementSetter() {
       @Override
       public void setParameters(PreparedStatement pstmt) throws SQLException {
@@ -54,6 +54,7 @@ public class CardDAO {
         pstmt.setString(3, card.getContent());
         pstmt.setInt(4, card.getListNum());
         pstmt.setInt(5, card.getCardOrder());
+        pstmt.setString(6, card.getDueDate());
       }
     });
   }
@@ -99,7 +100,7 @@ public class CardDAO {
       @Override
       public Card mapRow(ResultSet rs) throws SQLException {
         if (rs.next()) {
-          return new Card(rs.getInt("Card_Num"), rs.getString("userId"), rs.getString("Subject"), rs.getString("Content"), rs.getDate("Modify_Time"), rs.getInt("List_Num"), rs.getInt("Card_Order"));
+          return new Card(rs.getInt("Card_Num"), rs.getString("userId"), rs.getString("Subject"), rs.getString("Content"), rs.getDate("Modify_Time"), rs.getInt("List_Num"), rs.getInt("Card_Order"), rs.getString("DueDate"));
         }
         return null;
       }
@@ -252,6 +253,17 @@ public class CardDAO {
         while (rs.next())
           return rs.getInt("Card_Num");
         return 0;
+      }
+    });
+  }
+
+  public void updateCardDueDate(String dueDate, int cardNum) {
+    String sql = "update cards set DueDate = ? where Card_Num = ?";
+    jdbc.executeUpdate(sql, new PreparedStatementSetter() {
+      @Override
+      public void setParameters(PreparedStatement pstmt) throws SQLException {
+        pstmt.setString(1, dueDate);
+        pstmt.setInt(2, cardNum);
       }
     });
   }

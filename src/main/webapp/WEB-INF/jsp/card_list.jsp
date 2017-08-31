@@ -141,6 +141,7 @@ function viewCard(currentCardNum){
       dataType:'json',
       success:function (data){
     	 var str='';
+    	 $('#card-duedate').html(str);
          $('#card-field').attr("action","/cards/updatecard");
          $('#Title').html("<h2>View_Card</h2>");
          if(data.dueDate) {

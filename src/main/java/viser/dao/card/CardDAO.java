@@ -100,7 +100,14 @@ public class CardDAO {
       @Override
       public Card mapRow(ResultSet rs) throws SQLException {
         if (rs.next()) {
-          return new Card(rs.getInt("Card_Num"), rs.getString("userId"), rs.getString("Subject"), rs.getString("Content"), rs.getDate("Modify_Time"), rs.getInt("List_Num"), rs.getInt("Card_Order"), rs.getString("DueDate"));
+          return new Card(rs.getInt("Card_Num"), 
+                          rs.getString("userId"), 
+                          rs.getString("Subject"), 
+                          rs.getString("Content"), 
+                          rs.getDate("Modify_Time"),
+                          rs.getInt("List_Num"),
+                          rs.getInt("Card_Order"), 
+                          rs.getString("DueDate"));
         }
         return null;
       }

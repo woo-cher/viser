@@ -18,10 +18,11 @@ import viser.dao.project.ProjectDAO;
 
 public class JdbcTemplate {
   private static final Logger logger = LoggerFactory.getLogger(JdbcTemplate.class);
-  Connection conn;
-  PreparedStatement pstmt;
-  PreparedStatement pstmt2;
-  ResultSet rs;
+  private Connection conn;
+  private PreparedStatement pstmt;
+  private PreparedStatement pstmt2;
+  public ResultSet rs;
+  public ResultSet rs2;
 
   public Connection getConnection() {
     Properties props = new Properties();
@@ -71,12 +72,29 @@ public class JdbcTemplate {
       pss.setParameters(pstmt);
       pstmt.executeUpdate();
     } catch (SQLException e) {
-      logger.debug("JdbcTemplate executeUpdate Error: ", e);
+      logger.debug("JdbcTemplate executeUpdate Error: " + e.getMessage());
     } finally {
       sourceReturn();
     }
   }
-
+  
+  public <T> T generatedExecuteUpdate(String sql, PreparedStatementSetter pss, RowMapper rm) {
+    conn = getConnection();
+    T result = null;
+    try {
+      pstmt = conn.prepareStatement(sql, pstmt.RETURN_GENERATED_KEYS);
+      pss.setParameters(pstmt);
+      pstmt.executeUpdate();
+      rs = pstmt.getGeneratedKeys();
+      result = rm.mapRow(rs);
+    } catch (SQLException e) {
+      logger.debug("JdbcTemplate executeUpdate Error: " + e.getMessage());
+    } finally {
+      sourceReturn();
+      return result;
+    }
+  }
+  
   public <T> T executeQuery(String sql, PreparedStatementSetter pss, RowMapper rm) {
     conn = getConnection();
     T result = null;
@@ -86,13 +104,13 @@ public class JdbcTemplate {
       rs = pstmt.executeQuery();
       result = rm.mapRow(rs);
     } catch (SQLException e) {
-      logger.debug("JdbcTemplate executeQuery Error: ", e);
+      logger.debug("JdbcTemplate executeQuery Error: " +  e);
     } finally {
       sourceReturn();
       return result;
     }
   }
-
+  
   public <T> List<T> list(String sql, PreparedStatementSetter pss, RowMapper rm) {
     List<T> list = new ArrayList<T>();
     conn = getConnection();
@@ -104,13 +122,13 @@ public class JdbcTemplate {
         list.add(rm.mapRow(rs));
       }
     } catch (SQLException e) {
-      logger.debug("JdbcTemplate executeQuery Error: ", e.getMessage());
+      logger.debug("JdbcTemplate executeQuery Error: " + e.getMessage());
     } finally {
       sourceReturn();
       return list;
     }
   }
-
+  
   public void selectAndUpdate(String sql, String sql2, PreparedStatementSetter pss, SelectAndUpdateSetter snus) {
     conn = getConnection();
     try {
@@ -123,7 +141,28 @@ public class JdbcTemplate {
         pstmt2.executeUpdate();
       }
     } catch (SQLException e) {
-      logger.debug("JdbcTemplate selectAndUpdate Error: ", e.getMessage());
+      logger.debug("JdbcTemplate selectAndUpdate Error: " + e.getMessage());
     }
+  }
+  
+  public <T> List<T> selectAndSelect(String sql, String sql2, PreparedStatementSetter pss, SelectAndSelectSetter sass, RowMapper rm) {
+    List<T> list = new ArrayList<T>();
+    conn = getConnection();
+    try {
+      pstmt = conn.prepareStatement(sql);
+      pstmt2 = conn.prepareStatement(sql2);
+      pss.setParameters(pstmt);
+      rs = pstmt.executeQuery();
+      while (rs.next()) {
+        sass.setParametersBySelect(pstmt2, rs);
+        rs2 = pstmt2.executeQuery();
+        while (rs2.next()) {
+            list.add(rm.mapRow(rs2));
+        }
+      }
+    } catch (SQLException e) {
+      logger.debug("JdbcTemplate selectAndSelect Error: " + e.getMessage());
+    }
+    return list;
   }
 }

@@ -20,8 +20,6 @@
 <link rel="stylesheet" href="/resources/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
 <!-- jQuery 3 -->
 <script src="/resources/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>card</title>
@@ -34,8 +32,8 @@
            <div id="mini-menu"> 
             <div class="btn-group-sm" role="group" aria-label="...">   
             <button type="button" class="btn btn-info" onclick="location.href='/board/boardlist?projectName=${projectName}'">목록</button>
-            <button type="button" class="btn btn-info" href="#" data-toggle="modal" data-target="#invite">초대</button>
-            <button type="button" class="btn btn-info" href="#" class="btn btn-default">EXIT</button>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#invite-modal">초대</button>
+            <button type="button" class="btn btn-info" onclick="getRoleList();">ROLE</button>
            </div>
          </div>
         </div>  
@@ -116,17 +114,18 @@
       </div>
       <%@include file = "/WEB-INF/jsp/modalpage/upload.jsp"%> 
       <%@include file = "/WEB-INF/jsp/modalpage/invite.jsp" %>
+      <%@include file = "/WEB-INF/jsp/modalpage/role.jsp" %>
    </div> 
 </body>
 <%@ include file="./commons/bottom.jspf"%>
 </div>
 </html>
+
 <script>
 function upload_popup(){
    $('#uploadmodal').modal();
 }
 </script>
-
 
 <script>
 var currentCardNum;
@@ -274,7 +273,7 @@ function ajaxError(){
     }).disableSelection();
   } ); 
   
-  function changeCardOrder(){
+function changeCardOrder(){
         $.ajax({
            type:'get',
          data:{
@@ -290,7 +289,7 @@ function ajaxError(){
       });        
    }
   
- </script>
+</script>
   
 <script>
 function resize(obj) {
@@ -309,46 +308,64 @@ function updateListName(listNum,listName){
    error:ajaxError
    });
 }
+</script>
 
-// -- DueDate Ajax --
-function ajaxError(){
-	   alert("데이터 로딩 오류");
-}
-
-$('#datepicker').datepicker({
-	autoclose : true,
-	format : 'yyyy-mm-dd',
-})
-
-function cuDueDate(){
+<script>
+function getRoleList() {
+	$('#role-modal').find('form')[0].reset();
+	$('#role-list').empty();
+	$('#role-modal').modal('show');
+	
 	$.ajax({
 		type:'get',
-		data:{
-			cardNum:$('#cardNum').val(),
-			duedate:$('#datepicker').val()
-			},
-		url:"/cards/CreateDueDate",
-		dataType: "json",
-		
-		success:function(data){
+		url:"/roles/readRoleList",
+		dataType:'json',
+		success:function (data) {
 			var str='';
-			$('#card-duedate').html(str);
-			console.log("Connected Ajax");
-			console.log(data.cardNum);
-			console.log(data.dueDate);
-			console.log("Due date Added");
-				str+="<td>DUEDATE</td>";
+			if(data.length>0) { 
+				console.log("Getting Role List");
+				data.forEach(function(item) {
+				str+="<tr id=role" + item.roleNum +">";
+				str+='<td>·</td>';
 				str+="<td>";
-				str+="<input id='dueDate' type='hidden' class='form-control' name='dueDate' value='" + data.dueDate + "'>";
-				str+=data.dueDate;
+				str+="<p id=updateRole-control" + item.roleNum + ">";
+				str+=item.roleName;
+				str+="</p>";
 				str+="</td>";
-				$('#card-duedate').html(str);
+				str+="<td>";
+				str+="<a href='#modifyRole" + item.roleNum +"' data-toggle='collapse' aria-controls='modifyRole'>";
+				str+="<i id=update-btn" + item.roleNum + " class='glyphicon glyphicon-pencil' style='margin-top: 4px; margin-right: 2px;'></i>";
+				str+="</a>";
+				
+				<!-- Modify Role Dropdown -->
+				str+="<form id='updateRole-form' class='form-inline'>";
+				str+="<div class='collapse' id='modifyRole" + item.roleNum + "'>";
+				str+="<div class='input-group' >";
+				str+="<div class='input-group' style='margin-top: 15px;'>";
+				str+="<input type='text' id='updateRole-form" + item.roleNum + "' class='form-control input-sm' style='width: 100px;' placeholder='New name'>";
+				str+="<span class='input-group-addon'>";
+				str+="<a href='#' onclick='javascript:updateRole(" + item.roleNum + ")'><i class='fa fa-check'></i></a>";
+				str+="</span>";
+				str+="</div>";
+				str+="</div>";
+				str+="</div>"; 
+				str+="</form>";
+				str+="</td>";
+				
+				str+="<td>";
+				str+="<form name='deleteRole-form'>";
+				str+="<input type='hidden' id='roleNum-form" + item.roleNum + "' value='" + item.roleNum + "'>";
+				str+="<a href='#' onclick='javascript:deleteRole($(this)," + item.roleNum + ")'>";
+				str+="<i class='glyphicon glyphicon-trash' style='margin-top: 4px; margin-right: 2px;'></i>";
+				str+="</a>";
+				str+="</form>";
+				str+="</td>";
+				str+="</tr>";
+				$('#role-list').html(str);
+				});
+			}
 		},
-		
- 		complete:function() {
-			$('#close-btn').click();
-		}, 
 		error:ajaxError
 	});
-}
+	}
 </script>

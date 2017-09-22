@@ -15,16 +15,6 @@ public class Card {
 
   public Card() {}
 
-  public Card(int cardNum, String userId, String subject, String content, Date modifyTime, int listNum, int cardOrder) {
-    this.cardNum = cardNum;
-    this.userId = userId;
-    this.subject = subject;
-    this.content = content;
-    this.modifyTime = modifyTime;
-    this.listNum = listNum;
-    this.cardOrder = cardOrder;
-  }
-  
   public Card(int cardNum, String userId, String subject, String content, Date modifyTime, int listNum, int cardOrder, String dueDate) {
     this.cardNum = cardNum;
     this.userId = userId;
@@ -36,13 +26,23 @@ public class Card {
     this.dueDate = dueDate;
   }
 
-  public Card(String subject, String content, String userId, int listNum, int cardOrder, String dueDate) {
+  public Card(String userId, String subject, String content, int listNum, int cardOrder, String dueDate) {
+    this.userId = userId;
     this.subject = subject;
     this.content = content;
-    this.userId = userId;
     this.listNum = listNum;
     this.cardOrder = cardOrder;
     this.dueDate = dueDate;
+  }
+
+  public Card(int cardNum, String userId, String subject, String content, Date modifyTime, int listNum, int cardOrder) {
+    this.cardNum = cardNum;
+    this.userId = userId;
+    this.subject = subject;
+    this.content = content;
+    this.modifyTime = modifyTime;
+    this.listNum = listNum;
+    this.cardOrder = cardOrder;
   }
 
   public Card(int listNum, int cardOrder) {
@@ -58,7 +58,7 @@ public class Card {
   public int getCardNum() {
     return cardNum;
   }
-  
+
   public void setCardNum(int cardNum) {
     this.cardNum = cardNum;
   }
@@ -110,18 +110,18 @@ public class Card {
   public void setCardOrder(int cardOrder) {
     this.cardOrder = cardOrder;
   }
-  
+
   public String getDueDate() {
     return dueDate;
   }
-  
+
   public void setDueDate(String dueDate) {
     this.dueDate = dueDate;
   }
 
   @Override
   public String toString() {
-    return "Card [cardNum=" + cardNum + ", userId=" + userId + ", subject=" + subject + ", content=" + content + ", modifyTime=" + modifyTime + ", listNum=" + listNum + ", cardOrder=" + cardOrder + ", dueDate = " + dueDate + "]";
+    return "Card [cardNum=" + cardNum + ", userId=" + userId + ", subject=" + subject + ", content=" + content + ", modifyTime=" + modifyTime + ", listNum=" + listNum + ", cardOrder=" + cardOrder + ", dueDate=" + dueDate + "]";
   }
 
   @Override

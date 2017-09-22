@@ -7,7 +7,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content" id="cardmodal-body" style="padding: 20px; width: 630px; height: 650px;">
 			<div class="modal-header">
-				<button id="close-card-btn" type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 				<p id="Title" style="margin-top: -25px; text-align: center;"></p>
@@ -41,10 +41,10 @@
 				<div id="btn-area" style="text-align: center; margin-left: 100px"></div>
 			</form>
 			<div id="add-menu" style="float: right; display: inline-grid;">
+				<!-- Card Add-btn Group -->
 				<h3>Add</h3>
-
-				<!-- due date -->
-				<button id="duedate-btn" type="button" class="btn btn-primary btn-lg" data-toggle="modal" onclick="showSecondaryModal();" style="margin-bottom: 7px;">Due Date</button>
+				<button type="button" class="btn btn-primary btn-lg" onclick="showDueDateModal();" style="margin-bottom: 7px;">Due Date</button>
+				<button type="button" class="btn btn-primary btn-lg" onclick="showAssigneeModal();" style="margin-bottom: 7px;">Assignee</button>
 				<button type="button" class="btn btn-primary btn-lg" style="margin-bottom: 7px;">CheckList</button>
 				<button type="button" class="btn btn-primary btn-lg" style="margin-bottom: 7px;">Labels</button>
 			</div>
@@ -52,25 +52,58 @@
 	</div>
 </div>
 
-<!-- due date 모달 -->
-<div class="modal fade" id="duedate-modal" data-backdrop="" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content" style="width: auto; height: auto;">
-			<div class="modal-header" style="text-align: center;">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h3>Change Due Date</h3>
-				<%@ include file="/datepicker.jsp"%>
-			</div>
-		</div>
-	</div>
-</div>
+<%@ include file="/WEB-INF/jsp/modalpage/datepicker.jsp"%>
+<%@ include file="/WEB-INF/jsp/modalpage/assignee.jsp" %>
 
 <script>
-function showSecondaryModal() {
+function showDueDateModal() { 
 	$('#duedate-modal').find('form')[0].reset();
  	$('#duedate-modal').modal('show');
+}
+
+function showAssigneeModal() {
+	var thisClass = this;
+	$('#assignee-modal').modal('show');
+	$('#assign-form').empty();
+	$.ajax({
+		type:'get',
+		data:{
+			cardNum:thisClass.$('#cardNum').val()
+		},
+		url:"/assignees/assigneelist",
+		dataType:'json',
+		success:function(data) {
+			var str="";
+			if(data.length > 0) {
+				console.log("Assignee Listing...");
+				data.forEach(function(item) {
+					console.log("[JS] item : ", item);
+					str+="<tr id=assignee" + item.assigneeNum + " class='tr-table'>";
+					str+="<input class='assigneeNum' name='assigneeNum' type='hidden' value='" + item.assigneeNum + "'>";
+					str+="<td>";
+					str+="<p class='assignee-area' style='margin-top: 8px;'>" + item.userId + "</p>";
+					str+="</td>";
+					str+="<td>";
+					str+="<p class='assignee-area' style='margin-top: 8px;'>" + item.roleName + "</p>";
+					str+="</td>";
+					str+="<td>";
+					
+					str+="<a class='text-muted' href='#' onclick='javascript:deleteAssignee($(this))'>";
+					str+="<i class='glyphicon glyphicon-trash' style='margin-top: 11px; margin-right: 2px;'></i>";
+					str+="</a>";
+					str+="</td>";
+					str+="<td>"
+					str+="<a href='#' onclick='javascript:updateAssigneeTable($(this)," + item.assigneeNum + ")'>";
+					str+="<i class='glyphicon glyphicon-pencil' style='margin-top: 9px; margin-right: 2px;'></i>";
+					str+="</a>";
+					str+="</td>";
+					str+="</tr>";
+					$('#assign-form').html(str);
+				});
+			}
+		},
+		error:ajaxError
+	});
 }
 
 <!-- Fix : Bug when using multiple modal -->

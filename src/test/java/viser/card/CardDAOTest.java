@@ -61,7 +61,7 @@ public class CardDAOTest {
     CardList list = new CardList(boardNum, "TEST_LIST1", 0);
     cardListDAO.addList(list);
     int listNum = cardListDAO.getListNum(boardNum, 0);
-    Card testCard = new Card("TEST_CARD", "123", UserTest.TEST_USER.getUserId(), listNum, 0);
+    Card testCard = new Card("TEST_CARD", "123", UserTest.TEST_USER.getUserId(), listNum, 0, "");
 
     // create
     cardDAO.addCard(testCard);
@@ -101,12 +101,12 @@ public class CardDAOTest {
     int listNumB = cardListDAO.getListNum(boardNum, 1);
 
     // card create
-    Card cardA1 = new Card("TEST_CARD_A1", "", UserTest.TEST_USER.getUserId(), listNumA, 0);
-    Card cardA2 = new Card("TEST_CARD_A2", "", UserTest.TEST_USER.getUserId(), listNumA, 1);
-    Card cardA3 = new Card("TEST_CARD_A3", "", UserTest.TEST_USER.getUserId(), listNumA, 2);
-    Card cardB1 = new Card("TEST_CARD_B1", "", UserTest.TEST_USER.getUserId(), listNumB, 0);
-    Card cardB2 = new Card("TEST_CARD_B2", "", UserTest.TEST_USER.getUserId(), listNumB, 1);
-    Card cardB3 = new Card("TEST_CARD_B3", "", UserTest.TEST_USER.getUserId(), listNumB, 2);
+    Card cardA1 = new Card("TEST_CARD_A1", "", UserTest.TEST_USER.getUserId(), listNumA, 0, "");
+    Card cardA2 = new Card("TEST_CARD_A2", "", UserTest.TEST_USER.getUserId(), listNumA, 1, "");
+    Card cardA3 = new Card("TEST_CARD_A3", "", UserTest.TEST_USER.getUserId(), listNumA, 2, "");
+    Card cardB1 = new Card("TEST_CARD_B1", "", UserTest.TEST_USER.getUserId(), listNumB, 0, "");
+    Card cardB2 = new Card("TEST_CARD_B2", "", UserTest.TEST_USER.getUserId(), listNumB, 1, "");
+    Card cardB3 = new Card("TEST_CARD_B3", "", UserTest.TEST_USER.getUserId(), listNumB, 2, "");
     cardDAO.addCard(cardA1);
     cardDAO.addCard(cardA2);
     cardDAO.addCard(cardA3);
@@ -212,4 +212,23 @@ public class CardDAOTest {
     standardOrders.clear();
     dbOrders.clear();
   }
+  
+/*  @Test
+  public void addDueDate() throws Exception {
+    CardList list = new CardList(boardNum, "TEST_LIST1", 0);
+    cardListDAO.addList(list);
+    int listNum = cardListDAO.getListNum(boardNum, 0);
+    logger.debug("list 넘 " + listNum);
+    Card testCard = new Card("TEST_CARD", "123", UserTest.TEST_USER.getUserId(), listNum, 0, "");
+    
+    int cardNum = cardDAO.getCardNum(listNum, 0);
+    testCard.setCardNum(cardNum);
+    
+    cardDAO.addCard(testCard);
+    logger.debug("testCard : {}", testCard);
+    Card dbCard = cardDAO.viewCard(testCard.getCardNum());
+    logger.debug("dbCards : {}", dbCard);
+    cardDAO.updateCardDueDate("2012-01-01", dbCard.getCardNum());
+    assertNotNull(dbCard.getDueDate());
+  }*/
 }

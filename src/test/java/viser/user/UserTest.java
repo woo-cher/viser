@@ -15,7 +15,7 @@ import viser.domain.user.User;
 import viser.domain.user.UserNotFoundException;
 
 public class UserTest {
-  public static User TEST_USER = new User("TestId", "PSW", "Name", "Age", "test@viser.com");
+  public static User TEST_USER = new User("TestId", "PSW", "Name", "Birth", "test@viser.com", "");
   private UserDAO userDAO;
 
   @Before

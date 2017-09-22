@@ -45,7 +45,6 @@ public class ProjectDAO {
   }
 
   public List getProjectList(String userId) {
-    List projects = new ArrayList();
     String sql = "select * from projects where Project_Name in (select Project_Name from project_members where userId=?)";
     return jdbc.list(sql, new PreparedStatementSetter() {
       @Override

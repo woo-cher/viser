@@ -44,10 +44,12 @@
 			<div id="add-menu" style="float: right; display: inline-grid;">
 				<!-- Card Add-btn Group -->
 				<h3>Add</h3>
+				<button type="button" class="btn btn-primary btn-lg" onclick="showProgressModal();" style="margin-bottom: 7px;">Progress</button>
 				<button type="button" class="btn btn-primary btn-lg" onclick="showDueDateModal();" style="margin-bottom: 7px;">Due Date</button>
 				<button type="button" class="btn btn-primary btn-lg" onclick="showAssigneeModal();" style="margin-bottom: 7px;">Assignee</button>
 				<button type="button" class="btn btn-primary btn-lg" style="margin-bottom: 7px;">CheckList</button>
 				<button type="button" class="btn btn-primary btn-lg" style="margin-bottom: 7px;">Labels</button>
+			
 			</div>
 		</div>
 	</div>
@@ -55,6 +57,7 @@
 
 <%@ include file="/WEB-INF/jsp/modalpage/datepicker.jsp"%>
 <%@ include file="/WEB-INF/jsp/modalpage/assignee.jsp" %>
+<%@include file = "/WEB-INF/jsp/modalpage/progress.jsp" %>
 
 <script>
 function showDueDateModal() { 
@@ -120,4 +123,8 @@ var recentModalList = []; $(document).ready(function () {
 		}
 		if (recentModalList.length > 0) { recentModalList[recentModalList.length - 1].focus(); } 
 };
+
+function showProgressModal() {
+	$('#progress-modal').modal('show');
+}
 </script>

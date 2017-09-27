@@ -10,7 +10,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>jQuery UI Sortable - Display as grid</title>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <!-- Bootstrap 3.3.7 -->
 <link rel="stylesheet" href="/resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -66,7 +65,7 @@
                           
                            <div >
                               <div class="card_wrap">
-                                 <ul id="${list.listNum}" class="connectedSortable sort_css">  
+                                 <ul id="${list.listNum}" class="listSortable sort_css">  
                                     <c:forEach var="card" items="${list.cards}" varStatus="status">
                                        <li id="${card.cardNum }"class="ui-state-default">
                                        <a id="${card.cardNum}-card-view-btn" class="card-modal-btn" data-toggle="modal" href="#cardmodal">${card.subject}</a>
@@ -115,6 +114,7 @@
       <%@include file = "/WEB-INF/jsp/modalpage/upload.jsp"%> 
       <%@include file = "/WEB-INF/jsp/modalpage/invite.jsp" %>
       <%@include file = "/WEB-INF/jsp/modalpage/role.jsp" %>
+      
    </div> 
 </body>
 <%@ include file="./commons/bottom.jspf"%>
@@ -180,6 +180,8 @@ function viewCard(currentCardNum){
 }
 
 function addCard(cardListNum,currentCardOrder){
+   $('.assigneeMember').remove();
+   $('.roleName').remove();
    $('#cardAssignee-field').empty();
    $('#assign-form').empty();
    $.ajax({
@@ -257,7 +259,7 @@ function ajaxError(){
   var updateCardOrder;
   
   $( function() {
-    $( ".connectedSortable" ).sortable({
+    $( ".listSortable" ).sortable({
           update:function(event, ui) { 
             updateListOrder=ui.item.parent().parent().parent().parent().index();
             updateCardOrder= ui.item.index();
@@ -282,7 +284,7 @@ function ajaxError(){
              console.log('card start: ' + startCardOrder);
           },
           
-      connectWith: ".connectedSortable"
+      connectWith: ".listSortable"
     }).disableSelection();
   } ); 
   
@@ -381,4 +383,5 @@ function getRoleList() {
 		error:ajaxError
 	});
 	}
+	
 </script>

@@ -1,6 +1,9 @@
 package viser.domain.card;
 
 import java.sql.Date;
+import java.util.List;
+
+import viser.domain.assignee.Assignee;
 
 public class Card {
 
@@ -12,9 +15,10 @@ public class Card {
   private int listNum;
   private int cardOrder;
   private String dueDate;
+  private List<Assignee> assignees;
 
   public Card() {}
-
+  
   public Card(int cardNum, String userId, String subject, String content, Date modifyTime, int listNum, int cardOrder, String dueDate) {
     this.cardNum = cardNum;
     this.userId = userId;
@@ -117,6 +121,14 @@ public class Card {
 
   public void setDueDate(String dueDate) {
     this.dueDate = dueDate;
+  }
+  
+  public List<Assignee> getAssignees() {
+    return assignees;
+  }
+
+  public void setAssignees(List<Assignee> assignees) {
+    this.assignees = assignees;
   }
 
   @Override

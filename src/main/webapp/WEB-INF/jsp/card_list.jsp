@@ -48,7 +48,7 @@
                                  <textarea class="list_name" id="${list.listNum }-list-name" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">${list.listName}</textarea>
                               </div>
                               <div>
-                                 <a id="${list.listNum }-card-add-btn" class="btn btn-default" data-toggle="modal" href="#cardmodal">카드 추가</a>
+                                 <a id="${list.listNum}-card-add-btn" class="btn btn-default" data-toggle="modal" href="#cardmodal">카드 추가</a>
                                  <script>
                                    $(function ()
                                            {
@@ -131,6 +131,7 @@ function upload_popup(){
 var currentCardNum;
 
 function viewCard(currentCardNum){
+   $('#cardAssignee-field').empty();
    $.ajax({
       type:'get',
       data:{
@@ -142,14 +143,24 @@ function viewCard(currentCardNum){
     	 var str='';
     	 $('#card-duedate').html(str);
          $('#card-field').attr("action","/cards/updatecard");
-         $('#Title').html("<h2>View_Card</h2>");
+         $('#Title').html("<h2>" + data.subject + "</h2>");
+         console.log("[JS.ViewCard] : {}", data.assignees);
+         
+         if(data.assignees) {
+	        data.assignees.forEach(function(item) {
+	      	var thisStr ='';
+       	    thisStr+="<span id='assignee-label" + item.assigneeNum +"'  class='label label-warning' style='margin-right:20px; margin-left:-15px;'>" + item.userId + " : '" + item.roleName + " '</span>";
+			$('#cardAssignee-field').append(thisStr);
+	        });
+         }
+         
          if(data.dueDate) {
-        		str+="<td>DUEDATE</td>";
-				str+="<td>";
-				str+="<input type='hidden' class='form-control'>";
-				str+=data.dueDate;
-				str+="</td>"
-				$('#card-duedate').html(str);
+       		str+="<td>DUEDATE</td>";
+			str+="<td>";
+			str+="<input type='hidden' class='form-control'>";
+			str+=data.dueDate;
+			str+="</td>"
+			$('#card-duedate').html(str);
          };
          $('#cardNum').val(data.cardNum);
          $('#card-user').html("<input type='hidden' name='userId' value='"+data.userId+"'>"+data.userId+"</input>");
@@ -169,6 +180,8 @@ function viewCard(currentCardNum){
 }
 
 function addCard(cardListNum,currentCardOrder){
+   $('#cardAssignee-field').empty();
+   $('#assign-form').empty();
    $.ajax({
       type:'get',
       data:{
@@ -183,7 +196,7 @@ function addCard(cardListNum,currentCardOrder){
          $('#cardSubject').val(data.subject);
          $('#cardContent').val(data.content);
          $('#card-field').attr("action","/cards/createcard");
-         $('#Title').html("<h2>CREATE_Card</h2>");
+         $('#Title').html("<h2>CREATE CARD</h2>");
          $('#card-user').html("<input type='hidden' name='userId' value='${user.userId}'>${user.userId}</input>");
          console.log(data.dueDate);
          $('#cardListNum').val(cardListNum);
@@ -191,7 +204,7 @@ function addCard(cardListNum,currentCardOrder){
          var btn="";
          btn+="<input type='submit' class='btn btn-default' value='Submit'/>";
          btn+="<input type='reset' class='btn btn-default' value='Reset' />";
-         btn+="<input type='button' class='btn btn-default'  value='List' data-dismiss='modal' />";
+         btn+="<input type='button' class='btn btn-default' value='List' data-dismiss='modal' />";
          $('#btn-area').html(btn);
       },
       error:ajaxError

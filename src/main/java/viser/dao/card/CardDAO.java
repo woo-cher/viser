@@ -44,9 +44,9 @@ public class CardDAO {
     });
   }
 
-  public void addCard(Card card) {
+  public int addCard(Card card) {
     String sql = "insert into cards(userId, Subject, Content, List_Num, Card_Order, DueDate) values(?,?,?,?,?,?)";
-    jdbc.executeUpdate(sql, new PreparedStatementSetter() {
+    return jdbc.generatedExecuteUpdate(sql, new PreparedStatementSetter() {
       @Override
       public void setParameters(PreparedStatement pstmt) throws SQLException {
         pstmt.setString(1, card.getUserId());
@@ -55,6 +55,14 @@ public class CardDAO {
         pstmt.setInt(4, card.getListNum());
         pstmt.setInt(5, card.getCardOrder());
         pstmt.setString(6, card.getDueDate());
+      }
+    }, new RowMapper() {
+      @Override
+      public Integer mapRow(ResultSet rs) throws SQLException {
+        if(rs.next()) {
+          return rs.getInt(1);
+        }
+        return null;
       }
     });
   }

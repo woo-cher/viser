@@ -31,11 +31,11 @@ public class UpdateAssigneeServlet extends HttpServlet{
       int assigneeNum = Integer.parseInt(request.getParameter("assigneeNum"));
       String assigneeMember = request.getParameter("assigneeMember");
       String roleName = request.getParameter("roleName");
-      String projectName = SessionUtils.getStringValue(session, "projectName");
-      logger.debug("UpdateAssigneeServlet Para :\nassigneeNum : " + assigneeNum + "\nassigneeMember : " + assigneeMember + "\nroleName : " + roleName + "\nprojectName : " + projectName);
+      int boardNum = SessionUtils.getIntegerValue(session, "boardNum");
+      logger.debug("UpdateAssigneeServlet Para :\nassigneeNum : " + assigneeNum + "\nassigneeMember : " + assigneeMember + "\nroleName : " + roleName + "\nboardNum : " + boardNum);
      
       try {
-        assigneeDAO.updateAssignee(assigneeNum, assigneeMember, roleName, projectName);
+        assigneeDAO.updateAssignee(assigneeNum, assigneeMember, roleName, boardNum);
         assignee.setAssigneeNum(assigneeNum);
         assignee.setUserId(assigneeMember);
         assignee.setRoleName(roleName);

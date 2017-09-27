@@ -29,10 +29,10 @@ public class CreateRoleServlet extends HttpServlet{
     RoleDAO roleDAO = new RoleDAO();
 
     String roleName = request.getParameter("roleName");
-    String projectName = SessionUtils.getStringValue(session, "projectName");
+    int boardNum = SessionUtils.getIntegerValue(session, "boardNum");
     
     try {
-      Role role = roleDAO.addRole(roleName, projectName);
+      Role role = roleDAO.addRole(roleName, boardNum);
       logger.debug("Role : {}", role);
       Gson gson = new Gson();
       String gsonData = gson.toJson(role);

@@ -29,13 +29,13 @@ public class CreateAssigneeServlet extends HttpServlet {
     
     String assigneeMember = request.getParameter("assigneeMember");
     String roleName = request.getParameter("roleName");
-    String projectName = SessionUtils.getStringValue(session, "projectName");
+    int boardNum = SessionUtils.getIntegerValue(session, "boardNum");
     int cardNum = Integer.parseInt(request.getParameter("cardNum"));
     int assigneeNum;
     logger.debug("CreateAssigneeServlet Parameters [assignee : " + assigneeMember + ", " + "role : " + roleName + ", " + "cardNum : " + cardNum + "]");
     
     try {
-      assigneeNum = assigneeDAO.addAssignee(assigneeMember, roleName, projectName, cardNum);
+      assigneeNum = assigneeDAO.addAssignee(assigneeMember, roleName, boardNum, cardNum);
       JsonArray arr = new JsonArray();
       arr.add(assigneeNum);
       arr.add(assigneeMember);

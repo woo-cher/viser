@@ -11,6 +11,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 				<p id="Title" style="margin-top: -25px; text-align: center;"></p>
+				<div id="cardAssignee-field"></div>
 			</div>
 			<form id="card-field" method="post" style="float: left;">
 				<input id="cardNum" type="hidden" name="num" />
@@ -64,7 +65,9 @@ function showDueDateModal() {
 function showAssigneeModal() {
 	var thisClass = this;
 	$('#assignee-modal').modal('show');
-	$('#assign-form').empty();
+	if($('#cardNum').val() != 0) {
+		$('#assign-form').empty();
+	}
 	$.ajax({
 		type:'get',
 		data:{

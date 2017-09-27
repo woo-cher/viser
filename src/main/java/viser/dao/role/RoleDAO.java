@@ -17,19 +17,19 @@ public class RoleDAO {
   private static final Logger logger = LoggerFactory.getLogger(RoleDAO.class);
   JdbcTemplate jdbc = new JdbcTemplate();
 
-  public Role addRole(String roleName, String projectName) {
-    String sql = "insert into roles (roleName, Project_Name) values(?,?)";
+  public Role addRole(String roleName, int boardNum) {
+    String sql = "insert into roles (roleName, Board_Num) values(?,?)";
     return jdbc.generatedExecuteUpdate(sql, new PreparedStatementSetter() {
       @Override
       public void setParameters(PreparedStatement pstmt) throws SQLException {
         pstmt.setString(1, roleName);
-        pstmt.setString(2, projectName);
+        pstmt.setInt(2, boardNum);
       } 
     }, new RowMapper() {
       @Override
       public Role mapRow(ResultSet rs) throws SQLException {
         if(rs.next()) {
-          return new Role(rs.getInt(1), roleName, projectName);
+          return new Role(rs.getInt(1), roleName, boardNum);
         }
         return null;
       }
@@ -57,12 +57,12 @@ public class RoleDAO {
     });
   }
   
-  public List getRoleList(String projectName) {
-    String sql = "select * from roles where Project_Name = ?";
+  public List getRoleList(int boardNum) {
+    String sql = "select * from roles where Board_Num = ?";
     return jdbc.list(sql, new PreparedStatementSetter() {
       @Override
       public void setParameters(PreparedStatement pstmt) throws SQLException {
-        pstmt.setString(1, projectName);
+        pstmt.setInt(1, boardNum);
       }
     }, new RowMapper() {
       @Override
@@ -70,7 +70,7 @@ public class RoleDAO {
         Role role = new Role();
         role.setRoleNum(rs.getInt("roleNum"));
         role.setRoleName(rs.getString("roleName"));
-        role.setProjectName(rs.getString("Project_Name"));
+        role.setBoardNum(rs.getInt("Board_Num"));
         return role;
       }
     }); 

@@ -28,10 +28,10 @@ public class ReadRoleListServlet extends HttpServlet {
     HttpSession session = request.getSession();
     RoleDAO roleDAO = new RoleDAO();
     
-    String projectName = SessionUtils.getStringValue(session, "projectName");
+    int boardNum = SessionUtils.getIntegerValue(session, "boardNum");
     
     try {
-      List roleList = roleDAO.getRoleList(projectName);
+      List roleList = roleDAO.getRoleList(boardNum);
       Gson gson = new Gson();
       String gsonData = gson.toJson(roleList);
       PrintWriter out = response.getWriter();

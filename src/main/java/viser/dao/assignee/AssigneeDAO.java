@@ -20,16 +20,16 @@ public class AssigneeDAO {
   private static final Logger logger = LoggerFactory.getLogger(AssigneeDAO.class);
   JdbcTemplate jdbc = new JdbcTemplate();
   
-  public int addAssignee(String assigneeMember, String roleName, String projectName, int cardNum) {
+  public int addAssignee(String assigneeMember, String roleName, int boardNum, int cardNum) {
     String sql = "insert into assignees (PM_Num, roleNum, Card_Num) values ("
                + "(select PM_Num from project_members where userId= ?),"
-               + "(select roleNum from roles where roleName = ? and Project_Name = ?), ?)";
+               + "(select roleNum from roles where roleName = ? and Board_Num = ?), ?)";
     return jdbc.generatedExecuteUpdate(sql, new PreparedStatementSetter() {
       @Override
       public void setParameters(PreparedStatement pstmt) throws SQLException {
         pstmt.setString(1, assigneeMember);
         pstmt.setString(2, roleName);
-        pstmt.setString(3, projectName);
+        pstmt.setInt(3, boardNum);
         pstmt.setInt(4, cardNum);
       }
     }, new RowMapper() {
@@ -53,15 +53,15 @@ public class AssigneeDAO {
     });
   }
   
-  public void updateAssignee(int assigneeNum, String userId, String roleName, String project_Name) {
+  public void updateAssignee(int assigneeNum, String userId, String roleName, int boardNum) {
     String sql = "update assignees set PM_Num = (select PM_Num from project_members where userId = ?),"
-                + "roleNum = (select roleNum from roles where roleName = ? and Project_Name = ?) where assigneeNum = ?";
+                + "roleNum = (select roleNum from roles where roleName = ? and Board_Num = ?) where assigneeNum = ?";
     jdbc.executeUpdate(sql, new PreparedStatementSetter() {
       @Override
       public void setParameters(PreparedStatement pstmt) throws SQLException {
         pstmt.setString(1, userId);
         pstmt.setString(2, roleName);
-        pstmt.setString(3, project_Name);
+        pstmt.setInt(3, boardNum);
         pstmt.setInt(4, assigneeNum);
       }
     });
@@ -94,7 +94,7 @@ public class AssigneeDAO {
     });
  }
   
-  public void getAssigneeByColumnNum (int pmNum, int roleNum, String projectName) {
+  public void getAssignee(int assigneeNum, int pmNum, int roleNum, String projectName) {
     String sql = "select assigneeNum, (select userId from project_members where PM_Num = ?) as assigneeMember, "
                + "(select roleName from roles where roleName = ? and Project_Name = ?) as roleName from assignee Where Card_Num = ?";
   }

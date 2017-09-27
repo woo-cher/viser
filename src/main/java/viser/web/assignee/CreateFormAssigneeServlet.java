@@ -36,12 +36,13 @@ public class CreateFormAssigneeServlet extends HttpServlet {
     List<Role> roleList = new ArrayList<Role>();
     
     String projectName = SessionUtils.getStringValue(session, "projectName");
+    int boardNum = SessionUtils.getIntegerValue(session, "boardNum");
     
     try {
       logger.debug("CreateFormAssigneeServlet Session [projectName] = " + projectName);
       
       memberList = projectDAO.getProjectMemberList(projectName);
-      roleList = roleDAO.getRoleList(projectName);
+      roleList = roleDAO.getRoleList(boardNum);
       
       JsonArray arr = new JsonArray();
       

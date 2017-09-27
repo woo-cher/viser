@@ -2,6 +2,8 @@ package viser.web.card;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 
+import viser.dao.assignee.AssigneeDAO;
 import viser.dao.card.CardDAO;
 import viser.domain.card.Card;
 import viser.domain.user.User;
@@ -29,30 +32,29 @@ public class ReadCardServlet extends HttpServlet {
     PrintWriter out = response.getWriter();
     HttpSession session = request.getSession();
     User sessionUser = (User) SessionUtils.getObjectValue(session, "user");
-    String userId = sessionUser.getUserId();
     
     CardDAO cardDAO = new CardDAO();
     Card card = new Card();
+    AssigneeDAO assigneeDAO = new AssigneeDAO();
 
+    List assigneeList = new ArrayList();
     int cardNum = Integer.parseInt(request.getParameter("cardNum"));
 
     try {
       card = cardDAO.viewCard(cardNum);
+      card.setAssignees(assigneeDAO.getAssigneeList(cardNum));
+      logger.debug("카드의 Assignee : {}", card.getAssignees());
       logger.debug("카드 : {}", card);
-      
       if (card == null) {
         logger.debug("card View null");
       }
-
       Gson gson = new Gson();
-      String jsonData = gson.toJson(card);
-      logger.debug("jsonData:" + jsonData.toString());
-      out.print(jsonData);
+      String gsonData = gson.toJson(card);
+      out.print(gsonData);
     } catch (Exception e) {
       logger.debug("cardviewServlet error : " + e);
     } finally {
       out.close();
     }
   }
-
 }

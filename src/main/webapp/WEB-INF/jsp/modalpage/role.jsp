@@ -1,13 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<!-- Font Awesome -->
-<link rel="stylesheet" href="/resources/bower_components/font-awesome/css/font-awesome.min.css">
-<!-- Ionicons -->
-<link rel="stylesheet" href="/resources/bower_components/Ionicons/css/ionicons.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="/resources/dist/css/AdminLTE.min.css">
-<!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
-<link rel="stylesheet" href="/resources/dist/css/skins/_all-skins.min.css">
 
 <!-- Role -->
 <div class="modal fade" id="role-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">

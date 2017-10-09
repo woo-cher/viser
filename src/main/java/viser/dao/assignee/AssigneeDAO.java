@@ -43,6 +43,18 @@ public class AssigneeDAO {
     });
   }
   
+  public void addAssignee(int projectMemberNum, int roleNum, int cardNum) {
+    String sql = "insert into assignees (PM_Num,roleNum,Card_Num) value(?,?,?)";
+    jdbc.executeUpdate(sql, new PreparedStatementSetter() {
+      @Override
+      public void setParameters(PreparedStatement pstmt) throws SQLException {
+        pstmt.setInt(1, projectMemberNum);
+        pstmt.setInt(2, roleNum);
+        pstmt.setInt(3, cardNum);
+      }
+    });
+  }
+  
   public void removeAssignee(int assigneeNum) {
     String sql = "delete from assignees where assigneeNum = ?";
     jdbc.executeUpdate(sql, new PreparedStatementSetter() {
@@ -63,6 +75,18 @@ public class AssigneeDAO {
         pstmt.setString(2, roleName);
         pstmt.setInt(3, boardNum);
         pstmt.setInt(4, assigneeNum);
+      }
+    });
+  }
+  
+  public void updateAssignee(int assigneeNum, int projectMemberNum, int roleNum) {
+    String sql = "update assignees set PM_Num= ?,roleNum=? where assigneeNum=?";
+    jdbc.executeUpdate(sql, new PreparedStatementSetter() {
+      @Override
+      public void setParameters(PreparedStatement pstmt) throws SQLException {
+        pstmt.setInt(1, projectMemberNum);
+        pstmt.setInt(2, roleNum);
+        pstmt.setInt(3, assigneeNum);
       }
     });
   }

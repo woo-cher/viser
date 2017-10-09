@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import viser.domain.board.Board;
+import viser.service.gantt.GanttService;
 import viser.service.support.jdbc.JdbcTemplate;
 import viser.service.support.jdbc.PreparedStatementSetter;
 import viser.service.support.jdbc.RowMapper;
@@ -100,6 +101,21 @@ public class BoardDAO {
           return 0;
         }
         return rs.getInt("Board_Num");
+      }
+    });
+  }
+  
+  public void initGantt(int addListNum,int boardNum,boolean canDelete,boolean canWrite,boolean canWriteOnParent, String zoom){
+    String sql="update boards set addListNum=?, canDelete=?, canWrite=?, canWriteOnParent=?, zoom=? where boardNum=?";
+    jdbc.executeUpdate(sql, new PreparedStatementSetter() {
+      @Override
+      public void setParameters(PreparedStatement pstmt) throws SQLException {
+        pstmt.setInt(1, addListNum);
+        pstmt.setInt(2, GanttService.getBoolaenValue(canDelete));
+        pstmt.setInt(3, GanttService.getBoolaenValue(canWrite));
+        pstmt.setInt(4, GanttService.getBoolaenValue(canWriteOnParent));
+        pstmt.setString(5, zoom);
+        pstmt.setInt(6, boardNum);
       }
     });
   }

@@ -37,7 +37,7 @@ public class CardDAO {
         card.setUserId(rs.getString("userId"));
         card.setSubject(rs.getString("Subject"));
         card.setContent(rs.getString("Content"));
-        card.setModifyTime(rs.getDate("Modify_Time"));
+        card.setModifyTime(rs.getTimestamp("Modify_Time"));
         card.setListNum(rs.getInt("List_Num"));
         return card;
       }
@@ -67,6 +67,27 @@ public class CardDAO {
     });
   }
 
+  public void addCard(Card card,int taskOrder) {
+    String sql = "insert into cards(userId, Subject, Content, List_Num, Card_Order) values(?,?,?,?,(select max(Card_Order) from (select *from cards) as cardAdd where List_Num=?))";
+    jdbc.generatedExecuteUpdate(sql, new PreparedStatementSetter() {
+      @Override
+      public void setParameters(PreparedStatement pstmt) throws SQLException {
+        pstmt.setString(1, card.getUserId());
+        pstmt.setString(2, card.getSubject());
+        pstmt.setString(3, card.getContent());
+        pstmt.setInt(4, card.getListNum());
+        pstmt.setInt(5, card.getListNum());
+       }
+    }, new RowMapper() {
+      @Override
+      public Integer mapRow(ResultSet rs) throws SQLException {
+        if(rs.next())
+          return rs.getInt(1);
+        return null;
+      }
+    });
+  }
+  
   public void removeCard(int num, int listNum, int cardOrder) {
     // delete card
     String sql = "delete from cards where Card_Num = ?";
@@ -112,7 +133,7 @@ public class CardDAO {
                           rs.getString("userId"), 
                           rs.getString("Subject"), 
                           rs.getString("Content"), 
-                          rs.getDate("Modify_Time"),
+                          rs.getTimestamp("Modify_Time"),
                           rs.getInt("List_Num"),
                           rs.getInt("Card_Order"), 
                           rs.getString("DueDate"));
@@ -135,6 +156,27 @@ public class CardDAO {
     });
   }
 
+  public void updateCard(Card card,int taskOrder){
+    String sql="update cards set userId=?, Subject=?,Content=?,Modify_Time=?,progress=?,level=?,status=?,start=?,duration=?,end=?,hasChild=?,taskOrder=?";
+    jdbc.executeUpdate(sql, new PreparedStatementSetter() {
+      @Override
+      public void setParameters(PreparedStatement pstmt) throws SQLException {
+        pstmt.setString(1, card.getUserId());
+        pstmt.setString(2, card.getSubject());
+        pstmt.setString(3, card.getContent());
+        pstmt.setTimestamp(4, new Timestamp(new Date().getTime()));
+        pstmt.setInt(4, card.getProgress());
+        pstmt.setInt(5, card.getLevel());
+        pstmt.setString(6, card.getStatus());
+        pstmt.setLong(7,card.getStart());
+        pstmt.setInt(8, card.getDuration());
+        pstmt.setLong(9, card.getEnd());
+        pstmt.setBoolean(10, card.hasChild());
+        pstmt.setInt(11, taskOrder);
+      }
+    });
+  }
+  
   // cardNum : 기존 위치의 카드 순서 번호, listNum1 : 추가 카드의 리스트 번호, listnum2 : 삭제 카드의 리스트 번호, changeOrder : 인덱스 변화시 사용 순서 번호
   public void updateCardOrder(int boardNum, int currentListOrder, int changeListOrder, int currentCardOrder, int changeCardOrder) {
     String sql, sql2;

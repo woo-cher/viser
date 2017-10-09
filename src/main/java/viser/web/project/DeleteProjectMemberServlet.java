@@ -1,6 +1,8 @@
 package viser.web.project;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,12 +28,9 @@ public class DeleteProjectMemberServlet extends HttpServlet {
     String projectName = (String) session.getAttribute("projectName");
 
     logger.debug("추방할 userId " + userId + "\n현재 프로젝트 =" + projectName);
-    try {
-      projectDAO.removeProjectMember(userId, projectName);
-
-      response.sendRedirect("/project/memberlist");
-    } catch (Exception e) {
-      logger.debug("kickUser fail : " + e);
-    }
+    projectDAO.removeProjectMember(userId, projectName);
+    
+    PrintWriter out=response.getWriter();
+    out.print(true);
   }
 }

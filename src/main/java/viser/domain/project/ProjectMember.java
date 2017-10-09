@@ -3,6 +3,8 @@ package viser.domain.project;
 public class ProjectMember {
   private int num;
   private String userId;
+  private String userName;
+  private String userImage;
   private String projectName;
   private int power;
 
@@ -12,6 +14,22 @@ public class ProjectMember {
 
   public void setNum(int num) {
     this.num = num;
+  }
+
+  public String getUserName() {
+    return userName;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
+
+  public String getUserImage() {
+    return userImage;
+  }
+
+  public void setUserImage(String userImage) {
+    this.userImage = userImage;
   }
 
   public String getUserId() {

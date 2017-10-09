@@ -20,8 +20,7 @@
 
 
 <head>
-<link href="/stylesheets/card.css" rel="stylesheet" type="text/css">
-<!-- 환용 : 프로젝트 css 수정 -->
+<link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
 </head>
 
 <script>
@@ -41,7 +40,6 @@
 </script>
    
 <body>
-   <div class="background">
       <%@ include file="./commons/top.jspf" %>
       <div class="wrap">
          <div id="card-container_wrap">
@@ -165,8 +163,5 @@
                </div>
             </div>
          </div>
-      </div>
-   </div>
 </body>
-<%@ include file="./commons/bottom.jspf"%>
 </html>

@@ -1,5 +1,4 @@
 var webSocket = new WebSocket('ws://localhost:7070/chat.jsp');
-var textarea = document.getElementById("messageWindow");
 var inputMessage = document.getElementById('inputMessage');
 var imageId;
 
@@ -16,6 +15,7 @@ webSocket.onmessage = function(event) {
   
 function onMessage(event) {
    var jsonDecode=JSON.parse(event.data);
+   
    
    if(jsonDecode[0].header=='Image'){
    console.log("이미지 받음 :"+jsonDecode[0].data);
@@ -39,7 +39,18 @@ function onMessage(event) {
        clickSync();
     }
     else if(jsonDecode[0].header=='Text'){
-       textarea.value+=jsonDecode[0].user +": "+jsonDecode[0].data+'\n'; 
+    	var temp='';
+    	temp+="<div class="+"'direct-chat-msg'>";
+        temp+="<div class="+"'direct-chat-info clearfix'>";
+          temp+="<span class="+"'direct-chat-name pull-left'>"+jsonDecode[0].user+"</span>";
+        temp+="</div>";
+        temp+="<img class="+"'direct-chat-img'"+ "src='"+jsonDecode[0].profile+"' alt='User Image'>";
+        temp+="<div class="+"'direct-chat-text'>";
+        temp+=jsonDecode[0].data;
+        temp+="</div>";
+        temp+="<span class="+"'direct-chat-timestamp pull-right'>"+jsonDecode[0].time+"</span>";
+      temp+="</div>";
+       $('.direct-chat-messages').append(temp);
        
     }
     else if(jsonDecode[0].header=='click'){
@@ -60,7 +71,7 @@ function onMessage(event) {
 }
 function onOpen(event) {
    console.log("세션 열림");
-    textarea.value += "연결 성공\n";
+   $('.direct-chat-messages').append("연결 성공\n");
   requestNowImage();
 }
 function onError(event) {
@@ -74,11 +85,24 @@ function requestNowImage(){
    webSocket.send(JSON.stringify(jsonEncode));   
 }
 function textSend(){
-   textarea.value+=now_user+": "+inputMessage.value+"\n";
-    
+	var temp='';
+	temp+="<div class="+"'direct-chat-msg right'>";
+    temp+="<div class="+"'direct-chat-info clearfix'>";
+      temp+="<span class="+"'direct-chat-name pull-right'>"+now_userId+"</span>";
+    temp+="</div>";
+    temp+="<img class="+"'direct-chat-img'"+ "src='"+now_userProfile+"' alt='User Image'>";
+    temp+="<div class="+"'direct-chat-text'>";
+    temp+=inputMessage.value;
+    temp+="</div>";
+    temp+="<span class="+"'direct-chat-timestamp pull-left'>"+new Date()+"</span>";
+  temp+="</div>";
+   $('.direct-chat-messages').append(temp);
+	
    jsonEncode=new Array(
       {header:'Text' ,
-      user:now_user,
+      user:now_userId,
+      time:new Date(),
+      profile:now_userProfile,
       data:inputMessage.value
       }
    );

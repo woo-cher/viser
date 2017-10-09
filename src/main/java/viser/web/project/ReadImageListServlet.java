@@ -1,10 +1,10 @@
 package viser.web.project;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.gson.Gson;
 
 import viser.dao.project.ProjectDAO;
 import viser.service.support.SessionUtils;
@@ -27,10 +29,13 @@ public class ReadImageListServlet extends HttpServlet {
     List<String> imagelist = new ArrayList<String>();
     ProjectDAO projectDAO = new ProjectDAO();
     HttpSession session = request.getSession();
-
+    Gson gson=new Gson();
+    PrintWriter out= response.getWriter();
+    
     imagelist = projectDAO.getImageList(SessionUtils.getStringValue(session, "projectName"));
-    request.setAttribute("imageList", imagelist);
-    RequestDispatcher rd = request.getRequestDispatcher("/chat.jsp");
-    rd.forward(request, response);
+    String jsonData=gson.toJson(imagelist);
+    logger.debug("response 보냄");
+    out.print(jsonData);
+    
   }
 }

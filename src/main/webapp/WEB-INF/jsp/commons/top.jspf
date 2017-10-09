@@ -78,7 +78,7 @@
       </div>
    </div>
 </c:if>  
-      <div class="modal fade file_modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  
+   <div class="modal fade file_modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  
       <div class="modal-dialog" role="document">
          <div class="modal-content" style="padding: 20px;">
             <div class="modal-header">

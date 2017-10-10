@@ -1,6 +1,7 @@
 var webSocket = new WebSocket('ws://localhost:7070/chat.jsp');
 var inputMessage = document.getElementById('inputMessage');
 var imageId;
+var flag=true;
 
 webSocket.onerror = function(event) {
   onError(event)
@@ -43,15 +44,15 @@ function onMessage(event) {
     	temp+="<div class="+"'direct-chat-msg'>";
         temp+="<div class="+"'direct-chat-info clearfix'>";
           temp+="<span class="+"'direct-chat-name pull-left'>"+jsonDecode[0].user+"</span>";
+          temp+="<span class="+"'direct-chat-timestamp pull-right'>"+jsonDecode[0].time+"</span>";
         temp+="</div>";
         temp+="<img class="+"'direct-chat-img'"+ "src='"+jsonDecode[0].profile+"' alt='User Image'>";
         temp+="<div class="+"'direct-chat-text'>";
         temp+=jsonDecode[0].data;
         temp+="</div>";
-        temp+="<span class="+"'direct-chat-timestamp pull-right'>"+jsonDecode[0].time+"</span>";
       temp+="</div>";
        $('.direct-chat-messages').append(temp);
-       
+       fixScrollDown();
     }
     else if(jsonDecode[0].header=='click'){
        imageId=jsonDecode[0].data;
@@ -71,7 +72,8 @@ function onMessage(event) {
 }
 function onOpen(event) {
    console.log("세션 열림");
-   $('.direct-chat-messages').append("연결 성공\n");
+   $('.direct-chat-messages').append("---------- 지난 대화들 ----------\n");
+   fixScrollDown();
   requestNowImage();
 }
 function onError(event) {
@@ -84,30 +86,51 @@ function requestNowImage(){
    console.log("요청 보냄");
    webSocket.send(JSON.stringify(jsonEncode));   
 }
+
 function textSend(){
+	var time=new Date();
 	var temp='';
 	temp+="<div class="+"'direct-chat-msg right'>";
     temp+="<div class="+"'direct-chat-info clearfix'>";
       temp+="<span class="+"'direct-chat-name pull-right'>"+now_userId+"</span>";
+      temp+="<span class="+"'direct-chat-timestamp pull-left'>"+time.format("y-MM-dd HH:mm")+"</span>";
     temp+="</div>";
     temp+="<img class="+"'direct-chat-img'"+ "src='"+now_userProfile+"' alt='User Image'>";
     temp+="<div class="+"'direct-chat-text'>";
     temp+=inputMessage.value;
     temp+="</div>";
-    temp+="<span class="+"'direct-chat-timestamp pull-left'>"+new Date()+"</span>";
   temp+="</div>";
    $('.direct-chat-messages').append(temp);
 	
+   $.ajax({
+	   type:'post',
+	   dataType:'json',
+	   data:{
+		   chatMessage:inputMessage.value,
+		   chatTime:time.getTime(),
+		   writer:now_userId,
+	   },
+	   url:'/projects/createChatMessage',
+	   success:function(data){
+		   if(data!=true){
+			   ajaxError();
+		   }
+	   }
+   });
+   
+   fixScrollDown();
+   
    jsonEncode=new Array(
       {header:'Text' ,
       user:now_userId,
-      time:new Date(),
+      time:time.format("y-MM-dd HH:mm"),
       profile:now_userProfile,
       data:inputMessage.value
       }
    );
    webSocket.send(JSON.stringify(jsonEncode));
    inputMessage.value = "";
+
 }
 function imageSend() {
    var jsonEncode = new Array(
@@ -142,4 +165,40 @@ function reloadSend(){
       {header:'reload'}   
    );
    webSocket.send(JSON.stringify(jsonEncode));
+}
+
+  // run the currently selected effect
+  function runEffect() {
+    // get effect type from
+    var selectedEffect = 'slide';
+
+    // Most effect types need no options passed by default
+    var options = {};
+    // Run the effect
+    $( "#effect" ).show( selectedEffect, options, 500 );
+  }
+
+  function fixScrollDown() {
+	  $('.direct-chat-messages').scrollTop($('.direct-chat-messages').prop("scrollHeight"));
+	  scrollFix();
+  }
+
+function confirmScrollHeight(){
+	//스크롤이 끝이 아닐때
+	if(($('.direct-chat-messages').scrollTop()+$('.direct-chat-messages').outerHeight())<$('.direct-chat-messages').prop("scrollHeight")-2){
+		flag=false;
+		runEffect();
+	}
+	//끝일때
+	else{
+		flag=true;
+		$( "#effect" ).hide();
+	}
+}
+function scrollFix(){
+	confirmScrollHeight();
+	if(flag==true){
+		//맨 아래로 스크롤 고정
+		$('.direct-chat-messages').scrollTop($('.direct-chat-messages').prop("scrollHeight"));
+	}
 }

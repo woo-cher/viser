@@ -6,11 +6,13 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import viser.domain.project.Chat;
 import viser.domain.project.Image;
 import viser.domain.project.Project;
 import viser.domain.project.ProjectMember;
@@ -260,4 +262,36 @@ public class ProjectDAO {
     });
   }
 
+  public void addChatMessage(Chat chat){
+    logger.debug("ProjectDAO addChatMessage - Chat: {}",chat);
+    String sql="insert into chats(chatMessage,chatTime,writeUser,Project_Name) values(?,?,?,?)";
+    jdbc.executeUpdate(sql, new PreparedStatementSetter() {
+      @Override
+      public void setParameters(PreparedStatement pstmt) throws SQLException {
+        pstmt.setString(1, chat.getChatMessage());
+        pstmt.setLong(2, chat.getChatTime());
+        pstmt.setString(3, chat.getWriteUser());
+        pstmt.setString(4, chat.getProjectName());
+      }
+    });
+  }
+  
+  public List<Chat> getChatMessages(String projectName){
+    String sql="select chatMessage,chatTime,chats.writeUser,users.image from chats,users where chats.writeUser=users.userId && Project_Name=? order by chatTime asc";
+    return jdbc.executeQuery(sql, new PreparedStatementSetter() {
+      @Override
+      public void setParameters(PreparedStatement pstmt) throws SQLException {
+        pstmt.setString(1, projectName);
+      }
+    }, new RowMapper() {
+      @Override
+      public List<Chat> mapRow(ResultSet rs) throws SQLException {
+        List<Chat> chatList=new LinkedList<>();
+        while(rs.next()){
+          chatList.add(new Chat(rs.getString("writeUser"),rs.getString("image"),rs.getLong("chatTime"),rs.getString("chatMessage")));
+          }
+        return chatList;
+      }
+    });
+  }
 }

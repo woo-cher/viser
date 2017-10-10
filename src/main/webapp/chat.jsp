@@ -9,22 +9,6 @@
 <head>
 <link href="/stylesheets/style.css?" rel="stylesheet" type="text/css">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-   integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-   crossorigin="anonymous">
-   
-<script
-   src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-   integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-   crossorigin="anonymous">
-</script>
-
 <script>
    var now_user="<%=(String)session.getAttribute("userId") %>;"
 </script>
@@ -65,8 +49,8 @@
               </c:forEach>
             </div>
             <div id="chat-image-list-control">
-               <button id="image_add" class="btn-info" data-toggle="modal" href="#uploadmodal">이미지 추가</button>
-               <button id="image_delete" class="btn-info" onclick=deleteImage()>이미지 삭제</button>
+               <button id="image_add" class="btn-info" data-toggle="modal" onclick="addImage()">이미지 추가</button>
+               <button id="image_delete" class="btn-info" onclick="deleteImage()">이미지 삭제</button>
             </div>
          </div>
       </div>
@@ -81,52 +65,29 @@
          </div>
       </div>
    </div>
+   
+   <div class="modal fade" id="upload-modal" tabindex="-1" role="dialog" aria-labelledby="myUpload" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		      <div class="modal-body">
+				<h2 class="modal-title" id="MyModalLabel"></h2>
+				<form action="/imageUpload" method="post" enctype="multipart/form-data">
+			
+					첨부파일:<input type="file" class="form-control" name="uploadFile" value="보내기" style="margin-left: 17px" ><br/>
+					<input type="submit" class="form-control" value="보내기 " style= "margin-top: 68px;"/>
+				</form>
+			  </div>
+		  </div>
+		</div>
+	  </div>
+   </div>
 </body>
-
-<script>
-   $('#image_add').click(function(){
-      parent.upload_popup();
-   })
-</script>
 
 <script src="http://reali.kr/js/jquery.min.js"></script>  
 <script src="/scripts/paintCanvas.js"></script>
 <script src="/scripts/webSocketChat.js"></script>
 
-<script>
-   function message(){
-      alert('업로드 성공');
-      reloadSend();
-   }
-   function popupOpen() {
-      var popUrl = "/upload.jsp?perposeURL=/imageUpload";
-      var popOption = "width=500, height=250, resizable=no, scrollbars=no, status=no;";
-   window.open(popUrl,"",popOption);
- }
-</script>
 
-<script>
- $('#chat-image-list-display button').click(function(e){
-   e.preventDefault();
-   $('#chat-image-list-display button').removeClass('selected');
-   $(this).addClass('selected');
-   imageId = this.getAttribute('id');
-   var clickImg = new Image();
-   clickImg.src =imageId;
-   var context = document.getElementById("chat-image-area-canvas").getContext("2d");
-   context.drawImage(clickImg, 0, 0,270,240);
-   
-   imageSend();
-   clickSync();
- });
- 
- function deleteImage(){
-    location.href='/project/imagedelete?Image_Path='+imageId;
-    canvasInit();
-    imageId='';
-    clearSend();
-    clickSync();
-    reloadSend();
- }
-</script>
 </html>

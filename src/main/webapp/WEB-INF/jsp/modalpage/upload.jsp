@@ -9,17 +9,15 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <div class="modal-body">
-	
-	<h2 class="modal-title" id="MyModalLabel"></h2>
-	<form action="/imageUpload" method="post" enctype="multipart/form-data">
-
-		첨부파일:<input type="file" class="form-control" name="uploadFile" value="보내기" style="margin-left: 17px" ><br/>
-		<input type="submit" class="form-control" value="보내기 " style= "margin-top: 68px;"/>
-
-	</form>
-</div>
-</div>
-</div>
-</div>
+	      <div class="modal-body">
+			<h2 class="modal-title" id="MyModalLabel"></h2>
+			<form action="/imageUpload" method="post" enctype="multipart/form-data">
+		
+				첨부파일:<input type="file" class="form-control" name="uploadFile" value="보내기" style="margin-left: 17px" ><br/>
+				<input type="submit" class="form-control" value="보내기 " style= "margin-top: 68px;"/>
+			</form>
+		  </div>
+	  </div>
+	</div>
+  </div>
 </div>

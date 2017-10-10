@@ -1,5 +1,49 @@
 var undoHistory = [];
 
+//추가부분 시작
+
+function addImage(){
+	   $('#upload-modal').modal('show');
+}
+
+function message(){
+   alert('업로드 성공');
+   reloadSend();
+}
+
+function checkImageClick(){
+	list=$('.imageCheck:checked');
+	var array=new Array();
+	for(i=0; i<list.length; i++){
+		array.push(list[i].parentNode.attributes.id.value);
+	}
+	console.log(array);
+	deleteImage(JSON.stringify(array));
+}
+
+function deleteImage(val){
+	console.log(val);
+ $.ajax({
+	 type:'get',
+	 url:'/project/imagedelete',
+	 dataType:'json',
+	 data:{
+		 Image_List:val
+	 },
+	 success:function(data){
+		 if(data==true){
+			 canvasInit();
+			 clearSend();
+			 getImageList();
+			 reloadSend();
+		 }
+		 else ajaxError();
+	 }
+ });
+}
+
+//추가부분 끝
+
 function saveActions() {
    var imgData = document.getElementById("chat-image-area-canvas").toDataURL("image/png"); 
    undoHistory.push(imgData);
@@ -31,8 +75,8 @@ function canvasInit() {
 
 function draw(event) {
    var coors = {
-      x : event.targetTouches[0].pageX,
-      y : event.targetTouches[0].pageY
+      x : event.offsetX,
+      y : event.offsetY
    };
    drawer[event.type](coors);
 }
@@ -79,7 +123,7 @@ $(function() {
          draw = 1;
          saveActions();
          cntxt.beginPath();
-         cntxt.moveTo(e.pageX - left, e.pageY - top);
+         cntxt.moveTo(e.offsetX, e.offsetY);
       } else {
          draw = 0;
       }
@@ -88,7 +132,7 @@ $(function() {
          draw = 1;
       } else {   
          draw = 0;
-         cntxt.lineTo(e.pageX - left + 1, e.pageY - top + 1);
+         cntxt.lineTo(e.offsetX, e.offsetY);
          cntxt.stroke();
          cntxt.closePath();
          console.log("마우스땜");
@@ -96,8 +140,9 @@ $(function() {
       }
    }).mousemove(function(e) {
       if (draw == 1) {
-         cntxt.lineTo(e.pageX - left + 1, e.pageY - top + 1);
-         console.log("좌표: "+(e.pageX - left + 1)+","+ (e.pageY - top + 1));
+         cntxt.lineTo(e.offsetX, e.offsetY);
+         console.log("좌표: "+(e.offsetX)+","+ (e.offsetY));
+         console.log("offset: "+($('#chat-image-area-canvas').offset().left)+","+ ($('#chat-image-area-canvas').offset().top));
          cntxt.stroke();
       }
    });
@@ -118,7 +163,7 @@ $(function() {
       clearSend();
    });
    $('#brush_size').change(function(e) {
-      cntxt.lineWidth = $(this).val();
+      cntxt.lineWidth = 1;
    });
    $('#chat-image-area-colors li').click(function(e) {
       e.preventDefault();

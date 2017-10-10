@@ -1,10 +1,9 @@
 package viser.web.project;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +13,9 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import viser.dao.project.ProjectDAO;
 import viser.domain.project.ProjectMember;
@@ -26,31 +28,24 @@ public class ReadProjectMemberListServlet extends HttpServlet {
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     HttpSession session = request.getSession();
-    List<ProjectMember> memberlist = new ArrayList();
+    List<ProjectMember> memberlist;
     ProjectDAO projectDAO = new ProjectDAO();
+    Gson gson=new Gson();
+    String list;
+    PrintWriter out=response.getWriter();
+    JsonObject jsonObject=new JsonObject();
+    
+    memberlist = projectDAO.getProjectMemberList((String) session.getAttribute("projectName"));
+    list=gson.toJson(memberlist);
+    jsonObject.addProperty("list",list);
     
     User sessionUser=(User)SessionUtils.getObjectValue(session, "user");
-    String userId = sessionUser.getUserId();
-
-    try {
-      memberlist = projectDAO.getProjectMemberList((String) session.getAttribute("projectName"));
-      request.setAttribute("memberlist", memberlist);
-
-      for (ProjectMember pm : memberlist) {
-
-        logger.debug("관리자 권한 확인 반복문 시작");
-        logger.debug("ReadProjectMemberListServlet db에서 조회 아이디 :" + pm.getUserId());
-        logger.debug("ReadProjectMemberListServlet 세션에서 조회 아이디 :" + userId);
-        if (pm.getUserId().equals(userId) && pm.getPower() == 1) {
-          logger.debug("ReadProjectMemberListServlet db에서 조회한 권한 :" + pm.getPower());
-          request.setAttribute("isMaster", true);
-        }
+    for(ProjectMember pm:memberlist){
+      if(pm.getPower()==1&&pm.getUserId().equals(sessionUser.getUserId())){
+        jsonObject.addProperty("isMaster", new Boolean(true));
       }
-      RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/member.jsp");
-      rd.forward(request, response);
-
-    } catch (Exception e) {
-      logger.debug("ReadProjectMemberListServlet error:" + e.getMessage());
     }
+    if(!jsonObject.has("isMaster")) jsonObject.addProperty("isMaster", new Boolean(false));
+    out.println(jsonObject);
   }
 }

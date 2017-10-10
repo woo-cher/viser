@@ -150,5 +150,4 @@ function updateRole(id) {
 $('#roleClose-btn').click(function () {
 	$('#role-list').empty();
 })
-
 </script>

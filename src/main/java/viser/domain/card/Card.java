@@ -41,9 +41,9 @@ public class Card {
     this.userId = userId;
     this.subject = subject;
     this.content = content;
+    this.cardOrder=cardOrder;
     this.modifyTime = modifyTime;
     this.listNum = listNum;
-    this.cardOrder = cardOrder;
     this.dueDate = dueDate;
     this.progress = progress;
   }
@@ -82,6 +82,7 @@ public class Card {
     this.userId = userId;
     this.subject = subject;
     this.content = content;
+    this.modifyTime = modifyTime;
     this.listNum = listNum;
     this.cardOrder = cardOrder;
     this.dueDate = dueDate;

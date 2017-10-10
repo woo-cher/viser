@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!-- Font Awesome -->
 <link rel="stylesheet" href="/resources/bower_components/font-awesome/css/font-awesome.min.css">
 <!-- Ionicons -->
@@ -11,6 +12,7 @@
 <link rel="stylesheet" href="/resources/dist/css/skins/_all-skins.min.css">
 
 <link rel="stylesheet" href="/resources/dist/css/jquery-ui.css">
+
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- Bootstrap 3.3.7 -->

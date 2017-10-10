@@ -5,17 +5,9 @@ public class Role {
   private int roleNum;
   private String roleName;
   private int bardNum;
-  private int ganttNum;
 
   public Role() {
 
-  }
-
-  public Role(int roleNum, String roleName, int bardNum, int ganttNum) {
-    this.roleNum = roleNum;
-    this.roleName = roleName;
-    this.bardNum = bardNum;
-    this.ganttNum = ganttNum;
   }
 
   public Role(int roleNum, String roleName, int bardNum) {
@@ -53,20 +45,12 @@ public class Role {
     this.bardNum = bardNum;
   }
 
-  public int getGanttNum() {
-    return ganttNum;
-  }
-
-  public void setGanttNum(int ganttNum) {
-    this.ganttNum = ganttNum;
-  }
 
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
     result = prime * result + bardNum;
-    result = prime * result + ganttNum;
     result = prime * result + ((roleName == null) ? 0 : roleName.hashCode());
     result = prime * result + roleNum;
     return result;
@@ -83,8 +67,6 @@ public class Role {
     Role other = (Role) obj;
     if (bardNum != other.bardNum)
       return false;
-    if (ganttNum != other.ganttNum)
-      return false;
     if (roleName == null) {
       if (other.roleName != null)
         return false;
@@ -97,6 +79,6 @@ public class Role {
 
   @Override
   public String toString() {
-    return "Role [roleNum=" + roleNum + ", roleName=" + roleName + ", bardNum=" + bardNum + ", ganttNum=" + ganttNum + "]";
+    return "Role [roleNum=" + roleNum + ", roleName=" + roleName + ", bardNum=" + bardNum +"]";
   }
 }

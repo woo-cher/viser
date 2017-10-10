@@ -21,7 +21,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
-  <link rel="stylesheet" href="/resources/dist/css/skins/skin-blue.min.css">
+  <link rel="stylesheet" href="/resources/dist/css/skins/skin-black.min.css">
+  
+  <!-- TotalStyle -->
+<link href="/stylesheets/style.css?" rel="stylesheet" type="text/css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,8 +33,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
-  <!-- Google Font -->
-  <link rel="stylesheet"
+<!-- Bootstrap 3.3.7 -->
+<link rel="stylesheet" href="/resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
+
+<!-- Google Font -->
+<link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <!--
@@ -54,7 +60,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-black sidebar-mini">
 <div class="wrapper">
 
   <!-- Main Header -->
@@ -146,7 +152,7 @@ desired effect
           
           <!-- Control Sidebar Toggle Button -->
           <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+            <a href="#" data-toggle="control-sidebar"><i class="glyphicon glyphicon-option-horizontal"></i></a>
           </li>
         </ul>
       </div>
@@ -193,4 +199,7 @@ desired effect
     <!-- /.sidebar -->
   </aside>
 
-</html>
+<!-- jQuery 3 -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+

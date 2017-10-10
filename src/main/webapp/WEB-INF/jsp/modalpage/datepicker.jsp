@@ -58,6 +58,7 @@ function cuDueDate(){
 		success:function(data){
 			var str='';
 			$('#card-duedate').html(str);
+			console.log("date",new Date($('#datepicker').val()).getTime());
 			console.log("Connected Ajax");
 			console.log(data.cardNum);
 			console.log(data.dueDate);

@@ -33,6 +33,14 @@ public class ProjectMember {
   public void setNum(int num) {
     this.num = num;
   }
+  
+  public String getUserId() {
+    return userId;
+  }
+
+  public void setUserId(String userId) {
+    this.userId = userId;
+  }
 
   public String getUserName() {
     return userName;
@@ -48,14 +56,6 @@ public class ProjectMember {
 
   public void setUserImage(String userImage) {
     this.userImage = userImage;
-  }
-
-  public String getUserId() {
-    return userId;
-  }
-
-  public void setUserId(String userId) {
-    this.userId = userId;
   }
 
   public String getProjectName() {

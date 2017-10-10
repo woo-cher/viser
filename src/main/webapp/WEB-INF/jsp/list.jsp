@@ -20,8 +20,7 @@
 
 
 <head>
-<link href="/stylesheets/card.css" rel="stylesheet" type="text/css">
-<!-- 환용 : 프로젝트 css 수정 -->
+<link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
 </head>
 
 <script>
@@ -41,7 +40,6 @@
 </script>
    
 <body>
-   <div class="background">
       <%@ include file="./commons/top.jspf" %>
       <div class="wrap">
          <div id="card-container_wrap">
@@ -155,18 +153,18 @@
                   
                   <!-- Create Project Modal Field -->
                   <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="${Modal_target}" style="margin: 50;">
-                    Create New ${Target}
+                    CREATE NEW ${Target}
                   </button>
                         <%@include file="/WEB-INF/jsp/modalpage/form.jsp" %>
                         
                         <c:if test = "${isReadBoard}">
+                        <button type="button" onclick="location.href='/project/projectDashBoard'" style="margin-left: -30px; margin-right: 20px;" class="btn btn-default btn-lg">
+                       	 DASH BOARD
+                        </button>
                         <button type="button" onclick="location.href='/project/projectlist'" class="btn btn-default btn-lg">GO TO BACK</button>
                         </c:if>
                </div>
             </div>
          </div>
-      </div>
-   </div>
 </body>
-<%@ include file="./commons/bottom.jspf"%>
 </html>

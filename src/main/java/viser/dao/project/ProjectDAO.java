@@ -25,7 +25,7 @@ public class ProjectDAO {
 
   public List getProjectMemberList(String projectName) {
     List list = new ArrayList();
-    String sql = "select * from project_members where Project_Name=?";
+    String sql = "select PM_Num, users.userId, image, name, Project_Name, Power from project_members,users where Project_Name=? && project_members.userId=users.userId";
     return jdbc.list(sql, new PreparedStatementSetter() {
       @Override
       public void setParameters(PreparedStatement pstmt) throws SQLException {
@@ -37,6 +37,8 @@ public class ProjectDAO {
         ProjectMember pm = new ProjectMember();
         pm.setNum(rs.getInt("PM_Num"));
         pm.setUserId(rs.getString("userId"));
+        pm.setUserImage(rs.getString("image"));
+        pm.setUserName(rs.getString("name"));
         pm.setProjectName(rs.getString("project_Name"));
         pm.setPower(rs.getInt("Power"));
         return pm;
@@ -257,5 +259,37 @@ public class ProjectDAO {
       }
     });
   }
-
+  
+  public List<ProjectMember> getProjectDashMember(String projectName) {
+    String sql = "select userId, image from users where userId in (select userId from project_members where Project_Name = ?)";
+    return jdbc.list(sql, new PreparedStatementSetter() {
+      @Override
+      public void setParameters(PreparedStatement pstmt) throws SQLException {
+        pstmt.setString(1, projectName);
+      }
+    }, new RowMapper() {
+      @Override
+      public ProjectMember mapRow(ResultSet rs) throws SQLException {
+          return new ProjectMember(rs.getString("userId"), rs.getString("image"));
+      }
+    });
+  }
+  
+  public int getProjectProgress(String projectName) {
+    String sql = "select ROUND(AVG(progress)) as projectProgress from boards where Project_Name = ?";
+    return jdbc.executeQuery(sql, new PreparedStatementSetter() {
+      @Override
+      public void setParameters(PreparedStatement pstmt) throws SQLException {
+        pstmt.setString(1, projectName);
+      }
+    }, new RowMapper() {
+      @Override
+      public Integer mapRow(ResultSet rs) throws SQLException {
+        if(rs.next()) {
+          return rs.getInt("projectProgress");
+        }
+        return null;
+      }
+    });
+  }
 }

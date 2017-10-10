@@ -4,7 +4,6 @@ package viser.dao.assignee;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -43,6 +42,18 @@ public class AssigneeDAO {
     });
   }
   
+  public void addAssignee(int projectMemberNum, int roleNum, int cardNum) {
+    String sql = "insert into assignees (PM_Num,roleNum,Card_Num) value(?,?,?)";
+    jdbc.executeUpdate(sql, new PreparedStatementSetter() {
+      @Override
+      public void setParameters(PreparedStatement pstmt) throws SQLException {
+        pstmt.setInt(1, projectMemberNum);
+        pstmt.setInt(2, roleNum);
+        pstmt.setInt(3, cardNum);
+      }
+    });
+  }
+  
   public void removeAssignee(int assigneeNum) {
     String sql = "delete from assignees where assigneeNum = ?";
     jdbc.executeUpdate(sql, new PreparedStatementSetter() {
@@ -71,8 +82,6 @@ public class AssigneeDAO {
     String sql = "select * from assignees where Card_Num = ?";
     String sql2 = "select assigneeNum, Card_Num, (select roleName from roles where roleNum = ?) as roleName, "
                 + "(select userId from project_members where PM_Num = ?) as userId from assignees where roleNum = ? and PM_Num = ?";
-    Assignee assignee = new Assignee();
-    List AssigneeList = new ArrayList();
     return jdbc.selectAndSelect(sql, sql2, new PreparedStatementSetter() {
       @Override
       public void setParameters(PreparedStatement pstmt) throws SQLException {
@@ -93,9 +102,4 @@ public class AssigneeDAO {
       }
     });
  }
-  
-  public void getAssignee(int assigneeNum, int pmNum, int roleNum, String projectName) {
-    String sql = "select assigneeNum, (select userId from project_members where PM_Num = ?) as assigneeMember, "
-               + "(select roleName from roles where roleName = ? and Project_Name = ?) as roleName from assignee Where Card_Num = ?";
-  }
 }

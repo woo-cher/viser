@@ -11,6 +11,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 				<p id="Title" style="margin-top: -25px; text-align: center;"></p>
+				<div id="cardProgress-field"></div>
 				<div id="cardAssignee-field"></div>
 			</div>
 			<form id="card-field" method="post" style="float: left;">
@@ -38,26 +39,18 @@
 					</tr>
 					<input id="cardListNum" type="hidden" name="listNum" />
 					<input id="cardOrder" type="hidden" name="cardOrder" />
+					<input id="progress" type="hidden" name="progress" value="-1" />
 				</table>
 				<div id="btn-area" style="text-align: center; margin-left: 100px"></div>
 			</form>
-			<div id="add-menu" style="float: right; display: inline-grid;">
-				<!-- Card Add-btn Group -->
-				<h3>Add</h3>
-				<button type="button" class="btn btn-primary btn-lg" onclick="showProgressModal();" style="margin-bottom: 7px;">Progress</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick="showDueDateModal();" style="margin-bottom: 7px;">Due Date</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick="showAssigneeModal();" style="margin-bottom: 7px;">Assignee</button>
-				<button type="button" class="btn btn-primary btn-lg" style="margin-bottom: 7px;">CheckList</button>
-				<button type="button" class="btn btn-primary btn-lg" style="margin-bottom: 7px;">Labels</button>
-			
-			</div>
+			<div id="add-menu" style="float: right; display: inline-grid;"></div>
 		</div>
 	</div>
 </div>
 
 <%@ include file="/WEB-INF/jsp/modalpage/datepicker.jsp"%>
 <%@ include file="/WEB-INF/jsp/modalpage/assignee.jsp" %>
-<%@include file = "/WEB-INF/jsp/modalpage/progress.jsp" %>
+<%@ include file="/WEB-INF/jsp/modalpage/progress.jsp" %>
 
 <script>
 function showDueDateModal() { 

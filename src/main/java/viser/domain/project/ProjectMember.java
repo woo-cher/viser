@@ -3,8 +3,28 @@ package viser.domain.project;
 public class ProjectMember {
   private int num;
   private String userId;
+  private String userName;
+  private String userImage;
   private String projectName;
   private int power;
+  private String imagePath;
+
+  public ProjectMember() {
+    
+  }
+  
+  public ProjectMember(String userId, String imagePath) {
+    this.userId = userId;
+    this.imagePath = imagePath;
+  }
+
+  public String getImagePath() {
+    return imagePath;
+  }
+
+  public void setImagePath(String imagePath) {
+    this.imagePath = imagePath;
+  }
 
   public int getNum() {
     return num;
@@ -12,6 +32,22 @@ public class ProjectMember {
 
   public void setNum(int num) {
     this.num = num;
+  }
+
+  public String getUserName() {
+    return userName;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
+
+  public String getUserImage() {
+    return userImage;
+  }
+
+  public void setUserImage(String userImage) {
+    this.userImage = userImage;
   }
 
   public String getUserId() {
@@ -79,5 +115,4 @@ public class ProjectMember {
       return false;
     return true;
   }
-
 }

@@ -6,7 +6,7 @@
 <!-- Assignee -->
 <div class="modal fade" id="assignee-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-sm">
-		<div class="modal-content" style="width: 450px;height: auto;margin-top: 100px;margin-left: -65px;">
+		<div class="modal-content" style="width: 450px;height: auto;margin-top: 150px;margin-left: -65px;">
 			<div class="modal-header" style="text-align: center;">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -28,7 +28,6 @@
 						</tr>
 						<tbody id="assign-form"></tbody>
 					</table>
-					<button id="#" class="btn btn-success" style="margin-right: 40px;" type="button">Apply</button>
 					<button id="#" class="btn btn-default" data-dismiss="modal">Cancel</button>
 				</div>
 			</div>
@@ -179,97 +178,6 @@ function createAssigneeTable() {
 }
 <!-- /Commons Function -->
 
-<!-- When Create Card Action -->
-function applyAssigneeToCard(target) {
-	var assigneeMember = target.parents('tr.tr-table').find('div.assignee-selectBox').find('select > option:selected').val();
-	var roleName = target.parents('tr.tr-table').find('div.role-selectBox').find('select > option:selected').val();
-	var temporarilyNum = target.parents('tr.tr-table').find('input').val()
-	$.ajax({
-		success:function() {
-			var str='';
-			target.parents('tr.tr-table').attr("id","assignee" + temporarilyNum);
-			str+="<input class='temporarilyNum' type='hidden' name='temporarilyNum' value=" + temporarilyNum + ">";
-			str+="<td>";
-			str+="<p class='assignee-area' style='margin-top: 8px;'>" + assigneeMember + "</p>";
-			str+="</td>";
-	 		str+="<td>";
-	 		str+="<p class='role-area' style='margin-top: 8px;'>" + roleName + "</p>";
-			str+="</td>"; 
-			<!-- Icon -->
-			str+="<td>";
-			str+="<a class='text-muted' href='#' onclick='javascript:deleteAssigneeTableAndLabel($(this), " + temporarilyNum + ")'>";
-			str+="<i class='glyphicon glyphicon-trash' style='margin-top: 11px; margin-right: 2px;'></i>";
-			str+="</a>";
-			str+="</td>";
-			str+="<td>";
-			str+="<a class='i-class' class='i-class'href='#' onclick='updateAssigneeTable($(this)," + temporarilyNum + ")'>";
-			str+="<i class='glyphicon glyphicon-pencil' style='margin-top: 9px; margin-right: 2px;'></i>";
-			str+="</a>";
-			str+="</td>";
-			target.parents('tr.tr-table').html(str);
-			
-			var cardStr='';
-			cardStr+="<input class='assigneeMember' type='hidden' name='assigneeMember' value=" + assigneeMember + ">";
-			cardStr+="<input class='roleName' type='hidden' name='roleName' value=" + roleName + ">";
-			$('#card-field').append(cardStr);
-			
-			var label ='';
-			$('#assignee-label' + temporarilyNum).remove();
-	      	label+="<span id='assignee-label" + temporarilyNum +"' class='label label-warning' style='margin-right:20px; margin-left:-15px;'>" + assigneeMember + " : '" + roleName + " '</span>";
-	      	$('#cardAssignee-field').append(label);
-		},
-		error:ajaxError
-	});
-}
-
-function deleteAssigneeTableAndLabel(target, targetNum) {
-	$('#assignee-label' + targetNum).remove();
-	target.parents('tr.tr-table').remove();
-}
-
-function updateAssigneeToCard(target, targetNum) {
-	var assigneeMember = target.parents('tr.tr-table').find('div.assignee-selectBox').find('select > option:selected').val();
-	var roleName = target.parents('tr.tr-table').find('div.role-selectBox').find('select > option:selected').val();
-	var temporarilyNum = targetNum
-	$.ajax({
-		success:function() {
-			var str='';
-			target.parents('tr.tr-table').attr("id","assignee" + temporarilyNum);
-			str+="<input class='temporarilyNum' type='hidden' name='temporarilyNum' value=" + temporarilyNum + ">";
-			str+="<td>";
-			str+="<p class='assignee-area' style='margin-top: 8px;'>" + assigneeMember + "</p>";
-			str+="</td>";
-	 		str+="<td>";
-	 		str+="<p class='role-area' style='margin-top: 8px;'>" + roleName + "</p>";
-			str+="</td>"; 
-			<!-- Icon -->
-			str+="<td>";
-			str+="<a class='text-muted' href='#' onclick='javascript:deleteAssigneeTableAndLabel($(this), " + temporarilyNum + ")'>";
-			str+="<i class='glyphicon glyphicon-trash' style='margin-top: 11px; margin-right: 2px;'></i>";
-			str+="</a>";
-			str+="</td>";
-			str+="<td>";
-			str+="<a class='i-class' class='i-class'href='#' onclick='updateAssigneeTable($(this)," + temporarilyNum + ")'>";
-			str+="<i class='glyphicon glyphicon-pencil' style='margin-top: 9px; margin-right: 2px;'></i>";
-			str+="</a>";
-			str+="</td>";
-			target.parents('tr.tr-table').html(str);
-			
-			var cardStr='';
-			cardStr+="<input class='assigneeMember' type='hidden' name='assigneeMember' value=" + assigneeMember + ">";
-			cardStr+="<input class='roleName' type='hidden' name='roleName' value=" + roleName + ">";
-			$('#card-field').append(cardStr);
-			
-			var label ='';
-			$('#assignee-label' + temporarilyNum).remove();
-	      	label+="<span id='assignee-label" + temporarilyNum +"' class='label label-warning' style='margin-right:20px; margin-left:-15px;'>" + assigneeMember + " : '" + roleName + " '</span>";
-	      	$('#cardAssignee-field').append(label);
-		},
-		error:ajaxError
-	});
-}
-<!-- /When Create Card Action -->
-
 <!-- When View Card Action -->
 function createFormAssignee(taget) {
 	$.ajax({
@@ -404,9 +312,7 @@ function updateAssignee(target) {
 			str+="</a>";
 			str+="</td>";
 			target.parents('tr.tr-table').html(str);
-			var label ='';
-			label+="<span id='assignee-label" + data.assigneeNum +"' class='label label-warning' style='margin-right:20px; margin-left:-15px;'>" + data.userId + " : '" + data.roleName; + " '</span>";
-			$('#cardAssignee-field').html(label);
+			$('#assignee-label' + data.assigneeNum).text(data.userId + " : " + data.roleName);
 		},
 		error:ajaxError
 	});

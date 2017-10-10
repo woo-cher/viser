@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import viser.dao.assignee.AssigneeDAO;
 import viser.dao.card.CardDAO;
 import viser.domain.card.Card;
-import viser.service.support.SessionUtils;
 
 @WebServlet("/cards/createcard")
 public class CreateCardServlet extends HttpServlet {
@@ -33,18 +32,13 @@ public class CreateCardServlet extends HttpServlet {
     int listNum = Integer.parseInt(request.getParameter("listNum"));
     int cardOrder = Integer.parseInt(request.getParameter("cardOrder"));
     String duedate = request.getParameter("dueDate");
-    // Assignee
-    String assigneeMember = request.getParameter("assigneeMember");
-    String roleName = request.getParameter("roleName");
-    int boardNum = SessionUtils.getIntegerValue(session, "boardNum");
-    int cardNum;
+    int progress = Integer.parseInt(request.getParameter("progress"));
     logger.debug("카드 생성 위한 dueDate" + duedate);
     
-    Card card = new Card(userId, subject, content, listNum, cardOrder, duedate);
+    Card card = new Card(userId, subject, content, listNum, cardOrder, duedate, progress);
     logger.debug("CreateCardServlet 에서 받은 card객체 : " + card.toString());
     try {
-      cardNum = cardDAO.addCard(card);
-      assigneeDAO.addAssignee(assigneeMember, roleName, boardNum, cardNum);
+      cardDAO.addCard(card);
     } catch (Exception e) {
       logger.debug("CreateCardServlet error:" + e.getMessage());
     }

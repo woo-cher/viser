@@ -14,32 +14,36 @@ import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 
+import viser.dao.board.BoardDAO;
 import viser.dao.card.CardDAO;
 import viser.domain.card.Card;
 
-@WebServlet("/cards/CreateDueDate")
-public class CreateAndUpdateDueDateServlet extends HttpServlet {
-  private static final Logger logger = LoggerFactory.getLogger(CreateAndUpdateDueDateServlet.class);
- 
+@WebServlet("/cards/cuProgress")
+public class updateProgressServlet extends HttpServlet{
+  private static final Logger logger = LoggerFactory.getLogger(updateProgressServlet.class);
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    BoardDAO boardDAO = new BoardDAO();
     CardDAO cardDAO = new CardDAO();
     Card card = new Card();
     int cardNum = Integer.parseInt(request.getParameter("cardNum"));
-    String dueDate = request.getParameter("duedate");
+    int progress = Integer.parseInt(request.getParameter("progress"));
+    int cardListNum = Integer.parseInt(request.getParameter("cardListNum"));
+    logger.debug("[Update Progress Servlet] cardListNum : " + cardListNum);
     
     try {
-      cardDAO.updateCardDueDate(dueDate,cardNum);
-      card = new Card(cardNum, dueDate);
-      
+      cardDAO.updateCardProgress(progress, cardNum);
+      card.setProgress(progress);
+      card.setCardNum(cardNum);
+      boardDAO.updateBoardProgress(cardListNum);
       Gson gson = new Gson();
       String gsonData = gson.toJson(card);
-      logger.debug("CreateDueDateServlet : " + gsonData);
+      logger.debug("UpdateProgressServlet : " + gsonData);
       PrintWriter out = response.getWriter();
       out.print(gsonData);
-        
     } catch (Exception e) {
       logger.debug("CreateDueDateServlet Error : " + e.getMessage());
     } 
   }
 }
+

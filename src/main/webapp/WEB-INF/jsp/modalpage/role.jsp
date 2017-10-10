@@ -13,7 +13,7 @@
 <div class="modal fade" id="role-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content" style="width: auto; height: auto;">
-			<div class="modal-header" style="text-align: center;">
+			<div class="modal-header" style="text-align: center; text-align: center;">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>

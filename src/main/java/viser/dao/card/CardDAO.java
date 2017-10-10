@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -37,7 +38,7 @@ public class CardDAO {
         card.setUserId(rs.getString("userId"));
         card.setSubject(rs.getString("Subject"));
         card.setContent(rs.getString("Content"));
-        card.setModifyTime(rs.getDate("Modify_Time"));
+        card.setModifyTime(rs.getTimestamp("Modify_Time"));
         card.setListNum(rs.getInt("List_Num"));
         return card;
       }
@@ -45,7 +46,7 @@ public class CardDAO {
   }
 
   public int addCard(Card card) {
-    String sql = "insert into cards(userId, Subject, Content, List_Num, Card_Order, DueDate) values(?,?,?,?,?,?)";
+    String sql = "insert into cards(userId, Subject, Content, List_Num, Card_Order, DueDate, progress) values(?,?,?,?,?,?,?)";
     return jdbc.generatedExecuteUpdate(sql, new PreparedStatementSetter() {
       @Override
       public void setParameters(PreparedStatement pstmt) throws SQLException {
@@ -55,11 +56,12 @@ public class CardDAO {
         pstmt.setInt(4, card.getListNum());
         pstmt.setInt(5, card.getCardOrder());
         pstmt.setString(6, card.getDueDate());
+        pstmt.setInt(7, card.getProgress());
       }
     }, new RowMapper() {
       @Override
       public Integer mapRow(ResultSet rs) throws SQLException {
-        if(rs.next()) {
+        if (rs.next()) {
           return rs.getInt(1);
         }
         return null;
@@ -67,6 +69,27 @@ public class CardDAO {
     });
   }
 
+  public void addCard(Card card,int taskOrder) {
+    String sql = "insert into cards(userId, Subject, Content, List_Num, Card_Order) values(?,?,?,?,(select max(Card_Order) from (select *from cards) as cardAdd where List_Num=?))";
+    jdbc.generatedExecuteUpdate(sql, new PreparedStatementSetter() {
+      @Override
+      public void setParameters(PreparedStatement pstmt) throws SQLException {
+        pstmt.setString(1, card.getUserId());
+        pstmt.setString(2, card.getSubject());
+        pstmt.setString(3, card.getContent());
+        pstmt.setInt(4, card.getListNum());
+        pstmt.setInt(5, card.getListNum());
+       }
+    }, new RowMapper() {
+      @Override
+      public Integer mapRow(ResultSet rs) throws SQLException {
+        if(rs.next())
+          return rs.getInt(1);
+        return null;
+      }
+    });
+  }
+  
   public void removeCard(int num, int listNum, int cardOrder) {
     // delete card
     String sql = "delete from cards where Card_Num = ?";
@@ -108,14 +131,7 @@ public class CardDAO {
       @Override
       public Card mapRow(ResultSet rs) throws SQLException {
         if (rs.next()) {
-          return new Card(rs.getInt("Card_Num"), 
-                          rs.getString("userId"), 
-                          rs.getString("Subject"), 
-                          rs.getString("Content"), 
-                          rs.getDate("Modify_Time"),
-                          rs.getInt("List_Num"),
-                          rs.getInt("Card_Order"), 
-                          rs.getString("DueDate"));
+          return new Card(rs.getInt("Card_Num"), rs.getString("userId"), rs.getString("Subject"), rs.getString("Content"), rs.getTimestamp("Modify_Time"), rs.getInt("List_Num"), rs.getInt("Card_Order"), rs.getString("DueDate"), rs.getInt("progress"));
         }
         return null;
       }
@@ -135,6 +151,27 @@ public class CardDAO {
     });
   }
 
+  public void updateCard(Card card,int taskOrder){
+    String sql="update cards set userId=?, Subject=?,Content=?,Modify_Time=?,progress=?,level=?,status=?,start=?,duration=?,end=?,hasChild=?,taskOrder=?";
+    jdbc.executeUpdate(sql, new PreparedStatementSetter() {
+      @Override
+      public void setParameters(PreparedStatement pstmt) throws SQLException {
+        pstmt.setString(1, card.getUserId());
+        pstmt.setString(2, card.getSubject());
+        pstmt.setString(3, card.getContent());
+        pstmt.setTimestamp(4, new Timestamp(new Date().getTime()));
+        pstmt.setInt(4, card.getProgress());
+        pstmt.setInt(5, card.getLevel());
+        pstmt.setString(6, card.getStatus());
+        pstmt.setLong(7,card.getStart());
+        pstmt.setInt(8, card.getDuration());
+        pstmt.setLong(9, card.getEnd());
+        pstmt.setBoolean(10, card.hasChild());
+        pstmt.setInt(11, taskOrder);
+      }
+    });
+  }
+  
   // cardNum : 기존 위치의 카드 순서 번호, listNum1 : 추가 카드의 리스트 번호, listnum2 : 삭제 카드의 리스트 번호, changeOrder : 인덱스 변화시 사용 순서 번호
   public void updateCardOrder(int boardNum, int currentListOrder, int changeListOrder, int currentCardOrder, int changeCardOrder) {
     String sql, sql2;
@@ -281,5 +318,61 @@ public class CardDAO {
         pstmt.setInt(2, cardNum);
       }
     });
+  }
+
+  public void updateCardProgress(int progress, int cardNum) {
+    String sql = "update cards set progress = ? where Card_Num = ?";
+    jdbc.executeUpdate(sql, new PreparedStatementSetter() {
+      @Override
+      public void setParameters(PreparedStatement pstmt) throws SQLException {
+        pstmt.setInt(1, progress);
+        pstmt.setInt(2, cardNum);
+      }
+    });
+  }
+
+  public List<Card> getLastCardList(String projectName) {
+    String sql = "select Subject, userId, progress, List_Num from cards where List_Num in (select List_Num from lists where Board_Num in (select Board_Num from boards where Project_Name = ?)) order by Modify_Time desc limit 6;";
+    return jdbc.list(sql, new PreparedStatementSetter() {
+      @Override
+      public void setParameters(PreparedStatement pstmt) throws SQLException {
+        pstmt.setString(1, projectName);
+      }
+    }, new RowMapper() {
+      @Override
+      public Card mapRow(ResultSet rs) throws SQLException {
+        Card card = new Card(rs.getString("Subject"), rs.getString("userId"), rs.getInt("List_Num"));
+        if (rs.getInt("progress") != -1) {
+          card.setProgress(rs.getInt("progress"));
+        } else {
+          card.setProgress(0);
+        }
+        return card;
+      }
+    });
+  }
+
+  public List<Card> setBoardName(List<Card> lastCardList) {
+    String sql = "select Board_Name from boards where board_Num in (select board_Num from lists where List_Num = ?)";
+    Iterator<Card> iterator = lastCardList.iterator();
+    while (iterator.hasNext()) {
+      Card card = (Card) iterator.next();
+      jdbc.list(sql, new PreparedStatementSetter() {
+        @Override
+        public void setParameters(PreparedStatement pstmt) throws SQLException {
+          pstmt.setInt(1, card.getListNum());
+          logger.debug("1 : " + card);
+        }
+      }, new RowMapper() {
+        @Override
+        public Card mapRow(ResultSet rs) throws SQLException {
+          card.setBoardName(rs.getString(1));
+          logger.debug("2 : " + card);
+          return null;
+        }
+      });
+    }
+    logger.debug("[TEST] : {}", lastCardList);
+    return lastCardList;
   }
 }

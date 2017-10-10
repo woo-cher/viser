@@ -1,127 +1,120 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
-<%@ page import="java.util.*"%>
 <%@ page import="java.text.SimpleDateFormat"%>
-<%@ page import="viser.card.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ 
+<%@include file="/WEB-INF/jsp/commons/T_header.jsp"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>jQuery UI Sortable - Display as grid</title>
 
-<!-- Bootstrap 3.3.7 -->
-<link rel="stylesheet" href="/resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
-<!-- Google Font -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-<!-- bootstrap datepicker -->
-<link rel="stylesheet" href="/resources/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-<!-- jQuery 3 -->
-<script src="/resources/bower_components/jquery/dist/jquery.min.js"></script>
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>card</title>
-</head>
-<body>
-   <div class="background">
-      <%@ include file="./commons/top.jspf"%>            
-      <div class="wrap">
-         <div id="top">
-           <div id="mini-menu"> 
-            <div class="btn-group-sm" role="group" aria-label="...">   
-            <button type="button" class="btn btn-info" onclick="location.href='/board/boardlist?projectName=${projectName}'">목록</button>
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#invite-modal">초대</button>
-            <button type="button" class="btn btn-info" onclick="getRoleList();">ROLE</button>
-           </div>
-         </div>
-        </div>  
-      <div id="card-container" style = "overflow-x: auto;"> 
-              <div id="tt" style="overflow:auto; width:10000px; text-align: left; ">  
-               <%@include file = "/WEB-INF/jsp/modalpage/card.jsp"%>
-               <ul id="cardlists" class = "boxsort">        
-                  <c:forEach var="list" items="${lists}" varStatus="status">
-                     <li class="ui-state-default card_margin">
-                           <div class="card_wrap_top">
-                              <div>
-                                 <textarea class="list_name" id="${list.listNum }-list-name" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">${list.listName}</textarea>
-                              </div>
-                              <div>
-                                 <a id="${list.listNum}-card-add-btn" class="btn btn-default" data-toggle="modal" href="#cardmodal">카드 추가</a>
-                                 <script>
-                                   $(function ()
-                                           {
-                                               $('#'+${list.listNum }+'-list-name').change(function () {
-                                                  updateListName(${list.listNum },$('#'+${list.listNum }+'-list-name').val())
-                                               });
-                                           });
-                                 
-                                    $('#${list.listNum }-card-add-btn').click(function(){
-                                       addCard(${list.listNum},$('#${list.listNum} li').length);
-                                    });
-                                 </script>
-                              </div>
-                             </div>
-                          
-                           <div >
-                              <div class="card_wrap">
-                                 <ul id="${list.listNum}" class="listSortable sort_css">  
-                                    <c:forEach var="card" items="${list.cards}" varStatus="status">
-                                       <li id="${card.cardNum }"class="ui-state-default">
-                                       <a id="${card.cardNum}-card-view-btn" class="card-modal-btn" data-toggle="modal" href="#cardmodal">${card.subject}</a>
-                                       <script>
-                                          $(document).ready(function(){
-                                             $('#${card.cardNum}-card-view-btn').click(function(){
-                                                viewCard(${card.cardNum});
-                                             });
-                                          });
-                                          
-                                     
-                                       </script>
-                                       </li>
-                                    </c:forEach>
-                                 </ul>
-                              </div>
-                           </div>
-                           <button type="button" class="btn btn-cardlist" href="#"  onclick="location.href='/lists/removeList?boardNum=${param.boardNum}&listOrder=${list.listOrder }'" style = "margin-bottom: 5px;">삭제</button>
-                        </li>      
-                     </c:forEach>
-                  </ul>
-                  <button id ="addbutton" class="btn btn-cardlist" type="button" data-toggle="collapse" data-target="#addList" aria-expanded="false" aria-controls="collapseExample" >
-                     List add.
-                  </button>
-                  <div class="collapse collapse-list" id="addList">
-                     <form method="post" action="/lists/addList">
-                       <div class="form-group">
-                         <label for="newListName">List name.</label>
-                         <input type="text" class="form-control" name="listName" placeholder="리스트 이름을 입력하세요">
-                         <input type="hidden" class="form-control" name="boardNum" value="${param.boardNum }"/>
-                         <input id="currentListNum" type="hidden" class="form-control" name="listOrder" />
-                        <script>$('#currentListNum').val(''+$('#cardlists li').length);</script>
-                       </div>
-                       <button type="submit" class="btn btn-default" >생성</button>
-                      </form>
-                  </div>
-                </div>
-            </div>
-            <iframe id='project-user' src="/project/memberlist"  name=user> 
-                <p>Your browser does not support iframes.</p>
-            </iframe>
-            <iframe id='project-chat' src="/project/imagelist" name=chat>
-                <p>Your browser does not support iframes.</p>
-            </iframe>
-      </div>
-      <%@include file = "/WEB-INF/jsp/modalpage/upload.jsp"%> 
-      <%@include file = "/WEB-INF/jsp/modalpage/invite.jsp" %>
-      <%@include file = "/WEB-INF/jsp/modalpage/role.jsp" %>
-      
-   </div> 
-</body>
-<%@ include file="./commons/bottom.jspf"%>
-</div>
-</html>
 
-<script>
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Page Header
+        <small>Optional description</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+        <li class="active">Here</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+	      <div class="wrap">
+	         <div id="top">
+	           <div id="mini-menu"> 
+	            <div class="btn-group-sm" role="group" aria-label="...">   
+	            <button type="button" class="btn btn-info" onclick="location.href='/board/boardlist?projectName=${projectName}'">목록</button>
+	            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#invite-modal">초대</button>
+	            <button type="button" class="btn btn-info" onclick="getRoleList();">ROLE</button>
+	            </div>
+	           </div>
+	         </div>  
+	      	<div id="card-container" style = "overflow-x: auto;"> 
+	              <div id="tt" style="overflow:auto; width:10000px; text-align: left; ">  
+	               <%@include file = "/WEB-INF/jsp/modalpage/card.jsp"%>
+	               <ul id="cardlists" class = "boxsort">        
+	                  <c:forEach var="list" items="${lists}" varStatus="status">
+	                     <li class="ui-state-default card_margin">
+	                           <div class="card_wrap_top">
+	                              <div>
+	                                 <textarea class="list_name" id="${list.listNum }-list-name" onkeyup="resize(this)" spellcheck="false" dir="auto" maxlength="512">${list.listName}</textarea>
+	                              </div>
+	                              <div>
+	                                 <a id="${list.listNum}-card-add-btn" class="btn btn-default" data-toggle="modal" href="#cardmodal">카드 추가</a>
+	                                 <script>
+	                                   $(function ()
+	                                           {
+	                                               $('#'+${list.listNum }+'-list-name').change(function () {
+	                                                  updateListName(${list.listNum },$('#'+${list.listNum }+'-list-name').val())
+	                                               });
+	                                           });
+	                                 
+	                                    $('#${list.listNum }-card-add-btn').click(function(){
+	                                       addCard(${list.listNum},$('#${list.listNum} li').length);
+	                                    });
+	                                 </script>
+	                              </div>
+	                             </div>
+	                          
+	                           <div >
+	                              <div class="card_wrap">
+	                                 <ul id="${list.listNum}" class="listSortable sort_css">  
+	                                    <c:forEach var="card" items="${list.cards}" varStatus="status">
+	                                       <li id="${card.cardNum }"class="ui-state-default">
+	                                       <a id="${card.cardNum}-card-view-btn" class="card-modal-btn" data-toggle="modal" href="#cardmodal">${card.subject}</a>
+	                                       <script>
+	                                          $(document).ready(function(){
+	                                             $('#${card.cardNum}-card-view-btn').click(function(){
+	                                                viewCard(${card.cardNum});
+	                                             });
+	                                          });
+	                                          
+	                                     
+	                                       </script>
+	                                       </li>
+	                                    </c:forEach>
+	                                 </ul>
+	                              </div>
+	                           </div>
+	                           <button type="button" class="btn btn-cardlist" href="#"  onclick="location.href='/lists/removeList?boardNum=${param.boardNum}&listOrder=${list.listOrder }'" style = "margin-bottom: 5px;">삭제</button>
+	                        </li>      
+	                     </c:forEach>
+	                  </ul>
+	                  <button id ="addbutton" class="btn btn-cardlist" type="button" data-toggle="collapse" data-target="#addList" aria-expanded="false" aria-controls="collapseExample" >
+	                     List add.
+	                  </button>
+	                  <div class="collapse collapse-list" id="addList">
+	                     <form method="post" action="/lists/addList">
+	                       <div class="form-group">
+	                         <label for="newListName">List name.</label>
+	                         <input type="text" class="form-control" name="listName" placeholder="리스트 이름을 입력하세요">
+	                         <input type="hidden" class="form-control" name="boardNum" value="${param.boardNum }"/>
+	                         <input id="currentListNum" type="hidden" class="form-control" name="listOrder" />
+	                        <script>$('#currentListNum').val(''+$('#cardlists li').length);</script>
+	                       </div>
+	                       <button type="submit" class="btn btn-default" >생성</button>
+	                      </form>
+	                  </div>
+	                </div>
+	            </div>
+	      </div>
+	      <%@include file = "/WEB-INF/jsp/modalpage/upload.jsp"%> 
+	      <%@include file = "/WEB-INF/jsp/modalpage/invite.jsp" %>
+	      <%@include file = "/WEB-INF/jsp/modalpage/role.jsp" %>
+	      
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  
+  <script>
 function upload_popup(){
    $('#uploadmodal').modal();
 }
@@ -132,6 +125,7 @@ var currentCardNum;
 
 function viewCard(currentCardNum){
    $('#cardAssignee-field').empty();
+   $('#cardProgress-field').empty();
    $.ajax({
       type:'get',
       data:{
@@ -140,11 +134,36 @@ function viewCard(currentCardNum){
       url:'/cards/viewcard',
       dataType:'json',
       success:function (data){
+    	 $('#cardListNum').val(data.listNum);
+    	 $('#cardmodal-body').css("width", "630px");
+   	     $('#cardmodal-body').css("height", "650px");
+   	     $('#btn-area').css("margin-left", "100px");
+   	     var addStr='';
+   		 <!-- Card Add-btn Group -->
+	  	 addStr+="<h3>Add</h3>";
+	  	 addStr+="<button type='button' class='btn btn-primary btn-lg' onclick='showProgressModal();' style='margin-bottom: 7px;'>Progress</button>";
+	  	 addStr+="<button type='button' class='btn btn-primary btn-lg' onclick='showDueDateModal();' style='margin-bottom: 7px;'>Due Date</button>";
+	  	 addStr+="<button type='button' class='btn btn-primary btn-lg' onclick='showAssigneeModal();' style='margin-bottom: 7px;'>Assignee</button>";
+	  	 addStr+="<button type='button' class='btn btn-primary btn-lg' style='margin-bottom: 7px;'>CheckList</button>";
+	  	 addStr+="<button type='button' class='btn btn-primary btn-lg' style='margin-bottom: 7px;'>Labels</button>";	
+    	 $('#add-menu').html(addStr);
+   	     
+    	 $('#progress-control').html("<button id='apply-btn' class='btn btn-success' style='margin-right: 40px;' type='button' onclick='javascript:cuProgress()'>Apply</button>")
     	 var str='';
     	 $('#card-duedate').html(str);
          $('#card-field').attr("action","/cards/updatecard");
          $('#Title').html("<h2>" + data.subject + "</h2>");
          console.log("[JS.ViewCard] : {}", data.assignees);
+         
+         if(data.progress && data.progress != -1) {
+       	 	var ProgressStr='';
+       	 	ProgressStr+="<div id='progressBar' class='progress progress-sm active' style='width: 600px;margin-left: -20px;'>";
+	       	ProgressStr+="<div id='progressLabel' class='progress-bar progress-bar-success progress-bar-striped' role='progressbar' aria-valuenow='20' aria-valuemin='0' aria-valuemax='100' style='width:" + data.progress + "%'>";
+	       	ProgressStr+="<p style='margin-top: -5px;'>" + data.progress + "%</p>"
+	       	ProgressStr+="</div>";
+	       	ProgressStr+="</div>";
+ 			$('#cardProgress-field').html(ProgressStr);
+         }
          
          if(data.assignees) {
 	        data.assignees.forEach(function(item) {
@@ -162,15 +181,16 @@ function viewCard(currentCardNum){
 			str+="</td>"
 			$('#card-duedate').html(str);
          };
+         
          $('#cardNum').val(data.cardNum);
          $('#card-user').html("<input type='hidden' name='userId' value='"+data.userId+"'>"+data.userId+"</input>");
          $('#cardSubject').val(data.subject);
          $('#cardContent').val(data.content);
          var btn="";
-         btn+="<input type='submit' class='btn btn-default' value='Modify'/>";
-         btn+="<input type='reset' class='btn btn-default' value='Reset' />";
-         btn+="<input type='button' class='btn btn-default'  value='List' data-dismiss='modal' />";
-         btn+="<input type='button' id='delete-card' class='btn btn-default' value='Delete' />";
+         btn+="<input type='submit' class='btn btn-lg' value='Modify' style='margin-right: 10px;'/>";
+         btn+="<input type='reset' class='btn btn-lg' value='Reset' style='margin-right: 10px;'/>";
+         btn+="<input type='button' class='btn btn-lg' value='List' data-dismiss='modal' style='margin-right: 10px;'/>";
+         btn+="<input type='button' id='delete-card' class='btn btn-lg' value='Delete' style='margin-right: 10px;'/>";
          $('#btn-area').html(btn);
          $('#delete-card').attr("onclick","location.href='/cards/removecard?num="+data.cardNum+"&listNum="+data.listNum+"&cardOrder="+data.cardOrder+"'");
       	 $('#close-card-btn').remove();
@@ -178,11 +198,15 @@ function viewCard(currentCardNum){
       error:ajaxError
    });
 }
-
 function addCard(cardListNum,currentCardOrder){
+   $('#add-menu').empty();
+   $('#cardmodal-body').css("width", "500px");
+   $('#cardmodal-body').css("height", "550px");
+   $('#btn-area').css("margin-left", "25px");
    $('.assigneeMember').remove();
    $('.roleName').remove();
    $('#cardAssignee-field').empty();
+   $('#cardProgress-field').empty();
    $('#assign-form').empty();
    $.ajax({
       type:'get',
@@ -193,6 +217,7 @@ function addCard(cardListNum,currentCardOrder){
       url:"/cards/createcardForm",
       dataType:'json',
       success:function (data){
+    	 $('#progress-control').html("<button id='apply-btn' class='btn btn-success' style='margin-right: 40px;' type='button' onclick='javascript:applyProgressToCard()'>Apply</button>")
     	 $('#cardNum').val(data.cardNum);
 		 $('#card-duedate').empty();
          $('#cardSubject').val(data.subject);
@@ -204,9 +229,9 @@ function addCard(cardListNum,currentCardOrder){
          $('#cardListNum').val(cardListNum);
          $('#cardOrder').val(currentCardOrder);
          var btn="";
-         btn+="<input type='submit' class='btn btn-default' value='Submit'/>";
-         btn+="<input type='reset' class='btn btn-default' value='Reset' />";
-         btn+="<input type='button' class='btn btn-default' value='List' data-dismiss='modal' />";
+         btn+="<input type='submit' class='btn btn-lg' value='Submit' style='margin-right: 10px;'/>";
+         btn+="<input type='reset' class='btn btn-lg' value='Reset'  style='margin-right: 10px;'/>";
+         btn+="<input type='button' class='btn btn-lg' value='List' data-dismiss='modal' style='margin-right: 10px;'/>";
          $('#btn-area').html(btn);
       },
       error:ajaxError
@@ -385,3 +410,6 @@ function getRoleList() {
 	}
 	
 </script>
+
+  
+<%@include file="/WEB-INF/jsp/commons/T_footer.jsp"%>

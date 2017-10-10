@@ -18,24 +18,29 @@
 <div class="modal fade" id="invite-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header" style="color: black;">
+			<div class="modal-header" style="color: black; text-align: center;">
 				<h2 class="modal-title" id="MyModalLabel">Invite User</h2>
 			</div>
 			<div class="modal-body">
-				<div class="form-group">
-					<label for="exampleInputName2" style="color: black; padding-right: 10px"><h2>Search</h2></label> <input type="text" id="keyword" class="form-control" name="keyword" placeholder="Input userId.." style="width: 300px">
-					<button id="search-btn" type="button" class="btn btn-primary">검색</button>
+			
+				<div class="input-group">
+					<span class="input-group-addon" aria-hidden="false"> 
+					<i class="fa fa-tripadvisor"></i>
+					</span> 
+					<input type="text" id="keyword" class="form-control input-lg" name="keyword" placeholder="Input userId.." style="width: 455px">
+					<button id="search-btn" type="button" class="btn btn-primary btn-lg">검색</button>
 				</div>
+				
 				<div>
-					<table class="table" style="color: black; text-align: center;">
+					<table class="table" style="color: black; text-align: center; margin-top: 20px;">
 						<thead>
 							<tr>
 								<!-- LIST -->
 								<td align="center" width="10">#</td>
 								<td align="center" width="60">ID</td>
 								<td align="center" width="15">NAME</td>
-								<td align="center" width="15">AGE</td>
-								<td align="center" width="10">SEX</td>
+								<td align="center" width="15">BIRTH</td>
+								<td align="center" width="10">Image</td>
 							</tr>
 						</thead>
 						<tbody id="data"></tbody>
@@ -43,7 +48,7 @@
 				</div>
 
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">나가기</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
@@ -78,13 +83,13 @@ $('#search-btn').click(function(){
 					str+="</tr>";
 					$('#data').html(str);
 				});	
-					
-				}
+			}
 	
 			else{
 				str+='<tr>';
-				str+='<td colspan="5"><h2>'+'NO DATA.'+'</h2></td>';
+				str+="<td colspan='5'><h2>No 'USER' Data</h2></td>";
 				str+='</tr>';
+				$('#data').html(str);
 			}
 		},
 		error:ajaxError

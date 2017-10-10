@@ -156,7 +156,7 @@ public class JdbcTemplate {
       while (rs.next()) {
         sass.setParametersBySelect(pstmt2, rs);
         rs2 = pstmt2.executeQuery();
-        while (rs2.next()) {
+        if (rs2.next()) {
             list.add(rm.mapRow(rs2));
         }
       }

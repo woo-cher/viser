@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 
 import viser.dao.assignee.AssigneeDAO;
+import viser.domain.assignee.Assignee;
 
 @WebServlet("/assignees/assigneelist")
 public class ReadAssigneeListServlet extends HttpServlet {
@@ -25,7 +26,7 @@ public class ReadAssigneeListServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     AssigneeDAO assigneeDAO = new AssigneeDAO();
-    List assigneeList = new ArrayList();
+    List<Assignee> assigneeList = new ArrayList<Assignee>();
     int cardNum = Integer.parseInt(request.getParameter("cardNum"));
     
     try {

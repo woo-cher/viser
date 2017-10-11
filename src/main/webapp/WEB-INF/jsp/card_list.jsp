@@ -100,7 +100,7 @@
 	                </div>
 	            </div>
 	      </div>
-	      <%@include file = "/WEB-INF/jsp/modalpage/upload.jsp"%> 
+	      
 	      <%@include file = "/WEB-INF/jsp/modalpage/invite.jsp" %>
 	      <%@include file = "/WEB-INF/jsp/modalpage/role.jsp" %>
 	      
@@ -109,11 +109,7 @@
   </div>
   <!-- /.content-wrapper -->
   
-  <script>
-function upload_popup(){
-   $('#uploadmodal').modal();
-}
-</script>
+
 
 <script>
 var currentCardNum;
@@ -406,5 +402,5 @@ function getRoleList() {
 	
 </script>
 
-  
+<%@ include file="/WEB-INF/jsp/modalpage/userProfile.jsp"%>
 <%@include file="/WEB-INF/jsp/commons/T_footer.jsp"%>

@@ -69,7 +69,7 @@
 					</div>
 					<div id="profile-border" class="form-group has-feedback">
 						프로필 사진   
-						<input id="profileUpload" type="file" name="image"/> 
+						<input id="profileUpload" type="file" name="image" accept="image/*"/> 
 					</div>
 				</c:if>
 			

@@ -21,10 +21,11 @@ public class Assignee {
       this.cardNum = cardNum;
     }
    
-    public Assignee(int assigneeNum, int cardNum, String roleName, String userId) {
+    public Assignee(int assigneeNum, int cardNum, String roleName, int roleNum, String userId) {
       this.assigneeNum = assigneeNum;
       this.cardNum = cardNum;
       this.roleName = roleName;
+      this.roleNum = roleNum;
       this.userId = userId;
     }
     

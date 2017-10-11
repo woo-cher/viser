@@ -150,7 +150,8 @@ $(function() {
    $('#export').click(
          function(e) {
             e.preventDefault();
-            window.open(canvas.toDataURL(), 'Canvas Export','height=400,width=400');
+            $('#download').attr('href',canvas.toDataURL("image/png"));
+            $('#download')[0].click();
          });
    $('#clear').click(function(e) {
       e.preventDefault();

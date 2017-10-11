@@ -13,6 +13,15 @@
    z-index : -1;
 }
 
+#effect{
+	text-align:center;
+}
+
+#scroll-btn{
+	background: rgba(76, 76, 76, 0.51);
+	border:0px;
+}
+
 #start-button{
 	width:300px;
 }
@@ -206,6 +215,10 @@ html {
 
 /* 채팅창 css*/
 
+.direct-chat-messages{
+	color:#333;
+}
+
 #chat-image{
    /* border: 1px solid black; */
    color: azure;
@@ -221,9 +234,9 @@ html {
    float:left;
    cursor: crosshair;
 }
-#chat-image-area-colors{width:10px; height:5px; margin:0;padding:0;float: left;}
-#chat-image-area-colors li{ height: 20px; width: 20px; display: block; cursor: pointer; }
-#chat-image-area-colors li.selected{ height: 18px; width: 18px; display: block; border: solid 1px #eee; }
+#chat-image-area-colors{margin:0;padding:0;list-style:none;}
+#chat-image-area-colors li{ height: 20px; width: 20px; margin: 0 0 0 0; padding: 0 0 0 0; display: inline; cursor: pointer; float:left; }
+#chat-image-area-colors li.selected{ height: 18px; width: 18px; display: inline; border: solid 1px #eee; }
 #chat-image-area-tool{
    clear:left;
    /* border:1px solid black; */

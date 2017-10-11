@@ -84,6 +84,7 @@ function showAssigneeModal() {
 					str+="</td>";
 					str+="<td>";
 					str+="<p class='assignee-area' style='margin-top: 8px;'>" + item.roleName + "</p>";
+					str+="<input class='roleNum' name'roleNum' type='hidden' value'" + item.roleNum + "'>";
 					str+="</td>";
 					str+="<td>";
 					

@@ -39,16 +39,25 @@
 		              <div id="chat-image">
 					      <div id="chat-image-area" >
 					         <canvas id="chat-image-area-canvas" width="230px" height="200px"></canvas>
-					         <!-- Color Picker -->
 					         <div id="chat-image-area-tool">
-					            <div id="chat-image-area-tool-brush">
-					            <label for="brush" style = "color:black">  선의 두께:</label> 
-					             <input name="brush"  id="brush_size" type="range" value="5" min="0" max="100" style = "margin-bottom: 5px"/>
-					            </div>
-					            <div id="chat-image-area-tool-control">
+					         	<!-- Color Picker -->
+								<ul id="chat-image-area-colors">
+						            <li style="background-color: black;"></li>
+						            <li style="background-color: red;"></li>
+						            <li style="background-color: green;"></li>
+						            <li style="background-color: brown;"></li>
+						            <li style="background-color: #d2232a;"></li>
+						            <li style="background-color: #fcb017;"></li>
+						            <li style="background-color: #fff460;"></li>
+						            <li style="background-color: #F43059;"></li>
+						            <li style="background-color: #82B82C;"></li>
+						            <li style="background-color: #0099FF;"></li>
+						            <li style="background-color: #ff00ff;"></li>
+						         </ul>
+         					     <div id="chat-image-area-tool-control">
 					               <button id="undo" class="btn-info" href="#" disabled="disabled">Undo</button>
 					               <button id="clear" class="btn-info" href="#">Reset</button>
-					               <button id="export" class="btn-info" href="#">Export as Image</button>
+					               <a id="download" download="그림판.png" target="_blank"><button id="export" class="btn-info" href="#">Download Image</button></a>
 					            </div>
 					         </div>
 					      </div>
@@ -77,7 +86,10 @@
 	            <!-- /.box-header -->
 	            <div class="box-body">
 	              <!-- Conversations are loaded here -->
-	              <div class="direct-chat-messages">
+	              <div class="direct-chat-messages" onscroll="scrollFix()">
+	              </div>
+	              <div id="effect">
+	              	<a id="scroll-btn" class="btn btn-primary btn-flat" onclick="fixScrollDown()">스크롤을 아래로 고정하기</a>
 	              </div>
 	              <!--/.direct-chat-messages-->
 	
@@ -101,7 +113,7 @@
 	          <!--/.direct-chat -->
 			</li>
 		</ul>
-        
+        <script src="/resources/gantt_resources/libs/date.js"></script>
 		<script src="/scripts/paintCanvas.js"></script>
 		<script src="/scripts/webSocketChat.js"></script>
 		
@@ -143,8 +155,47 @@
 	            </div>
 	         </div>
       </div>
-      
+     
      <script>
+     $(document).ready(function(){
+    	$.ajax({
+    		type:'get',
+    		dataType:'json',
+    		url:'/projects/getChats',
+			success:function(data){
+				data.forEach(function(item){
+					var temp='';
+					if(item.writeUser===now_userId){
+						temp+="<div class="+"'direct-chat-msg right'>";
+					    temp+="<div class="+"'direct-chat-info clearfix'>";
+					      temp+="<span class="+"'direct-chat-name pull-right'>"+item.writeUser+"</span>";
+					      temp+="<span class="+"'direct-chat-timestamp pull-left'>"+new Date(item.chatTime).format("y-MM-dd HH:mm")+"</span>";
+					    temp+="</div>";
+					    temp+="<img class="+"'direct-chat-img'"+ "src='"+item.userImage+"' alt='User Image'>";
+					    temp+="<div class="+"'direct-chat-text'>";
+					    temp+=item.chatMessage;
+					    temp+="</div>";
+					  temp+="</div>";
+					}
+					else{
+						temp+="<div class="+"'direct-chat-msg'>";
+				        temp+="<div class="+"'direct-chat-info clearfix'>";
+				          temp+="<span class="+"'direct-chat-name pull-left'>"+item.writeUser+"</span>";
+				          temp+="<span class="+"'direct-chat-timestamp pull-right'>"+new Date(item.chatTime).format("y-MM-dd HH:mm")+"</span>";
+				        temp+="</div>";
+				        temp+="<img class="+"'direct-chat-img'"+ "src='"+item.userImage+"' alt='User Image'>";
+				        temp+="<div class="+"'direct-chat-text'>";
+				        temp+=item.chatMessage;
+				        temp+="</div>";
+				      temp+="</div>";
+					}
+					$('.direct-chat-messages').append(temp);
+				});
+			},
+		 error:ajaxError
+    	})
+    });
+     
      function getProjectMember(){
     	 $.ajax({
     		 type:'get',
@@ -230,7 +281,7 @@
     	 var clickImg = new Image();
     	 clickImg.src =imageId;
     	 var context = document.getElementById("chat-image-area-canvas").getContext("2d");
-    	 context.drawImage(clickImg, 0, 0);
+    	 context.drawImage(clickImg, 0, 0,230,200);
 
     	 imageSend();
     	 clickSync();

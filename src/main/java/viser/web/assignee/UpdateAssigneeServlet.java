@@ -29,16 +29,16 @@ public class UpdateAssigneeServlet extends HttpServlet{
       HttpSession session = request.getSession();
       
       int assigneeNum = Integer.parseInt(request.getParameter("assigneeNum"));
-      String assigneeMember = request.getParameter("assigneeMember");
-      String roleName = request.getParameter("roleName");
+      int memberNum = Integer.parseInt(request.getParameter("assigneeMember"));
+      int roleNum = Integer.parseInt(request.getParameter("roleName"));
       int boardNum = SessionUtils.getIntegerValue(session, "boardNum");
-      logger.debug("UpdateAssigneeServlet Para :\nassigneeNum : " + assigneeNum + "\nassigneeMember : " + assigneeMember + "\nroleName : " + roleName + "\nboardNum : " + boardNum);
+      logger.debug("UpdateAssigneeServlet Para :\nassigneeNum : " + assigneeNum + "\nassigneeNum : " + assigneeNum + "\nroleNum : " + roleNum + "\nboardNum : " + boardNum);
      
       try {
-        assigneeDAO.updateAssignee(assigneeNum, assigneeMember, roleName, boardNum);
+        assigneeDAO.updateAssignee(assigneeNum, memberNum, roleNum);
         assignee.setAssigneeNum(assigneeNum);
-        assignee.setUserId(assigneeMember);
-        assignee.setRoleName(roleName);
+        assignee.setProjectMemberNum(memberNum);
+        assignee.setRoleNum(roleNum);
         Gson gson = new Gson();
         String gsonData = gson.toJson(assignee);
         PrintWriter out = response.getWriter();

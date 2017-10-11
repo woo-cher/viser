@@ -60,18 +60,16 @@ public class AssigneeDAO {
       public void setParameters(PreparedStatement pstmt) throws SQLException {
         pstmt.setInt(1, assigneeNum);
       }
-    });
+    });	
   }
   
-  public void updateAssignee(int assigneeNum, String userId, String roleName, int boardNum) {
-    String sql = "update assignees set PM_Num = (select PM_Num from project_members where userId = ?),"
-                + "roleNum = (select roleNum from roles where roleName = ? and Board_Num = ?) where assigneeNum = ?";
+  public void updateAssignee(int assigneeNum, int pmNum, int roleNum) {
+    String sql = "update assignees set PM_Num = ?, roleNum = ? where assigneeNum = ?";
     jdbc.executeUpdate(sql, new PreparedStatementSetter() {
       @Override
       public void setParameters(PreparedStatement pstmt) throws SQLException {
-        pstmt.setString(1, userId);
-        pstmt.setString(2, roleName);
-        pstmt.setInt(3, boardNum);
+        pstmt.setInt(1, pmNum);
+        pstmt.setInt(2, roleNum);
         pstmt.setInt(4, assigneeNum);
       }
     });
@@ -79,7 +77,7 @@ public class AssigneeDAO {
   
   public List<Assignee> getAssigneeList(int cardNum) {
     String sql = "select * from assignees where Card_Num = ?";
-    String sql2 = "select assigneeNum, Card_Num, (select roleName from roles where roleNum = ?) as roleName, "
+    String sql2 = "select assigneeNum, Card_Num, roleNum, (select roleName from roles where roleNum = ?) as roleName, "
                 + "(select userId from project_members where PM_Num = ?) as userId from assignees where roleNum = ? and PM_Num = ?";
     return jdbc.selectAndSelect(sql, sql2, new PreparedStatementSetter() {
       @Override
@@ -97,7 +95,7 @@ public class AssigneeDAO {
     }, new RowMapper() {
       @Override
       public Assignee mapRow(ResultSet rs) throws SQLException {
-        return new Assignee(rs.getInt("assigneeNum"), rs.getInt("Card_Num"), rs.getString("roleName"), rs.getString("userId"));
+        return new Assignee(rs.getInt("assigneeNum"), rs.getInt("Card_Num"), rs.getString("roleName"), rs.getInt("roleNum"), rs.getString("userId"));
       }
     });
  }

@@ -1,6 +1,7 @@
 package viser.service.gantt;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import viser.dao.card.CardDAO;
 import viser.dao.role.RoleDAO;
 import viser.domain.assignee.Assignee;
 import viser.domain.card.Card;
+import viser.domain.role.Role;
 
 public class GanttService {
 
@@ -79,7 +81,7 @@ public class GanttService {
     }
   }
 
-  public void saveAssignees(JsonArray assigns, int cardNum, List<Integer> deletedAssigIds,Boolean assigUnchanged, int boardNum) {
+  public void saveAssignees(JsonArray assigns, int cardNum, List<Integer> deletedAssigIds,Boolean assigUnchanged) {
     AssigneeDAO assigneeDAO = new AssigneeDAO();
 
     for (JsonElement index : assigns) {
@@ -96,7 +98,7 @@ public class GanttService {
         } else if (deletedAssigIds.contains(assigneeNum)) {
           assigneeDAO.removeAssignee(assigneeNum);
         } else { // changed
-          assigneeDAO.updateAssignee(assigneeNum, projectMemberNum, roleNum, boardNum);
+          assigneeDAO.updateAssignee(assigneeNum, projectMemberNum, roleNum);
         }
       }
     }

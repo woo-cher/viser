@@ -52,7 +52,7 @@
 	                                           });
 	                                 
 	                                    $('#${list.listNum }-card-add-btn').click(function(){
-	                                       addCard(${list.listNum},$('#${list.listNum} li').length);
+	                                       addCard(${list.listNum},$('#list-${list.listNum} li').length);
 	                                    });
 	                                 </script>
 	                              </div>
@@ -60,7 +60,7 @@
 	                          
 	                           <div >
 	                              <div class="card_wrap">
-	                                 <ul id="${list.listNum}" class="listSortable sort_css">  
+	                                 <ul id="list-${list.listNum}" class="listSortable sort_css">  
 	                                    <c:forEach var="card" items="${list.cards}" varStatus="status">
 	                                       <li id="${card.cardNum }"class="ui-state-default">
 	                                       <a id="${card.cardNum}-card-view-btn" class="card-modal-btn" data-toggle="modal" href="#cardmodal">${card.subject}</a>
@@ -92,7 +92,7 @@
 	                         <input type="text" class="form-control" name="listName" placeholder="리스트 이름을 입력하세요">
 	                         <input type="hidden" class="form-control" name="boardNum" value="${param.boardNum }"/>
 	                         <input id="currentListNum" type="hidden" class="form-control" name="listOrder" />
-	                        <script>$('#currentListNum').val(''+$('#cardlists li').length);</script>
+	                        <script>$('#currentListNum').val($('.listSortable').length);</script>
 	                       </div>
 	                       <button type="submit" class="btn btn-default" >생성</button>
 	                      </form>
@@ -109,12 +109,6 @@
   </div>
   <!-- /.content-wrapper -->
   
-  <script>
-function upload_popup(){
-   $('#uploadmodal').modal();
-}
-</script>
-
 <script>
 var currentCardNum;
 

@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import viser.dao.cardlist.CardListDAO;
+import viser.dao.gantt.GanttDAO;
 
 @WebServlet("/lists/cardlist")
 public class ReadCardListServlet extends HttpServlet {
@@ -23,6 +24,7 @@ public class ReadCardListServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    GanttDAO ganttDAO=new GanttDAO();
     CardListDAO cardListDAO = new CardListDAO();
     HttpSession session = request.getSession();
     List list = new ArrayList();
@@ -33,10 +35,14 @@ public class ReadCardListServlet extends HttpServlet {
     session.setAttribute("boardNum", boardNum);
 
     list = cardListDAO.getLists(boardNum);
-
     request.setAttribute("lists", list);
-
     logger.debug("ReadCardListServlet db에서 가져온 lists:" + list);
+
+    if(ganttDAO.isExistGantt(boardNum)>0)
+      request.setAttribute("isExistGantt", true);
+    else
+      request.setAttribute("isExistGantt", false);
+
     RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/card_list.jsp");
     rd.forward(request, response);
   }

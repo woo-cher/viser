@@ -9,12 +9,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Page Header
-        <small>Optional description</small>
+      ${board.boardName}
+      <small>${board.boardInfo}</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
+        <li><a href="/project/projectlist"><i class="fa fa-list-ol"></i>프로젝트 목록</a></li>
+        <li><a href="/board/boardlist?projectName=${projectName}"><i class="fa fa-list-ol"></i>보드 목록</a></li>
+        <li class="active">카드 목록</li>
       </ol>
     </section>
 
@@ -28,6 +29,9 @@
                <button type="button" class="btn btn-info" onclick="location.href='/board/boardlist?projectName=${projectName}'">목록</button>
                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#invite-modal">초대</button>
                <button type="button" class="btn btn-info" onclick="getRoleList();">ROLE</button>
+               <c:if test="${isExistGantt == false }">
+			       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#gantt-alert">간트차트</button>
+		       </c:if>		
                </div>
               </div>
             </div>  
@@ -100,6 +104,45 @@
                   </div>
               </div>
             </div>
+            
+            	      <div class="modal fade" id="gantt-alert">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">간트차트 생성</h4>
+					</div>
+					<div class="modal-body">
+					  <div class="alert alert-info alert-dismissible">
+		                <h4><i class="icon fa fa-info"></i> 알림</h4>
+		                                    현재 보드와 데이터를 연동하여 간트차트 게시판을 만들수 있습니다.<br>
+						 생성후 부터는 간트차트에서 추가하는 테스크가 보드에도 카드형태로 <br>
+						 추가되므로 카드가 추가될 리스트를 선택한 후 확인을 눌러주세요.
+		              </div>
+						 카드가 추가될 리스트 선택:
+						 <select class="form-control" id="list-selection">
+							<c:forEach var="list" items="${lists}" varStatus="status">
+							 	<option value="${list.listNum }">${list.listName }</option>
+							 </c:forEach>
+						 </select>
+					</div>
+					<div class="modal-footer">
+						<form id="gantt-form" action="/gantts/createGantt" method="get">
+							<input type="hidden" name="listNum" id="selectList"/>
+							<button type="button" class="btn btn-default pull-left"
+								data-dismiss="modal">취소</button>
+							<button type="button" onclick="ganttAlert()" class="btn btn-primary">확인</button>
+						</form>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		 </div>
+		 <!-- /.modal -->
          
          <%@include file = "/WEB-INF/jsp/modalpage/invite.jsp" %>
          <%@include file = "/WEB-INF/jsp/modalpage/role.jsp" %>
@@ -109,10 +152,13 @@
   </div>
   <!-- /.content-wrapper -->
   
-
-
 <script>
 var currentCardNum;
+
+function ganttAlert(){
+	$('#selectList').val($('#list-selection')[0].selectedOptions[0].value);
+	$('#gantt-form').submit();
+}
 
 function viewCard(currentCardNum){
    $('#cardAssignee-field').empty();

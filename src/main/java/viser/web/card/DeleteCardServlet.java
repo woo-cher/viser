@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import viser.dao.board.BoardDAO;
 import viser.dao.card.CardDAO;
 
 @WebServlet("/cards/removecard")
@@ -27,9 +28,17 @@ public class DeleteCardServlet extends HttpServlet {
 
     HttpSession session = request.getSession();
     CardDAO cardDAO = new CardDAO();
+    BoardDAO boardDAO = new BoardDAO();
 
     try {
-      cardDAO.removeCard(num, listNum, cardOrder);
+      cardDAO.removeCard(num);
+      boardDAO.updateBoardProgress(listNum);
+      
+      request.removeAttribute("projectCount");
+      request.removeAttribute("roleCount");
+      request.removeAttribute("userProjectList");
+      request.removeAttribute("userAssigneeList");
+      
       response.sendRedirect("/lists/cardlist?boardNum=" + (int) session.getAttribute("boardNum"));
     } catch (Exception e) {
       logger.debug("RemovecardServlet error" + e);

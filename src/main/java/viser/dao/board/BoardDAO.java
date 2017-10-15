@@ -29,18 +29,19 @@ public class BoardDAO {
       @Override
       public Board mapRow(ResultSet rs) throws SQLException {
         Board board = new Board();
-        return new Board(rs.getInt("Board_Num"), rs.getString("Project_Name"), rs.getString("Board_Name"), rs.getInt("progress"));
+        return new Board(rs.getInt("Board_Num"), rs.getString("Project_Name"), rs.getString("Board_Name"), rs.getInt("progress"), rs.getString("boardInfo"));
       }
     });
   }
 
   public void addBoard(Board board) throws SQLException {
-    String sql = "insert into boards (Project_Name , Board_Name) values (? , ?)";
+    String sql = "insert into boards (Project_Name, Board_Name, boardInfo) values (?,?,?)";
     jdbc.executeUpdate(sql, new PreparedStatementSetter() {
       @Override
       public void setParameters(PreparedStatement pstmt) throws SQLException {
         pstmt.setString(1, board.getProjectName());
         pstmt.setString(2, board.getBoardName());
+        pstmt.setString(3, board.getBoardInfo());
       }
     });
   }
@@ -78,7 +79,7 @@ public class BoardDAO {
       public Board mapRow(ResultSet rs) throws SQLException {
         while (!rs.next())
           return null;
-        return new Board(rs.getString("Board_Name"), rs.getString("Project_Name"));
+        return new Board(rs.getString("Board_Name"), rs.getString("Project_Name"), rs.getString("boardInfo"));
       }
     });
   }
@@ -124,6 +125,17 @@ public class BoardDAO {
       public void setParameters(PreparedStatement pstmt) throws SQLException {
         pstmt.setInt(1, listNum);
         pstmt.setInt(2, listNum);
+      }
+    });
+  }
+  
+  public void reloadBoardProgress (int boardNum) {
+    String sql = "update boards set progress = (select round(avg(progress),0) from cards where List_Num in (select List_Num from lists where Board_Num = ?) and not progress = -1) where Board_Num = ?";
+    jdbc.executeUpdate(sql, new PreparedStatementSetter() {
+      @Override
+      public void setParameters(PreparedStatement pstmt) throws SQLException {
+        pstmt.setInt(1, boardNum);
+        pstmt.setInt(2, boardNum);
       }
     });
   }

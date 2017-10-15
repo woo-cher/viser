@@ -69,7 +69,7 @@ public class BoardDAO {
     });
   }
 
-  public Board getByBoardNum(int boardNum) throws SQLException {
+  public Board getByBoardNum(int boardNum) {
     String sql = "select * from boards where Board_Num = ?";
     return jdbc.executeQuery(sql, new PreparedStatementSetter() {
       @Override
@@ -79,9 +79,9 @@ public class BoardDAO {
     }, new RowMapper() {
       @Override
       public Board mapRow(ResultSet rs) throws SQLException {
-        while (!rs.next())
-          return null;
-        return new Board(rs.getString("Board_Name"), rs.getString("Project_Name"));
+        while (rs.next())
+          return new Board(rs.getString("Board_Name"), rs.getString("Project_Name"));
+        return null;
       }
     });
   }
@@ -97,26 +97,12 @@ public class BoardDAO {
     }, new RowMapper() {
       @Override
       public Integer mapRow(ResultSet rs) throws SQLException {
-        if (!rs.next()) {
-          return 0;
+        if (rs.next()) {
+          return rs.getInt("Board_Num");
         }
-        return rs.getInt("Board_Num");
+        return 0;
       }
     });
   }
   
-  public void initGantt(int addListNum,int boardNum,boolean canDelete,boolean canWrite,boolean canWriteOnParent, String zoom){
-    String sql="update boards set addListNum=?, canDelete=?, canWrite=?, canWriteOnParent=?, zoom=? where boardNum=?";
-    jdbc.executeUpdate(sql, new PreparedStatementSetter() {
-      @Override
-      public void setParameters(PreparedStatement pstmt) throws SQLException {
-        pstmt.setInt(1, addListNum);
-        pstmt.setInt(2, GanttService.getBoolaenValue(canDelete));
-        pstmt.setInt(3, GanttService.getBoolaenValue(canWrite));
-        pstmt.setInt(4, GanttService.getBoolaenValue(canWriteOnParent));
-        pstmt.setString(5, zoom);
-        pstmt.setInt(6, boardNum);
-      }
-    });
-  }
 }

@@ -70,7 +70,7 @@ GridEditor.prototype.fillEmptyLines = function () {
       var cnt=0;
       emptyRow.prevAll(".emptyRow").addBack().each(function () {
         cnt++;
-        var ch = factory.build(-1, "", "", level, start, 1);
+        var ch = factory.build(parseInt(new Date().getTime()/(cnt*-1)), "", "", level, start, 1);
         var task = master.addTask(ch);
         lastTask = ch;
       });
@@ -88,10 +88,8 @@ GridEditor.prototype.fillEmptyLines = function () {
 GridEditor.prototype.addTask = function (task, row, hideIfParentCollapsed) {
   //console.debug("GridEditor.addTask",task,row);
   //var prof = new Profiler("editorAddTaskHtml");
-
   //remove extisting row
-  this.element.find("[taskId=" + task.id + "]").remove();
-
+  this.element.find("[taskid=" + task.cardNum + "]").remove();
   var taskRow = $.JST.createFromTemplate(task, "TASKROW");
 
   if (!this.master.permissions.canSeeDep)
@@ -154,10 +152,9 @@ GridEditor.prototype.refreshTaskRow = function (task) {
   var canWrite=this.master.permissions.canWrite && task.canWrite;
 
   var row = task.rowElement;
-
   row.find(".taskRowIndex").html(task.getRow() + 1);
   row.find(".indentCell").css("padding-left", task.level * 10 + 18);
-  row.find("[name=name]").val(task.name);
+  row.find("[name=name]").val(task.subject);
   row.find("[name=code]").val(task.code);
   row.find("[status]").attr("status", task.status);
 
@@ -214,7 +211,7 @@ GridEditor.prototype.bindRowEvents = function (task, taskRow) {
     row.addClass("rowSelected");
 
     //set current task
-    self.master.currentTask = self.master.getTask(row.attr("taskId"));
+    self.master.currentTask = self.master.getTask(row.attr("taskid"));
 
     //move highlighter
     self.master.gantt.synchHighlight();
@@ -287,7 +284,7 @@ GridEditor.prototype.bindRowInputEvents = function (task, taskRow) {
 
         } else {
           var row = inp.closest("tr");
-          var taskId = row.attr("taskId");
+          var taskId = row.attr("taskid");
           var task = self.master.getTask(taskId);
 
           var leavingField = inp.prop("name");
@@ -308,7 +305,7 @@ GridEditor.prototype.bindRowInputEvents = function (task, taskRow) {
   taskRow.find(":checkbox").click(function () {
     var el = $(this);
     var row = el.closest("tr");
-    var taskId = row.attr("taskId");
+    var taskId = row.attr("taskid");
 
     var task = self.master.getTask(taskId);
 
@@ -333,7 +330,7 @@ GridEditor.prototype.bindRowInputEvents = function (task, taskRow) {
   }).blur(function (event) {
     var el = $(this);
     var row = el.closest("tr");
-    var taskId = row.attr("taskId");
+    var taskId = row.attr("taskid");
     var task = self.master.getTask(taskId);
     //update task from editor
     var field = el.prop("name");
@@ -407,7 +404,12 @@ GridEditor.prototype.bindRowInputEvents = function (task, taskRow) {
         el.val(task[field]);
 
       } else {
-        task[field] = el.val();
+	    if(el.prop("name")){
+	    	task["subject"]=el.val();
+	    }
+	    else{
+	        task[field] = el.val();
+	    }
       }
       self.master.endTransaction();
 
@@ -519,7 +521,7 @@ GridEditor.prototype.openFullEditor = function (task, editOnlyAssig) {
   var taskRow=task.rowElement;
 
   //task editor in popup
-  var taskId = taskRow.attr("taskId");
+  var taskId = taskRow.attr("taskid");
   //console.debug(task);
 
   //make task editor
@@ -529,7 +531,7 @@ GridEditor.prototype.openFullEditor = function (task, editOnlyAssig) {
   if (editOnlyAssig) {
     taskEditor.find(".taskData").hide();
     taskEditor.find(".assigsTableWrapper").height(455);
-    taskEditor.prepend("<h1>\""+task.name+"\"</h1>");
+    taskEditor.prepend("<h1>\""+task.subject+"\"</h1>");
   }
 
   //got to extended editor
@@ -537,13 +539,13 @@ GridEditor.prototype.openFullEditor = function (task, editOnlyAssig) {
     taskEditor.find("#taskFullEditor").remove();
   } else {
     taskEditor.bind("openFullEditor.gantt",function () {
-      window.location.href=contextPath+"/applications/teamwork/task/taskEditor.jsp?CM=ED&OBJID="+task.id;
+      window.location.href=contextPath+"/applications/teamwork/task/taskEditor.jsp?CM=ED&OBJID="+task.cardNum;
     });
   }
 
 
-  taskEditor.find("#name").val(task.name);
-  taskEditor.find("#description").val(task.description);
+  taskEditor.find("#name").val(task.subject);
+  taskEditor.find("#description").val(task.content);
   taskEditor.find("#code").val(task.code);
   taskEditor.find("#progress").val(task.progress ? parseFloat(task.progress) : 0).prop("readonly",task.progressByWorklog==true);
   taskEditor.find("#progressByWorklog").prop("checked",task.progressByWorklog);
@@ -619,7 +621,7 @@ GridEditor.prototype.openFullEditor = function (task, editOnlyAssig) {
     taskEditor.find("#addAssig").click(function () {
       cnt++;
       var assigsTable = taskEditor.find("#assigsTable");
-      var assigRow = $.JST.createFromTemplate({task: task, assig: {id: -1}}, "ASSIGNMENT_ROW");
+      var assigRow = $.JST.createFromTemplate({task: task, assig: {assigneeNum: parseInt(new Date().getTime()/(cnt*-1))}}, "ASSIGNMENT_ROW");
       assigsTable.append(assigRow);
       $("#bwinPopupd").scrollTop(10000);
     }).click();
@@ -630,8 +632,8 @@ GridEditor.prototype.openFullEditor = function (task, editOnlyAssig) {
       var task = self.master.getTask(taskId); // get task again because in case of rollback old task is lost
 
       self.master.beginTransaction();
-      task.name = taskEditor.find("#name").val();
-      task.description = taskEditor.find("#description").val();
+      task.subject = taskEditor.find("#name").val();
+      task.content = taskEditor.find("#description").val();
       //task.code = taskEditor.find("#code").val();
       task.progress = parseFloat(taskEditor.find("#progress").val());
       //task.duration = parseInt(taskEditor.find("#duration").val()); //bicch rimosso perchè devono essere ricalcolata dalla start end, altrimenti sbaglia
@@ -664,14 +666,14 @@ GridEditor.prototype.openFullEditor = function (task, editOnlyAssig) {
         for (var i = 0; i < task.assigs.length; i++) {
           var ass = task.assigs[i];
 
-          if (assId == ass.id) {
-            ass.roleId = roleId;
-            ass.resourceId = res.id;
+          if (assId == ass.assigneeNum) {
+            ass.roleNum = roleId;
+            ass.projectMemberNum = res.num;
             ass.touched = true;
             found = true;
             break;
 
-          } else if (roleId == ass.roleId && res.id == ass.resourceId) {
+          } else if (roleId == ass.roleNum && res.num == ass.projectMemberNum) {
             ass.touched = true;
             found = true;
             break;
@@ -682,7 +684,7 @@ GridEditor.prototype.openFullEditor = function (task, editOnlyAssig) {
         if (!found && resId && roleId) { //insert
           cnt++;
           //console.debug("adding assig row:", assId,resId,resName,roleId,effort)
-          var ass = task.createAssignment(-1, parseInt(resId), parseInt(roleId),false);
+          var ass = task.createAssignment(parseInt(new Date().getTime()/(cnt*-1)), parseInt(resId), parseInt(roleId),false);
           ass.touched = true;
           console.log("ass" ,ass);
         }

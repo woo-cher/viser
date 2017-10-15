@@ -39,7 +39,6 @@ function GanttMaster() {
   //보드와 연동을 위해 사용되는 변수들
   this.addListNum;
   this.boardNum;
-  this.userId;
   
   this.roleUnchanged=true;
 
@@ -274,22 +273,22 @@ GanttMaster.messages = {
 };
 
 
-GanttMaster.prototype.createTask = function (id, name, code, level, start, duration) {
+GanttMaster.prototype.createTask = function (cardNum, subject, code, level, start, duration) {
   var factory = new TaskFactory();
-  return factory.build(id, name, code, level, start, duration);
+  return factory.build(cardNum, subject, code, level, start, duration);
 };
 
 
-GanttMaster.prototype.getOrCreateResource = function (id, name) {
-  var res= this.getResource(id);
-  if (!res && id && name) {
-    res = this.createResource(id, name);
+GanttMaster.prototype.getOrCreateResource = function (num, userId) {
+  var res= this.getResource(num);
+  if (!res && num && userId) {
+    res = this.createResource(num, userId);
   }
   return res
 };
 
-GanttMaster.prototype.createResource = function (id, name) {
-  var res = new Resource(id, name);
+GanttMaster.prototype.createResource = function (num, userId) {
+  var res = new Resource(num, userId);
   this.resources.push(res);
   return res;
 };
@@ -366,7 +365,7 @@ GanttMaster.prototype.addTask = function (task, row) {
   //replace if already exists
   var pos = -1;
   for (var i = 0; i < this.tasks.length; i++) {
-    if (task.id == this.tasks[i].id) {
+    if (task.cardNum == this.tasks[i].cardNum) {
       pos = i;
       break;
     }
@@ -420,7 +419,7 @@ GanttMaster.prototype.addTask = function (task, row) {
  * @param project
  */
 GanttMaster.prototype.loadProject = function (project) {
-  console.log("loadProject", project)
+  console.log("loadProject-start", project)
   this.beginTransaction();
   //this.serverClientTimeOffset = typeof project.serverTimeOffset !="undefined"? (parseInt(project.serverTimeOffset) + new Date().getTimezoneOffset() * 60000) : 0;
   this.serverClientTimeOffset =0;
@@ -455,11 +454,14 @@ GanttMaster.prototype.loadProject = function (project) {
   //shift dates in order to have client side the same hour (e.g.: 23:59) of the server side
   for (var i = 0; i < project.tasks.length; i++) {
     var task = project.tasks[i];
+    if(task.start==0){
+    	task.start=new Date().getTime();
+    }
     task.start += this.serverClientTimeOffset;
     task.end += this.serverClientTimeOffset;
 
     //set initial collapsed status
-    task.collapsed=collTasks.indexOf(task.id)>=0;
+    task.collapsed=collTasks.indexOf(task.cardNum)>=0;
   }
 
 
@@ -477,7 +479,7 @@ GanttMaster.prototype.loadProject = function (project) {
     this.gantt.zoom = project.zoom;
   }
 
-
+  console.log("loadProject-end", this)
   this.endTransaction();
   var self = this;
   this.gantt.element.oneTime(200, function () {self.gantt.centerOnToday()});
@@ -493,7 +495,7 @@ GanttMaster.prototype.loadTasks = function (tasks, selectedRow) {
   for (var i = 0; i < tasks.length; i++) {
     var task = tasks[i];
     if (!(task instanceof Task)) {
-      var t = factory.build(task.id, task.name, task.code, task.level, task.start, task.duration, task.collapsed);
+      var t = factory.build(task.cardNum, task.subject, task.code, task.level, task.start, task.duration, task.collapsed);
       for (var key in task) {
         if (key != "end" && key != "start")
           t[key] = task[key]; //copy all properties
@@ -503,7 +505,7 @@ GanttMaster.prototype.loadTasks = function (tasks, selectedRow) {
     task.master = this; // in order to access controller from task
     this.tasks.push(task);  //append task at the end
   }
-
+  console.log("tasks",this.tasks);
   //var prof=new Profiler("gm_loadTasks_addTaskLoop");
   for (var i = 0; i < this.tasks.length; i++) {
     var task = this.tasks[i];
@@ -524,7 +526,7 @@ GanttMaster.prototype.loadTasks = function (tasks, selectedRow) {
     }
 
     if (!task.setPeriod(task.start, task.end)) {
-      alert(GanttMaster.messages.GANNT_ERROR_LOADING_DATA_TASK_REMOVED + "\n" + task.name );
+      alert(GanttMaster.messages.GANNT_ERROR_LOADING_DATA_TASK_REMOVED + "\n" + task.subject );
       //remove task from in-memory collection
       this.tasks.splice(task.getRow(), 1);
     } else {
@@ -546,11 +548,11 @@ GanttMaster.prototype.loadTasks = function (tasks, selectedRow) {
 };
 
 
-GanttMaster.prototype.getTask = function (taskId) {
+GanttMaster.prototype.getTask = function (cardNum) {
   var ret;
   for (var i = 0; i < this.tasks.length; i++) {
     var tsk = this.tasks[i];
-    if (tsk.id == taskId) {
+    if (tsk.cardNum == cardNum) {
       ret = tsk;
       break;
     }
@@ -563,7 +565,7 @@ GanttMaster.prototype.getResource = function (resId) {
   var ret;
   for (var i = 0; i < this.resources.length; i++) {
     var res = this.resources[i];
-    if (res.id == resId) {
+    if (res.num == resId) {
       ret = res;
       break;
     }
@@ -657,8 +659,8 @@ GanttMaster.prototype.reset = function () {
 };
 
 
-GanttMaster.prototype.showTaskEditor = function (taskId) {
-  var task = this.getTask(taskId);
+GanttMaster.prototype.showTaskEditor = function (cardNum) {
+  var task = this.getTask(cardNum);
   task.rowElement.find(".edit").click();
 };
 
@@ -668,6 +670,7 @@ GanttMaster.prototype.saveProject = function () {
 
 GanttMaster.prototype.saveGantt = function (forTransaction) {
   //var prof = new Profiler("gm_saveGantt");
+	console.log(this.tasks);
   var saved = [];
   for (var i = 0; i < this.tasks.length; i++) {
     var task = this.tasks[i];
@@ -694,7 +697,6 @@ GanttMaster.prototype.saveGantt = function (forTransaction) {
   ret.deletedAssigIds = this.deletedAssigIds;  //this must be consistent with transactions and undo
   ret.deletedRoleIds = this.deletedRoleIds;
 
-  ret.userId=this.userId;
   ret.addListNum=this.addListNum;
   ret.boardNum=this.boardNum;
   
@@ -735,11 +737,11 @@ GanttMaster.prototype.markUnChangedTasksAndAssignments=function(newProject){
     for (var i=0;i<newProject.tasks.length;i++){
       var newTask=newProject.tasks[i];
       //테스크가 기존에 있던것인지 판단
-      if (newTask.id>0){
+      if (newTask.cardNum>0){
         //기존에 있었던 테스크를 찾아 OldTask에 저장
         var oldTask;
         for (var j=0;j<oldProject.tasks.length;j++){
-          if (oldProject.tasks[j].id==newTask.id){
+          if (oldProject.tasks[j].cardNum==newTask.cardNum){
             oldTask=oldProject.tasks[j];
             break;
           }
@@ -747,9 +749,9 @@ GanttMaster.prototype.markUnChangedTasksAndAssignments=function(newProject){
 
         //변화된게 있는지 판단 (한개라도 변화가 있을시 true)
         var taskChanged=
-          oldTask.id != newTask.id ||
+          oldTask.cardNum != newTask.cardNum ||
           oldTask.code != newTask.code ||
-          oldTask.name != newTask.name ||
+          oldTask.subject != newTask.subject ||
           oldTask.start != newTask.start ||
           oldTask.startIsMilestone != newTask.startIsMilestone ||
           oldTask.end != newTask.end ||
@@ -760,13 +762,14 @@ GanttMaster.prototype.markUnChangedTasksAndAssignments=function(newProject){
           oldTask.relevance != newTask.relevance ||
           oldTask.progress != newTask.progress ||
           oldTask.progressByWorklog != newTask.progressByWorklog ||
-          oldTask.description != newTask.description ||
+          oldTask.content != newTask.content ||
           oldTask.level != newTask.level||
           oldTask.depends != newTask.depends ||
+          !newTask.unchanged //설정한 날짜가 안바뀌었을때
           i!=j; //순서 변경
 
         newTask.unchanged=!taskChanged; //변화 있을시 false저장
-       
+        console.log("taskUnchanged",!taskChanged);
 
         //newTask에 assignment 설정이 존재할 때 
         if (newTask.assigs&&newTask.assigs.length>0){
@@ -777,7 +780,7 @@ GanttMaster.prototype.markUnChangedTasksAndAssignments=function(newProject){
               //oldTask에서 newTask의 assig와 같은 assig를 찾는다. 
               var newAssig;
               for (var k=0;k<newTask.assigs.length;k++){
-                if(oldAssig.id==newTask.assigs[k].id){
+                if(oldAssig.cardNum==newTask.assigs[k].cardNum){
                 	newAssig=newTask.assigs[k];
                   break;
                 }
@@ -786,7 +789,7 @@ GanttMaster.prototype.markUnChangedTasksAndAssignments=function(newProject){
               //newTask의 assig가 oldTask에 있었던 assig이면
               if(newAssig){
                 //newTask의 assig가 바뀐것이 있는지 확인한다. 바뀐것이 있으면 false가 저장된다.
-            	  newAssig.unchanged= newAssig.id==oldAssig.id && newAssig.resourceId==oldAssig.resourceId && newAssig.roleId==oldAssig.roleId ;
+            	  newAssig.unchanged= newAssig.assigneeNum==oldAssig.assigneeNum && newAssig.projectMemberNum==oldAssig.projectMemberNum && newAssig.roleNum==oldAssig.roleNum ;
                 newTask.assigs[k]=newAssig;
                 //assignment가 변한게 있으면 newTask assigUnchanged에 표시해준다.
                 if(newAssig.unchanged==false)
@@ -830,10 +833,10 @@ GanttMaster.prototype.storeCollapsedTasks = function () {
     for (var i = 0; i < this.tasks.length; i++) {
       var task = this.tasks[i];
 
-      var pos=collTasks.indexOf(task.id);
+      var pos=collTasks.indexOf(task.cardNum);
       if (task.collapsed){
         if (pos<0)
-          collTasks.push(task.id);
+          collTasks.push(task.cardNum);
       } else {
         if (pos>=0)
           collTasks.splice(pos,1);
@@ -880,8 +883,8 @@ GanttMaster.prototype.updateLinks = function (task) {
         loop = true;
         break;
       } else {
-        if (visited.indexOf(supLink.from.id + "x" + target.id) <= 0) {
-          visited.push(supLink.from.id + "x" + target.id);
+        if (visited.indexOf(supLink.from.cardNum + "x" + target.cardNum) <= 0) {
+          visited.push(supLink.from.cardNum + "x" + target.cardNum);
           if (isLoop(supLink.from, target, visited)) {
             loop = true;
             break;
@@ -893,8 +896,8 @@ GanttMaster.prototype.updateLinks = function (task) {
     //check target parent
     var tpar = target.getParent();
     if (tpar) {
-      if (visited.indexOf(task.id + "x" + tpar.id) <= 0) {
-        visited.push(task.id + "x" + tpar.id);
+      if (visited.indexOf(task.cardNum + "x" + tpar.cardNum) <= 0) {
+        visited.push(task.cardNum + "x" + tpar.cardNum);
         if (isLoop(task, tpar, visited)) {
           loop = true;
         }
@@ -935,16 +938,16 @@ GanttMaster.prototype.updateLinks = function (task) {
 
       if (sup) {
         if (parents && parents.indexOf(sup) >= 0) {
-          this.setErrorOnTransaction("\""+task.name + "\"\n" + GanttMaster.messages.CANNOT_DEPENDS_ON_ANCESTORS + "\n\"" + sup.name+"\"");
+          this.setErrorOnTransaction("\""+task.subject + "\"\n" + GanttMaster.messages.CANNOT_DEPENDS_ON_ANCESTORS + "\n\"" + sup.subject+"\"");
           todoOk = false;
 
         } else if (descendants && descendants.indexOf(sup) >= 0) {
-          this.setErrorOnTransaction("\""+task.name + "\"\n" + GanttMaster.messages.CANNOT_DEPENDS_ON_DESCENDANTS + "\n\"" + sup.name+"\"");
+          this.setErrorOnTransaction("\""+task.subject + "\"\n" + GanttMaster.messages.CANNOT_DEPENDS_ON_DESCENDANTS + "\n\"" + sup.subject+"\"");
           todoOk = false;
 
         } else if (isLoop(sup, task, visited)) {
           todoOk = false;
-          this.setErrorOnTransaction(GanttMaster.messages.CIRCULAR_REFERENCE + "\n\"" + task.name + "\" -> \"" + sup.name+"\"");
+          this.setErrorOnTransaction(GanttMaster.messages.CIRCULAR_REFERENCE + "\n\"" + task.subject + "\" -> \"" + sup.subject+"\"");
         } else {
           this.links.push(new Link(sup, task, lag));
           newDepsString = newDepsString + (newDepsString.length > 0 ? "," : "") + dep;
@@ -1025,8 +1028,8 @@ GanttMaster.prototype.addBelowCurrentTask = function () {
   var factory = new TaskFactory();
   var ch;
   var row = 0;
-  if (self.currentTask && self.currentTask.name) {
-    ch = factory.build(-1, "", "", self.currentTask.level+ (self.currentTask.isParent()||self.currentTask.level==0?1:0), self.currentTask.start, 1);
+  if (self.currentTask && self.currentTask.subject) {
+    ch = factory.build(new Date().getTime()*-1, "", "", self.currentTask.level+ (self.currentTask.isParent()||self.currentTask.level==0?1:0), self.currentTask.start, 1);
     row = self.currentTask.getRow() + 1;
 
     if (row>0) {
@@ -1049,12 +1052,12 @@ GanttMaster.prototype.addAboveCurrentTask = function () {
 
   var ch;
   var row = 0;
-  if (self.currentTask  && self.currentTask.name) {
+  if (self.currentTask  && self.currentTask.subject) {
     //cannot add brothers to root
     if (self.currentTask.level <= 0)
       return;
 
-    ch = factory.build(-1, "", "", self.currentTask.level, self.currentTask.start, 1);
+    ch = factory.build(new Date().getTime()*-1, "", "", self.currentTask.level, self.currentTask.start, 1);
     row = self.currentTask.getRow();
 
     if (row > 0) {
@@ -1213,7 +1216,7 @@ GanttMaster.prototype.addIssue = function () {
   if (!self.currentTask || !self.currentTask.canAddIssue)
     return;
 
-  openIssueEditorInBlack('0',"AD","ISSUE_TASK="+self.currentTask.id);
+  openIssueEditorInBlack('0',"AD","ISSUE_TASK="+self.currentTask.cardNum);
 };
 
 GanttMaster.prototype.openExternalEditor = function () {
@@ -1568,11 +1571,11 @@ GanttMaster.prototype.manageSaveRequired=function(ev, showSave) {
       for (var i = 0; !changes && i < ge.tasks.length; i++) {
         var newTask = ge.tasks[i];
         //se è un task che c'erà già
-        if (!newTask.id<0) {
+        if (!newTask.cardNum<0) {
           //si recupera il vecchio task
           var oldTask;
           for (var j = 0; j < oldProject.tasks.length; j++) {
-            if (oldProject.tasks[j].id == newTask.id) {
+            if (oldProject.tasks[j].cardNum == newTask.cardNum) {
               oldTask = oldProject.tasks[j];
               break;
             }

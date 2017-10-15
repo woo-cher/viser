@@ -21,10 +21,9 @@ public class Card {
   private boolean canWrite;
   private long start;
   private int duration;
-  private long end;
   private boolean assigUnchanged;
   private boolean unchanged;
-  private List<Assignee> assignees;
+  private List<Assignee> assigs;
   private boolean hasChild;
   private int taskOrder;
 
@@ -43,7 +42,8 @@ public class Card {
     this.dueDate = dueDate;
   }
  
-  public Card(String userId, String subject, String content, int progress, int level, String status, long start, int duration, long end, boolean hasChilds) {
+  public Card(int cardNum,String userId, String subject, String content, int progress, int level, String status, long start, int duration, boolean hasChild,boolean canWrite) {
+    this.cardNum=cardNum;
     this.userId = userId;
     this.subject = subject;
     this.content = content;
@@ -52,24 +52,21 @@ public class Card {
     this.status = status;
     this.start = start;
     this.duration = duration;
-    this.end = end;
     this.hasChild = hasChild;
+    this.canWrite=canWrite;
   }
 
-  public Card(String userId, String subject, String content,int listNum, int progress, int level, String status, boolean canWrite, long start, int duration, long end, boolean hasChild) {
-    super();
+  public Card(String userId, String subject, String content,int listNum, int progress, int level, String status, boolean canWrite, long start, int duration, boolean hasChild) {
     this.userId = userId;
     this.subject = subject;
     this.content = content;
     this.listNum = listNum;
-    this.cardOrder = cardOrder;
     this.progress = progress;
     this.level = level;
     this.status = status;
     this.canWrite = canWrite;
     this.start = start;
     this.duration = duration;
-    this.end = end;
     this.hasChild = hasChild;
   }
 
@@ -166,11 +163,11 @@ public class Card {
   }
   
   public List<Assignee> getAssignees() {
-    return assignees;
+    return assigs;
   }
 
   public void setAssignees(List<Assignee> assignees) {
-    this.assignees = assignees;
+    this.assigs = assignees;
   }
 
   public int getProgress() {
@@ -221,14 +218,6 @@ public class Card {
     this.duration = duration;
   }
 
-  public long getEnd() {
-    return end;
-  }
-
-  public void setEnd(long end) {
-    this.end = end;
-  }
-
   public boolean isAssigUnchanged() {
     return assigUnchanged;
   }
@@ -274,14 +263,13 @@ public class Card {
     final int prime = 31;
     int result = 1;
     result = prime * result + (assigUnchanged ? 1231 : 1237);
-    result = prime * result + ((assignees == null) ? 0 : assignees.hashCode());
+    result = prime * result + ((assigs == null) ? 0 : assigs.hashCode());
     result = prime * result + (canWrite ? 1231 : 1237);
     result = prime * result + cardNum;
     result = prime * result + cardOrder;
     result = prime * result + ((content == null) ? 0 : content.hashCode());
     result = prime * result + ((dueDate == null) ? 0 : dueDate.hashCode());
     result = prime * result + duration;
-    result = prime * result + (int) (end ^ (end >>> 32));
     result = prime * result + (hasChild ? 1231 : 1237);
     result = prime * result + level;
     result = prime * result + listNum;
@@ -306,10 +294,10 @@ public class Card {
     Card other = (Card) obj;
     if (assigUnchanged != other.assigUnchanged)
       return false;
-    if (assignees == null) {
-      if (other.assignees != null)
+    if (assigs == null) {
+      if (other.assigs != null)
         return false;
-    } else if (!assignees.equals(other.assignees))
+    } else if (!assigs.equals(other.assigs))
       return false;
     if (canWrite != other.canWrite)
       return false;
@@ -328,8 +316,6 @@ public class Card {
     } else if (!dueDate.equals(other.dueDate))
       return false;
     if (duration != other.duration)
-      return false;
-    if (end != other.end)
       return false;
     if (hasChild != other.hasChild)
       return false;
@@ -368,7 +354,7 @@ public class Card {
 
   @Override
   public String toString() {
-    return "Card [cardNum=" + cardNum + ", userId=" + userId + ", subject=" + subject + ", content=" + content + ", modifyTime=" + modifyTime + ", listNum=" + listNum + ", cardOrder=" + cardOrder + ", dueDate=" + dueDate + ", progress=" + progress + ", level=" + level + ", status=" + status + ", canWrite=" + canWrite + ", start=" + start + ", duration=" + duration + ", end=" + end + ", assigUnchanged=" + assigUnchanged + ", unchanged=" + unchanged + ", assignees=" + assignees + ", hasChild=" + hasChild + "]";
+    return "Card [cardNum=" + cardNum + ", userId=" + userId + ", subject=" + subject + ", content=" + content + ", modifyTime=" + modifyTime + ", listNum=" + listNum + ", cardOrder=" + cardOrder + ", dueDate=" + dueDate + ", progress=" + progress + ", level=" + level + ", status=" + status + ", canWrite=" + canWrite + ", start=" + start + ", duration=" + duration + ", assigUnchanged=" + assigUnchanged + ", unchanged=" + unchanged + ", assignees=" + assigs + ", hasChild=" + hasChild + "]";
   }
 
 

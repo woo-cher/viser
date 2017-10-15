@@ -19,7 +19,7 @@
 
     <!-- Main content -->
     <section class="content container-fluid">
-		<iframe src="/resources/gantt_resources/gantt.jsp" style="
+		<iframe src="/resources/gantt_resources/gantt_editor.jsp" style="
     width: -webkit-fill-available;
     height: -webkit-fill-available;
     border: 0px;

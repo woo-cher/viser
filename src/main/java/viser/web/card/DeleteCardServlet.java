@@ -29,7 +29,7 @@ public class DeleteCardServlet extends HttpServlet {
     CardDAO cardDAO = new CardDAO();
 
     try {
-      cardDAO.removeCard(num, listNum, cardOrder);
+      cardDAO.removeCard(num);
       response.sendRedirect("/lists/cardlist?boardNum=" + (int) session.getAttribute("boardNum"));
     } catch (Exception e) {
       logger.debug("RemovecardServlet error" + e);

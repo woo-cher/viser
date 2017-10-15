@@ -95,8 +95,6 @@ public class AssigneeDAO {
     String sql = "select * from assignees where Card_Num = ?";
     String sql2 = "select assigneeNum, Card_Num, (select roleName from roles where roleNum = ?) as roleName, "
                 + "(select userId from project_members where PM_Num = ?) as userId from assignees where roleNum = ? and PM_Num = ?";
-    Assignee assignee = new Assignee();
-    List AssigneeList = new ArrayList();
     return jdbc.selectAndSelect(sql, sql2, new PreparedStatementSetter() {
       @Override
       public void setParameters(PreparedStatement pstmt) throws SQLException {
@@ -118,8 +116,20 @@ public class AssigneeDAO {
     });
  }
   
-  public void getAssignee(int assigneeNum, int pmNum, int roleNum, String projectName) {
-    String sql = "select assigneeNum, (select userId from project_members where PM_Num = ?) as assigneeMember, "
-               + "(select roleName from roles where roleName = ? and Project_Name = ?) as roleName from assignee Where Card_Num = ?";
-  }
+ public List<Assignee> getAssignees(int cardNum){
+   String sql="select * from assignees where Card_Num=?";
+   return jdbc.list(sql, new PreparedStatementSetter() {
+    @Override
+    public void setParameters(PreparedStatement pstmt) throws SQLException {
+      pstmt.setInt(1, cardNum);
+    }
+  }, new RowMapper() {
+    @Override
+    public Assignee mapRow(ResultSet rs) throws SQLException {
+      return new Assignee(rs.getInt("assigneeNum"),rs.getInt("PM_Num"),rs.getInt("roleNum"),rs.getInt("Card_Num"));
+    }
+  });
+ }
+  
+  
 }

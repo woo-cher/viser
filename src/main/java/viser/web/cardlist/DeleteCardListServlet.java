@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import viser.dao.board.BoardDAO;
 import viser.dao.cardlist.CardListDAO;
 
 @WebServlet("/lists/removeList")
@@ -21,7 +22,9 @@ public class DeleteCardListServlet extends HttpServlet {
     HttpSession session = request.getSession();
 
     CardListDAO cardListDAO = new CardListDAO();
+    BoardDAO boardDAO = new BoardDAO();
     cardListDAO.removeList(boardNum, listOrder);
+    boardDAO.reloadBoardProgress(boardNum);
     response.sendRedirect("/lists/cardlist?boardNum=" + (int) session.getAttribute("boardNum"));
   }
 }

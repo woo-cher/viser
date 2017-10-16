@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import viser.dao.card.CardDAO;
 import viser.domain.card.Card;
+import viser.domain.user.User;
 
 @WebServlet("/cards/updatecard")
 public class UpdateCardServlet extends HttpServlet {
@@ -21,11 +22,16 @@ public class UpdateCardServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    HttpSession session = request.getSession();
+    User sessionUser = (User)session.getAttribute("user");
+    
     int cardNum = Integer.parseInt(request.getParameter("num"));
     String subject = request.getParameter("subject");
     String content = request.getParameter("content");
+    String userId = sessionUser.getUserId();
 
     Card card = new Card();
+    card.setUserId(userId);
     card.setCardNum(cardNum);
     card.setSubject(subject);
     card.setContent(content);
@@ -37,7 +43,6 @@ public class UpdateCardServlet extends HttpServlet {
     } catch (Exception e) {
       logger.debug("updatecard Servlet error" + e);
     }
-    HttpSession session = request.getSession();
     response.sendRedirect("/lists/cardlist?boardNum=" + (int) session.getAttribute("boardNum"));
   }
 }

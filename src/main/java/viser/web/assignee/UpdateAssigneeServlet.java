@@ -29,18 +29,17 @@ public class UpdateAssigneeServlet extends HttpServlet{
       HttpSession session = request.getSession();
       
       int assigneeNum = Integer.parseInt(request.getParameter("assigneeNum"));
-      int memberNum = Integer.parseInt(request.getParameter("assigneeMember"));
-      int roleNum = Integer.parseInt(request.getParameter("roleName"));
+      int memberNum = Integer.parseInt(request.getParameter("memberNum"));
+      int roleNum = Integer.parseInt(request.getParameter("roleNum"));
       int boardNum = SessionUtils.getIntegerValue(session, "boardNum");
-      logger.debug("UpdateAssigneeServlet Para :\nassigneeNum : " + assigneeNum + "\nassigneeNum : " + assigneeNum + "\nroleNum : " + roleNum + "\nboardNum : " + boardNum);
+      logger.debug("UpdateAssigneeServlet Para :\nassigneeNum : " + assigneeNum + "\nmemberNum : " + memberNum + "\nroleNum : " + roleNum + "\nboardNum : " + boardNum);
      
       try {
         assigneeDAO.updateAssignee(assigneeNum, memberNum, roleNum);
-        assignee.setAssigneeNum(assigneeNum);
-        assignee.setProjectMemberNum(memberNum);
-        assignee.setRoleNum(roleNum);
+        assignee = assigneeDAO.getAsiggnee(memberNum, roleNum);
         Gson gson = new Gson();
         String gsonData = gson.toJson(assignee);
+        logger.debug("update어싸이니 : " + gsonData);
         PrintWriter out = response.getWriter();
         out.println(gsonData);
       } catch (Exception e) {

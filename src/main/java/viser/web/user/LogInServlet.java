@@ -39,7 +39,7 @@ public class LogInServlet extends HttpServlet {
       logger.debug("로그인 처리성공");
 
       /*response.sendRedirect("/project/projectlist");*/
-      response.sendRedirect("/main.jsp");
+      response.sendRedirect("/users/userDashBoard");
       
     } catch (UserNotFoundException e) {
       errorForward(request, response, "존재하지 않는 사용자 입니다.");

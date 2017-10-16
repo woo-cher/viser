@@ -1,22 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<!-- Font Awesome -->
-<link rel="stylesheet" href="/resources/bower_components/font-awesome/css/font-awesome.min.css">
-<!-- Ionicons -->
-<link rel="stylesheet" href="/resources/bower_components/Ionicons/css/ionicons.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="/resources/dist/css/AdminLTE.min.css">
-<!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
-<link rel="stylesheet" href="/resources/dist/css/skins/_all-skins.min.css">
 
 <link rel="stylesheet" href="/resources/dist/css/jquery-ui.css">
-
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <!-- Progress -->
 <div class="modal fade" id="progress-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -36,7 +21,7 @@
 				  	<input type="text" id="amount" name="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
 				  </div>
 				  <div id="slider-range-min" class="progress active">
-				    <div id="progress" class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+				    <div id="progressGage" class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
 				      <span class="sr-only"></span>
 				    </div>
 				  </div>
@@ -55,15 +40,16 @@
 $( function() {
 	$( "#slider-range-min" ).slider({
 	  range: "min",
-	  min: 1,
+	  min: 0	,
 	  max: 100,
 	  slide: function( event, ui ) {
 	    $( "#amount" ).val(ui.value );
-		$( "#progress" ).css( "width", $( "#amount" ).val()+"%" );
+		  console.log("hi~~~~~~~~~",ui.value);
+		$( "#progressGage" ).css( "width", $( "#amount" ).val()+"%" );
 	  }
 	});
 	$( "#amount" ).val($( "#slider-range-min" ).slider( "value" ) );
-	$( "#progress" ).css( "width",$( "#amount" ).val()+"%" );
+	$( "#progressGage" ).css( "width",$( "#amount" ).val()+"%" );
 } );
 
 function applyProgressToCard() {

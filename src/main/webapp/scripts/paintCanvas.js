@@ -1,14 +1,9 @@
 var undoHistory = [];
 
 //추가부분 시작
-
-function addImage(){
-	   $('#upload-modal').modal('show');
-}
-
 function message(){
-   alert('업로드 성공');
-   reloadSend();
+	alert('업로드 성공');
+	reloadSend();
 }
 
 function checkImageClick(){
@@ -23,7 +18,7 @@ function checkImageClick(){
 
 function deleteImage(val){
 	console.log(val);
- $.ajax({
+	$.ajax({
 	 type:'get',
 	 url:'/project/imagedelete',
 	 dataType:'json',
@@ -39,7 +34,7 @@ function deleteImage(val){
 		 }
 		 else ajaxError();
 	 }
- });
+	});
 }
 
 //추가부분 끝

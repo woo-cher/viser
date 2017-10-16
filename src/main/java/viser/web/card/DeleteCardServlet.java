@@ -38,7 +38,6 @@ public class DeleteCardServlet extends HttpServlet {
       request.removeAttribute("roleCount");
       request.removeAttribute("userProjectList");
       request.removeAttribute("userAssigneeList");
-      
       response.sendRedirect("/lists/cardlist?boardNum=" + (int) session.getAttribute("boardNum"));
     } catch (Exception e) {
       logger.debug("RemovecardServlet error" + e);

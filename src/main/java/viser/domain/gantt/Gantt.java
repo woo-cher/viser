@@ -21,15 +21,15 @@ public class Gantt {
   private String boardName;
   private boolean roleUnchanged;
 
-  public Gantt() {
-  }
-  
-  public Gantt(int ganttNum, String boardName) {
-    this.ganttNum=ganttNum;
-    this.boardName=boardName;
+  public Gantt() {}
+
+  public Gantt(int ganttNum, String boardName, int boardNum) {
+    this.ganttNum = ganttNum;
+    this.boardName = boardName;
+    this.boardNum = boardNum;
   }
 
-  public Gantt(boolean canWrite, boolean canWriteOnParent, boolean canDelete, String zoom, int addListNum, int boardNum, String projectName,int ganttNum,boolean roleUnchanged) {
+  public Gantt(boolean canWrite, boolean canWriteOnParent, boolean canDelete, String zoom, int addListNum, int boardNum, String projectName, int ganttNum, boolean roleUnchanged) {
     this.canWrite = canWrite;
     this.canWriteOnParent = canWriteOnParent;
     this.canDelete = canDelete;
@@ -37,10 +37,10 @@ public class Gantt {
     this.addListNum = addListNum;
     this.boardNum = boardNum;
     this.projectName = projectName;
-    this.ganttNum=ganttNum;
-    this.roleUnchanged=roleUnchanged;
+    this.ganttNum = ganttNum;
+    this.roleUnchanged = roleUnchanged;
   }
-  
+
   public Gantt(boolean canWrite, boolean canWriteOnParent, boolean canDelete, String zoom, int addListNum, int boardNum, String projectName) {
     this.canWrite = canWrite;
     this.canWriteOnParent = canWriteOnParent;
@@ -220,5 +220,4 @@ public class Gantt {
   public String toString() {
     return "Gantt [projectMembers=" + resources + ", roles=" + roles + ", cards=" + tasks + ", canWrite=" + canWrite + ", canWriteOnParent=" + canWriteOnParent + ", canDelete=" + canDelete + ", zoom=" + zoom + ", addListNum=" + addListNum + ", ganttNum=" + ganttNum + ", boardNum=" + boardNum + ", projectName=" + projectName + "]";
   }
-
 }

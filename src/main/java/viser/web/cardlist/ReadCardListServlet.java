@@ -1,7 +1,6 @@
 package viser.web.cardlist;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +17,9 @@ import org.slf4j.LoggerFactory;
 
 import viser.dao.board.BoardDAO;
 import viser.dao.cardlist.CardListDAO;
-import viser.domain.board.Board;
 import viser.dao.gantt.GanttDAO;
+import viser.domain.board.Board;
+import viser.service.support.SessionUtils;
 
 @WebServlet("/lists/cardlist")
 public class ReadCardListServlet extends HttpServlet {
@@ -29,35 +29,38 @@ public class ReadCardListServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     HttpSession session = request.getSession();
    
+    GanttDAO ganttDAO = new GanttDAO();
     BoardDAO boardDAO = new BoardDAO();
-    GanttDAO ganttDAO=new GanttDAO();
     CardListDAO cardListDAO = new CardListDAO();
     
     Board board = new Board();
-    List list = new ArrayList();
-
+    List cardlist = new ArrayList();
+    List ganttlist = new ArrayList();
+    
+    String projectName = SessionUtils.getStringValue(session, "projectName");
     int boardNum = Integer.parseInt(request.getParameter("boardNum"));
-    session.getAttribute("projectName");
-    session.setAttribute("boardNum", boardNum);
-
+    
     try {
+      session.getAttribute("projectName");
+      session.setAttribute("boardNum", boardNum);
+      
       board = boardDAO.getByBoardNum(boardNum);
-      list = cardListDAO.getLists(boardNum);
+      cardlist = cardListDAO.getLists(boardNum);
       
       request.setAttribute("board", board);
-      request.setAttribute("lists", list);
+      request.setAttribute("lists", cardlist);
       request.setAttribute("isReadBoard", true);
-      logger.debug("ReadCardListServlet db에서 가져온 lists:" + list);
+      request.setAttribute("ganttList", ganttlist = ganttDAO.getGantts(projectName));
+      logger.debug("ReadCardListServlet db에서 가져온 lists:" + cardlist);
       
-      if(ganttDAO.isExistGantt(boardNum)>0)
+      if (ganttDAO.isExistGantt(boardNum) > 0)
         request.setAttribute("isExistGantt", true);
       else
         request.setAttribute("isExistGantt", false);
       
       RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/card_list.jsp");
       rd.forward(request, response);
-    } catch (SQLException e) {
-      logger.debug("ReadCardList Error : " + e.getMessage());
+    } catch (Exception e) {
     }
   }
 }

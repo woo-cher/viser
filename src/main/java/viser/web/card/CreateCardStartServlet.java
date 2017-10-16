@@ -18,19 +18,20 @@ import viser.dao.card.CardDAO;
 import viser.domain.card.Card;
 
 @WebServlet("/cards/CreateDueDate")
-public class CreateAndUpdateDueDateServlet extends HttpServlet {
-  private static final Logger logger = LoggerFactory.getLogger(CreateAndUpdateDueDateServlet.class);
+public class CreateCardStartServlet extends HttpServlet {
+  private static final Logger logger = LoggerFactory.getLogger(CreateCardStartServlet.class);
  
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     CardDAO cardDAO = new CardDAO();
     Card card = new Card();
     int cardNum = Integer.parseInt(request.getParameter("cardNum"));
-    String dueDate = request.getParameter("duedate");
+    long start = Long.parseLong(request.getParameter("start"));
+    int duration = Integer.parseInt(request.getParameter("duration"));
     
     try {
-      cardDAO.updateCardDueDate(dueDate,cardNum);
-      card = new Card(cardNum, dueDate);
+      cardDAO.updateCardStart(start, duration ,cardNum);
+      card = new Card(cardNum, start);
       
       Gson gson = new Gson();
       String gsonData = gson.toJson(card);

@@ -48,7 +48,7 @@ public class ProjectDAO {
     });
   }
 
-  public List getProjectList(String userId) {
+  public List<Project> getProjectList(String userId) {
     String sql = "select * from projects where Project_Name in (select Project_Name from project_members where userId=?)";
     return jdbc.list(sql, new PreparedStatementSetter() {
       @Override
@@ -89,7 +89,7 @@ public class ProjectDAO {
       }
     });
   }
-
+  
   public void removeProject(String projectName) {
     String sql = "delete from projects where Project_name = ?";
     jdbc.executeUpdate(sql, new PreparedStatementSetter() {
@@ -327,35 +327,21 @@ public class ProjectDAO {
       }
     });
   }
-  public void addChatMessage(Chat chat){
-    logger.debug("ProjectDAO addChatMessage - Chat: {}",chat);
-    String sql="insert into chats(chatMessage,chatTime,writeUser,Project_Name) values(?,?,?,?)";
-    jdbc.executeUpdate(sql, new PreparedStatementSetter() {
-      @Override
-      public void setParameters(PreparedStatement pstmt) throws SQLException {
-        pstmt.setString(1, chat.getChatMessage());
-        pstmt.setLong(2, chat.getChatTime());
-        pstmt.setString(3, chat.getWriteUser());
-        pstmt.setString(4, chat.getProjectName());
-      }
-    });
-  }
   
-  public List<Chat> getChatMessages(String projectName){
-    String sql="select chatMessage,chatTime,chats.writeUser,users.image from chats,users where chats.writeUser=users.userId && Project_Name=? order by chatTime asc";
+  public int getProjectNumByUserId(String userId) {
+    String sql = "select PM_Num from project_members where userId = ?";
     return jdbc.executeQuery(sql, new PreparedStatementSetter() {
       @Override
       public void setParameters(PreparedStatement pstmt) throws SQLException {
-        pstmt.setString(1, projectName);
+        pstmt.setString(1, userId);
       }
     }, new RowMapper() {
       @Override
-      public List<Chat> mapRow(ResultSet rs) throws SQLException {
-        List<Chat> chatList=new LinkedList<>();
-        while(rs.next()){
-          chatList.add(new Chat(rs.getString("writeUser"),rs.getString("image"),rs.getLong("chatTime"),rs.getString("chatMessage")));
-          }
-        return chatList;
+      public Integer mapRow(ResultSet rs) throws SQLException {
+        if (!rs.next()) {
+          return 0;
+        }
+        return rs.getInt("PM_Num");
       }
     });
   }

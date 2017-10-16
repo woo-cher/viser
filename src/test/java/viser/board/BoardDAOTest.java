@@ -20,7 +20,7 @@ import viser.project.ProjectDAOTest;
 public class BoardDAOTest {
 
   private static final Logger logger = LoggerFactory.getLogger(BoardDAOTest.class);
-  public static Board TEST_BOARD = new Board("TEST_BOARD", ProjectDAOTest.TEST_PROJECT.getProjectName());
+  public static Board TEST_BOARD = new Board("TEST_BOARD", ProjectDAOTest.TEST_PROJECT.getProjectName(), "테스트 보드입니다.");
   private ProjectDAO projectDAO;
   private BoardDAO boardDAO;
 

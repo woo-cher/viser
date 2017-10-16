@@ -31,7 +31,6 @@ public class CardDAOTest {
   private BoardDAO boardDAO;
   private CardListDAO cardListDAO;
   private CardDAO cardDAO;
-  private Card card;
   private UserDAO userDAO;
   private int boardNum;
 
@@ -61,7 +60,7 @@ public class CardDAOTest {
     CardList list = new CardList(boardNum, "TEST_LIST1", 0);
     cardListDAO.addList(list);
     int listNum = cardListDAO.getListNum(boardNum, 0);
-    Card testCard = new Card("TEST_CARD", "123", UserTest.TEST_USER.getUserId(), listNum, 0, "", 0);
+    Card testCard = new Card("TEST_CARD", "123", UserTest.TEST_USER.getUserId(), listNum, 0, 0);
 
     // create
     cardDAO.addCard(testCard);
@@ -82,7 +81,7 @@ public class CardDAOTest {
     assertNotNull(cards);
 
     // delete
-    cardDAO.removeCard(cardNum, listNum, 0);
+    cardDAO.removeCard(cardNum);
     dbCard = null;
     dbCard = cardDAO.viewCard(cardNum);
     assertNull(dbCard);
@@ -101,12 +100,12 @@ public class CardDAOTest {
     int listNumB = cardListDAO.getListNum(boardNum, 1);
 
     // card create
-    Card cardA1 = new Card("TEST_CARD_A1", "", UserTest.TEST_USER.getUserId(), listNumA, 0, "", 0);
-    Card cardA2 = new Card("TEST_CARD_A2", "", UserTest.TEST_USER.getUserId(), listNumA, 1, "", 0);
-    Card cardA3 = new Card("TEST_CARD_A3", "", UserTest.TEST_USER.getUserId(), listNumA, 2, "", 0);
-    Card cardB1 = new Card("TEST_CARD_B1", "", UserTest.TEST_USER.getUserId(), listNumB, 0, "", 0);
-    Card cardB2 = new Card("TEST_CARD_B2", "", UserTest.TEST_USER.getUserId(), listNumB, 1, "", 0);
-    Card cardB3 = new Card("TEST_CARD_B3", "", UserTest.TEST_USER.getUserId(), listNumB, 2, "", 0);
+    Card cardA1 = new Card("TEST_CARD_A1", "", UserTest.TEST_USER.getUserId(), listNumA, 0, 0);
+    Card cardA2 = new Card("TEST_CARD_A2", "", UserTest.TEST_USER.getUserId(), listNumA, 1, 0);
+    Card cardA3 = new Card("TEST_CARD_A3", "", UserTest.TEST_USER.getUserId(), listNumA, 2, 0);
+    Card cardB1 = new Card("TEST_CARD_B1", "", UserTest.TEST_USER.getUserId(), listNumB, 0, 0);
+    Card cardB2 = new Card("TEST_CARD_B2", "", UserTest.TEST_USER.getUserId(), listNumB, 1, 0);
+    Card cardB3 = new Card("TEST_CARD_B3", "", UserTest.TEST_USER.getUserId(), listNumB, 2, 0);
     cardDAO.addCard(cardA1);
     cardDAO.addCard(cardA2);
     cardDAO.addCard(cardA3);

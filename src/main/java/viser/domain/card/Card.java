@@ -13,7 +13,6 @@ public class Card {
   private Timestamp modifyTime;
   private int listNum;
   private int cardOrder;
-  private String dueDate;
   private int progress;
   private int level;
   private String status;
@@ -35,7 +34,7 @@ public class Card {
     this.listNum = listiNum;
   }
 
-  public Card(int cardNum, String userId, String subject, String content, Timestamp modifyTime, int listNum, int cardOrder, String dueDate, int progress) {
+  public Card(int cardNum, String userId, String subject, String content, Timestamp modifyTime, int listNum, int cardOrder, long start ,int progress) {
     this.cardNum = cardNum;
     this.userId = userId;
     this.subject = subject;
@@ -43,7 +42,7 @@ public class Card {
     this.cardOrder = cardOrder;
     this.modifyTime = modifyTime;
     this.listNum = listNum;
-    this.dueDate = dueDate;
+    this.start = start;
     this.progress = progress;
   }
 
@@ -61,7 +60,7 @@ public class Card {
     this.canWrite = canWrite;
   }
 
-  public Card(String userId, String subject, String content,int listNum, int progress, int level, String status, boolean canWrite, long start, int duration, boolean hasChild) {
+  public Card(String userId, String subject, String content, int listNum, int progress, int level, String status, boolean canWrite, long start, int duration, boolean hasChild) {
     this.userId = userId;
     this.subject = subject;
     this.content = content;
@@ -75,14 +74,12 @@ public class Card {
     this.hasChild = hasChild;
   }
 
-  public Card(String userId, String subject, String content, int listNum, int cardOrder, String dueDate, int progress) {
+  public Card(String userId, String subject, String content, int listNum, int cardOrder, int progress) {
     this.userId = userId;
     this.subject = subject;
     this.content = content;
-    this.modifyTime = modifyTime;
     this.listNum = listNum;
     this.cardOrder = cardOrder;
-    this.dueDate = dueDate;
     this.progress = progress;
   }
 
@@ -100,10 +97,10 @@ public class Card {
     this.listNum = listNum;
     this.cardOrder = cardOrder;
   }
-
-  public Card(int cardNum, String dueDate) {
+  
+  public Card(int cardNum, long start) {
     this.cardNum = cardNum;
-    this.dueDate = dueDate;
+    this.start = start;
   }
 
   public int getCardNum() {
@@ -160,14 +157,6 @@ public class Card {
 
   public void setCardOrder(int cardOrder) {
     this.cardOrder = cardOrder;
-  }
-
-  public String getDueDate() {
-    return dueDate;
-  }
-
-  public void setDueDate(String dueDate) {
-    this.dueDate = dueDate;
   }
 
   public List<Assignee> getAssignees() {
@@ -284,7 +273,6 @@ public class Card {
     result = prime * result + cardNum;
     result = prime * result + cardOrder;
     result = prime * result + ((content == null) ? 0 : content.hashCode());
-    result = prime * result + ((dueDate == null) ? 0 : dueDate.hashCode());
     result = prime * result + duration;
     result = prime * result + (hasChild ? 1231 : 1237);
     result = prime * result + level;
@@ -326,11 +314,6 @@ public class Card {
         return false;
     } else if (!content.equals(other.content))
       return false;
-    if (dueDate == null) {
-      if (other.dueDate != null)
-        return false;
-    } else if (!dueDate.equals(other.dueDate))
-      return false;
     if (duration != other.duration)
       return false;
     if (hasChild != other.hasChild)
@@ -367,9 +350,9 @@ public class Card {
       return false;
     return true;
   }
-
+  
   @Override
   public String toString() {
-    return "Card [cardNum=" + cardNum + ", userId=" + userId + ", subject=" + subject + ", content=" + content + ", modifyTime=" + modifyTime + ", listNum=" + listNum + ", cardOrder=" + cardOrder + ", dueDate=" + dueDate + ", progress=" + progress + ", level=" + level + ", status=" + status + ", canWrite=" + canWrite + ", start=" + start + ", duration=" + duration + ", assigUnchanged=" + assigUnchanged + ", unchanged=" + unchanged + ", assignees=" + assigs + ", hasChild=" + hasChild + "]";
+    return "Card [cardNum=" + cardNum + ", userId=" + userId + ", subject=" + subject + ", content=" + content + ", modifyTime=" + modifyTime + ", listNum=" + listNum + ", cardOrder=" + cardOrder + ", progress=" + progress + ", level=" + level + ", status=" + status + ", canWrite=" + canWrite + ", start=" + start + ", duration=" + duration + ", assigUnchanged=" + assigUnchanged + ", unchanged=" + unchanged + ", assigs=" + assigs + ", hasChild=" + hasChild + ", taskOrder=" + taskOrder + ", boardName=" + boardName + "]";
   }
 }

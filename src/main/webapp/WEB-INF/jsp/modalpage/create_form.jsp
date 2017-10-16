@@ -17,19 +17,27 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       <div class="modal-body">
-        <h2 class="modal-title" id="MyModalLabel">Create ${Target}</h2>
-     
+        <h2 class="modal-title" id="MyModalLabel">${Target} 생성</h2>
+     	
      	</div>  
 		 <form class="form-inline" action="${ActionUrl}" method="get">
-		 	 <div class="form-group">
-		 	   <label for="exampleInputName2" style="padding-right: 10px"><h2>Name</h2></label>
-			   <input type="text" class="form-control" name="${InputName}" placeholder="Input ${Target} name.." style="width:300px">
-			   <c:if test = "${isReadBoard}">
-			   <input type="hidden" name="projectName" value="${param.Project_name}">
-			   </c:if>
-			  </div>
+		 	 <div class="input-group">
+			  <span class="input-group-addon" aria-hidden="false"> 
+			  <i class="fa fa-folder-open-o"></i>
+			  </span> 
+			  <input type="text" class="form-control" name="${InputName}" placeholder="${Target} 이름을 입력하세요." style="width:520px">
+		  	</div>
+		  		
+		  <c:if test = "${isReadBoard}">
+			 <div class="input-group" style="margin-top: 20px;">   
+			      <span class="input-group-addon" aria-hidden="false"> 
+				  <i class="fa fa-commenting-o"></i>
+				  </span> 
+				  <input type="text" class="form-control" name="boardInfo" placeholder="${Target}에 유형에 관한 간단한 설명을 입력하세요." style="width:520px">
+				  <input type="hidden" name="projectName" value="${param.Project_name}">
+			 </div> 
+		  </c:if>
     	 </div>
-		  
      	 	<div class="modal-footer">
     		    <button type="button" class="btn btn-default" data-dismiss="modal">나가기</button>
      		   <button type="submit" class="btn btn-primary">생성하기</button>

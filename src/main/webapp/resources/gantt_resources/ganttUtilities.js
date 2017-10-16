@@ -397,6 +397,24 @@ $.splittify = {
 function computeStart(start) {
   return computeStartDate(start).getTime();
 }
+
+function initStartDate(start) {
+	var unchange=true;
+	var d = new Date(start + 3600000 * 12);
+	  d.setHours(0, 0, 0, 0);
+	  //move to next working day
+	  while (isHoliday(d)) {
+	    d.setDate(d.getDate() + 1);
+	    unchange=false;
+	  }
+	  d.setHours(0, 0, 0, 0);
+	  
+	  var result=new Array();
+	  result.push(d.getTime());
+	  result.push(unchange);
+	return result;
+}
+
 function computeStartDate(start) {
   var d = new Date(start + 3600000 * 12);
   d.setHours(0, 0, 0, 0);

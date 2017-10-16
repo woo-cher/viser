@@ -30,27 +30,34 @@ function TaskFactory() {
   /**
    * Build a new Task
    */
-  this.build = function (id, name, code, level, start, duration, collapsed) {
+  this.build = function (cardNum, subject, code, level, start, duration, collapsed) {
     // Set at beginning of day
-    var adjusted_start = computeStart(start);
+	var init_start=initStartDate(start);
+	//console.log("init_start",init_start);
+    var adjusted_start = init_start[0];
     var calculated_end = computeEndByDuration(adjusted_start, duration);
 
-    return new Task(id, name, code, level, adjusted_start, calculated_end, duration, collapsed);
+    return new Task(cardNum, subject, code, level, adjusted_start, calculated_end, duration, collapsed,init_start[1]);
   };
 
 }
 
-function Task(id, name, code, level, start, end, duration, collapsed) {
-  this.id = id;
-  this.name = name;
+function Task(cardNum, subject, code, level, start, end, duration, collapsed,unchanged) {
+  this.cardNum = cardNum;
+  this.subject = subject;
   this.progress = 0;
   this.progressByWorklog = false;
   this.relevance = 0;
   this.type = "";
   this.typeId = "";
-  this.description = "";
+  this.content = "";
   this.code = code;
-  this.level = level;
+  
+  if(level>=0)
+	  this.level = level;
+  else
+	  this.level=0;
+  
   this.status = "STATUS_UNDEFINED";
   this.depends = "";
   this.canWrite = true; // by default all tasks are writeable
@@ -69,7 +76,7 @@ function Task(id, name, code, level, start, end, duration, collapsed) {
   this.master;
   
   this.assigUnchanged=true;
-  this.unchanged=false;
+  this.unchanged=unchanged;
 
 
   this.assigs = [];
@@ -89,9 +96,9 @@ Task.prototype.getAssigsString = function () {
   var ret = "";
   for (var i = 0; i < this.assigs.length; i++) {
     var ass = this.assigs[i];
-    var res = this.master.getResource(ass.resourceId);
+    var res = this.master.getResource(ass.projectMemberNum);
     if (res) {
-      ret = ret + (ret == "" ? "" : ", ") + res.name;
+      ret = ret + (ret == "" ? "" : ", ") + res.userId;
     }
   }
   return ret;
@@ -102,14 +109,14 @@ Task.prototype.getAssigsIds = function () {
 	  for (var i = 0; i < this.assigs.length; i++) {
 	    var ass = this.assigs[i];
 	    if (ass) {
-	      assigIds.push(ass.id);
+	      assigIds.push(ass.assigneeNum);
 	    }
 	  }
 	  return assigIds;
 };
 
-Task.prototype.createAssignment = function (id, resourceId, roleId,unchanged) {
-  var assig = new Assignment(id, resourceId, roleId,unchanged);
+Task.prototype.createAssignment = function (assigneeNum, projectMemberNum, roleNum,unchanged) {
+  var assig = new Assignment(assigneeNum, projectMemberNum, roleNum,unchanged);
   this.assigs.push(assig);
   return assig;
 };
@@ -195,13 +202,13 @@ Task.prototype.setPeriod = function (start, end) {
 
   //cannot write exit
   if (!this.canWrite) {
-    this.master.setErrorOnTransaction("\"" + this.name + "\"\n" + GanttMaster.messages["CANNOT_WRITE"], this);
+    this.master.setErrorOnTransaction("\"" + this.subject + "\"\n" + GanttMaster.messages["CANNOT_WRITE"], this);
     return false;
   }
 
   //external dependencies: exit with error
   if (this.hasExternalDep) {
-    this.master.setErrorOnTransaction("\"" + this.name + "\"\n" + GanttMaster.messages["TASK_HAS_EXTERNAL_DEPS"], this);
+    this.master.setErrorOnTransaction("\"" + this.subject + "\"\n" + GanttMaster.messages["TASK_HAS_EXTERNAL_DEPS"], this);
     return false;
   }
 
@@ -244,7 +251,7 @@ Task.prototype.setPeriod = function (start, end) {
 
     //check global boundaries
     if (this.start < this.master.minEditableDate || this.end > this.master.maxEditableDate) {
-      this.master.setErrorOnTransaction("\"" + this.name + "\"\n" +GanttMaster.messages["CHANGE_OUT_OF_SCOPE"], this);
+      this.master.setErrorOnTransaction("\"" + this.subject + "\"\n" +GanttMaster.messages["CHANGE_OUT_OF_SCOPE"], this);
       todoOk = false;
     }
 
@@ -283,11 +290,11 @@ Task.prototype.moveTo = function (start, ignoreMilestones) {
   //if start is milestone cannot be move
   if (!ignoreMilestones && this.startIsMilestone && start != this.start) {
     //notify error
-    this.master.setErrorOnTransaction("\"" + this.name + "\"\n" +GanttMaster.messages["START_IS_MILESTONE"], this);
+    this.master.setErrorOnTransaction("\"" + this.subject + "\"\n" +GanttMaster.messages["START_IS_MILESTONE"], this);
     return false;
   } else if (this.hasExternalDep) {
     //notify error
-    this.master.setErrorOnTransaction("\"" + this.name + "\"\n" +GanttMaster.messages["TASK_HAS_EXTERNAL_DEPS"], this);
+    this.master.setErrorOnTransaction("\"" + this.subject + "\"\n" +GanttMaster.messages["TASK_HAS_EXTERNAL_DEPS"], this);
     return false;
   }
 
@@ -322,7 +329,7 @@ Task.prototype.moveTo = function (start, ignoreMilestones) {
     }*/
     //in case of end is milestone it never changes!
     if (!ignoreMilestones && this.endIsMilestone && end!=this.end) {
-      this.master.setErrorOnTransaction("\"" + this.name + "\"\n" +GanttMaster.messages["END_IS_MILESTONE"], this);
+      this.master.setErrorOnTransaction("\"" + this.subject + "\"\n" +GanttMaster.messages["END_IS_MILESTONE"], this);
       return false;
     }
     this.start = start;
@@ -331,7 +338,7 @@ Task.prototype.moveTo = function (start, ignoreMilestones) {
 
     //check global boundaries
     if (this.start < this.master.minEditableDate || this.end > this.master.maxEditableDate) {
-      this.master.setErrorOnTransaction("\"" + this.name + "\"\n" +GanttMaster.messages["CHANGE_OUT_OF_SCOPE"], this);
+      this.master.setErrorOnTransaction("\"" + this.subject + "\"\n" +GanttMaster.messages["CHANGE_OUT_OF_SCOPE"], this);
       return false;
     }
 
@@ -373,7 +380,7 @@ Task.prototype.propagateToInferiors = function (end) {
     for (var i = 0; i < infs.length; i++) {
       var link = infs[i];
       if (!link.to.canWrite) {
-        this.master.setErrorOnTransaction(GanttMaster.messages["CANNOT_WRITE"] + "\n\"" + link.to.name + "\"", link.to);
+        this.master.setErrorOnTransaction(GanttMaster.messages["CANNOT_WRITE"] + "\n\"" + link.to.subject + "\"", link.to);
         break;
       }
       todoOk = link.to.moveTo(end, false); //this is not the right date but moveTo checks start
@@ -418,10 +425,10 @@ function updateTree(task) {
 
   if (p.start > task.start) {
     if (p.startIsMilestone) {
-      task.master.setErrorOnTransaction("\"" + p.name + "\"\n" + GanttMaster.messages["START_IS_MILESTONE"], task);
+      task.master.setErrorOnTransaction("\"" + p.subject + "\"\n" + GanttMaster.messages["START_IS_MILESTONE"], task);
       return false;
     } else if (p.depends) {
-      task.master.setErrorOnTransaction("\"" + p.name + "\"\n" + GanttMaster.messages["TASK_HAS_CONSTRAINTS"], task);
+      task.master.setErrorOnTransaction("\"" + p.subject + "\"\n" + GanttMaster.messages["TASK_HAS_CONSTRAINTS"], task);
       return false;
     }
 
@@ -429,7 +436,7 @@ function updateTree(task) {
   }
   if (p.end < task.end) {
     if (p.endIsMilestone) {
-      task.master.setErrorOnTransaction("\"" + p.name + "\"\n" + GanttMaster.messages["END_IS_MILESTONE"], task);
+      task.master.setErrorOnTransaction("\"" + p.subject + "\"\n" + GanttMaster.messages["END_IS_MILESTONE"], task);
       return false;
     }
 
@@ -441,13 +448,13 @@ function updateTree(task) {
 
     //can write?
     if (!p.canWrite) {
-      task.master.setErrorOnTransaction(GanttMaster.messages["CANNOT_WRITE"] + "\n" + p.name, task);
+      task.master.setErrorOnTransaction(GanttMaster.messages["CANNOT_WRITE"] + "\n" + p.subject, task);
       return false;
     }
 
     //has external deps ?
     if (p.hasExternalDep) {
-      task.master.setErrorOnTransaction(GanttMaster.messages["TASK_HAS_EXTERNAL_DEPS"] + "\n\"" + p.name + "\"", task);
+      task.master.setErrorOnTransaction(GanttMaster.messages["TASK_HAS_EXTERNAL_DEPS"] + "\n\"" + p.subject + "\"", task);
       return false;
     }
 
@@ -483,7 +490,7 @@ Task.prototype.changeStatus = function (newStatus,forceStatusCheck) {
 
       // cannot close task if open issues
       if (task.master.permissions.cannotCloseTaskIfIssueOpen && task.openIssues > 0) {
-        task.master.setErrorOnTransaction(GanttMaster.messages["CANNOT_CLOSE_TASK_IF_OPEN_ISSUE"] + " \"" + task.name + "\"");
+        task.master.setErrorOnTransaction(GanttMaster.messages["CANNOT_CLOSE_TASK_IF_OPEN_ISSUE"] + " \"" + task.subject + "\"");
         return false;
       }
 
@@ -495,7 +502,7 @@ Task.prototype.changeStatus = function (newStatus,forceStatusCheck) {
         for (var i = 0; i < sups.length; i++) {
           if (sups[i].from.status != "STATUS_DONE" && cone.indexOf(sups[i].from)<0) { // è un errore se un predecessore è non chiuso ed è fuori dal cono
             if (manuallyChanged || propagateFromParent)  //genere un errore bloccante se è cambiato a mano o se il cambiamento arriva dal parent ed ho una dipendenza fuori dal cono (altrimenti avrei un attivo figlio di un chiuso
-              task.master.setErrorOnTransaction(GanttMaster.messages["GANTT_ERROR_DEPENDS_ON_OPEN_TASK"] + "\n\"" + sups[i].from.name + "\" -> \"" + task.name + "\"");
+              task.master.setErrorOnTransaction(GanttMaster.messages["GANTT_ERROR_DEPENDS_ON_OPEN_TASK"] + "\n\"" + sups[i].from.subject + "\" -> \"" + task.subject + "\"");
             todoOk = false;
             break;
           }
@@ -532,7 +539,7 @@ Task.prototype.changeStatus = function (newStatus,forceStatusCheck) {
         for (var i = 0; i < sups.length; i++) {
           if (sups[i].from.status != "STATUS_DONE") {
             if (manuallyChanged || propagateFromChildren)
-              task.master.setErrorOnTransaction(GanttMaster.messages["GANTT_ERROR_DEPENDS_ON_OPEN_TASK"] + "\n\"" + sups[i].from.name + "\" -> \"" + task.name + "\"");
+              task.master.setErrorOnTransaction(GanttMaster.messages["GANTT_ERROR_DEPENDS_ON_OPEN_TASK"] + "\n\"" + sups[i].from.subject + "\" -> \"" + task.subject + "\"");
             todoOk = false;
             break;
           }
@@ -780,7 +787,7 @@ Task.prototype.getInferiorTasks = function () {
 Task.prototype.deleteTask = function () {
   //console.debug("deleteTask",this.name,this.master.deletedTaskIds)
   //if is the current one remove it
-  if (this.master.currentTask && this.master.currentTask.id==this.id)
+  if (this.master.currentTask && this.master.currentTask.cardNum==this.cardNum)
     delete this.master.currentTask;
 
   //delete both dom elements if exists
@@ -797,7 +804,7 @@ Task.prototype.deleteTask = function () {
   }
 
   if (!this.isNew())
-    this.master.deletedTaskIds.push(this.id);
+    this.master.deletedTaskIds.push(this.cardNum);
 
 
   //remove from in-memory collection
@@ -812,7 +819,7 @@ Task.prototype.deleteTask = function () {
 
 
 Task.prototype.isNew = function () {
-  return this.id<0;
+  return this.cardNum<0;
 };
 
 Task.prototype.isDependent = function (t) {
@@ -998,7 +1005,7 @@ Task.prototype.moveUp = function () {
     var top = this.master.tasks.splice(0, newRow);
     this.master.tasks = [].concat(top, blockToMove, this.master.tasks);
     //move on dom
-    var rows = this.master.editor.element.find("tr[taskid]");
+    var rows = this.master.editor.element.find("tr[cardNum]");
     var domBlockToMove = rows.slice(row, row + descNumber + 1);
     rows.eq(newRow).before(domBlockToMove);
 
@@ -1056,7 +1063,7 @@ Task.prototype.moveDown = function () {
 
 
     //move on dom
-    var rows = this.master.editor.element.find("tr[taskid]");
+    var rows = this.master.editor.element.find("tr[cardNum]");
     var aft = rows.eq(newRow - 1);
     var domBlockToMove = rows.slice(row, row + descNumber + 1);
     aft.after(domBlockToMove);
@@ -1078,25 +1085,25 @@ function Link(taskFrom, taskTo, lagInWorkingDays) {
 
 
 //<%------------------------------------------------------------------------  ASSIGNMENT ---------------------------------------------------------------%>
-function Assignment(id, resourceId, roleId,unchanged) {
-  this.id = id;
-  this.resourceId = resourceId;
-  this.roleId = roleId;
+function Assignment(assigneeNum, projectMemberNum, roleNum,unchanged) {
+  this.assigneeNum = assigneeNum;
+  this.projectMemberNum = projectMemberNum;
+  this.roleNum = roleNum;
   this.unchanged=unchanged;
 }
 
 
 //<%------------------------------------------------------------------------  RESOURCE ---------------------------------------------------------------%>
-function Resource(id, name) {
-  this.id = id;
-  this.name = name;
+function Resource(num, userId) {
+  this.num = num;
+  this.userId = userId;
 }
 
 
 //<%------------------------------------------------------------------------  ROLE ---------------------------------------------------------------%>
-function Role(id, name,unchanged) {
-  this.id = id;
-  this.name = name;
+function Role(roleNum, roleName,unchanged) {
+  this.roleNum = roleNum;
+  this.roleName = roleName;
   this.unchanged=unchanged;
 }
 

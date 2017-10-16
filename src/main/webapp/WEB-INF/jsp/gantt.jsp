@@ -12,14 +12,14 @@
         <small>일정관리 보드와 데이터가 연동됩니다.</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
+        <li><a href="/board/boardlist?projectName=${projectName}"><i class="fa fa-dashboard"></i>보드 목록</a></li>
+        <li class="active">간트 차트</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content container-fluid">
-		<iframe src="/resources/gantt_resources/gantt.jsp" style="
+		<iframe src="/resources/gantt_resources/gantt_editor.jsp" style="
     width: -webkit-fill-available;
     height: -webkit-fill-available;
     border: 0px;

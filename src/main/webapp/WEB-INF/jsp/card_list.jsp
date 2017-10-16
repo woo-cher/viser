@@ -105,7 +105,7 @@
               </div>
             </div>
             
-            	      <div class="modal fade" id="gantt-alert">
+    	    <div class="modal fade" id="gantt-alert">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -179,7 +179,7 @@ function viewCard(currentCardNum){
           <!-- Card Add-btn Group -->
          addStr+="<h3>Add</h3>";
          addStr+="<button type='button' class='btn btn-primary btn-lg' onclick='showProgressModal();' style='margin-bottom: 7px;'>Progress</button>";
-         addStr+="<button type='button' class='btn btn-primary btn-lg' onclick='showDueDateModal();' style='margin-bottom: 7px;'>Due Date</button>";
+         addStr+="<button type='button' class='btn btn-primary btn-lg' onclick='showDueDateModal();' style='margin-bottom: 7px;'>Start Date</button>";
          addStr+="<button type='button' class='btn btn-primary btn-lg' onclick='showAssigneeModal();' style='margin-bottom: 7px;'>Assignee</button>";
          addStr+="<button type='button' class='btn btn-primary btn-lg' style='margin-bottom: 7px;'>CheckList</button>";
          addStr+="<button type='button' class='btn btn-primary btn-lg' style='margin-bottom: 7px;'>Labels</button>";   
@@ -187,7 +187,7 @@ function viewCard(currentCardNum){
            
         $('#progress-control').html("<button id='apply-btn' class='btn btn-success' style='margin-right: 40px;' type='button' onclick='javascript:cuProgress()'>Apply</button>")
         var str='';
-        $('#card-duedate').html(str);
+        $('#card-start').html(str);
          $('#card-field').attr("action","/cards/updatecard");
          $('#Title').html("<h2>" + data.subject + "</h2>");
          console.log("[JS.ViewCard] : {}", data.assignees);
@@ -202,21 +202,21 @@ function viewCard(currentCardNum){
           $('#cardProgress-field').html(ProgressStr);
          }
          
-         if(data.assignees) {
-           data.assignees.forEach(function(item) {
+         if(data.assigs) {
+           data.assigs.forEach(function(item) {
             var thisStr ='';
               thisStr+="<span id='assignee-label" + item.assigneeNum +"'  class='label label-warning' style='margin-right:20px; margin-left:-15px;'>" + item.userId + " : '" + item.roleName + " '</span>";
-         $('#cardAssignee-field').append(thisStr);
+      		  $('#cardAssignee-field').append(thisStr);
            });
          }
          
-         if(data.dueDate) {
-             str+="<td>DUEDATE</td>";
+         if(data.start) {
+             str+="<td>STARTDATE</td>";
          str+="<td>";
          str+="<input type='hidden' class='form-control'>";
-         str+=data.dueDate;
+         str+=new Date(data.start).format("y-MM-dd");
          str+="</td>"
-         $('#card-duedate').html(str);
+         $('#card-start').html(str);
          };
          
          $('#cardNum').val(data.cardNum);
@@ -256,13 +256,13 @@ function addCard(cardListNum,currentCardOrder){
       success:function (data){
         $('#progress-control').html("<button id='apply-btn' class='btn btn-success' style='margin-right: 40px;' type='button' onclick='javascript:applyProgressToCard()'>Apply</button>")
         $('#cardNum').val(data.cardNum);
-       $('#card-duedate').empty();
+        $('#card-start').empty();
          $('#cardSubject').val(data.subject);
          $('#cardContent').val(data.content);
          $('#card-field').attr("action","/cards/createcard");
          $('#Title').html("<h2>CREATE CARD</h2>");
          $('#card-user').html("<input type='hidden' name='userId' value='${user.userId}'>${user.userId}</input>");
-         console.log(data.dueDate);
+         console.log(data.start);
          $('#cardListNum').val(cardListNum);
          $('#cardOrder').val(currentCardOrder);
          var btn="";

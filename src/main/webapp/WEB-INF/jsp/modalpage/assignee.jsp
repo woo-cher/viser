@@ -62,7 +62,7 @@ function updateAssigneeTable(target, assigneeNum) {
 				var members = JSON.parse(data[0]);
 				console.log("JS members : ", members)
 				members.forEach(function(member){
-					str+="<option value=" + member.num + ">" + member.userId +"</option>";
+					str+="<option id=assigneeOption" + member.num + " value=" + member.num + ">" + member.userId +"</option>";
 				});
 			str+="</select>";
 			str+="</div>"
@@ -76,7 +76,7 @@ function updateAssigneeTable(target, assigneeNum) {
 				var roles = JSON.parse(data[1]);
 				console.log("JS roles : ", roles)
 				roles.forEach(function(role){
-					str+="<option value=" + role.roleNum + ">" + role.roleName +"</option>";
+					str+="<option id=roleOption" + role.roleNum + " value=" + role.roleNum + ">" + role.roleName +"</option>";
 				});
 			str+="</select>";
 			str+="</div>";
@@ -129,7 +129,7 @@ function createAssigneeTable() {
 				var members = JSON.parse(data[0]);
 				console.log("JS members : ", members)
 				members.forEach(function(member){
-					str+="<option value=" + member.num + ">" + member.userId +"</option>";
+					str+="<option value=" + member.userId + ">" + member.userId +"</option>";
 				});
 			str+="</select>";
 			str+="</div>";
@@ -143,7 +143,7 @@ function createAssigneeTable() {
 				var roles = JSON.parse(data[1]);
 				console.log("JS roles : ", roles)
 				roles.forEach(function(role){
-					str+="<option value=" + role.roleNum + ">" + role.roleName +"</option>";
+					str+="<option value=" + role.roleName + ">" + role.roleName +"</option>";
 				});
 			str+="</select>";
 			str+="</div>"
@@ -283,8 +283,8 @@ function updateAssignee(target) {
 		type:'get',
 		data:{
 			assigneeNum:target.parents('tr.tr-table').find('input.assigneeNum').val(),
-			assigneeMember : target.parents('tr.tr-table').find('div.assignee-selectBox').find('select > option:selected').val(),
-			roleName : target.parents('tr.tr-table').find('div.role-selectBox').find('select > option:selected').val()
+			memberNum:target.parents('tr.tr-table').find('div.assignee-selectBox').find('select > option:selected').val(),
+			roleNum:target.parents('tr.tr-table').find('div.role-selectBox').find('select > option:selected').val()
 		},
 		url:"/assignees/updateAssignee",
 		dataType:'json',

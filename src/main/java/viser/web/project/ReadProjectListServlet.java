@@ -36,7 +36,7 @@ public class ReadProjectListServlet extends HttpServlet {
     String userId = sessionUser.getUserId();
     projectlist = projectDAO.getProjectList(userId);
     request.setAttribute("isReadProject", true);
-    request.setAttribute("list", projectlist);
+    request.setAttribute("PBlist", projectlist);
 
     RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/list.jsp");
     rd.forward(request, response);

@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<div class="modal fade" id="cardmodal" tabindex="-1" role="dialog" data-focus-on="input:first"aria-labelledby="myModalLabel">
+<div class="modal fade" id="cardmodal" tabindex="-1" role="dialog" data-focus-on="input:first" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content" id="cardmodal-body" style="padding: 20px; width: 630px; height: 650px;">
 			<div class="modal-header">
@@ -23,7 +23,7 @@
 							<div id=card-user></div>
 						</td>
 					</tr>
-					<tr id="card-duedate">
+					<tr id="card-start">
 					</tr>
 					<tr>
 						<td>SUBJECT</td>

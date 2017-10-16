@@ -30,9 +30,12 @@ public class CreateBoardServlet extends HttpServlet {
 
     String projectName = (String) session.getAttribute("projectName");
     String boardName = request.getParameter("boardName");
-
+    String boardInfo = request.getParameter("boardInfo");
+    logger.debug("[Create Board] boardInfo : " + boardInfo);
+    
     board.setProjectName(projectName);
     board.setBoardName(boardName);
+    board.setBoardInfo(boardInfo);
 
     projectName = URLEncoder.encode(projectName, "UTF-8");
 

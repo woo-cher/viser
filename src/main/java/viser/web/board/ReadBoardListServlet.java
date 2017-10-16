@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import viser.dao.board.BoardDAO;
+import viser.dao.gantt.GanttDAO;
 
 @WebServlet("/board/boardlist")
 public class ReadBoardListServlet extends HttpServlet {
@@ -27,16 +28,23 @@ public class ReadBoardListServlet extends HttpServlet {
 
     HttpSession session = request.getSession();
     session.removeAttribute("boardNum");
-
-    List boardlist = new ArrayList();
+    
     BoardDAO boardDAO = new BoardDAO();
+    GanttDAO ganttDAO = new GanttDAO();
+    
+    List boardlist = new ArrayList();
+    List ganttlist = new ArrayList();
 
     String projectName = request.getParameter("projectName");
     session.setAttribute("projectName", projectName);
 
     try {
+      ganttlist = ganttDAO.getGantts(projectName);
+      logger.debug("간트 목록 : " + ganttlist);
       request.setAttribute("isReadBoard", true);
-      request.setAttribute("list", boardlist = boardDAO.getBoardList(projectName));
+      request.setAttribute("PBlist", boardlist = boardDAO.getBoardList(projectName));
+      request.setAttribute("ganttList", ganttlist);
+      request.setAttribute("projectName", projectName);
 
       RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/list.jsp");
       rd.forward(request, response);

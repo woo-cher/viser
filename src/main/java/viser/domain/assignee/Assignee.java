@@ -6,12 +6,17 @@ public class Assignee {
     private int projectMemberNum;
     private int roleNum;
     private int cardNum;
-    
     private String roleName;
     private String userId;
     
     public Assignee() {
       
+    }
+    
+    public Assignee(int assigneeNum, String userId, String roleName) {
+      this.assigneeNum = assigneeNum;
+      this.userId = userId;
+      this.roleName = roleName;
     }
     
     public Assignee(int assigneeNum, int projectMemberNum, int roleNum, int cardNum) {

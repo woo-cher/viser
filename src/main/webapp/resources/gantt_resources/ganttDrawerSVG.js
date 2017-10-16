@@ -545,7 +545,7 @@ Ganttalendar.prototype.drawTask = function (task) {
           $(".ganttSVGBox .focused").removeClass("focused");
         },
         drag:       function (e) {
-          $("[from=" + task.id + "],[to=" + task.id + "]").trigger("update");
+          $("[from=" + task.cardNum + "],[to=" + task.cardNum + "]").trigger("update");
         },
         drop:       function (e) {
           self.resDrop = true; //hack to avoid select
@@ -572,7 +572,7 @@ Ganttalendar.prototype.drawTask = function (task) {
           var text = taskBox.data("textDur");
           text.attr("x", parseInt(taskbox.attr("x")) + parseInt(taskbox.attr("width")) + 8).html(d);
 
-          $("[from=" + task.id + "],[to=" + task.id + "]").trigger("update");
+          $("[from=" + task.cardNum + "],[to=" + task.cardNum + "]").trigger("update");
         },
         stopResize: function (e) {
           self.resDrop = true; //hack to avoid select
@@ -659,7 +659,7 @@ Ganttalendar.prototype.drawTask = function (task) {
 
   function _createTaskSVG(task, dimensions) {
     var svg = self.svg;
-    var taskSvg = svg.svg(self.tasksGroup, dimensions.x, dimensions.y, dimensions.width, dimensions.height, {class:"taskBox taskBoxSVG taskStatusSVG", status:task.status, taskid:task.id,fill:task.color||"#eee" });
+    var taskSvg = svg.svg(self.tasksGroup, dimensions.x, dimensions.y, dimensions.width, dimensions.height, {class:"taskBox taskBoxSVG taskStatusSVG", status:task.status, taskid:task.cardNum,fill:task.color||"#eee" });
 
     //svg.title(taskSvg, task.name);
     //external box
@@ -696,7 +696,7 @@ Ganttalendar.prototype.drawTask = function (task) {
     }
 
     //task label
-    svg.text(taskSvg, "100%", 18, task.name, {class:"taskLabelSVG", transform:"translate(20,-5)"});
+    svg.text(taskSvg, "100%", 18, task.subject, {class:"taskLabelSVG", transform:"translate(20,-5)"});
 
     //link tool
     if (task.level>0){

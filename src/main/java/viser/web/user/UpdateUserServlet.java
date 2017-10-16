@@ -85,7 +85,7 @@ public class UpdateUserServlet extends HttpServlet {
       logger.debug("SQL Exception error" + e);
     }
 
-    response.sendRedirect("/main.jsp");
+    response.sendRedirect("/users/userDashBoard");
   }
 
   private void errorForward(HttpServletRequest request, HttpServletResponse response, String errorMessage) throws ServletException, IOException {

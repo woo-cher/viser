@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-
 <!-- Main Footer -->
   <footer class="main-footer">
     <!-- Default to the left -->
@@ -65,9 +64,9 @@
 		            </div>
 		            <!-- /.box-body -->
 		          </div>
-             
           </li>
         </ul>
+       
         <!-- /.control-sidebar-menu -->
 		<ul class="control-sidebar-menu">
           <li>
@@ -96,6 +95,7 @@
 	              <!-- Contacts are loaded here -->
 	              <div class="direct-chat-contacts">
 	              	<ul class="contacts-list"></ul>
+              		
 	              </div>
 	              <!-- /.direct-chat-pane -->
 	            </div>
@@ -217,8 +217,12 @@
                      temp+="<span class='contacts-list-msg'>"+item.userName+"</span>";
                      temp+="</div>";
                    	 temp+="</a>";
-                     temp+="<ul class='dropdown-menu'>";
-                     temp+="<li role='presentation'><a role='menuitem' tabindex='-1' href='#'>정보보기</a></li>";
+                     temp+="<ul class='dropdown-menu' style='margin-left: 10px;'>";
+                     temp+="<li role='presentation'>";
+                     temp+="<a role='menuitem' tabindex='-1' href='#' onclick='javascript:showUserProfile($(this))'>정보보기";
+                     temp+="<input type='hidden' id='userId' value='" + item.userId + "'>";
+                     temp+="</a>";
+                     temp+="</li>";
                      if(userPower==true && item.userId!=='${user.userId}'){
 	                     temp+="<li role='presentation' class='divider'></li>";
 	                     temp+="<li role='presentation'><a role='menuitem' tabindex='-1' href='#'>방장위임</a></li>";
@@ -291,6 +295,46 @@
     	 if(val==1) return "방장";
     	 return "팀원";
      }
+
+     function showProgressModal() {
+     	$('#progress-modal').modal('show');
+     }
+     
+     function ajaxError(){
+  	   alert("데이터 로딩 오류");
+	 }
+
+	 function showUserProfile(target) {
+	    $('#userProfile-modal').modal('show');
+	  	$.ajax({
+  		type:'get',
+  		data:{
+  			userId:target.find('input').val()
+  		},
+  		url:'/users/readProfile',
+  		dataType:'json',
+  		success:function (data) {
+			console.log("JSON DATA log : ", data);
+			var targetUser = JSON.parse(data[0]);
+			console.log("JS userProject List : ", targetUser);
+			$('#profile-userId').html(targetUser.userId);
+			$('#profile-userName').html(targetUser.name);
+			$('#profile-userBirth').html(targetUser.birth);
+			$('#profile-userEmail').html(targetUser.email);
+			$('#profile-userImage').attr("src", targetUser.image);
+			var userProject = JSON.parse(data[1]);
+			var str='';
+			var num=0;
+			userProject.forEach(function(targetUser){
+				str+="<tr>";
+				str+="<td>" + ++num + "</td>";
+				str+="<td><a>" + userProject[0].projectName + "</a></td>";
+				$('#profile-joinlist').html(str);
+			});
+	  		},
+	  		error:ajaxError
+	  	});
+	 }
      </script>
       <!-- /.tab-pane -->
     </div>
@@ -304,12 +348,20 @@
 
 <!-- REQUIRED JS SCRIPTS -->
 
-
 <!-- Bootstrap 3.3.7 -->
 <script src="/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/resources/dist/js/adminlte.min.js"></script>
+<!-- FLOT CHARTS -->
+<script src="/resources/bower_components/Flot/jquery.flot.js"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="/resources/bower_components/Flot/jquery.flot.resize.js"></script>
+<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+<script src="/resources/bower_components/Flot/jquery.flot.pie.js"></script>
+<!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
+<script src="/resources/bower_components/Flot/jquery.flot.categories.js"></script>
 
+<%@include file = "/WEB-INF/jsp/modalpage/userProfile.jsp"%> 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->

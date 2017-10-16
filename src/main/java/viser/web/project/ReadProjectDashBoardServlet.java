@@ -17,8 +17,10 @@ import org.slf4j.LoggerFactory;
 
 import viser.dao.board.BoardDAO;
 import viser.dao.card.CardDAO;
+import viser.dao.gantt.GanttDAO;
 import viser.dao.project.ProjectDAO;
 import viser.domain.card.Card;
+import viser.domain.gantt.Gantt;
 import viser.domain.project.ProjectDashBoard;
 import viser.service.support.SessionUtils;
 
@@ -34,11 +36,15 @@ public class ReadProjectDashBoardServlet extends HttpServlet {
     ProjectDAO projectDAO = new ProjectDAO();
     CardDAO cardDAO = new CardDAO();
     BoardDAO boardDAO = new BoardDAO();
+    GanttDAO ganttDAO = new GanttDAO();
     ProjectDashBoard projectDash = new ProjectDashBoard();
+    
     List<Card> lastCardList = new ArrayList<Card>();
+    List<Gantt> ganttlist = new ArrayList<Gantt>();
     
     projectDash.setProjectName(projectName);
     try {
+      ganttlist = ganttDAO.getGantts(projectName);
       projectDash.setBoards(boardDAO.getBoardList(projectName));
       projectDash.setProjectProgress(projectDAO.getProjectProgress(projectName));
       projectDash.setProjectMembers(projectDAO.getProjectDashMember(projectName));
@@ -51,6 +57,8 @@ public class ReadProjectDashBoardServlet extends HttpServlet {
       logger.debug("[DashBoard] Board List : " + projectDash.getBoards());
       
       request.setAttribute("projectDash", projectDash);
+      request.setAttribute("isReadBoard", true);
+      request.setAttribute("ganttList", ganttlist);
       RequestDispatcher rd = request.getRequestDispatcher("/projectDash.jsp");
       rd.forward(request, response);
     } catch (Exception e) {

@@ -1,7 +1,5 @@
-
 package viser.service.gantt;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,7 +17,6 @@ import viser.dao.cardlist.CardListDAO;
 import viser.dao.gantt.GanttDAO;
 import viser.dao.project.ProjectDAO;
 import viser.dao.role.RoleDAO;
-import viser.domain.assignee.Assignee;
 import viser.domain.card.Card;
 import viser.domain.cardlist.CardList;
 import viser.domain.gantt.Gantt;
@@ -46,7 +43,7 @@ public class GanttService {
 
     for (int i = 0; i < jsonTasks.size(); i++) {
       // getFromJson
-      int taskOrder = i;
+      int taskOrder = i-1;
       long cardNum = new Long(jsonTasks.get(i).getAsJsonObject().get("cardNum").getAsLong());
       String subject = new String(jsonTasks.get(i).getAsJsonObject().get("subject").getAsString());
       int progress = new Integer(jsonTasks.get(i).getAsJsonObject().get("progress").getAsInt());

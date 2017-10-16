@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
+<!-- This is a starter template page. Use this page to start your new project from scratch. This page gets rid of all links and provides the needed markup only. -->
 <html>
 <head>
   <meta charset="utf-8">
@@ -11,6 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title>Beyond yourself with VISER</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="/resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="/resources/bower_components/font-awesome/css/font-awesome.min.css">
@@ -24,7 +23,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="/resources/dist/css/skins/skin-black.min.css">
   
   <!-- TotalStyle -->
-<link href="/stylesheets/style.css?" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/style.css?" rel="stylesheet" type="text/css">
+  
+  <!-- Morris charts -->
+  <link rel="stylesheet" href="/resources/bower_components/morris.js/morris.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -32,9 +34,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-
-<!-- Bootstrap 3.3.7 -->
-<link rel="stylesheet" href="/resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
 
 <!-- Google Font -->
 <link rel="stylesheet"
@@ -150,10 +149,13 @@ desired effect
             </ul>
           </li>
           
-          <!-- Control Sidebar Toggle Button -->
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="glyphicon glyphicon-option-horizontal"></i></a>
-          </li>
+          <c:if test="${isReadBoard}">
+	          <!-- Control Sidebar Toggle Button -->
+	          <li>
+	            <a href="#" data-toggle="control-sidebar"><i class="glyphicon glyphicon-option-horizontal"></i></a>
+	          </li>
+          </c:if>
+          
         </ul>
       </div>
     </nav>
@@ -178,26 +180,60 @@ desired effect
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">HEADER</li>
+        <li class="header">MENU</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
+        <li class="active"><a href="/users/userDashBoard"><i class="glyphicon glyphicon-dashboard"></i> <span>개인 대시보드</span></a></li>
+        <li><a href="/project/projectlist"><i class="fa fa-list-ol"></i><span>프로젝트 목록</span></a></li>
+        
+      </ul>
+      
+      <c:if test="${isReadBoard}">
+      <!-- Sidebar Menu 2 -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">프로젝트 명 : ${projectName}</li>
+        <!-- Optionally, you can add icons to the links -->
         <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+          <a href="#"><i class="fa fa-link"></i><span>프로젝트 관리</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
-              </span>
+            </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Link in level 2</a></li>
-            <li><a href="#">Link in level 2</a></li>
+	        <li><a href="/project/projectDashBoard"><i class="fa fa-circle-o"></i>프로젝트 대시보드</a></li>
+	        <c:if test="${not empty ganttList}">
+            <li class="treeview">
+             <a href="#"><i class="fa fa-list-ol"></i><span>간트 차트</span>
+               <span class="pull-right-container">
+             	 <i class="fa fa-angle-left pull-right"></i>
+         	   </span>
+       	   	 </a>
+       	   	 	 <ul class="treeview-menu">
+       	   	 	 <c:forEach var="list" items="${ganttList}" varStatus="status">
+       	   	 		<li><a href="/gantts/loadGantt?ganttNum=${list.ganttNum}"><i class="fa fa-circle-o"></i>${list.boardName}</a></li>
+       	   	 	 </c:forEach>
+       	   	 	 </ul>
+            </li>
+            </c:if>
           </ul>
         </li>
       </ul>
-      <!-- /.sidebar-menu -->
+      <!-- /.sidebar-menu 2-->
+      </c:if>
     </section>
     <!-- /.sidebar -->
+    <%@include file = "/WEB-INF/jsp/modalpage/upload.jsp"%> 
   </aside>
+
+<script>
+function addImage(){
+	$('#uploadmodal').modal('show');
+}
+
+/* $('.sidebar li').click(function(){
+    $('.sidebar li').removeClass('active');
+    $(this).addClass('active');
+});
+ */</script>
 
 <!-- jQuery 3 -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>

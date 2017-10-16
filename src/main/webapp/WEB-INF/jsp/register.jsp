@@ -173,14 +173,13 @@
 			
 			<c:if test="${empty user.userId }">
 			<div class="social-auth-links text-center">
-				<p>- OR -</p>
+				<!-- <p>- OR -</p>
 				<a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i
 					class="fa fa-facebook"></i> Sign up using Facebook</a> <a href="#"
 					class="btn btn-block btn-social btn-google btn-flat"><i
-					class="fa fa-google-plus"></i> Sign up using Google+</a>
+					class="fa fa-google-plus"></i> Sign up using Google+</a> -->
 			
-			<a href="login.html" class="text-center">I already have a
-				membership</a>
+			<a href="/login.jsp" class="text-center">로그인 하러가기</a>
 			</div>
 			</c:if>
 

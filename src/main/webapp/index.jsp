@@ -12,7 +12,7 @@
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" type="text/css" href="/resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
   
-<link rel="stylesheet" type="text/css" href="http://localhost:7070/stylesheets/style.css">
+<link href="/stylesheets/style.css?" rel="stylesheet" type="text/css">
 </head>
 
 <body>

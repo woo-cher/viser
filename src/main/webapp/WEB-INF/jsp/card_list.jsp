@@ -28,7 +28,7 @@
                <div class="btn-group-sm" role="group" aria-label="...">   
                <button type="button" class="btn btn-info" onclick="location.href='/board/boardlist?projectName=${projectName}'">목록</button>
                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#invite-modal">초대</button>
-               <button type="button" class="btn btn-info" onclick="getRoleList();">ROLE</button>
+               <button type="button" class="btn btn-info" onclick="getRoleList();">역할</button>
                <c:if test="${isExistGantt == false }">
 			       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#gantt-alert">간트차트</button>
 		       </c:if>		
@@ -181,8 +181,8 @@ function viewCard(currentCardNum){
          addStr+="<button type='button' class='btn btn-primary btn-lg' onclick='showProgressModal();' style='margin-bottom: 7px;'>Progress</button>";
          addStr+="<button type='button' class='btn btn-primary btn-lg' onclick='showDueDateModal();' style='margin-bottom: 7px;'>Start Date</button>";
          addStr+="<button type='button' class='btn btn-primary btn-lg' onclick='showAssigneeModal();' style='margin-bottom: 7px;'>Assignee</button>";
-         addStr+="<button type='button' class='btn btn-primary btn-lg' style='margin-bottom: 7px;'>CheckList</button>";
-         addStr+="<button type='button' class='btn btn-primary btn-lg' style='margin-bottom: 7px;'>Labels</button>";   
+         /* addStr+="<button type='button' class='btn btn-primary btn-lg' style='margin-bottom: 7px;'>CheckList</button>";
+         addStr+="<button type='button' class='btn btn-primary btn-lg' style='margin-bottom: 7px;'>Labels</button>";    */
         $('#add-menu').html(addStr);
            
         $('#progress-control').html("<button id='apply-btn' class='btn btn-success' style='margin-right: 40px;' type='button' onclick='javascript:cuProgress()'>Apply</button>")

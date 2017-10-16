@@ -26,7 +26,7 @@ import viser.project.ProjectDAOTest;
 import viser.user.UserTest;
 
 public class CardDAOTest {
-  private static final Logger logger = LoggerFactory.getLogger(CardDAOTest.class);
+ /* private static final Logger logger = LoggerFactory.getLogger(CardDAOTest.class);
   private ProjectDAO projectDAO;
   private BoardDAO boardDAO;
   private CardListDAO cardListDAO;
@@ -210,7 +210,7 @@ public class CardDAOTest {
     assertEquals(standardOrders, dbOrders);
     standardOrders.clear();
     dbOrders.clear();
-  }
+  }*/
   
 /*  @Test
   public void addDueDate() throws Exception {

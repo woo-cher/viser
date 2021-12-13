@@ -13,4 +13,4 @@
 * 구조 : Servlet/jsp MVC Model 2
 ```
 * * *
-##### * 시연 동영상 링크 - https://www.youtube.com/watch?v=lI2vhv8GBFY&t=26s
+##### * 시연 동영상 링크 - https://www.youtube.com/watch?v=9Zg62dOkAOw
